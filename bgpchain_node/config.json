@@ -1,0 +1,10 @@
+{
+  "my_asn": 64512,
+  "validators": {
+    "64512": "http://localhost:5000",
+    "64513": "http://localhost:5001",
+    "64514": "http://localhost:5002",
+    "64515": "http://localhost:5003",
+    "64516": "http://localhost:5004"
+  }
+}
