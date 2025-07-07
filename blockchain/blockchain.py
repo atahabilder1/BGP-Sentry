@@ -1,40 +1,32 @@
 # --------------------------------------------------------------
-# blockchain.py
-# --------------------------------------------------------------
-# This module manages the local blockchain file.
-# It provides functions to:
-#   - Load the blockchain from disk
-#   - Append a new block
-#   - Get the latest block
-#   - Get the chain height (length)
-#
-# Used by:
-#   - node.py (to propose new blocks and get chain info)
+# File: blockchain.py
+# Purpose: Handles local Blockchain A storage and operations
+# Used By:
+#   - node.py (to get latest block and add new blocks)
+#   - trust_engine_instant.py (to scan past blocks)
+#   - trust_engine_periodic.py (to analyze long-term behavior)
 # --------------------------------------------------------------
 
 import json
 import os
-from block import Block  # Used for type reference when needed
+from blockchain.block import Block
 
-# Path to the local blockchain file
-CHAIN_FILE = "data/blockchain.json"
+# File where Blockchain A data is persisted
+CHAIN_FILE = "shared_data/blockchain.json"
 
 # --------------------------------------------------------------
 # Function: load_chain
-# Loads the blockchain from disk (JSON format).
-# Returns a list of block dictionaries.
+# Returns full blockchain history as list of block dicts
 # --------------------------------------------------------------
 def load_chain():
     if not os.path.exists(CHAIN_FILE):
-        return []  # Return empty list if no chain exists
-
+        return []
     with open(CHAIN_FILE, "r") as f:
-        data = json.load(f)
-        return data
+        return json.load(f)
 
 # --------------------------------------------------------------
 # Function: save_chain
-# Writes the given chain (list of blocks) to disk.
+# Writes full chain (list of blocks) to file
 # --------------------------------------------------------------
 def save_chain(chain_data):
     with open(CHAIN_FILE, "w") as f:
@@ -42,18 +34,17 @@ def save_chain(chain_data):
 
 # --------------------------------------------------------------
 # Function: add_block
-# Adds a new block to the chain and saves it.
+# Appends a new block to the chain and saves it
 # Input: block (Block object)
 # --------------------------------------------------------------
 def add_block(block):
-    chain = load_chain()                  # Load current chain
-    chain.append(block.to_dict())        # Append new block (converted to dict)
-    save_chain(chain)                    # Save updated chain
+    chain = load_chain()
+    chain.append(block.to_dict())
+    save_chain(chain)
 
 # --------------------------------------------------------------
 # Function: get_last_block
-# Returns the last block (as a dict) from the blockchain.
-# Returns None if the chain is empty.
+# Returns the most recent block or None if chain is empty
 # --------------------------------------------------------------
 def get_last_block():
     chain = load_chain()
@@ -63,7 +54,7 @@ def get_last_block():
 
 # --------------------------------------------------------------
 # Function: get_chain_length
-# Returns the current height (number of blocks) in the chain.
+# Returns the number of blocks currently in the chain
 # --------------------------------------------------------------
 def get_chain_length():
     return len(load_chain())

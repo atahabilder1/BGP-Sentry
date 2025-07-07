@@ -1,0 +1,16 @@
+{
+    "my_asn": 65001,
+    "validators": {
+        "65001": true,
+        "65002": true,
+        "65003": true,
+        "65004": true,
+        "65005": true
+    },
+    "trust_threshold": 70,
+    "stake_boost_threshold": 50,
+    "required_stake": 100,
+    "stake_boost_score": 20,
+    "round_time": 10,
+    "signature_private_key": "rpki65001_dummy_private_key"
+}

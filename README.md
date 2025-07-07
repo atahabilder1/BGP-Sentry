@@ -1,144 +1,209 @@
-# 🧱 BGPChain: A Custom Blockchain for Storing BGP Announcements
+# 🛡️ BGP TrustChain: Blockchain-Based BGP Announcement Auditor
 
-This project is a **lightweight blockchain prototype** designed to store **BGP announcements** in a decentralized and verifiable manner. It simulates BGP updates, collects them into blocks using round-robin consensus logic, and appends the blocks to a local blockchain file.
+## 📚 Overview
 
-The system is now modularized into **three distinct components** to reflect a more realistic architecture:
-- A **blockchain node** (`bgpchain_node/`)
-- A **BGP announcement generator** (`bgp_feed/`)
-- A **shared data interface** (`shared_data/`)
+**BGP TrustChain** is a simulation framework designed to secure and audit BGP (Border Gateway Protocol) announcements using a dual-blockchain architecture and trust management. It represents real-world Autonomous Systems (ASes) as nodes in a Mininet-based topology. These nodes are split into two types:
 
-Future versions will support **multi-machine deployment** with REST/gRPC communication and BGP validation.
+- **RPKI-enabled nodes**: Trusted ASes allowed to write to the blockchain.
+- **non-RPKI nodes**: Less trusted ASes that must maintain a minimum trust score and may stake USDC tokens on a public blockchain to boost credibility.
+
+The simulation aims to log all BGP announcements (including hijacks and withdrawals), penalize malicious ASes, and reward good behavior over time. It combines real-time enforcement with historical trend-based scoring.
 
 ---
 
-## 📦 Project Structure
+## 📁 Folder & File Structure
 
 ```
-BGP_Announcement_Recorder/
-├── bgpchain_node/
-│   ├── block.py           # Classes for BGPAnnouncement and Block
-│   ├── blockchain.py      # Manages block validation and storage
-│   ├── bgp_collector.py   # Reads BGP announcements from shared buffer
-│   ├── node.py            # Main node logic (proposal and chain update)
-│   ├── config.json        # Local ASN and validator list
-│   ├── utils.py           # (Optional) Helper functions
-│   └── network.py         # (Reserved for future multi-node communication)
+BGP_ANNOUNCEMENT_RECORDER/
 │
 ├── bgp_feed/
-│   └── bgp_generator.py   # Simulates BGP announcements and writes to shared buffer
+│   └── bgp_simulator.py              # Simulates BGP announcements and withdrawals
+│
+├── blockchain/
+│   ├── block.py                      # BGPAnnouncement and Block classes
+│   ├── blockchain.py                 # Blockchain A: append/read chain
+│   ├── staking_interface.py         # Checks stake amount on Blockchain B
+│   ├── trust_state.py               # Tracks trust scores for (ASN, prefix)
+│   └── utils.py                     # Utility functions (hashing, validation)
+│
+├── nodes/
+│   ├── rpki_nodes/
+│   │   ├── rpki_65001.py             # Example RPKI node logic
+│   │   └── config_65001.json         # Config for RPKI node ASN 65001
+│   └── non_rpki_nodes/
+│       ├── nonrpki_65010.py         # Example non-RPKI node logic
+│       └── config_65010.json         # Config for non-RPKI node ASN 65010
 │
 ├── shared_data/
-│   ├── blockchain.json    # Local append-only blockchain file
-│   └── bgp_stream.jsonl   # Live stream of BGP announcements (JSONL format)
+│   ├── bgp_stream.jsonl             # Shared buffer for incoming BGP data
+│   ├── blockchain.json              # Chain of accepted BGP blocks
+│   ├── trust_log.jsonl              # Append-only log of trust score events
+│   └── trust_state.json             # Current trust scores by (ASN, prefix)
+│
+├── smart_contract/
+│   ├── StakingContract.sol          # Solidity contract for staking (Blockchain B)
+│   └── deploy_and_test.py           # Deploy/interact using Web3
+│
+├── trust_engine/
+│   ├── trust_engine_instant.py      # Real-time penalty system for hijacks
+│   └── trust_engine_periodic.py     # Monthly trust adjustment from behavior logs
+│
+├── node.py                          # RPKI node loop for proposing and endorsing blocks
+├── requirements.txt                 # Python package dependencies
+├── LICENSE
+├── .gitignore
+└── README.md
 ```
 
 ---
 
-## 🔁 System Workflow (Single Node)
+## 🔁 Data Flow Summary
 
 ```text
-[1] bgp_generator.py (BGP Feed)
-    → Simulates and streams BGP announcements to `shared_data/bgp_stream.jsonl`
-
-[2] node.py (Blockchain Node)
-    → Every N seconds, checks if it's the current proposer
-    → Reads announcements from `bgp_stream.jsonl` using `bgp_collector.py`
-    → Creates a new block with BGP updates
-    → Hashes, validates, and appends it to `blockchain.json`
+[Mininet] → bgp_simulator.py
+              ↓
+     shared_data/bgp_stream.jsonl
+              ↓
+        [RPKI Node: node.py]
+          ├── validates prefix
+          ├── checks trust (trust_state.json)
+          ├── checks stake (staking_interface.py)
+          ├── logs announcement (blockchain.json)
+          └── adjusts trust (trust_engine_instant.py or periodic.py)
 ```
 
-### 🧠 Information Flow (Detailed)
+---
 
-1. **BGP Simulation (`bgp_feed/`)**
-   - The `bgp_generator.py` script runs continuously.
-   - It generates random BGP announcements in JSON format.
-   - These are appended to a file: `shared_data/bgp_stream.jsonl` (one announcement per line).
+## 🔐 Trust Architecture
 
-2. **Blockchain Node (`bgpchain_node/`)**
-   - Each node has a unique ASN defined in `config.json`.
-   - Every 10 seconds, `node.py` checks whether this node is the proposer based on round-robin logic.
-   - If it's the proposer:
-     - It reads the latest announcements from `bgp_stream.jsonl`
-     - Wraps them into a block
-     - Hashes and stores the block into `shared_data/blockchain.json`
+### ✅ Trust Score Design
+
+- Trust score is maintained for each (ASN, prefix) pair.
+- Initial score for non-RPKI = 70
+- Minimum to be accepted = 70
+- Real-time penalty for confirmed hijack = -30
+- Periodic reward = +5 or penalty = -10
+- Stake boost if trust ≥ 50 but < 70 → +20 (temporary)
+- Required stake: 100 USDC on Blockchain B
+
+### ✅ Trust Engine
+
+- `trust_engine_instant.py`: Triggered by malicious behavior (real-time).
+- `trust_engine_periodic.py`: Runs monthly, analyzes behavior from blockchain logs.
 
 ---
 
-## 🧩 File Descriptions
+## ⛓️ Blockchain Models
 
-### `block.py`
-Defines the two core data structures:
-- `BGPAnnouncement`: A single routing update
-- `Block`: A unit in the blockchain containing multiple announcements
+### Blockchain A (Local TrustChain)
 
-### `blockchain.py`
-Provides logic to:
-- Load and save the blockchain
-- Add new blocks
-- Retrieve the latest block
+- Private/permissioned
+- Only RPKI nodes can write
+- Stores full BGP announcements (announce/withdraw)
+- Logs who endorsed it (`endorsed_by`)
+- Tracks AS-path, prefix, timestamp, type, digital signature
 
-### `bgp_collector.py`
-Reads BGP announcements from `shared_data/bgp_stream.jsonl` (produced by `bgp_feed/`).
+### Blockchain B (Public, USDC Staking)
 
-### `node.py`
-Controls the node's behavior:
-- Checks turn to propose
-- Builds a block if allowed
-- Appends to the chain
-
-### `bgp_generator.py`
-Simulates the behavior of a BGP speaker.
-- Emits fake BGP announcements every few seconds
-- Writes them to `shared_data/bgp_stream.jsonl`
+- Holds a smart contract deployed manually (Ethereum/Solana)
+- Used by non-RPKI nodes to boost trust
+- Smart contract supports:
+  - `stake(asn, amount)`
+  - `getStake(asn)` → Used in `staking_interface.py`
 
 ---
 
-## 🔧 How to Run
+## 🧪 How to Run
 
-### 1. Run the BGP Generator (in one terminal)
+### 1. Set up virtual environment
 ```bash
-cd bgp_feed
-python3 bgp_generator.py
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 ```
 
-### 2. Run the Blockchain Node (in another terminal)
+### 2. Simulate BGP feed
 ```bash
-cd bgpchain_node
-python3 node.py
+python bgp_feed/bgp_simulator.py
+```
+
+### 3. Launch a RPKI node
+```bash
+python node.py --asn 65001
+```
+
+### 4. Run trust engine (instant check)
+```bash
+python trust_engine/trust_engine_instant.py
+```
+
+### 5. Run trust engine (periodic analysis)
+```bash
+python trust_engine/trust_engine_periodic.py
+```
+
+### 6. Deploy smart contract and stake
+```bash
+cd smart_contract/
+python deploy_and_test.py
 ```
 
 ---
 
-## 🚀 Future Extensions
+## 🔐 Announcement Format Example
 
-- 🔁 Support for multiple physical or virtual nodes
-- 🌐 REST/gRPC-based communication between nodes
-- 🧾 Integration with [ExaBGP](https://github.com/Exa-Networks/exabgp) or real MRT feeds
-- 🔐 BGP origin validation using RPKI
-- 🧠 Real-time hijack detection alerts
-- 📦 Integration with IPFS or Arweave for block anchoring
-
----
-
-## 📚 Technologies Used
-
-- Python 3
-- SHA-256 hashing for block integrity
-- JSONL for streaming announcements
-- Simple file-based chain storage (blockchain.json)
+```json
+{
+  "asn": 65010,
+  "prefix": "203.0.113.0/24",
+  "as_path": [65010, 65001],
+  "next_hop": "10.0.0.1",
+  "timestamp": 1723455678,
+  "type": "announce",
+  "endorsed_by": 65001,
+  "signature": "base64sig"
+}
+```
 
 ---
 
-## 🤝 Credits
+## 💼 Responsibilities
 
-Developed by [Your Name]  
-Inspired by academic research in BGP security and blockchain.
+### Major Components
+
+| File/Folder                     | Description |
+|--------------------------------|-------------|
+| `blockchain/block.py`          | Defines BGPAnnouncement and Block structures |
+| `blockchain/blockchain.py`     | Blockchain A logic (append, read chain) |
+| `blockchain/trust_state.py`    | Maintains and updates trust scores |
+| `blockchain/staking_interface.py` | Reads stake from public chain (Blockchain B) |
+| `node.py`                      | Main RPKI node logic: validate and propose blocks |
+| `bgp_feed/bgp_simulator.py`    | Generates test BGP data to mimic Mininet stack |
+| `trust_engine/*.py`            | Real-time or periodic trust logic |
+| `shared_data/*.json`           | Intermediate storage, logs, and buffers |
 
 ---
 
-## 🛡️ Disclaimer
+## 🧠 Realism Assumptions
 
-This is a **prototype for research and educational use** only.  
-It is not designed for use in production networks and does not participate in live BGP routing.
+- Each node (RPKI or non-RPKI) represents an actual AS + router stack.
+- Mininet runs the routing daemons; Python agents simulate validation and logging.
+- Only **first-hop RPKI node** writes a BGP update to the blockchain.
+- Withdrawals and hijack attempts are handled and logged the same way.
 
 ---
+
+## 📘 For Research Paper / Report
+
+- Emphasize dual-blockchain architecture.
+- Two-level trust: Instant (real-time) and Periodic (monthly behavior).
+- Blockchain A is internal, Blockchain B is external public.
+- Smart contract incentivizes good routing behavior.
+
+---
+
+## 👨‍💻 Author
+
+**Anik Tahabilder**  
+Blockchain Researcher | PhD Student | Smart Contract Security Architect  
+Project Lead and System Architect of BGP TrustChain
