@@ -1,8 +1,8 @@
 # --------------------------------------------------------------
-# File: rpki_65001.py
+# File: rpki_65005.py
 # Purpose: Runs an RPKI-enabled node that can propose blocks
 # Used By:
-#   - Simulates RPKI AS 65001
+#   - Simulates RPKI AS 65005
 #   - Participates in round-robin consensus and writes to Blockchain A
 # Calls:
 #   - blockchain.block
@@ -27,7 +27,7 @@ from blockchain.block import Block, BGPAnnouncement
 from blockchain.blockchain import add_block, get_chain_length, get_last_block
 from blockchain.trust_state import load_trust_state, update_trust_score
 
-CONFIG_FILE = os.path.join(CURRENT_DIR, "config_65001.json")
+CONFIG_FILE = os.path.join(CURRENT_DIR, "config_65005.json")
 BGP_INPUT_FILE = os.path.join(PROJECT_ROOT, "shared_data", "bgp_stream.jsonl")
 
 # --------------------------------------------------------------
