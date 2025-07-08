@@ -1,34 +1,28 @@
 # --------------------------------------------------------------
 # File: rpki_65001.py
-# Purpose: Runs an RPKI-enabled node that can propose blocks
-# Used By:
-#   - Simulates RPKI AS 65001
-#   - Participates in round-robin consensus and writes to Blockchain A
-# Calls:
-#   - blockchain.block
-#   - blockchain.blockchain
-#   - blockchain.trust_state
-#   - shared_data/bgp_stream.jsonl (input)
+# Purpose: RPKI-enabled node for ASN 65001
+# - Reads shared BGP stream
+# - Verifies trust score
+# - Signs and logs trusted announcements into Blockchain A
+# - Uses keys/private/private_key_65001.pem for signing
 # --------------------------------------------------------------
 
-import sys
-import os
 import json
+import os
 import time
 from datetime import datetime
+from blockchain.block import Block
+from blockchain.blockchain import add_block, get_chain_length
+from blockchain.trust_state import get_trust, set_trust
 import hashlib
 
-# Add project root to path for imports
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
-sys.path.append(PROJECT_ROOT)
-
-from blockchain.block import Block, BGPAnnouncement
-from blockchain.blockchain import add_block, get_chain_length, get_last_block
-from blockchain.trust_state import load_trust_state, update_trust_score
-
-CONFIG_FILE = os.path.join(CURRENT_DIR, "config_65001.json")
-BGP_INPUT_FILE = os.path.join(PROJECT_ROOT, "shared_data", "bgp_stream.jsonl")
+# --------------------------------------------------------------
+# Setup Paths
+# --------------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CONFIG_FILE = os.path.join(BASE_DIR, "nodes/rpki_nodes/config_65001.json")
+PRIVATE_KEY_FILE = os.path.join(BASE_DIR, "nodes/rpki_nodes/keys/private/private_key_65001.pem")
+INPUT_STREAM = os.path.join(BASE_DIR, "shared_data/bgp_stream.jsonl")
 
 # --------------------------------------------------------------
 # Load Configuration
@@ -37,63 +31,62 @@ with open(CONFIG_FILE, "r") as f:
     config = json.load(f)
 
 MY_ASN = config["my_asn"]
-VALIDATORS = config["validators"]
+TRUST_THRESHOLD = config["trust_threshold"]
 
 # --------------------------------------------------------------
-# Function: is_my_turn_to_propose
+# Function: sign_announcement
+# Simulates digital signature using SHA256 over message + private key
 # --------------------------------------------------------------
-def is_my_turn_to_propose(asn, validators, height):
-    validator_ids = list(validators.keys())
-    return validator_ids[height % len(validator_ids)] == str(asn)
+def sign_announcement(data_dict):
+    with open(PRIVATE_KEY_FILE, "r") as f:
+        private_key = f.read().strip()
+    message = json.dumps(data_dict, sort_keys=True)
+    return hashlib.sha256((message + private_key).encode()).hexdigest()
 
 # --------------------------------------------------------------
-# Function: load_announcements_from_stream
+# Function: process_announcement
+# Logs trusted BGP announcements to Blockchain A
 # --------------------------------------------------------------
-def load_announcements():
-    announcements = []
-    if os.path.exists(BGP_INPUT_FILE):
-        with open(BGP_INPUT_FILE, "r") as f:
-            lines = f.readlines()
-        for line in lines:
-            try:
-                data = json.loads(line)
-                if isinstance(data, dict):
-                    announcement = BGPAnnouncement(
-                        asn=data["asn"],
-                        prefix=data["prefix"],
-                        as_path=data["as_path"],
-                        next_hop=data["next_hop"]
-                    )
-                    announcements.append(announcement)
-            except Exception as e:
-                print(f"Warning: Skipping malformed line. {e}")
-    return announcements
+def process_announcement(announcement):
+    asn = announcement["asn"]
+    prefix = announcement["prefix"]
+    score = get_trust(asn, prefix)
+
+    if score >= TRUST_THRESHOLD:
+        signed_data = {
+            "data": announcement,
+            "signed_by": MY_ASN,
+            "signature": sign_announcement(announcement)
+        }
+        block = Block(
+            index=get_chain_length(),
+            data=signed_data,
+            timestamp=int(time.time())
+        )
+        add_block(block)
+        print(f"[{datetime.now()}] ✅ Logged: {signed_data}")
+    else:
+        print(f"[{datetime.now()}] ❌ Skipped: Trust score {score} too low for ASN {asn} - {prefix}")
 
 # --------------------------------------------------------------
-# Main: RPKI node loop
+# Main loop
 # --------------------------------------------------------------
 def main():
     print(f"🔐 RPKI Node {MY_ASN} started.")
+    seen_lines = 0
     while True:
-        height = get_chain_length()
-        last_block = get_last_block()
-        prev_hash = last_block["hash"] if last_block else "0" * 64
-
-        if is_my_turn_to_propose(MY_ASN, VALIDATORS, height):
-            announcements = load_announcements()
-            if announcements:
-                block = Block(
-                    index=height,
-                    previous_hash=prev_hash,
-                    proposer=MY_ASN,
-                    announcements=announcements
-                )
-                add_block(block)
-                print(f"[{datetime.now()}] ✅ Block proposed by ASN {MY_ASN}")
-        else:
-            print(f"[{datetime.now()}] ⏳ Waiting — Not my turn.")
-
-        time.sleep(10)
+        if os.path.exists(INPUT_STREAM):
+            with open(INPUT_STREAM, "r") as f:
+                lines = f.readlines()
+                new_lines = lines[seen_lines:]
+                for line in new_lines:
+                    try:
+                        announcement = json.loads(line.strip())
+                        process_announcement(announcement)
+                    except Exception as e:
+                        print(f"[!] Error processing announcement: {e}")
+                seen_lines = len(lines)
+        time.sleep(5)
 
 if __name__ == "__main__":
     main()

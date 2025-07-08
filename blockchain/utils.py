@@ -1,41 +1,74 @@
 # --------------------------------------------------------------
 # File: utils.py
-# Purpose: Utility functions for hashing, signing, logging, etc.
-# Used By: Any file needing common utilities
+# Purpose: Common utilities for key handling and signing
+# Used By:
+#   - RPKI nodes to sign messages
+#   - Trust engines to verify RPKI reports
 # --------------------------------------------------------------
 
-import hashlib
-import base64
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.backends import default_backend
+import os
 
 # --------------------------------------------------------------
-# Function: sha256_hash
-# Returns the SHA-256 hash of any string input
+# Function: load_private_key
+# Loads PEM-encoded private key from file
 # --------------------------------------------------------------
-def sha256_hash(data_str):
-    return hashlib.sha256(data_str.encode()).hexdigest()
+def load_private_key(asn):
+    key_path = f"nodes/rpki_nodes/keys/private/private_key_{asn}.pem"
+    with open(key_path, "rb") as f:
+        return serialization.load_pem_private_key(
+            f.read(),
+            password=None,
+            backend=default_backend()
+        )
 
 # --------------------------------------------------------------
-# Function: compute_prefix_key
-# Returns a standard key format for (ASN, Prefix) tuple
-# Used to access trust scores or logs consistently
+# Function: load_public_key
+# Loads PEM-encoded public key from file
 # --------------------------------------------------------------
-def compute_prefix_key(asn, prefix):
-    return f"{asn}_{prefix}"
+def load_public_key(asn):
+    key_path = f"nodes/rpki_nodes/keys/public/public_key_{asn}.pem"
+    with open(key_path, "rb") as f:
+        return serialization.load_pem_public_key(
+            f.read(),
+            backend=default_backend()
+        )
 
 # --------------------------------------------------------------
-# Function: sign_data_placeholder
-# Placeholder for signing mechanism
-# For future PKI integration, replace with real crypto signing
+# Function: sign_data
+# Input: data (string), asn
+# Output: binary signature
 # --------------------------------------------------------------
-def sign_data_placeholder(data_str, private_key=None):
-    # Simulate a "signature" for demonstration purposes
-    digest = hashlib.sha256(data_str.encode()).digest()
-    return base64.b64encode(digest).decode()
+def sign_data(data, asn):
+    private_key = load_private_key(asn)
+    return private_key.sign(
+        data.encode("utf-8"),
+        padding.PSS(
+            mgf=padding.MGF1(hashes.SHA256()),
+            salt_length=padding.PSS.MAX_LENGTH,
+        ),
+        hashes.SHA256()
+    )
 
 # --------------------------------------------------------------
-# Function: verify_signature_placeholder
-# Placeholder for signature verification
+# Function: verify_signature
+# Input: data (string), signature (bytes), signer ASN
+# Returns True if valid, False otherwise
 # --------------------------------------------------------------
-def verify_signature_placeholder(data_str, signature, public_key=None):
-    # Always returns True for demo — replace with real check later
-    return True
+def verify_signature(data, signature, asn):
+    try:
+        public_key = load_public_key(asn)
+        public_key.verify(
+            signature,
+            data.encode("utf-8"),
+            padding.PSS(
+                mgf=padding.MGF1(hashes.SHA256()),
+                salt_length=padding.PSS.MAX_LENGTH,
+            ),
+            hashes.SHA256()
+        )
+        return True
+    except Exception:
+        return False
