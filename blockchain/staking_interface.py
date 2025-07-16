@@ -2,9 +2,21 @@
 # File: staking_interface.py
 # Purpose: Interface with staking smart contract on Blockchain B (Ethereum)
 # Called By: RPKI validator node during announcement verification
-# Calls: Ethereum node via Web3.py
+# Calls: Ethereum node via Web3.py (temporarily mocked for testing)
 # --------------------------------------------------------------
 
+# -------------------------------
+# ✅ Mocked version for testing
+# -------------------------------
+
+def check_stake_amount(wallet_address):
+    return 500.0  # 🔧 Fixed mock value for testing
+
+# -------------------------------
+# 🔒 Real version (commented out for now)
+# -------------------------------
+
+"""
 from web3 import Web3
 import json
 import os
@@ -19,7 +31,7 @@ web3 = Web3(Web3.HTTPProvider(INFURA_URL))
 # Smart Contract Settings
 # Replace these with actual contract details
 # --------------------------------------------------------------
-CONTRACT_ADDRESS = Web3.to_checksum_address("0xYourStakingContractAddress")
+CONTRACT_ADDRESS = Web3.to_checksum_address("0x1234567890abcdef1234567890abcdef12345678")
 ABI_FILE_PATH = "smart_contract/compiled/StakingContractABI.json"  # Assumes ABI JSON exists here
 
 # Load ABI from JSON file
@@ -41,6 +53,7 @@ def get_staked_amount(wallet_address):
     except Exception as e:
         print(f"⚠️ Error checking stake for {wallet_address}: {e}")
         return 0.0
+"""
 
 # --------------------------------------------------------------
 # Example usage (for testing only)

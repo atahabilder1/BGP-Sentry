@@ -17,8 +17,8 @@ import os
 import time
 from blockchain.block import Block
 from blockchain import blockchain, trust_state
-from staking_interface import check_stake_amount
-from bgp_collector import collect_bgp_announcements
+from blockchain.staking_interface import check_stake_amount
+from bgp_feed.bgp_collector import collect_bgp_announcements
 
 # Config constants
 TRUST_THRESHOLD = 70
