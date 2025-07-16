@@ -15,7 +15,7 @@ import os
 # -------------------------------
 install_solc("0.8.0")
 
-contract_path = "smart_contract/StakingContract.sol"
+contract_path = "StakingContract.sol"
 with open(contract_path, "r") as f:
     contract_source_code = f.read()
 

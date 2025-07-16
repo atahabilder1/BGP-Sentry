@@ -6,6 +6,7 @@
 #   - bgp_collector.py for reading BGP stream
 #   - blockchain.py to append blocks
 #   - trust_state.py to validate trust score for each announcement
+#   - staking_interface.py to query Blockchain B (optional)
 #   - block.py to structure blocks and announcements
 # Config:
 #   - Reads ASN from config_<asn>.json inside rpki_nodes/
@@ -16,8 +17,8 @@ import os
 import time
 from blockchain.block import Block
 from blockchain import blockchain, trust_state
-# from blockchain.staking_interface import check_stake_amount  # Commented out for testing
-from bgp_feed.bgp_collector import collect_bgp_announcements  # Corrected import
+from blockchain.staking_interface import check_stake_amount
+from bgp_collector import collect_bgp_announcements
 
 # Config constants
 TRUST_THRESHOLD = 70
@@ -36,14 +37,23 @@ def load_config(asn):
 
 # --------------------------------------------------------------
 # Function: compute_effective_trust
-# Uses trust score only (staking bypassed for testing)
+# Uses trust score + stake amount to decide acceptance
 # --------------------------------------------------------------
 def compute_effective_trust(asn, prefix, wallet_address):
     score = trust_state.get_trust(asn, prefix)
-    return score  # Bypass staking check
+
+    if score >= TRUST_THRESHOLD:
+        return score
+
+    # Check stake from Blockchain B
+    if wallet_address:
+        staked_amount = check_stake_amount(wallet_address)
+        if staked_amount >= MINIMUM_STAKE_AMOUNT:
+            return min(score + TRUST_BOOST_FOR_STAKE, 100)
+    return score
 
 # --------------------------------------------------------------
-# Function: validate_announcements
+# Function: filter_acceptable_announcements
 # Verifies if each announcement should be accepted
 # --------------------------------------------------------------
 def validate_announcements(announcements):
@@ -106,7 +116,8 @@ if __name__ == "__main__":
     import sys
     if len(sys.argv) != 2:
         print("Usage: python node.py <asn>")
-        sys.exit(1)
+        exit(1)
 
     asn = int(sys.argv[1])
     run_node(asn)
+
