@@ -1,12 +1,3 @@
-// --------------------------------------------------------------
-// File: StakingContract.sol
-// Purpose: Smart contract for staking USDC on Blockchain B
-// Used By:
-//   - Non-RPKI nodes (stake tokens)
-//   - RPKI nodes (query stake status via interface)
-// Compatible With: Ethereum, Solana (via EVM-compatible chain)
-// --------------------------------------------------------------
-
 pragma solidity ^0.8.0;
 
 contract StakingContract {
