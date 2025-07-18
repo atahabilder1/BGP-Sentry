@@ -22,15 +22,21 @@ NON_RPKI_SCRIPTS = [
 
 def launch_nodes(background=False):
     current_dir = os.path.dirname(os.path.abspath(__file__))
+
     for script in NON_RPKI_SCRIPTS:
         script_path = os.path.join(current_dir, script)
+
+        if not os.path.exists(script_path):
+            print(f"⚠️ Skipping missing script: {script}")
+            continue
+
         if background:
             print(f"🚀 Launching in background: {script}")
             subprocess.Popen(["python", script_path])
         else:
             print(f"🚀 Launching in foreground: {script}")
             subprocess.call(["python", script_path])
-            time.sleep(2)  # Optional delay between foreground runs
+            time.sleep(2)  # Optional delay between sequential launches
 
     if background:
         print("✅ All non-RPKI nodes are now running in background.")

@@ -1,5 +1,6 @@
 {
     "my_asn": 65014,
+    "wallet_address": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
     "prefixes": [
         "192.0.2.0/24",
         "172.16.0.0/16"

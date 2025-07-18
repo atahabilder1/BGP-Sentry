@@ -1,71 +1,34 @@
 [
     {
         "index": 0,
-        "timestamp": 1752864496,
+        "timestamp": 1752875442,
         "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
         "proposer": 65001,
         "announcements": [
             {
-                "asn": 65016,
+                "asn": 65010,
                 "prefix": "203.0.113.0/24",
                 "as_path": [
-                    65016,
                     65001
                 ],
-                "next_hop": "10.1.1.1",
-                "timestamp": 1752863930,
+                "next_hop": "10.0.0.1",
+                "timestamp": 1752874471,
                 "type": "announce",
-                "wallet_address": "0x777555..."
+                "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
             },
             {
-                "asn": 65019,
-                "prefix": "10.0.0.0/8",
-                "as_path": [
-                    65019,
-                    65001
-                ],
-                "next_hop": "192.0.2.1",
-                "timestamp": 1752863933,
-                "type": "announce",
-                "wallet_address": "0xcccccc..."
-            },
-            {
-                "asn": 65014,
+                "asn": 65010,
                 "prefix": "203.0.113.0/24",
                 "as_path": [
-                    65014,
-                    65001
+                    65011,
+                    65002
                 ],
                 "next_hop": "10.1.1.1",
-                "timestamp": 1752863936,
+                "timestamp": 1752874526,
                 "type": "announce",
-                "wallet_address": "0xfacefeed..."
-            },
-            {
-                "asn": 65017,
-                "prefix": "10.0.0.0/8",
-                "as_path": [
-                    65017,
-                    65001
-                ],
-                "next_hop": "192.0.2.1",
-                "timestamp": 1752863939,
-                "type": "announce",
-                "wallet_address": "0xaaaaaa..."
-            },
-            {
-                "asn": 65018,
-                "prefix": "172.16.0.0/16",
-                "as_path": [
-                    65018,
-                    65001
-                ],
-                "next_hop": "172.16.0.1",
-                "timestamp": 1752863942,
-                "type": "announce",
-                "wallet_address": "0xbbbbbb..."
+                "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
             }
         ],
-        "hash": "8f8385cf8455c9a05642354cac8ec045d8ae2c58a691abdb2d09c5e4916887e8"
+        "hash": "bbe757eb14cf82cd2d0f68b164425b9516a145b81f6203ad08e48d16eb712e3d"
     }
 ]

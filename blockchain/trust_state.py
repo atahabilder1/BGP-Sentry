@@ -75,3 +75,19 @@ def update_trust_score(asn, prefix, new_score):
     key = f"{asn}_{prefix}"
     state[key] = new_score
     save_trust_state(state)
+
+# --------------------------------------------------------------
+# CLI usage support
+# Usage Example:
+#   python blockchain/trust_state.py --asn 65010 --prefix 203.0.113.0/24
+# --------------------------------------------------------------
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Check trust score for an (ASN, prefix) pair")
+    parser.add_argument("--asn", type=int, required=True, help="Autonomous System Number")
+    parser.add_argument("--prefix", type=str, required=True, help="IP prefix (e.g., 203.0.113.0/24)")
+    args = parser.parse_args()
+
+    score = get_trust(args.asn, args.prefix)
+    print(f"🔍 Trust score for ASN {args.asn} and prefix {args.prefix}: {score}")
