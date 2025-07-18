@@ -1,6 +1,6 @@
-# Ignore shared data (blockchain + BGP stream)
-shared_data/blockchain.json
-shared_data/bgp_stream.jsonl
+
+# Ignore node_modules directory
+**/node_modules/
 
 # Python cache
 __pycache__/
