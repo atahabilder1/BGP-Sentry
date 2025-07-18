@@ -1,57 +1,32 @@
-const { ethers } = require("hardhat");
+const { ethers } = require("hardhat");  // Use Hardhat's ethers for getSigners()
 const fs = require("fs");
+const path = require("path");
 
 async function main() {
-    // Load contract address from deployment file
-    let contractAddress;
-    try {
-        const deployment = JSON.parse(fs.readFileSync("./deployments/StakingContract.json"));
-        contractAddress = deployment.address;
-    } catch (error) {
-        console.error("Deployment file not found. Please deploy the contract first.");
-        process.exit(1);
-    }
+  // Load ABI from Hardhat artifacts (same as before)
+  const artifactPath = path.join(__dirname, "../artifacts/contracts/StakingContract.sol/StakingContract.json");
+  const artifact = JSON.parse(fs.readFileSync(artifactPath, "utf8"));
+  const abi = artifact.abi;
 
-    // Connect to the contract
-    let contract;
-    try {
-        contract = await ethers.getContractAt("StakingContract", contractAddress);
-        console.log("Connected to StakingContract at:", contractAddress);
-    } catch (error) {
-        console.error("Failed to connect to contract:", error.message);
-        process.exit(1);
-    }
+  // Deployed contract address
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
-    // Get all signers (20 default Hardhat accounts)
-    const signers = await ethers.getSigners();
+  // Create contract instance (read-only, using default provider)
+  const contract = await ethers.getContractAt(abi, contractAddress);
 
-    // Check staked and native ETH balances
-    console.log("\nChecking staked amounts and native ETH balances for all accounts:");
-    for (let i = 0; i < signers.length; i++) {
-        const addr = signers[i].address;
-        try {
-            const stake = await contract.getStake(addr);
-            const balance = await ethers.provider.getBalance(addr);
-            console.log(
-                `Account ${i} (${addr}):\n` +
-                `  Staked Amount: ${ethers.formatEther(stake)} ETH\n` +
-                `  Native ETH Balance: ${ethers.formatEther(balance)} ETH`
-            );
-        } catch (error) {
-            console.error(`Error fetching data for ${addr}:`, error.message);
-        }
-    }
+  // Get signers (array of Signer objects)
+  const signers = await ethers.getSigners();
 
-    // Get total contract balance
-    try {
-        const totalBalance = await ethers.provider.getBalance(contractAddress);
-        console.log(`\n✅ Total contract balance: ${ethers.formatEther(totalBalance)} ETH`);
-    } catch (error) {
-        console.error("Error fetching contract balance:", error.message);
-    }
+  console.log("🔍 Stake balances for all accounts:\n");
+
+  // Loop through signers and query stake
+  for (const signer of signers) {
+    const stake = await contract.getStake(signer.address);
+    console.log(`🧑‍💻 ${signer.address} → ${ethers.formatEther(stake)} ETH`);
+  }
 }
 
 main().catch((err) => {
-    console.error("Script failed:", err);
-    process.exit(1);
+  console.error("❌ Error:", err);
+  process.exit(1);
 });
