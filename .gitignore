@@ -10,7 +10,6 @@ __pycache__/
 venv/
 
 # Logs or temp files
-*.log
 *.tmp
 
 # System files

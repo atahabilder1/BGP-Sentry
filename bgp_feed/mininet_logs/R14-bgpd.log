@@ -1,0 +1,1577 @@
+2025/07/18 19:50:15.603332 BGP: [K9G3A-CJ5QQ] u1:s1 announcing routes upon coalesce timer expiry(1150 ms)
+2025/07/18 19:50:15.603360 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.0.0/24, selected=0x56b353289690
+2025/07/18 19:50:15.603381 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.1.0/24, selected=0x56b353289d10
+2025/07/18 19:50:15.603435 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, metric 0, path 
+2025/07/18 19:50:15.603438 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.603439 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.603441 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 59 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.603442 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.603454 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.646912 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 1
+2025/07/18 19:50:15.646915 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.646924 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.646938 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2
+2025/07/18 19:50:15.646938 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.646943 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.646958 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3
+2025/07/18 19:50:15.646959 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.646965 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.646980 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 4
+2025/07/18 19:50:15.646981 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.646986 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.646994 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7 5
+2025/07/18 19:50:15.646995 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647000 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647012 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 6
+2025/07/18 19:50:15.647013 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647018 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647030 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7
+2025/07/18 19:50:15.647030 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647034 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647044 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8
+2025/07/18 19:50:15.647044 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647048 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647060 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, metric 0, path 9
+2025/07/18 19:50:15.647061 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647065 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647074 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10
+2025/07/18 19:50:15.647074 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647077 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647118 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3 12
+2025/07/18 19:50:15.647119 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647123 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647130 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14
+2025/07/18 19:50:15.647131 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.647131 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.647137 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18
+2025/07/18 19:50:15.647137 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.647141 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.647150 BGP: [M59KS-A3ZXZ] bgp_update_receive: rcvd End-of-RIB for IPv4 Unicast from 9.0.15.1 in vrf default
+2025/07/18 19:50:15.696936 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:15.696939 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:15.696955 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:15.696955 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:15.696961 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:15.696961 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:15.696966 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:15.696967 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:15.696971 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.0.0/24
+2025/07/18 19:50:15.696971 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353268f90
+2025/07/18 19:50:15.696976 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.1.0/24
+2025/07/18 19:50:15.696976 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b353269210
+2025/07/18 19:50:15.696981 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.0.0/24
+2025/07/18 19:50:15.696981 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:15.696986 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.1.0/24
+2025/07/18 19:50:15.696986 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:15.696990 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:15.696990 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:15.696995 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:15.696995 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b35326a010
+2025/07/18 19:50:15.696999 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.5.0.0/24
+2025/07/18 19:50:15.696999 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.0.0/24, selected=0x56b35326a440
+2025/07/18 19:50:15.697003 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.5.1.0/24
+2025/07/18 19:50:15.697004 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.1.0/24, selected=0x56b35326a6c0
+2025/07/18 19:50:15.697008 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.0.0/24
+2025/07/18 19:50:15.697008 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:15.697012 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.1.0/24
+2025/07/18 19:50:15.697012 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x56b35326ad70
+2025/07/18 19:50:15.697017 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.0.0/24
+2025/07/18 19:50:15.697017 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x56b35326b2d0
+2025/07/18 19:50:15.697021 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.1.0/24
+2025/07/18 19:50:15.697022 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x56b35326b550
+2025/07/18 19:50:15.697026 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.0.0/24
+2025/07/18 19:50:15.697026 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x56b35326b9b0
+2025/07/18 19:50:15.697031 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.1.0/24
+2025/07/18 19:50:15.697037 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x56b35326bc30
+2025/07/18 19:50:15.697041 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.9.0.0/24
+2025/07/18 19:50:15.697041 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.0.0/24, selected=0x56b3532608b0
+2025/07/18 19:50:15.697046 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.9.1.0/24
+2025/07/18 19:50:15.697046 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.1.0/24, selected=0x56b353260aa0
+2025/07/18 19:50:15.697050 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.0.0/24
+2025/07/18 19:50:15.697050 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x56b353260f00
+2025/07/18 19:50:15.697055 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.1.0/24
+2025/07/18 19:50:15.697055 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x56b353261180
+2025/07/18 19:50:15.697059 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.0.0/24
+2025/07/18 19:50:15.697061 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x56b3532615e0
+2025/07/18 19:50:15.697066 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.1.0/24
+2025/07/18 19:50:15.697066 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x56b353261860
+2025/07/18 19:50:15.697252 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 1
+2025/07/18 19:50:15.697253 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697255 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697256 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697258 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697262 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2
+2025/07/18 19:50:15.697262 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697263 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697264 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697264 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697266 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3
+2025/07/18 19:50:15.697266 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697267 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697268 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697268 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697270 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 4
+2025/07/18 19:50:15.697270 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697271 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697275 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697275 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697277 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 5
+2025/07/18 19:50:15.697277 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697278 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697278 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697279 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697281 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 6
+2025/07/18 19:50:15.697281 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697282 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697282 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697283 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697284 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7
+2025/07/18 19:50:15.697285 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697285 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697286 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697286 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697288 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8
+2025/07/18 19:50:15.697288 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697289 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697289 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697290 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697291 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9
+2025/07/18 19:50:15.697291 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697292 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697293 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697293 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697295 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10
+2025/07/18 19:50:15.697295 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697296 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697296 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697296 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697298 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3 12
+2025/07/18 19:50:15.697299 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697299 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697300 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697300 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697302 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18
+2025/07/18 19:50:15.697302 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.697303 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.697303 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.697304 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.697311 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697312 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697312 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697326 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697369 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697370 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697370 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697370 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697371 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697371 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697372 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.697372 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.810955 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 1
+2025/07/18 19:50:15.810957 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.810965 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.810982 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 2
+2025/07/18 19:50:15.810982 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.810986 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.810992 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3
+2025/07/18 19:50:15.810992 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.810996 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811004 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4
+2025/07/18 19:50:15.811005 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.811008 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811014 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7 5
+2025/07/18 19:50:15.811015 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811016 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811020 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18 6
+2025/07/18 19:50:15.811020 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811021 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811026 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7
+2025/07/18 19:50:15.811027 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811027 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811032 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8
+2025/07/18 19:50:15.811032 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811033 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811035 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9
+2025/07/18 19:50:15.811036 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811037 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811044 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 10
+2025/07/18 19:50:15.811044 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.811048 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811108 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 11
+2025/07/18 19:50:15.811109 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.811113 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811119 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12
+2025/07/18 19:50:15.811120 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.811123 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811131 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, metric 0, path 13
+2025/07/18 19:50:15.811132 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.12.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.811135 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.12.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.811138 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14
+2025/07/18 19:50:15.811138 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811139 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811144 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18
+2025/07/18 19:50:15.811145 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811145 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.811158 BGP: [M59KS-A3ZXZ] bgp_update_receive: rcvd End-of-RIB for IPv4 Unicast from 9.0.20.1 in vrf default
+2025/07/18 19:50:15.818483 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3 12 11
+2025/07/18 19:50:15.818486 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.818490 BGP: [HF34R-E8WSR] Route 10.10.0.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:15.818497 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.818498 BGP: [HF34R-E8WSR] Route 10.10.1.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:15.860992 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.10.0.0/24
+2025/07/18 19:50:15.860997 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.0.0/24, selected=0x56b353265b40
+2025/07/18 19:50:15.861020 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.10.1.0/24
+2025/07/18 19:50:15.861021 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.1.0/24, selected=0x56b353265d70
+2025/07/18 19:50:15.861030 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.0.0/24
+2025/07/18 19:50:15.861030 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x56b353265fc0
+2025/07/18 19:50:15.861038 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.1.0/24
+2025/07/18 19:50:15.861038 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x56b353266060
+2025/07/18 19:50:15.861044 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.12.0.0/24
+2025/07/18 19:50:15.861045 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.0.0/24, selected=0x56b353266440
+2025/07/18 19:50:15.861052 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.12.1.0/24
+2025/07/18 19:50:15.861052 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.1.0/24, selected=0x56b35335d470
+2025/07/18 19:50:15.861412 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11
+2025/07/18 19:50:15.861415 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.861417 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.861419 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.861422 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.861428 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 12
+2025/07/18 19:50:15.861428 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.861430 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.861431 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.861432 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.861435 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13
+2025/07/18 19:50:15.861435 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.861436 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.861437 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.861438 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.861448 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.861449 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.861450 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.868748 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11
+2025/07/18 19:50:15.868750 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.868755 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.868761 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13
+2025/07/18 19:50:15.868762 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.868763 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.868940 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15
+2025/07/18 19:50:15.868942 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.14.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.868949 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.14.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.918775 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.14.0.0/24
+2025/07/18 19:50:15.918777 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.0.0/24, selected=0x56b35335dd30
+2025/07/18 19:50:15.918790 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.14.1.0/24
+2025/07/18 19:50:15.918790 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.1.0/24, selected=0x56b35335df60
+2025/07/18 19:50:15.918863 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15
+2025/07/18 19:50:15.918865 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.0.0/24 IPv4 unicast
+2025/07/18 19:50:15.918866 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.1.0/24 IPv4 unicast
+2025/07/18 19:50:15.918867 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:15.918869 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:15.918876 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:15.969301 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 15
+2025/07/18 19:50:15.969304 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:15.969305 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:16.069982 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16
+2025/07/18 19:50:16.069984 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.069992 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.070001 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 17
+2025/07/18 19:50:16.070001 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.070004 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.076299 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16
+2025/07/18 19:50:16.076301 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.076302 BGP: [HF34R-E8WSR] Route 10.15.0.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:16.076306 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.076307 BGP: [HF34R-E8WSR] Route 10.15.1.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:16.076317 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 17
+2025/07/18 19:50:16.076318 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.076318 BGP: [HF34R-E8WSR] Route 10.16.0.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:16.076321 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.076324 BGP: [HF34R-E8WSR] Route 10.16.1.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:16.120001 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.0.0/24
+2025/07/18 19:50:16.120003 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x56b35326b0a0
+2025/07/18 19:50:16.120017 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.1.0/24
+2025/07/18 19:50:16.120018 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x56b35335e520
+2025/07/18 19:50:16.120023 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.0.0/24
+2025/07/18 19:50:16.120023 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x56b35335e880
+2025/07/18 19:50:16.120027 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.1.0/24
+2025/07/18 19:50:16.120028 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x56b35335eab0
+2025/07/18 19:50:16.120090 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16
+2025/07/18 19:50:16.120092 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.120093 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.120095 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:16.120097 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:16.120101 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 17
+2025/07/18 19:50:16.120101 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:16.120102 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:16.120103 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:16.120104 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:16.120110 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:16.120111 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.451173 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 1
+2025/07/18 19:50:18.451175 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451179 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451187 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2
+2025/07/18 19:50:18.451187 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451203 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451208 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3
+2025/07/18 19:50:18.451209 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451212 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451217 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 4
+2025/07/18 19:50:18.451217 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451220 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451224 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7 5
+2025/07/18 19:50:18.451225 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451227 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451232 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 6
+2025/07/18 19:50:18.451232 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451235 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451241 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7
+2025/07/18 19:50:18.451242 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451245 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451253 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8
+2025/07/18 19:50:18.451253 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451257 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451263 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, metric 0, path 9
+2025/07/18 19:50:18.451263 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451267 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451272 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10
+2025/07/18 19:50:18.451273 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451276 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451323 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11
+2025/07/18 19:50:18.451323 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451324 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451330 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3 12
+2025/07/18 19:50:18.451330 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451333 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451335 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13
+2025/07/18 19:50:18.451335 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451336 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451338 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14
+2025/07/18 19:50:18.451338 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451339 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451341 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 15
+2025/07/18 19:50:18.451341 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451342 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.451346 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16
+2025/07/18 19:50:18.451347 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451349 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451354 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 17
+2025/07/18 19:50:18.451354 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451357 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451361 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18
+2025/07/18 19:50:18.451362 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.451364 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666640 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 1
+2025/07/18 19:50:18.666643 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666648 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666656 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 2
+2025/07/18 19:50:18.666656 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.1.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666659 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.1.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666665 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3
+2025/07/18 19:50:18.666665 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.2.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666668 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.2.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666674 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4
+2025/07/18 19:50:18.666674 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.3.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666677 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.3.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666679 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7 5
+2025/07/18 19:50:18.666680 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666681 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666683 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18 6
+2025/07/18 19:50:18.666684 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666684 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666687 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7
+2025/07/18 19:50:18.666687 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666688 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666690 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8
+2025/07/18 19:50:18.666690 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666691 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666693 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9
+2025/07/18 19:50:18.666693 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666693 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666698 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 10
+2025/07/18 19:50:18.666698 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.9.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666701 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.9.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666740 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 11
+2025/07/18 19:50:18.666740 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.10.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666743 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.10.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666747 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12
+2025/07/18 19:50:18.666747 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.11.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666750 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.11.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666754 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, metric 0, path 13
+2025/07/18 19:50:18.666755 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.12.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666757 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.12.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666759 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14
+2025/07/18 19:50:18.666759 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666760 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666765 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15
+2025/07/18 19:50:18.666765 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.14.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666768 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.14.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666773 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16
+2025/07/18 19:50:18.666773 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.15.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666776 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.15.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666780 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 17
+2025/07/18 19:50:18.666780 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.16.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666783 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.16.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.666785 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18
+2025/07/18 19:50:18.666785 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.666786 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.720340 BGP: [RY85J-WH5XP] u1:s1 announcing routes upon policy ALLOW_ALL_OUT (type 0) change
+2025/07/18 19:50:18.720345 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:18.720362 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:18.720366 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:18.720369 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:18.720372 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353268f90
+2025/07/18 19:50:18.720376 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b353269210
+2025/07/18 19:50:18.720378 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:18.720381 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:18.720384 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:18.720387 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b35326a010
+2025/07/18 19:50:18.720390 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.0.0/24, selected=0x56b35326a440
+2025/07/18 19:50:18.720392 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.1.0/24, selected=0x56b35326a6c0
+2025/07/18 19:50:18.720395 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:18.720397 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x56b35326ad70
+2025/07/18 19:50:18.720400 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x56b35326b2d0
+2025/07/18 19:50:18.720402 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x56b35326b550
+2025/07/18 19:50:18.720405 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x56b35326b9b0
+2025/07/18 19:50:18.720408 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x56b35326bc30
+2025/07/18 19:50:18.720410 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.0.0/24, selected=0x56b3532608b0
+2025/07/18 19:50:18.720413 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.1.0/24, selected=0x56b353260aa0
+2025/07/18 19:50:18.720416 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.0.0/24, selected=0x56b353265b40
+2025/07/18 19:50:18.720419 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.1.0/24, selected=0x56b353265d70
+2025/07/18 19:50:18.720422 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x56b353265fc0
+2025/07/18 19:50:18.720424 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x56b353266060
+2025/07/18 19:50:18.720427 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.0.0/24, selected=0x56b353266440
+2025/07/18 19:50:18.720430 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.1.0/24, selected=0x56b35335d470
+2025/07/18 19:50:18.720433 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.0.0/24, selected=0x56b353289690
+2025/07/18 19:50:18.720436 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.1.0/24, selected=0x56b353289d10
+2025/07/18 19:50:18.720439 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.0.0/24, selected=0x56b35335dd30
+2025/07/18 19:50:18.720442 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.1.0/24, selected=0x56b35335df60
+2025/07/18 19:50:18.720449 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x56b35326b0a0
+2025/07/18 19:50:18.720452 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x56b35335e520
+2025/07/18 19:50:18.720455 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x56b35335e880
+2025/07/18 19:50:18.720458 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x56b35335eab0
+2025/07/18 19:50:18.720461 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x56b3532615e0
+2025/07/18 19:50:18.720463 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x56b353261860
+2025/07/18 19:50:18.720475 BGP: [WNMVF-B11FV] Processing route_map ALLOW_ALL_IN(IPv4:unicast) update on peer 9.0.15.1 (inbound, route-refresh)
+2025/07/18 19:50:18.720487 BGP: [WNMVF-B11FV] Processing route_map ALLOW_ALL_IN(IPv4:unicast) update on peer 9.0.20.1 (inbound, route-refresh)
+2025/07/18 19:50:18.720549 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 1
+2025/07/18 19:50:18.720551 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720553 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720554 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720556 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720559 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2
+2025/07/18 19:50:18.720559 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720560 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720560 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720561 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720564 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3
+2025/07/18 19:50:18.720564 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720565 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720566 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720566 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720569 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 4
+2025/07/18 19:50:18.720570 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720571 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720572 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720572 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720575 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 5
+2025/07/18 19:50:18.720575 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720576 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720577 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720577 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720580 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 6
+2025/07/18 19:50:18.720580 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720581 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720582 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720583 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720585 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7
+2025/07/18 19:50:18.720586 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720586 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720587 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720588 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720590 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8
+2025/07/18 19:50:18.720590 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720591 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720592 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720592 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720594 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9
+2025/07/18 19:50:18.720595 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720596 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720596 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720597 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720599 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10
+2025/07/18 19:50:18.720600 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720600 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720601 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720602 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720604 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11
+2025/07/18 19:50:18.720605 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720606 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720607 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720607 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720610 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 12
+2025/07/18 19:50:18.720610 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720611 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720612 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720613 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720615 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13
+2025/07/18 19:50:18.720615 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720616 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720616 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720657 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720660 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, metric 0, path 
+2025/07/18 19:50:18.720661 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720662 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720663 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 59 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720663 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720665 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15
+2025/07/18 19:50:18.720665 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720666 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720666 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720667 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720668 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16
+2025/07/18 19:50:18.720668 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720669 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720669 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720672 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720674 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 17
+2025/07/18 19:50:18.720674 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720675 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720675 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720675 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720677 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18
+2025/07/18 19:50:18.720677 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.720678 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.720678 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.720678 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.720682 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720683 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720683 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720683 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720683 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720684 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720684 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720684 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720686 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720686 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720687 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720687 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720687 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720688 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720688 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720688 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720689 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.720689 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.894089 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 1
+2025/07/18 19:50:18.894107 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894117 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894130 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2
+2025/07/18 19:50:18.894131 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894136 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894144 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3
+2025/07/18 19:50:18.894145 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894149 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894159 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 4
+2025/07/18 19:50:18.894160 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894164 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894172 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7 5
+2025/07/18 19:50:18.894173 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894177 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894186 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 6
+2025/07/18 19:50:18.894187 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894211 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894220 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7
+2025/07/18 19:50:18.894221 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894225 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894234 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8
+2025/07/18 19:50:18.894235 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894240 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894248 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, metric 0, path 9
+2025/07/18 19:50:18.894249 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894254 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894262 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10
+2025/07/18 19:50:18.894263 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894268 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894332 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11
+2025/07/18 19:50:18.894333 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894334 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894343 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3 12
+2025/07/18 19:50:18.894344 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894349 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894353 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13
+2025/07/18 19:50:18.894354 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894355 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894359 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14
+2025/07/18 19:50:18.894359 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894360 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894365 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 15
+2025/07/18 19:50:18.894365 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894366 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:18.894375 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16
+2025/07/18 19:50:18.894375 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894380 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894388 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 17
+2025/07/18 19:50:18.894389 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894393 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894401 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18
+2025/07/18 19:50:18.894401 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.894406 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:18.951018 BGP: [WJC21-WPGZF] u1:s1 announcing routes to 9.0.15.1, combined into 2 peers
+2025/07/18 19:50:18.951020 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:18.951035 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:18.951038 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:18.951042 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:18.951046 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353268f90
+2025/07/18 19:50:18.951050 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b353269210
+2025/07/18 19:50:18.951053 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:18.951057 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:18.951061 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:18.951065 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b35326a010
+2025/07/18 19:50:18.951068 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.0.0/24, selected=0x56b35326a440
+2025/07/18 19:50:18.951071 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.1.0/24, selected=0x56b35326a6c0
+2025/07/18 19:50:18.951075 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:18.951078 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x56b35326ad70
+2025/07/18 19:50:18.951081 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x56b35326b2d0
+2025/07/18 19:50:18.951085 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x56b35326b550
+2025/07/18 19:50:18.951089 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x56b35326b9b0
+2025/07/18 19:50:18.951092 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x56b35326bc30
+2025/07/18 19:50:18.951096 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.0.0/24, selected=0x56b3532608b0
+2025/07/18 19:50:18.951099 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.1.0/24, selected=0x56b353260aa0
+2025/07/18 19:50:18.951103 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.0.0/24, selected=0x56b353265b40
+2025/07/18 19:50:18.951106 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.1.0/24, selected=0x56b353265d70
+2025/07/18 19:50:18.951109 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x56b353265fc0
+2025/07/18 19:50:18.951113 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x56b353266060
+2025/07/18 19:50:18.951117 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.0.0/24, selected=0x56b353266440
+2025/07/18 19:50:18.951121 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.1.0/24, selected=0x56b35335d470
+2025/07/18 19:50:18.951125 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.0.0/24, selected=0x56b353289690
+2025/07/18 19:50:18.951129 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.1.0/24, selected=0x56b353289d10
+2025/07/18 19:50:18.951133 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.0.0/24, selected=0x56b35335dd30
+2025/07/18 19:50:18.951137 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.1.0/24, selected=0x56b35335df60
+2025/07/18 19:50:18.951140 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x56b35326b0a0
+2025/07/18 19:50:18.951144 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x56b35335e520
+2025/07/18 19:50:18.951148 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x56b35335e880
+2025/07/18 19:50:18.951152 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x56b35335eab0
+2025/07/18 19:50:18.951155 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x56b3532615e0
+2025/07/18 19:50:18.951159 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x56b353261860
+2025/07/18 19:50:18.951225 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 1
+2025/07/18 19:50:18.951227 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951229 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951230 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951232 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951236 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2
+2025/07/18 19:50:18.951236 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951237 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951238 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951238 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951241 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3
+2025/07/18 19:50:18.951241 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951242 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951243 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951244 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951246 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 4
+2025/07/18 19:50:18.951247 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951248 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951249 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951250 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951252 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 5
+2025/07/18 19:50:18.951253 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951254 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951255 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951255 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951258 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 6
+2025/07/18 19:50:18.951259 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951259 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951260 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951261 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951263 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7
+2025/07/18 19:50:18.951264 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951265 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951266 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951266 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951269 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8
+2025/07/18 19:50:18.951269 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951270 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951271 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951272 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951274 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9
+2025/07/18 19:50:18.951275 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951275 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951276 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951277 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951279 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10
+2025/07/18 19:50:18.951280 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951281 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951282 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951282 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951285 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11
+2025/07/18 19:50:18.951285 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951286 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951287 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951287 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951289 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 12
+2025/07/18 19:50:18.951290 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951291 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951292 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951292 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951294 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13
+2025/07/18 19:50:18.951295 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951296 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.12.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951306 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951359 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951362 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, metric 0, path 
+2025/07/18 19:50:18.951362 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951363 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.13.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951364 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 59 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951365 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951367 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15
+2025/07/18 19:50:18.951368 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951369 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.14.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951370 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951370 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951373 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16
+2025/07/18 19:50:18.951374 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951375 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951376 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951376 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951379 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 17
+2025/07/18 19:50:18.951380 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951381 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951382 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951382 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951385 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18
+2025/07/18 19:50:18.951385 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:18.951386 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:18.951387 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:18.951388 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:18.951396 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951397 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951398 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951398 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951399 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951400 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951400 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951401 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951401 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951402 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951402 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951403 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951403 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951404 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951405 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951405 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951406 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:18.951406 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:19.059046 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 1
+2025/07/18 19:50:19.059048 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059055 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059063 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4 2
+2025/07/18 19:50:19.059064 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.1.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059066 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.1.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059072 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3
+2025/07/18 19:50:19.059072 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.2.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059075 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.2.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059080 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 4
+2025/07/18 19:50:19.059081 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.3.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059084 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.3.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059087 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7 5
+2025/07/18 19:50:19.059087 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059089 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059091 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18 6
+2025/07/18 19:50:19.059092 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059092 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059095 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7
+2025/07/18 19:50:19.059095 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059096 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059098 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8
+2025/07/18 19:50:19.059098 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059099 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059101 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9
+2025/07/18 19:50:19.059101 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059102 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059107 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12 3 10
+2025/07/18 19:50:19.059107 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.9.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059110 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.9.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059149 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 11
+2025/07/18 19:50:19.059150 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.10.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059153 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.10.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059157 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 12
+2025/07/18 19:50:19.059158 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.11.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059160 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.11.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059165 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, metric 0, path 13
+2025/07/18 19:50:19.059165 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.12.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059168 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.12.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059170 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14
+2025/07/18 19:50:19.059170 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059171 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059176 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15
+2025/07/18 19:50:19.059176 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.14.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059179 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.14.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059184 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16
+2025/07/18 19:50:19.059184 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.15.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059187 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.15.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059209 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 17
+2025/07/18 19:50:19.059210 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.16.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059212 BGP: [NJYMB-R5FFH] 9.0.20.1(bgpd-R13) rcvd 10.16.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.059215 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 18
+2025/07/18 19:50:19.059215 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.059216 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.17.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452044 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 1
+2025/07/18 19:50:19.452046 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452052 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452062 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2
+2025/07/18 19:50:19.452062 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452065 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452071 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3
+2025/07/18 19:50:19.452072 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452075 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.2.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452081 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 2 4
+2025/07/18 19:50:19.452082 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452085 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452091 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7 5
+2025/07/18 19:50:19.452091 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452094 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.4.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452100 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 6
+2025/07/18 19:50:19.452100 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452104 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.5.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452109 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8 7
+2025/07/18 19:50:19.452110 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452113 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.6.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452118 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 8
+2025/07/18 19:50:19.452118 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452122 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.7.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452127 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, metric 0, path 9
+2025/07/18 19:50:19.452127 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452130 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.8.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452135 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10
+2025/07/18 19:50:19.452136 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452139 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.9.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452183 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11
+2025/07/18 19:50:19.452184 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452185 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.10.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452209 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 10 3 12
+2025/07/18 19:50:19.452210 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452214 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.11.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452216 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13
+2025/07/18 19:50:19.452217 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452217 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.12.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452220 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14
+2025/07/18 19:50:19.452220 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452221 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.13.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452223 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 15
+2025/07/18 19:50:19.452224 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452224 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.14.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:19.452230 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16
+2025/07/18 19:50:19.452231 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452234 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.15.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452240 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 17
+2025/07/18 19:50:19.452240 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452243 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.16.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452248 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18
+2025/07/18 19:50:19.452249 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.0.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.452252 BGP: [NJYMB-R5FFH] 9.0.15.1(bgpd-R9) rcvd 10.17.1.0/24 IPv4 unicast...duplicate ignored
+2025/07/18 19:50:19.559247 BGP: [MS8ZT-QEXJ8] u1:s2 9.0.20.1 announcing routes
+2025/07/18 19:50:19.559251 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:19.559266 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:19.559269 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:19.559272 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:19.559275 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353268f90
+2025/07/18 19:50:19.559278 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b353269210
+2025/07/18 19:50:19.559281 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:19.559283 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:19.559286 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:19.559288 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b35326a010
+2025/07/18 19:50:19.559291 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.0.0/24, selected=0x56b35326a440
+2025/07/18 19:50:19.559294 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.1.0/24, selected=0x56b35326a6c0
+2025/07/18 19:50:19.559296 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:19.559298 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x56b35326ad70
+2025/07/18 19:50:19.559301 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x56b35326b2d0
+2025/07/18 19:50:19.559304 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x56b35326b550
+2025/07/18 19:50:19.559306 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x56b35326b9b0
+2025/07/18 19:50:19.559309 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x56b35326bc30
+2025/07/18 19:50:19.559311 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.0.0/24, selected=0x56b3532608b0
+2025/07/18 19:50:19.559314 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.1.0/24, selected=0x56b353260aa0
+2025/07/18 19:50:19.559316 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.0.0/24, selected=0x56b353265b40
+2025/07/18 19:50:19.559319 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.1.0/24, selected=0x56b353265d70
+2025/07/18 19:50:19.559322 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x56b353265fc0
+2025/07/18 19:50:19.559324 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x56b353266060
+2025/07/18 19:50:19.559327 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.0.0/24, selected=0x56b353266440
+2025/07/18 19:50:19.559330 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.1.0/24, selected=0x56b35335d470
+2025/07/18 19:50:19.559332 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.0.0/24, selected=0x56b353289690
+2025/07/18 19:50:19.559335 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.1.0/24, selected=0x56b353289d10
+2025/07/18 19:50:19.559337 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.0.0/24, selected=0x56b35335dd30
+2025/07/18 19:50:19.559340 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.1.0/24, selected=0x56b35335df60
+2025/07/18 19:50:19.559342 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x56b35326b0a0
+2025/07/18 19:50:19.559345 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x56b35335e520
+2025/07/18 19:50:19.559348 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x56b35335e880
+2025/07/18 19:50:19.559350 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x56b35335eab0
+2025/07/18 19:50:19.559353 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x56b3532615e0
+2025/07/18 19:50:19.559356 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x56b353261860
+2025/07/18 19:50:19.559473 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 1
+2025/07/18 19:50:19.559476 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559478 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559479 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559481 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559485 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2
+2025/07/18 19:50:19.559485 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559486 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559486 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559486 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559488 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3
+2025/07/18 19:50:19.559488 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559489 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559489 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559490 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559491 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 4
+2025/07/18 19:50:19.559492 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559492 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559493 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559493 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559494 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 5
+2025/07/18 19:50:19.559495 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559495 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559496 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559496 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559497 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 6
+2025/07/18 19:50:19.559498 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559498 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559499 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559499 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559500 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7
+2025/07/18 19:50:19.559501 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559501 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559502 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559502 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559503 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8
+2025/07/18 19:50:19.559504 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559504 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559505 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559505 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559506 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9
+2025/07/18 19:50:19.559506 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559507 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559507 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559508 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559509 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10
+2025/07/18 19:50:19.559509 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559510 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559510 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559511 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559512 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11
+2025/07/18 19:50:19.559512 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.10.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559513 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.10.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559513 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559514 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559515 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 12
+2025/07/18 19:50:19.559515 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.11.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559516 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.11.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559516 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559521 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559522 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13
+2025/07/18 19:50:19.559523 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.12.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559523 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.12.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559524 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 56 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559557 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559558 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, metric 0, path 
+2025/07/18 19:50:19.559559 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.13.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559559 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.13.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559560 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 59 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559560 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559562 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15
+2025/07/18 19:50:19.559562 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.14.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559562 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.14.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559563 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559563 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559565 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16
+2025/07/18 19:50:19.559565 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559565 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559566 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559566 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559568 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 17
+2025/07/18 19:50:19.559568 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559569 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559569 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559569 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:19.559571 BGP: [TN0HX-6G1RR] u1:s2 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18
+2025/07/18 19:50:19.559571 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:19.559571 BGP: [HVRWP-5R9NQ] u1:s2 send UPDATE 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:19.559572 BGP: [WEV7K-2GAQ5] u1:s2 send UPDATE len 60 (max message len: 65535) numpfx 2
+2025/07/18 19:50:19.559572 BGP: [MBFVT-8GSC6] u1:s2 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.086049 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.086060 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.136067 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.136070 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:21.136083 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.136084 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:21.136157 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 2 4 1
+2025/07/18 19:50:21.136159 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.136161 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.136164 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 72 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.136167 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.136179 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.186492 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.186504 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.186520 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.186525 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.236509 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.236512 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:21.236524 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.236524 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:21.236587 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 2 4 1
+2025/07/18 19:50:21.236589 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.236590 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.236593 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 76 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.236599 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.236614 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.236766 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 2 4 1
+2025/07/18 19:50:21.236768 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.236773 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.236853 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.236862 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.236874 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.236878 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.236884 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.236887 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.286785 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.286788 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:21.286805 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.286806 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353268240
+2025/07/18 19:50:21.286815 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.1.0/24
+2025/07/18 19:50:21.286816 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:21.286823 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.0.0/24
+2025/07/18 19:50:21.286823 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:21.286831 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.286832 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:21.286840 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.286840 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:21.286957 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 2
+2025/07/18 19:50:21.286959 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.286965 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.286976 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7 2 4 1
+2025/07/18 19:50:21.286977 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.286978 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.286987 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 8 7 2 4 1
+2025/07/18 19:50:21.286988 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.286991 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.286994 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 80 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.286996 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.287000 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 3 4
+2025/07/18 19:50:21.287001 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.287003 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.287005 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.287006 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.287010 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 7 2
+2025/07/18 19:50:21.287011 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.287012 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.287015 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.287015 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.287022 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.287023 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.287024 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.287076 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.287081 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.287105 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.287112 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.336976 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.336978 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353268b30
+2025/07/18 19:50:21.336994 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.336994 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353268900
+2025/07/18 19:50:21.337002 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.337003 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x0
+2025/07/18 19:50:21.337005 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.337005 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x0
+2025/07/18 19:50:21.337071 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.337075 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.337078 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.337088 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 8 7 2
+2025/07/18 19:50:21.337089 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.337090 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.337092 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 72 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.337094 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.337104 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.337285 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 7 2
+2025/07/18 19:50:21.337288 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.337290 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.337304 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 8 7 2 4 1
+2025/07/18 19:50:21.337304 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.337307 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.337386 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.337394 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.387407 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.387410 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x0
+2025/07/18 19:50:21.387417 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.387418 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x0
+2025/07/18 19:50:21.387483 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.387486 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.387494 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.387658 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 11 12 3 10 8 7 2 4 1
+2025/07/18 19:50:21.387660 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.387670 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.387679 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 8 7 2
+2025/07/18 19:50:21.387680 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.387682 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.387691 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.387696 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.387853 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.387859 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.387864 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 12
+2025/07/18 19:50:21.387865 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.11.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.387866 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.11.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.387872 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.387876 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.437678 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.437681 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b353360660
+2025/07/18 19:50:21.437700 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.437700 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353264e90
+2025/07/18 19:50:21.437709 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.1.0/24
+2025/07/18 19:50:21.437710 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x56b353269930
+2025/07/18 19:50:21.437717 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.0.0/24
+2025/07/18 19:50:21.437718 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:21.437731 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.1.0/24
+2025/07/18 19:50:21.437732 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b3532651a0
+2025/07/18 19:50:21.437740 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.0.0/24
+2025/07/18 19:50:21.437740 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353265100
+2025/07/18 19:50:21.437854 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11 12 3 10 8 7 2 4 1
+2025/07/18 19:50:21.437856 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.437858 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.437860 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 92 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.437867 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.437873 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 8 10 3 4
+2025/07/18 19:50:21.437874 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.437876 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.437878 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 72 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.437879 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.437882 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 12 3
+2025/07/18 19:50:21.437883 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.437884 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.437885 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.437886 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.437896 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.437897 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.437897 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.438143 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 11 12 3 10 8 7 2
+2025/07/18 19:50:21.438146 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.438159 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.438170 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 3 4
+2025/07/18 19:50:21.438171 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.438174 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.438188 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.438215 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.438223 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10
+2025/07/18 19:50:21.438224 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.9.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.438226 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.9.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.438236 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.438242 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.438272 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.3.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.438274 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.3.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.438275 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.438275 BGP: [HF34R-E8WSR] Route 10.2.1.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:21.438276 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.438277 BGP: [HF34R-E8WSR] Route 10.2.0.0/24(VRF default) is in workqueue and being processed, not deferred.
+2025/07/18 19:50:21.488166 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.488169 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353260f00
+2025/07/18 19:50:21.488187 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.488198 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b3532684c0
+2025/07/18 19:50:21.488209 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.1.0/24
+2025/07/18 19:50:21.488210 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.1.0/24, selected=0x0
+2025/07/18 19:50:21.488216 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.3.0.0/24
+2025/07/18 19:50:21.488217 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.3.0.0/24, selected=0x0
+2025/07/18 19:50:21.488220 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.488220 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b353360660
+2025/07/18 19:50:21.488228 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.488229 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353264e90
+2025/07/18 19:50:21.488240 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.1.0/24
+2025/07/18 19:50:21.488240 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x56b3532651a0
+2025/07/18 19:50:21.488249 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.0.0/24
+2025/07/18 19:50:21.488250 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x56b353265100
+2025/07/18 19:50:21.488369 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.3.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.488372 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.3.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.488375 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.488386 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11 12 3 10 8 7 2
+2025/07/18 19:50:21.488387 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.488389 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.488390 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 84 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.488392 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.488404 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11 12 3 10 9 8 7 2 4 1
+2025/07/18 19:50:21.488405 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.488406 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.488409 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 96 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.488410 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.488413 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 11 12 3
+2025/07/18 19:50:21.488413 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.488414 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.488415 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.488415 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.488422 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.488424 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.488424 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.488473 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11 12 3 10 8 7 2 4 1
+2025/07/18 19:50:21.488474 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.488475 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.488506 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 12 3
+2025/07/18 19:50:21.488507 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.488508 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.488529 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.2.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488532 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.2.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488533 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488533 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488534 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488534 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.488539 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 8 10 3 4
+2025/07/18 19:50:21.488539 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.488541 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.538544 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.1.0/24
+2025/07/18 19:50:21.538547 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.1.0/24, selected=0x0
+2025/07/18 19:50:21.538553 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.2.0.0/24
+2025/07/18 19:50:21.538554 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.2.0.0/24, selected=0x0
+2025/07/18 19:50:21.538556 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.538556 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x0
+2025/07/18 19:50:21.538558 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.538558 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x0
+2025/07/18 19:50:21.538560 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.538560 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x0
+2025/07/18 19:50:21.538562 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.538562 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x0
+2025/07/18 19:50:21.538635 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.2.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538637 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.2.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538641 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538642 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538644 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538644 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.538646 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 47 numpfx 6
+2025/07/18 19:50:21.538752 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.538753 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.3.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.538755 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.3.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.538755 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.3.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.538816 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.538818 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.538821 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.538821 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.538841 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11 12 3 10 8 7 2
+2025/07/18 19:50:21.538843 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.538845 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.538850 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 14 13 11 12 3
+2025/07/18 19:50:21.538851 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.538851 BGP: [RZMGQ-A03CG] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.589055 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.589057 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.2.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.589060 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.2.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.589060 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.2.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.589061 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.589061 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.589062 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.589063 BGP: [PC71A-4RFD8] 9.0.15.1 Can't find the route 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.589091 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 15 13 11 12 3 10 8 7 2 4 1
+2025/07/18 19:50:21.589092 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.589101 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.639112 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.639115 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x56b3532696b0
+2025/07/18 19:50:21.639133 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.639134 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x56b353264e90
+2025/07/18 19:50:21.639227 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 15 13 11 12 3 10 8 7 2 4 1
+2025/07/18 19:50:21.639229 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.639231 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.639232 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 108 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.639237 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.639250 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.639413 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.639418 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.0.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.639438 BGP: [XXWBM-V772F] 9.0.15.1(bgpd-R9) rcvd UPDATE w/ attr: nexthop 9.0.15.1, origin i, path 9 18 16 15 13 11 12 3 10 8 7 2
+2025/07/18 19:50:21.639438 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.639444 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.689433 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.1.0/24
+2025/07/18 19:50:21.689437 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.1.0/24, selected=0x0
+2025/07/18 19:50:21.689445 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.0.0.0/24
+2025/07/18 19:50:21.689445 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.0.0.0/24, selected=0x0
+2025/07/18 19:50:21.689448 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.689449 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x56b353260f00
+2025/07/18 19:50:21.689461 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.689462 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x56b353360660
+2025/07/18 19:50:21.689562 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.689565 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.0.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.689569 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.689581 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 18 16 15 13 11 12 3 10 8 7 2
+2025/07/18 19:50:21.689582 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.689584 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.689586 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 100 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.689587 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.689596 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.689670 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.689677 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.1.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.689693 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.689702 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.739690 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.1.0/24
+2025/07/18 19:50:21.739693 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.1.0/24, selected=0x0
+2025/07/18 19:50:21.739702 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.1.0.0/24
+2025/07/18 19:50:21.739702 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.1.0.0/24, selected=0x0
+2025/07/18 19:50:21.739706 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:21.739706 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b35326a010
+2025/07/18 19:50:21.739720 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:21.739720 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:21.739792 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.739794 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.1.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.739797 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.739808 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 8 7 5
+2025/07/18 19:50:21.739809 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.739810 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.739811 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 72 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.739813 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.739821 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.739902 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.5.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.739908 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.5.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.739909 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.739910 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.760632 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 8 7 5
+2025/07/18 19:50:21.760635 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.760637 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.789922 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.5.1.0/24
+2025/07/18 19:50:21.789926 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.1.0/24, selected=0x0
+2025/07/18 19:50:21.789934 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.5.0.0/24
+2025/07/18 19:50:21.789934 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.5.0.0/24, selected=0x0
+2025/07/18 19:50:21.789937 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:21.789938 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x0
+2025/07/18 19:50:21.789940 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:21.789940 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x0
+2025/07/18 19:50:21.790017 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.5.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.790021 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.5.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.790023 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.790024 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.790026 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 39 numpfx 4
+2025/07/18 19:50:21.840462 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.840475 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.840484 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.840485 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.5.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.840488 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.5.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.840489 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.5.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.840501 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 18 9 8 7 5
+2025/07/18 19:50:21.840502 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.840510 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.890481 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.1.0/24
+2025/07/18 19:50:21.890484 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x56b35326ad70
+2025/07/18 19:50:21.890501 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.0.0/24
+2025/07/18 19:50:21.890501 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:21.890512 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:21.890512 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b353260f00
+2025/07/18 19:50:21.890521 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:21.890522 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b352b2a680
+2025/07/18 19:50:21.890611 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 8 7
+2025/07/18 19:50:21.890613 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.890615 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.890618 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.890620 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.890626 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16 18 9 8 7 5
+2025/07/18 19:50:21.890627 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.890628 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.890629 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 84 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.890630 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.890637 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.890638 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.890676 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.890683 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.890733 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.890740 BGP: [YCKEM-GB33T] 9.0.15.1(bgpd-R9) rcvd 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.890767 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.890773 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.940695 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.1.0/24
+2025/07/18 19:50:21.940698 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.1.0/24, selected=0x0
+2025/07/18 19:50:21.940706 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.6.0.0/24
+2025/07/18 19:50:21.940707 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.6.0.0/24, selected=0x0
+2025/07/18 19:50:21.940710 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.1.0/24
+2025/07/18 19:50:21.940710 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x56b35326b550
+2025/07/18 19:50:21.940722 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.0.0/24
+2025/07/18 19:50:21.940723 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x56b35326b2d0
+2025/07/18 19:50:21.940729 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:21.940730 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x56b353260f00
+2025/07/18 19:50:21.940737 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:21.940738 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x56b352b2a680
+2025/07/18 19:50:21.940831 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.6.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.940835 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.6.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.940838 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.940847 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 9 10 8
+2025/07/18 19:50:21.940848 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.940849 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.940851 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.940853 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.940858 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16 18 9 10 8 7 5
+2025/07/18 19:50:21.940859 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.940860 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.940862 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 88 (max message len: 65535) numpfx 2
+2025/07/18 19:50:21.940863 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:21.940871 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.940873 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:21.941052 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.941060 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.4.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.941077 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 8 7
+2025/07/18 19:50:21.941079 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.941081 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.991073 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.1.0/24
+2025/07/18 19:50:21.991076 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.1.0/24, selected=0x0
+2025/07/18 19:50:21.991082 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.4.0.0/24
+2025/07/18 19:50:21.991083 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.4.0.0/24, selected=0x0
+2025/07/18 19:50:21.991111 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.991118 BGP: [PAPP6-VDAWM] 9.0.15.1(bgpd-R9) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.991157 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.4.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.991160 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.4.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:21.991164 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:21.991304 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.991305 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.6.1.0/24 IPv4 unicast
+2025/07/18 19:50:21.991307 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.6.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:21.991307 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.6.0.0/24 IPv4 unicast
+2025/07/18 19:50:21.991315 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 14 9 10 8
+2025/07/18 19:50:21.991316 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:21.991316 BGP: [RZMGQ-A03CG] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- DENIED due to: as-path contains our own AS;
+2025/07/18 19:50:22.041131 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.1.0/24
+2025/07/18 19:50:22.041135 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.1.0/24, selected=0x0
+2025/07/18 19:50:22.041141 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.7.0.0/24
+2025/07/18 19:50:22.041142 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.7.0.0/24, selected=0x0
+2025/07/18 19:50:22.041198 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.7.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.041201 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.7.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.041204 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:22.059835 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.15.1 
+2025/07/18 19:50:22.059837 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.20.1 
+2025/07/18 19:50:22.091630 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.091632 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.7.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.091636 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.7.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.091637 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.7.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.109864 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.1.0/24
+2025/07/18 19:50:22.109868 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x56b35335ef90
+2025/07/18 19:50:22.109889 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.0.0/24
+2025/07/18 19:50:22.109890 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x56b35335eef0
+2025/07/18 19:50:22.109898 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.1.0/24
+2025/07/18 19:50:22.109898 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x56b35335ed20
+2025/07/18 19:50:22.109907 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.0.0/24
+2025/07/18 19:50:22.109907 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x56b35335ec80
+2025/07/18 19:50:22.109914 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.1.0/24
+2025/07/18 19:50:22.109915 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x0
+2025/07/18 19:50:22.109919 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.0.0/24
+2025/07/18 19:50:22.109919 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x0
+2025/07/18 19:50:22.109923 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.9.1.0/24
+2025/07/18 19:50:22.109923 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.1.0/24, selected=0x0
+2025/07/18 19:50:22.109926 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.9.0.0/24
+2025/07/18 19:50:22.109927 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.9.0.0/24, selected=0x0
+2025/07/18 19:50:22.109929 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.1.0/24
+2025/07/18 19:50:22.109930 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x0
+2025/07/18 19:50:22.109933 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.0.0/24
+2025/07/18 19:50:22.109933 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x0
+2025/07/18 19:50:22.110085 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110088 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110090 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.9.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110091 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.9.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110092 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110093 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.110095 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 47 numpfx 6
+2025/07/18 19:50:22.110112 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16 17
+2025/07/18 19:50:22.110113 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.110115 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.16.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.110117 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:22.110119 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:22.110123 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16
+2025/07/18 19:50:22.110124 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.110125 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.15.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.110127 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 64 (max message len: 65535) numpfx 2
+2025/07/18 19:50:22.110128 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:22.110140 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:22.110141 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:22.160662 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.9.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.160664 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.9.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.160665 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.9.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.160666 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.9.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.160668 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.160668 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.160669 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.160670 BGP: [PC71A-4RFD8] 9.0.20.1 Can't find the route 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.160702 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 18
+2025/07/18 19:50:22.160703 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.160717 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.210734 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.1.0/24
+2025/07/18 19:50:22.210738 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x56b35326a440
+2025/07/18 19:50:22.210762 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.0.0/24
+2025/07/18 19:50:22.210763 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x56b353269d90
+2025/07/18 19:50:22.210855 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16 18
+2025/07/18 19:50:22.210858 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.210861 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.210862 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 68 (max message len: 65535) numpfx 2
+2025/07/18 19:50:22.210865 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:22.210875 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:22.242564 BGP: [XXWBM-V772F] 9.0.20.1(bgpd-R13) rcvd UPDATE w/ attr: nexthop 9.0.20.1, origin i, path 13 15 16 18 9
+2025/07/18 19:50:22.242566 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.242574 BGP: [YCKEM-GB33T] 9.0.20.1(bgpd-R13) rcvd 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.292583 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.1.0/24
+2025/07/18 19:50:22.292585 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x56b35326aaf0
+2025/07/18 19:50:22.292600 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.0.0/24
+2025/07/18 19:50:22.292600 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x56b353260f00
+2025/07/18 19:50:22.292666 BGP: [TN0HX-6G1RR] u1:s1 send UPDATE w/ attr: nexthop 0.0.0.0, origin i, path 13 15 16 18 9
+2025/07/18 19:50:22.292668 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast
+2025/07/18 19:50:22.292670 BGP: [HVRWP-5R9NQ] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast
+2025/07/18 19:50:22.292671 BGP: [WEV7K-2GAQ5] u1:s1 send UPDATE len 72 (max message len: 65535) numpfx 2
+2025/07/18 19:50:22.292674 BGP: [MBFVT-8GSC6] u1:s1 9.0.20.1 send UPDATE w/ nexthop 9.0.20.2
+2025/07/18 19:50:22.292690 BGP: [MBFVT-8GSC6] u1:s1 9.0.15.1 send UPDATE w/ nexthop 9.0.15.2
+2025/07/18 19:50:22.292713 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.292717 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.8.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.342737 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.1.0/24
+2025/07/18 19:50:22.342741 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.1.0/24, selected=0x0
+2025/07/18 19:50:22.342750 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.8.0.0/24
+2025/07/18 19:50:22.342751 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.8.0.0/24, selected=0x0
+2025/07/18 19:50:22.342813 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.8.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.342815 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.8.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.342819 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:22.343016 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.10.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.343024 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.10.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.393035 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.10.1.0/24
+2025/07/18 19:50:22.393038 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.1.0/24, selected=0x0
+2025/07/18 19:50:22.393043 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.10.0.0/24
+2025/07/18 19:50:22.393044 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.10.0.0/24, selected=0x0
+2025/07/18 19:50:22.393090 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.10.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.393092 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.10.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.393095 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:22.447670 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.11.1.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.447678 BGP: [PAPP6-VDAWM] 9.0.20.1(bgpd-R13) rcvd UPDATE about 10.11.0.0/24 IPv4 unicast -- withdrawn
+2025/07/18 19:50:22.497694 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.1.0/24
+2025/07/18 19:50:22.497698 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.1.0/24, selected=0x0
+2025/07/18 19:50:22.497705 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.11.0.0/24
+2025/07/18 19:50:22.497706 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.11.0.0/24, selected=0x0
+2025/07/18 19:50:22.497763 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.11.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.497766 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.11.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.497770 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
+2025/07/18 19:50:22.501951 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.15.1 
+2025/07/18 19:50:22.501953 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.20.1 
+2025/07/18 19:50:22.551982 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.0.0/24
+2025/07/18 19:50:22.551984 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.0.0/24, selected=0x0
+2025/07/18 19:50:22.551991 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.17.1.0/24
+2025/07/18 19:50:22.551991 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.17.1.0/24, selected=0x0
+2025/07/18 19:50:22.551993 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.1.0/24
+2025/07/18 19:50:22.551994 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.1.0/24, selected=0x0
+2025/07/18 19:50:22.551995 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.16.0.0/24
+2025/07/18 19:50:22.551995 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.16.0.0/24, selected=0x0
+2025/07/18 19:50:22.551996 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.1.0/24
+2025/07/18 19:50:22.551997 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.1.0/24, selected=0x0
+2025/07/18 19:50:22.551998 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.15.0.0/24
+2025/07/18 19:50:22.551998 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.15.0.0/24, selected=0x0
+2025/07/18 19:50:22.551999 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.14.1.0/24
+2025/07/18 19:50:22.552000 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.1.0/24, selected=0x0
+2025/07/18 19:50:22.552001 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.14.0.0/24
+2025/07/18 19:50:22.552001 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.14.0.0/24, selected=0x0
+2025/07/18 19:50:22.552003 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.12.1.0/24
+2025/07/18 19:50:22.552003 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.1.0/24, selected=0x0
+2025/07/18 19:50:22.552004 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.12.0.0/24
+2025/07/18 19:50:22.552004 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.12.0.0/24, selected=0x0
+2025/07/18 19:50:22.552083 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.17.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552085 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.17.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552088 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.16.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552088 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.16.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552089 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.15.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552089 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.15.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552090 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.14.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552091 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.14.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552091 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.12.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552092 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.12.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.552093 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 63 numpfx 10
+2025/07/18 19:50:22.652796 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.15.1 
+2025/07/18 19:50:22.652798 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.20.1 
+2025/07/18 19:50:22.678615 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.15.1 
+2025/07/18 19:50:22.678616 BGP: [TPJB2-AQ2TG] Processing EVPN MAC interface change on peer 9.0.20.1 
+2025/07/18 19:50:22.702813 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.13.0.0/24
+2025/07/18 19:50:22.702816 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.0.0/24, selected=0x0
+2025/07/18 19:50:22.702826 BGP: [Z38CW-7NYWG] group_announce_route_walkcb: afi=IPv4, safi=unicast, p=10.13.1.0/24
+2025/07/18 19:50:22.702826 BGP: [T5JFA-13199] subgroup_process_announce_selected: p=10.13.1.0/24, selected=0x0
+2025/07/18 19:50:22.702852 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.13.0.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.702853 BGP: [WHJ94-YXNE1] u1:s1 send UPDATE 10.13.1.0/24 IPv4 unicast -- unreachable
+2025/07/18 19:50:22.702854 BGP: [G259R-NCBEJ] u1:s1 send UPDATE (withdraw) len 31 numpfx 2
