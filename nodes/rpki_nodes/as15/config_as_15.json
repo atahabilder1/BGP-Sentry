@@ -1,0 +1,18 @@
+{
+  "my_asn": 65001,
+  "validators": {
+    "65001": true,
+    "65002": true,
+    "65003": true,
+    "65004": true,
+    "65005": true
+  },
+  "trust_threshold": 70,
+  "stake_boost_threshold": 50,
+  "required_stake": 100,
+  "stake_boost_score": 20,
+  "round_time": 10,
+  "private_key_path": "nodes/rpki_nodes/keys/private/private_key_65001.pem",
+  "public_key_path": "nodes/rpki_nodes/keys/public/public_key_65001.pem",
+  "AS": 15
+}
