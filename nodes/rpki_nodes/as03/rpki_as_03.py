@@ -9,7 +9,9 @@ import json
 import os
 import time
 from datetime import datetime
+print("trying to import blockchain")
 from blockchain.block import Block
+print("trying to import blockchain")
 from blockchain.blockchain import add_block, get_chain_length
 from blockchain.trust_state import get_trust, set_trust
 import hashlib
