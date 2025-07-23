@@ -1,0 +1,15 @@
+2025-07-23 16:43:53,125 [INFO] Step 2 completed: Added parent folder to sys.path.
+2025-07-23 16:43:53,126 [INFO] Step 3 completed: Imported blockchain modules.
+2025-07-23 16:43:53,126 [INFO] Step 4 completed: Set up file paths (config: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/config_as_03.json, key: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/private_key_03.pem, log: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/R3-bgpd.log).
+2025-07-23 16:43:53,126 [ERROR] Step 5 failed: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/config_as_03.json not found.
+2025-07-23 16:47:53,360 [INFO] Step 2 completed: Added parent folder to sys.path.
+2025-07-23 16:47:53,362 [INFO] Step 3 completed: Imported blockchain modules.
+2025-07-23 16:47:53,362 [INFO] Step 4 completed: Set up file paths (config: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/config_as_03.json, key: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/private_key_03.pem, log: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/R3-bgpd.log).
+2025-07-23 16:47:53,362 [ERROR] Step 5 failed: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/config_as_03.json not found.
+2025-07-23 16:51:12,081 [INFO] Step 2 completed: Added parent folder to sys.path.
+2025-07-23 16:51:12,082 [INFO] Step 3 completed: Imported blockchain modules.
+2025-07-23 16:51:12,082 [INFO] Step 4 completed: Set up file paths (config: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/config_as_03.json, key: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as_03_private_key.pem, log: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/R3-bgpd.log).
+2025-07-23 16:51:12,082 [INFO] Step 5 completed: Loaded configuration (ASN: 65003, Trust Threshold: 70, Debug: True).
+2025-07-23 16:51:12,082 [INFO] 🔐 RPKI Node 65003 started.
+2025-07-23 16:51:12,084 [INFO] Step 6 completed: Parsed 0 announcements from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/R3-bgpd.log.
+2025-07-23 16:51:12,084 [INFO] Step 9 completed: Found 0 announcements to process.
