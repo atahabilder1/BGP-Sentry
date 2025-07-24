@@ -1,0 +1,54 @@
+{
+  "bgp_announcements": [
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.0.0.0/16", "10.1.0.0/16"],
+      "timestamp": "2025-07-24T14:00:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.2.0.0/16"],
+      "timestamp": "2025-07-24T14:01:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.3.0.0/16", "10.4.0.0/16"],
+      "timestamp": "2025-07-24T14:02:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.5.0.0/16"],
+      "timestamp": "2025-07-24T14:03:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.6.0.0/16", "10.7.0.0/16"],
+      "timestamp": "2025-07-24T14:04:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.8.0.0/16"],
+      "timestamp": "2025-07-24T14:05:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.9.0.0/16", "10.10.0.0/16"],
+      "timestamp": "2025-07-24T14:06:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.11.0.0/16"],
+      "timestamp": "2025-07-24T14:07:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.12.0.0/16", "10.13.0.0/16"],
+      "timestamp": "2025-07-24T14:08:10Z"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": ["10.14.0.0/16"],
+      "timestamp": "2025-07-24T14:09:10Z"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "bgp_announcements": [
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.100.0/24", "198.51.101.0/24"],
+      "timestamp": "2025-07-24T14:00:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.102.0/24"],
+      "timestamp": "2025-07-24T14:01:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.103.0/24", "198.51.104.0/24"],
+      "timestamp": "2025-07-24T14:02:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.105.0/24"],
+      "timestamp": "2025-07-24T14:03:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.106.0/24", "198.51.107.0/24"],
+      "timestamp": "2025-07-24T14:04:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.108.0/24"],
+      "timestamp": "2025-07-24T14:05:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.109.0/24", "198.51.110.0/24"],
+      "timestamp": "2025-07-24T14:06:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.111.0/24"],
+      "timestamp": "2025-07-24T14:07:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.112.0/24", "198.51.113.0/24"],
+      "timestamp": "2025-07-24T14:08:40Z"
+    },
+    {
+      "sender_asn": 10,
+      "announced_prefixes": ["198.51.114.0/24"],
+      "timestamp": "2025-07-24T14:09:40Z"
+    }
+  ]
+}
