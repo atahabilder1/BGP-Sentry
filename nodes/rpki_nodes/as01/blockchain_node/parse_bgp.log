@@ -1,0 +1,99 @@
+2025-07-26 07:31:53,360 [INFO] Starting parse_bgp.py
+2025-07-26 07:31:53,360 [INFO] Starting parse_bgp_announcement
+2025-07-26 07:31:53,360 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 07:31:53,360 [DEBUG] Resolved shared_data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data
+2025-07-26 07:31:53,361 [DEBUG] Full path to bgpd.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/bgpd.json
+2025-07-26 07:31:53,361 [DEBUG] Full path to trust_state.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/trust_state.json
+2025-07-26 07:31:53,361 [INFO] Checking for input files
+2025-07-26 07:31:53,361 [DEBUG] Checking if bgpd.json exists: False
+2025-07-26 07:31:53,361 [DEBUG] Checking if trust_state.json exists: False
+2025-07-26 07:31:53,361 [ERROR] bgpd.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/bgpd.json
+2025-07-26 07:31:53,361 [INFO] Finished parse_bgp.py
+2025-07-26 07:31:53,361 [ERROR] Parsing failed, no data returned
+2025-07-26 07:41:04,018 [INFO] Starting parse_bgp.py
+2025-07-26 07:41:04,019 [INFO] Starting parse_bgp_announcement
+2025-07-26 07:41:04,019 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 07:41:04,019 [DEBUG] Resolved shared_data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data
+2025-07-26 07:41:04,019 [DEBUG] Full path to bgpd.json: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/bgpd.json
+2025-07-26 07:41:04,019 [DEBUG] Full path to trust_state.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/trust_state.json
+2025-07-26 07:41:04,020 [INFO] Checking for input files
+2025-07-26 07:41:04,020 [DEBUG] Checking if bgpd.json exists: True
+2025-07-26 07:41:04,020 [DEBUG] Checking if trust_state.json exists: False
+2025-07-26 07:41:04,020 [ERROR] trust_state.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/trust_state.json
+2025-07-26 07:41:04,020 [INFO] Finished parse_bgp.py
+2025-07-26 07:41:04,020 [ERROR] Parsing failed, no data returned
+2025-07-26 07:42:11,045 [INFO] Starting parse_bgp.py
+2025-07-26 07:42:11,045 [INFO] Starting parse_bgp_announcement
+2025-07-26 07:42:11,045 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 07:42:11,046 [DEBUG] Resolved shared_data directory: /home/anik/code/BGP_Announcement_Recorder/shared_data
+2025-07-26 07:42:11,046 [DEBUG] Full path to bgpd.json: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/bgpd.json
+2025-07-26 07:42:11,046 [DEBUG] Full path to trust_state.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/trust_state.json
+2025-07-26 07:42:11,047 [INFO] Checking for input files
+2025-07-26 07:42:11,047 [DEBUG] Checking if bgpd.json exists: True
+2025-07-26 07:42:11,047 [DEBUG] Checking if trust_state.json exists: True
+2025-07-26 07:42:11,047 [INFO] Input files found
+2025-07-26 07:42:11,047 [INFO] Reading bgpd.json
+2025-07-26 07:42:11,047 [DEBUG] bgpd.json content: {
+  "bgp_announcements": [
+    {
+      "sender_asn": 2,
+      "announced_prefixes": [
+        "203.0.113.0/24"
+      ],
+      "timestamp": "2025-07-24T14:00:00Z"
+    }
+  ]
+}
+2025-07-26 07:42:11,048 [INFO] Reading trust_state.json
+2025-07-26 07:42:11,048 [DEBUG] trust_state.json content: {
+  "2_203.0.113.0/24": 74,
+  "2_198.51.100.0/24": 79,
+  "4_203.0.113.0/24": 71,
+  "4_198.51.100.0/24": 78,
+  "6_203.0.113.0/24": 75,
+  "6_198.51.100.0/24": 70,
+  "8_192.0.2.0/24": 77,
+  "8_172.16.0.0/16": 72,
+  "10_203.0.113.0/24": 76,
+  "10_198.51.100.0/24": 70,
+  "12_198.51.100.0/24": 80,
+  "12_203.0.113.0/24": 73,
+  "14_192.0.2.0/24": 78,
+  "14_172.16.0.0/16": 74,
+  "16_192.0.2.0/24": 79,
+  "16_172.16.0.0/16": 70,
+  "18_192.0.2.0/24": 75,
+  "18_172.16.0.0/16": 71
+}
+2025-07-26 07:42:11,048 [INFO] Validating bgpd.json structure
+2025-07-26 07:42:11,048 [DEBUG] Number of announcements: 1
+2025-07-26 07:42:11,048 [INFO] Prompting user for announcement index
+2025-07-26 07:42:20,170 [DEBUG] User input index: 1
+2025-07-26 07:42:20,170 [DEBUG] Selected announcement: {
+  "sender_asn": 2,
+  "announced_prefixes": [
+    "203.0.113.0/24"
+  ],
+  "timestamp": "2025-07-24T14:00:00Z"
+}
+2025-07-26 07:42:20,170 [DEBUG] Extracted fields: sender_asn=2, prefixes=['203.0.113.0/24'], timestamp=2025-07-24T14:00:00Z
+2025-07-26 07:42:20,170 [DEBUG] Selected IP prefix: 203.0.113.0/24
+2025-07-26 07:42:20,170 [DEBUG] Extracted prefix length: 24
+2025-07-26 07:42:20,170 [DEBUG] Trust score for sender_asn 2: N/A
+2025-07-26 07:42:20,170 [WARNING] No trust score found for sender_asn 2 in announcement 1
+2025-07-26 07:42:20,171 [INFO] Parsed announcement 1 successfully
+2025-07-26 07:42:20,171 [DEBUG] Returning parsed result: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 07:42:20,171 [INFO] Finished parse_bgp.py
+2025-07-26 07:42:20,171 [DEBUG] Parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}

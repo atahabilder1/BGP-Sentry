@@ -47,8 +47,8 @@ def parse_bgp_announcement():
     logger.debug("Current script directory: %s", current_dir)
 
     # Construct paths, going three levels up to shared_data
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
-    bgpd_path = shared_data_dir / "bgpd.json"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".." / "shared_data"
+    bgpd_path =  current_dir / ".." / "bgpd.json"
     trust_state_path = shared_data_dir / "trust_state.json"
 
     # Resolve to absolute paths for verification
