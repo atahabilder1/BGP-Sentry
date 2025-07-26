@@ -1,0 +1,1140 @@
+2025-07-26 08:11:23,977 [INFO] Starting create_transaction.py
+2025-07-26 08:11:23,977 [INFO] Starting create_transaction
+2025-07-26 08:11:23,977 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:11:23,977 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:11:23,978 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:11:23,978 [DEBUG] Full path to public_key.pem: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/public_keys/2.pem
+2025-07-26 08:11:23,978 [INFO] Generating key pair for signing
+2025-07-26 08:11:23,978 [INFO] Generating RSA key pair
+2025-07-26 08:11:24,045 [DEBUG] RSA key pair generated successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x73eea315ea30>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x73eea315e790>
+2025-07-26 08:11:24,045 [INFO] Saving public key
+2025-07-26 08:11:24,045 [INFO] Saving public key to /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/public_keys/2.pem
+2025-07-26 08:11:24,045 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtQmFFPHD3e9UvYXvmeZi
+IaK9kZQCxYiB92IvKMivspekRSP2NfZDyeO0O67OZlCiIrkkZT6FQqnRq/y6X0fP
+5Q3+RrYgxDMIDhNUtMq/nDgrYvBfjqBe/n2nQUjxJ7+mlxDsBeCAg2GK79HV6dzv
+7NHsazZHiHcx688QV1F4aoLI9yH4Dr9Paa6Xr/9nlW+uSmftq3pml348CeTgw0YN
+3OuQCiKJwEdBwP3zJySeKf8HgLAeibrE0dWTWXoR6PhPx4CY7OEPthdRjlO1oaxY
+Y5zq4D1DUKgOsZ/5nZ3VTC6W7PwjxmKzDLr20iwUIqn3HHPLJzgZzUiZ7PWpPnYT
+vwIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:11:24,045 [DEBUG] Public key saved successfully
+2025-07-26 08:11:24,046 [DEBUG] Prepared transaction: {
+  "transaction_id": "fa577712-7264-46f4-84d2-253325bde978",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:11:24.046314Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:11:24,046 [INFO] Signing transaction
+2025-07-26 08:11:24,046 [INFO] Preparing to sign transaction: {
+  "transaction_id": "fa577712-7264-46f4-84d2-253325bde978",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:11:24.046314Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:11:24,046 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "fa577712-7264-46f4-84d2-253325bde978", "transaction_timestamp": "2025-07-26T12:11:24.046314Z", "trust_score": "N/A"}
+2025-07-26 08:11:24,046 [DEBUG] Transaction data hash: 05f39b53964b5380c62e1e5a21a44571f4d14629d2b348b8ba7bce512af56481
+2025-07-26 08:11:24,048 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 2d88c17f5ec3e44a3b19af73e65f14f9825668e515951f644172dc8371c554f1...
+2025-07-26 08:11:24,048 [INFO] Transaction signed successfully
+2025-07-26 08:11:24,048 [INFO] Adding transaction to pool
+2025-07-26 08:11:24,048 [INFO] Starting add_transaction for transaction_id: fa577712-7264-46f4-84d2-253325bde978
+2025-07-26 08:11:24,048 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:11:24,049 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:11:24,049 [INFO] Checking transaction_pool.json
+2025-07-26 08:11:24,049 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 08:11:24,049 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 08:11:24,049 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:11:24,049 [DEBUG] Transaction added: {
+  "transaction_id": "fa577712-7264-46f4-84d2-253325bde978",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:11:24.046314Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "2d88c17f5ec3e44a3b19af73e65f14f9825668e515951f644172dc8371c554f12e62f2bf018450799dac772b4ab54fa703cd4a210ee3c4ccd5a48b37ab044da46862752fa2a712d6ec9bc6c8b3b0a71f56675c08ef4de4ed86bb4b2bdca00965715e37f514b6780f9647f75494c0da4e2fe0f4cd04411d1fef016b223b0a1bfa9f5b6d2cea13f57c8ab94225dd19a4fcfbe579a41661086105c80ebc5fafb7252cac4739c4863745c4c7336a79d32014a0de7e7ad8efc8145957ff4886c85a2635df58843fb46c824a296064143091582cd429c9dded6c984aebfa59749dc9c7fab443aa0083d15ab168e637ebdce46ed924b0f89fab124d26168af8daee2e64"
+}
+2025-07-26 08:11:24,049 [INFO] Writing to transaction_pool.json
+2025-07-26 08:11:24,049 [INFO] Transaction fa577712-7264-46f4-84d2-253325bde978 added to transaction_pool.json
+2025-07-26 08:11:24,049 [INFO] Transaction fa577712-7264-46f4-84d2-253325bde978 added to transaction_pool.json
+2025-07-26 08:11:24,050 [INFO] Finished create_transaction.py
+2025-07-26 08:11:24,050 [DEBUG] Created transaction_id: fa577712-7264-46f4-84d2-253325bde978
+2025-07-26 08:16:39,045 [INFO] Starting create_transaction.py
+2025-07-26 08:16:39,045 [INFO] Starting create_transaction
+2025-07-26 08:16:39,045 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:16:39,045 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:16:39,045 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:16:39,046 [DEBUG] Full path to public_key.pem: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:16:39,046 [INFO] Generating key pair for signing
+2025-07-26 08:16:39,046 [INFO] Generating RSA key pair
+2025-07-26 08:16:39,086 [DEBUG] RSA key pair generated successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7f47e7765ff0>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7f47e7765fb0>
+2025-07-26 08:16:39,087 [INFO] Saving public key
+2025-07-26 08:16:39,087 [INFO] Saving public key to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:16:39,087 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzs3xHgwzK0Gh0cDjZG9M
+KpwCfZJsSgxWaG52/IeqSfs38XRRH51OgArxHD3Dxfs8MmFeXZdIoUiEJXIutY4w
+TvJyFZcyyhej+ZybqQJA3SIj0sYAVlUG0Xw6Senz8BZ1pbXSljOQDlaYx/bN+J6c
++4/D0gJF8dMQEcne+wuhstn/nE4lNq6xi4e8I0aOBAOI/L18dW7gBwK3f9JLoguc
+i06MMe0id66gQj4w65ZkNBArQWNV1jBRtxzI4PUuM1xs84iZVCTBIUGVgSUEbJnt
+cryyfzBI4D45WnVzL7BUZRpQs+Rl8cMQ2gvOSXYDHhthYVoBEqNoW7yd128ax/Dh
+XwIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:16:39,087 [DEBUG] Public key saved successfully
+2025-07-26 08:16:39,087 [DEBUG] Prepared transaction: {
+  "transaction_id": "086ebc38-ef7c-4420-adad-b9505c03c301",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:16:39.087794Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:16:39,087 [INFO] Signing transaction
+2025-07-26 08:16:39,088 [INFO] Preparing to sign transaction: {
+  "transaction_id": "086ebc38-ef7c-4420-adad-b9505c03c301",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:16:39.087794Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:16:39,088 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "086ebc38-ef7c-4420-adad-b9505c03c301", "transaction_timestamp": "2025-07-26T12:16:39.087794Z", "trust_score": "N/A"}
+2025-07-26 08:16:39,088 [DEBUG] Transaction data hash: e2688588df41ab52b99fedc99aaac77354f7c06eb154e45789f3a6627584af43
+2025-07-26 08:16:39,089 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 3ec5b59066927674233a72b608abf881bb16c36f6eff8a60ef348ade1c1e303d...
+2025-07-26 08:16:39,090 [INFO] Transaction signed successfully
+2025-07-26 08:16:39,090 [INFO] Adding transaction to pool
+2025-07-26 08:16:39,090 [INFO] Starting add_transaction for transaction_id: 086ebc38-ef7c-4420-adad-b9505c03c301
+2025-07-26 08:16:39,090 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:16:39,090 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:16:39,090 [INFO] Checking transaction_pool.json
+2025-07-26 08:16:39,090 [DEBUG] Checking if transaction_pool.json exists: True
+2025-07-26 08:16:39,090 [DEBUG] transaction_pool.json exists at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:16:39,090 [DEBUG] transaction_pool.json content: {
+  "transactions": [
+    {
+      "transaction_id": "fa577712-7264-46f4-84d2-253325bde978",
+      "sender_asn": 2,
+      "ip_prefix": "203.0.113.0/24",
+      "timestamp": "2025-07-24T14:00:00Z",
+      "trust_score": "N/A",
+      "transaction_timestamp": "2025-07-26T12:11:24.046314Z",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "votes": [],
+      "signature": "2d88c17f5ec3e44a3b19af73e65f14f9825668e515951f644172dc8371c554f12e62f2bf018450799dac772b4ab54fa703cd4a210ee3c4ccd5a48b37ab044da46862752fa2a712d6ec9bc6c8b3b0a71f56675c08ef4de4ed86bb4b2bdca00965715e37f514b6780f9647f75494c0da4e2fe0f4cd04411d1fef016b223b0a1bfa9f5b6d2cea13f57c8ab94225dd19a4fcfbe579a41661086105c80ebc5fafb7252cac4739c4863745c4c7336a79d32014a0de7e7ad8efc8145957ff4886c85a2635df58843fb46c824a296064143091582cd429c9dded6c984aebfa59749dc9c7fab443aa0083d15ab168e637ebdce46ed924b0f89fab124d26168af8daee2e64"
+    }
+  ]
+}
+2025-07-26 08:16:39,090 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:16:39,090 [DEBUG] Transaction added: {
+  "transaction_id": "086ebc38-ef7c-4420-adad-b9505c03c301",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:16:39.087794Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "3ec5b59066927674233a72b608abf881bb16c36f6eff8a60ef348ade1c1e303d0b947b2da153aa40da9720b3e611c20df12c8bc4f477167638ad9c1d2ed1324c54fe273e9080c148f4b9a38581557fe77e02db2853a91f5605bbb1ae441fa8079aa695292a216b4ee28286d5727edc460540a5ecd603b50ebbc9bdb59293af7eb9590b7d4f392e33f5c4bd9266bf0d792a27a5e81b64fd6e29ee9b122cc6bf9fceab892a75a6ebc52aca537dd38e99b06b4f3c9030ce6366299d8b8d6c362e1be1c638d0cc5808fd125ee59363b5d0f612db2697ca457a8b8becd119877d8c91c1778b92aa0ea277d3e146c05dc1f7d251f20dc6aedfba281fe3d94d3ea39b91"
+}
+2025-07-26 08:16:39,091 [INFO] Writing to transaction_pool.json
+2025-07-26 08:16:39,091 [INFO] Transaction 086ebc38-ef7c-4420-adad-b9505c03c301 added to transaction_pool.json
+2025-07-26 08:16:39,091 [INFO] Transaction 086ebc38-ef7c-4420-adad-b9505c03c301 added to transaction_pool.json
+2025-07-26 08:16:39,091 [INFO] Finished create_transaction.py
+2025-07-26 08:16:39,091 [DEBUG] Created transaction_id: 086ebc38-ef7c-4420-adad-b9505c03c301
+2025-07-26 08:25:55,002 [INFO] Starting create_transaction.py
+2025-07-26 08:25:55,002 [INFO] Starting create_transaction
+2025-07-26 08:25:55,002 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:25:55,002 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:25:55,002 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:25:55,002 [DEBUG] Full path to public_key.pem: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:25:55,002 [INFO] Generating key pair for signing
+2025-07-26 08:25:55,003 [INFO] Generating RSA key pair
+2025-07-26 08:25:55,031 [DEBUG] RSA key pair generated successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x78eeb8d660b0>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x78eeb8d65ff0>
+2025-07-26 08:25:55,031 [INFO] Saving public key
+2025-07-26 08:25:55,031 [INFO] Saving public key to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:25:55,032 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3kN/25F8S+ETLuuOid2/
+MRr0xBa4Uc+G3F69Vb7vEH0PBut9JpNY72fPUNwcRJ7Cofc7DGocsd/VYMjM33tA
+nPXaddYh2K24lRPlwSP1cncOxDlgciW2BalFepKMjlY31ZVyutOHRECDQfJcHJQr
+zMpwomrfSOGCosFsUTWj+zeJ9WyCecj6GTIW2JfXOK2OQl+qRSmSI92dBPVDglFm
+C4/mK+5hlaxlLhuMUdy5bmU4HJYjIFNLzhQss/TLB8jnuQBa/CUHH/QbXbLWyox8
+b1EmEB1/izmFtOBoFFb7tf+SFNcGRVgM0fme7SmuDHL0Wdfh7A5FGVJH7f7sQAtO
+LQIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:25:55,032 [DEBUG] Public key saved successfully
+2025-07-26 08:25:55,032 [DEBUG] Prepared transaction: {
+  "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:25:55.032796Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:25:55,032 [INFO] Signing transaction
+2025-07-26 08:25:55,033 [INFO] Preparing to sign transaction: {
+  "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:25:55.032796Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:25:55,033 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff", "transaction_timestamp": "2025-07-26T12:25:55.032796Z", "trust_score": "N/A"}
+2025-07-26 08:25:55,033 [DEBUG] Transaction data hash: 9e7d150f70722632ae825b621c96f9c30666e514431afabd52fe99f95cc063f9
+2025-07-26 08:25:55,035 [DEBUG] Transaction signed, signature length: 256 bytes, signature: a038766ece6e799b958b7bbdb29e1d4f092f987130a96e356110e300913c363b...
+2025-07-26 08:25:55,035 [INFO] Transaction signed successfully
+2025-07-26 08:25:55,035 [INFO] Adding transaction to pool
+2025-07-26 08:25:55,035 [INFO] Starting add_transaction for transaction_id: 74e67e46-5011-4372-b827-4a0af2a800ff
+2025-07-26 08:25:55,035 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:25:55,035 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:25:55,035 [INFO] Checking transaction_pool.json
+2025-07-26 08:25:55,036 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 08:25:55,036 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 08:25:55,036 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:25:55,036 [DEBUG] Transaction added: {
+  "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:25:55.032796Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "a038766ece6e799b958b7bbdb29e1d4f092f987130a96e356110e300913c363b1c8312cc450d554ec2aad5422112bad97a5d4d153216f95b837c59579b5ac18b99f6e44dd994ad57ba865c38651c35c5bbf110485683eabc4525941e7e9d06861473e7dc1773f0c32ef7cc601736b1dc0c33280e3b9d9d6b94462a1ad79442fab05232de5aec2437ac4e71f438798c51cb94f6fc25fa2f4fd2247c13725372abb79ae621f335d66b7673f551f05cce8852c09c7fbf4f762dce7662c3bcc0945d6fffe1804968df54925a5b8a5cb17df60e5cd07b270497c9f9e6b0c11ae539dae5293028ada84c2a36034092360df7810494576226e2344536ef455e6df74f91"
+}
+2025-07-26 08:25:55,036 [INFO] Writing to transaction_pool.json
+2025-07-26 08:25:55,037 [INFO] Transaction 74e67e46-5011-4372-b827-4a0af2a800ff added to transaction_pool.json
+2025-07-26 08:25:55,037 [INFO] Transaction 74e67e46-5011-4372-b827-4a0af2a800ff added to transaction_pool.json
+2025-07-26 08:25:55,038 [INFO] Finished create_transaction.py
+2025-07-26 08:25:55,038 [DEBUG] Created transaction_id: 74e67e46-5011-4372-b827-4a0af2a800ff
+2025-07-26 08:28:08,190 [INFO] Starting create_transaction.py
+2025-07-26 08:28:08,190 [INFO] Starting create_transaction
+2025-07-26 08:28:08,190 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:28:08,190 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:28:08,190 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:28:08,191 [DEBUG] Full path to public_key.pem: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:28:08,191 [INFO] Generating key pair for signing
+2025-07-26 08:28:08,191 [INFO] Generating RSA key pair
+2025-07-26 08:28:08,231 [DEBUG] RSA key pair generated successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7064a43620b0>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7064a4361ff0>
+2025-07-26 08:28:08,231 [INFO] Saving public key
+2025-07-26 08:28:08,231 [INFO] Saving public key to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_keys/2.pem
+2025-07-26 08:28:08,231 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzRgH20WINcW62MGEDx16
+oXwVqlsJwXnqqRYLEjEE81/YtyB+txwo3iQV8g3nH97Xe01LNY209bItojcTjKhL
+Bcr8x2j+FmOxyNmk0wMYlmptKCOoVq+oJIG8qTm4Rdq+b7PcyI4HAiQk7WlbdfMG
+0LwCtox+EQcevVaQ4pshuaQdSfKpg8fU9PDJf3WWsgebDgHIC6/vdn204e7BCrZr
+5c2+9XopAqLsMnynrGj0qT+Mw9ZSQb/V7EvJKUvDxHgt514SsHekjrdHtTKz55LC
+Od4gjrzZyKzLoCizDsha7ZGnXQRFmULAVSFNvU9IA/2zP24MgJzZsat5abKuhQux
+IQIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:28:08,232 [DEBUG] Public key saved successfully
+2025-07-26 08:28:08,232 [DEBUG] Prepared transaction: {
+  "transaction_id": "5255fceb-a3bb-468e-9cf0-f7913a14fb02",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:28:08.232723Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:28:08,232 [INFO] Signing transaction
+2025-07-26 08:28:08,232 [INFO] Preparing to sign transaction: {
+  "transaction_id": "5255fceb-a3bb-468e-9cf0-f7913a14fb02",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:28:08.232723Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:28:08,233 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "5255fceb-a3bb-468e-9cf0-f7913a14fb02", "transaction_timestamp": "2025-07-26T12:28:08.232723Z", "trust_score": "N/A"}
+2025-07-26 08:28:08,233 [DEBUG] Transaction data hash: ead5092b461385d8a4408f629e7b598a2a44b3dc3102437637668abc3cab94d9
+2025-07-26 08:28:08,234 [DEBUG] Transaction signed, signature length: 256 bytes, signature: bf8b48e4f3c08b31c2223bc78122409a4f50d0a2214b539ff147d18fb158b8aa...
+2025-07-26 08:28:08,235 [INFO] Transaction signed successfully
+2025-07-26 08:28:08,235 [INFO] Adding transaction to pool
+2025-07-26 08:28:08,235 [INFO] Starting add_transaction for transaction_id: 5255fceb-a3bb-468e-9cf0-f7913a14fb02
+2025-07-26 08:28:08,235 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:28:08,235 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:28:08,235 [INFO] Checking transaction_pool.json
+2025-07-26 08:28:08,235 [DEBUG] Checking if transaction_pool.json exists: True
+2025-07-26 08:28:08,235 [DEBUG] transaction_pool.json exists at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:28:08,235 [DEBUG] transaction_pool.json content: {
+  "transactions": [
+    {
+      "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff",
+      "sender_asn": 2,
+      "ip_prefix": "203.0.113.0/24",
+      "timestamp": "2025-07-24T14:00:00Z",
+      "trust_score": "N/A",
+      "transaction_timestamp": "2025-07-26T12:25:55.032796Z",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "votes": [],
+      "signature": "a038766ece6e799b958b7bbdb29e1d4f092f987130a96e356110e300913c363b1c8312cc450d554ec2aad5422112bad97a5d4d153216f95b837c59579b5ac18b99f6e44dd994ad57ba865c38651c35c5bbf110485683eabc4525941e7e9d06861473e7dc1773f0c32ef7cc601736b1dc0c33280e3b9d9d6b94462a1ad79442fab05232de5aec2437ac4e71f438798c51cb94f6fc25fa2f4fd2247c13725372abb79ae621f335d66b7673f551f05cce8852c09c7fbf4f762dce7662c3bcc0945d6fffe1804968df54925a5b8a5cb17df60e5cd07b270497c9f9e6b0c11ae539dae5293028ada84c2a36034092360df7810494576226e2344536ef455e6df74f91"
+    }
+  ]
+}
+2025-07-26 08:28:08,236 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:28:08,236 [DEBUG] Transaction added: {
+  "transaction_id": "5255fceb-a3bb-468e-9cf0-f7913a14fb02",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:28:08.232723Z",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "bf8b48e4f3c08b31c2223bc78122409a4f50d0a2214b539ff147d18fb158b8aac4cf64eadbd85dc9fe912f2b9d46264a734bfdde26986d87a6ac76373db951f364ae1567a0cdc71b738f513202ae7f50786650cf1a5a844793e20c9eafda5dafacb9079c2eba717c5f95cacc3bbbcfada67db141acbecaea4cb329450a68aa1472be6d3a63ccf8bd382c5694adb3ccf7750768b721617ca907532413f3427372c204fd289c06f5059765edb813acfe34637e3be49fbbb58362b26c6a17eddf042ecf5211619d5a5088154d7c8b7d1e265bbd617cb1dc4c18cc811ac667614af2cfb7accd17f0c4bf7ef169a550dae843f5c2b29a796e648fdfd31d42a9e30362"
+}
+2025-07-26 08:28:08,236 [INFO] Writing to transaction_pool.json
+2025-07-26 08:28:08,236 [INFO] Transaction 5255fceb-a3bb-468e-9cf0-f7913a14fb02 added to transaction_pool.json
+2025-07-26 08:28:08,236 [INFO] Transaction 5255fceb-a3bb-468e-9cf0-f7913a14fb02 added to transaction_pool.json
+2025-07-26 08:28:08,236 [INFO] Finished create_transaction.py
+2025-07-26 08:28:08,236 [DEBUG] Created transaction_id: 5255fceb-a3bb-468e-9cf0-f7913a14fb02
+2025-07-26 08:40:24,178 [INFO] Starting create_transaction.py
+2025-07-26 08:40:24,179 [INFO] Starting create_transaction
+2025-07-26 08:40:24,179 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:40:24,179 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:40:24,180 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:40:24,180 [DEBUG] Full path to public_key_registry.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:40:24,180 [INFO] Loading private key
+2025-07-26 08:40:24,180 [INFO] Loading private key from private_key.pem
+2025-07-26 08:40:24,180 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 08:40:24,180 [ERROR] private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 08:40:24,180 [ERROR] Failed to load private key: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 08:40:24,181 [ERROR] Unexpected error: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 177, in create_transaction
+    private_key, public_key = load_private_key()
+                              ^^^^^^^^^^^^^^^^^^
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 08:40:24,181 [INFO] Finished create_transaction.py
+2025-07-26 08:40:24,181 [ERROR] Transaction creation failed
+2025-07-26 08:41:04,614 [INFO] Starting create_transaction.py
+2025-07-26 08:41:04,614 [INFO] Starting create_transaction
+2025-07-26 08:41:04,614 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:41:04,615 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:41:04,615 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:41:04,615 [DEBUG] Full path to public_key_registry.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:41:04,615 [INFO] Loading private key
+2025-07-26 08:41:04,615 [INFO] Loading private key from private_key.pem
+2025-07-26 08:41:04,615 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 08:41:04,616 [DEBUG] Private key PEM loaded
+2025-07-26 08:41:04,665 [DEBUG] Private key and public key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7bd7aad65eb0>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7bd7aad65ef0>
+2025-07-26 08:41:04,665 [INFO] Saving public key
+2025-07-26 08:41:04,665 [INFO] Saving public key for ASN 2 to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:41:04,665 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag
+MU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P
+RNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC
+XgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU
+ByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R
+niyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q
+owIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:41:04,666 [DEBUG] Public key saved successfully for ASN 2
+2025-07-26 08:41:04,666 [DEBUG] Prepared transaction: {
+  "transaction_id": "64433701-f2f2-4ac9-8e57-048ea8fa361f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:41:04.666300+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:41:04,666 [INFO] Signing transaction
+2025-07-26 08:41:04,666 [INFO] Preparing to sign transaction: {
+  "transaction_id": "64433701-f2f2-4ac9-8e57-048ea8fa361f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:41:04.666300+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:41:04,666 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "64433701-f2f2-4ac9-8e57-048ea8fa361f", "transaction_timestamp": "2025-07-26T12:41:04.666300+00:00", "trust_score": "N/A"}
+2025-07-26 08:41:04,666 [DEBUG] Transaction data hash: 283845a069e55660e958a856dd5807db9ccb518dc4de756eac2019b943108dec
+2025-07-26 08:41:04,669 [DEBUG] Transaction signed, signature length: 256 bytes, signature: c42af85b7135a982350022553eb8dd05a507ca9c9e85d62702da6db958c834db...
+2025-07-26 08:41:04,669 [INFO] Transaction signed successfully
+2025-07-26 08:41:04,669 [INFO] Adding transaction to pool
+2025-07-26 08:41:04,669 [INFO] Starting add_transaction for transaction_id: 64433701-f2f2-4ac9-8e57-048ea8fa361f
+2025-07-26 08:41:04,669 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:41:04,669 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:41:04,670 [INFO] Checking transaction_pool.json
+2025-07-26 08:41:04,670 [DEBUG] Checking if transaction_pool.json exists: True
+2025-07-26 08:41:04,670 [DEBUG] transaction_pool.json exists at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:41:04,670 [DEBUG] transaction_pool.json content: {
+  "transactions": [
+    {
+      "transaction_id": "74e67e46-5011-4372-b827-4a0af2a800ff",
+      "sender_asn": 2,
+      "ip_prefix": "203.0.113.0/24",
+      "timestamp": "2025-07-24T14:00:00Z",
+      "trust_score": "N/A",
+      "transaction_timestamp": "2025-07-26T12:25:55.032796Z",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "votes": [],
+      "signature": "a038766ece6e799b958b7bbdb29e1d4f092f987130a96e356110e300913c363b1c8312cc450d554ec2aad5422112bad97a5d4d153216f95b837c59579b5ac18b99f6e44dd994ad57ba865c38651c35c5bbf110485683eabc4525941e7e9d06861473e7dc1773f0c32ef7cc601736b1dc0c33280e3b9d9d6b94462a1ad79442fab05232de5aec2437ac4e71f438798c51cb94f6fc25fa2f4fd2247c13725372abb79ae621f335d66b7673f551f05cce8852c09c7fbf4f762dce7662c3bcc0945d6fffe1804968df54925a5b8a5cb17df60e5cd07b270497c9f9e6b0c11ae539dae5293028ada84c2a36034092360df7810494576226e2344536ef455e6df74f91"
+    },
+    {
+      "transaction_id": "5255fceb-a3bb-468e-9cf0-f7913a14fb02",
+      "sender_asn": 2,
+      "ip_prefix": "203.0.113.0/24",
+      "timestamp": "2025-07-24T14:00:00Z",
+      "trust_score": "N/A",
+      "transaction_timestamp": "2025-07-26T12:28:08.232723Z",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "votes": [],
+      "signature": "bf8b48e4f3c08b31c2223bc78122409a4f50d0a2214b539ff147d18fb158b8aac4cf64eadbd85dc9fe912f2b9d46264a734bfdde26986d87a6ac76373db951f364ae1567a0cdc71b738f513202ae7f50786650cf1a5a844793e20c9eafda5dafacb9079c2eba717c5f95cacc3bbbcfada67db141acbecaea4cb329450a68aa1472be6d3a63ccf8bd382c5694adb3ccf7750768b721617ca907532413f3427372c204fd289c06f5059765edb813acfe34637e3be49fbbb58362b26c6a17eddf042ecf5211619d5a5088154d7c8b7d1e265bbd617cb1dc4c18cc811ac667614af2cfb7accd17f0c4bf7ef169a550dae843f5c2b29a796e648fdfd31d42a9e30362"
+    }
+  ]
+}
+2025-07-26 08:41:04,670 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:41:04,670 [DEBUG] Transaction added: {
+  "transaction_id": "64433701-f2f2-4ac9-8e57-048ea8fa361f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:41:04.666300+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "c42af85b7135a982350022553eb8dd05a507ca9c9e85d62702da6db958c834dbffd36a39b9aaa8e52f41ccdf3b8c5f4f06ec441613ba396323ba307176d80857cef30422f7ca7bc67badd361323c6d7e427725baa34670fd28e5061759dfe902f79f78a2328db7bad9eaff4f5fdc79b2a5463e128a2b9df2cacbd3856de4b29a171700980d755f2698548274a787d0f10ed2e7cdd3da1ad0486e5ff07586b2ed7005ed8192799cf13303c4088b210679c4b26ebd5048acc623c8ea57b2425c525e7c8a66f57b07d26f764471396802b1c614c931d7510c9cc2a95c1b29ad891ef963805a76a838c6942504448b84c36b2565ddcd79b84b8b6151cdc4f3d52a0d"
+}
+2025-07-26 08:41:04,670 [INFO] Writing to transaction_pool.json
+2025-07-26 08:41:04,671 [INFO] Transaction 64433701-f2f2-4ac9-8e57-048ea8fa361f added to transaction_pool.json
+2025-07-26 08:41:04,671 [INFO] Transaction 64433701-f2f2-4ac9-8e57-048ea8fa361f added to transaction_pool.json
+2025-07-26 08:41:04,671 [INFO] Finished create_transaction.py
+2025-07-26 08:41:04,671 [DEBUG] Created transaction_id: 64433701-f2f2-4ac9-8e57-048ea8fa361f
+2025-07-26 08:42:03,862 [INFO] Starting create_transaction.py
+2025-07-26 08:42:03,862 [INFO] Starting create_transaction
+2025-07-26 08:42:03,862 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:42:03,862 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:42:03,863 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:42:03,863 [DEBUG] Full path to public_key_registry.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:42:03,863 [INFO] Loading private key
+2025-07-26 08:42:03,863 [INFO] Loading private key from private_key.pem
+2025-07-26 08:42:03,864 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 08:42:03,864 [DEBUG] Private key PEM loaded
+2025-07-26 08:42:03,907 [DEBUG] Private key and public key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7938e3765f90>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7938e3765e30>
+2025-07-26 08:42:03,907 [INFO] Saving public key
+2025-07-26 08:42:03,907 [INFO] Saving public key for ASN 2 to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:42:03,908 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag
+MU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P
+RNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC
+XgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU
+ByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R
+niyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q
+owIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:42:03,908 [DEBUG] Existing public_key_registry.json content: {
+  "2": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag\nMU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P\nRNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC\nXgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU\nByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R\nniyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q\nowIDAQAB\n-----END PUBLIC KEY-----\n"
+}
+2025-07-26 08:42:03,909 [DEBUG] Public key saved successfully for ASN 2
+2025-07-26 08:42:03,909 [DEBUG] Prepared transaction: {
+  "transaction_id": "c09d9abd-cf45-4575-87cd-ad4d7508cc0f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:42:03.909667+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:42:03,909 [INFO] Signing transaction
+2025-07-26 08:42:03,910 [INFO] Preparing to sign transaction: {
+  "transaction_id": "c09d9abd-cf45-4575-87cd-ad4d7508cc0f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:42:03.909667+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:42:03,910 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "c09d9abd-cf45-4575-87cd-ad4d7508cc0f", "transaction_timestamp": "2025-07-26T12:42:03.909667+00:00", "trust_score": "N/A"}
+2025-07-26 08:42:03,910 [DEBUG] Transaction data hash: 735f01e79b584c4431c1f626467e35c058d8d67bb68a8a44afce21e8f026813f
+2025-07-26 08:42:03,912 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 3c0188b320cafde07feb0cf4cc67713835fa9ec6225e27f3f06acf696b2926ad...
+2025-07-26 08:42:03,912 [INFO] Transaction signed successfully
+2025-07-26 08:42:03,912 [INFO] Adding transaction to pool
+2025-07-26 08:42:03,912 [INFO] Starting add_transaction for transaction_id: c09d9abd-cf45-4575-87cd-ad4d7508cc0f
+2025-07-26 08:42:03,912 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:42:03,912 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:42:03,912 [INFO] Checking transaction_pool.json
+2025-07-26 08:42:03,912 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 08:42:03,913 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 08:42:03,913 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:42:03,913 [DEBUG] Transaction added: {
+  "transaction_id": "c09d9abd-cf45-4575-87cd-ad4d7508cc0f",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:42:03.909667+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "3c0188b320cafde07feb0cf4cc67713835fa9ec6225e27f3f06acf696b2926ad84b128396a4fddcf10aa8acc06e2d43d22fcdb85bfa78ab20c9b5a3407b060973118cd724ad629c010da71d7d363cc46f14f15e55f285690bde8b80c7c507daef1c7e8bd7f4ac15183f20175bd7f775873c64b6315715f3fadcc99356a68b0e90ef338ac4ec88a34746ba64df684e28190cfc2c3c27c627a0306e931239d0388448f9736d4811c3b6a2a3bec7c1458ec42022357f38da0ecebd15494f171aa4715cd9c418eb6aa35aa79631fdc405a49d4b7e6237575d50cd138db40b80231b6007cd7fae12a94da07e3760a0dc09415b6a0007c3d1e6b9e433a6cc0b4482cca"
+}
+2025-07-26 08:42:03,913 [INFO] Writing to transaction_pool.json
+2025-07-26 08:42:03,913 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 08:42:03,914 [ERROR] Failed to add transaction to pool
+2025-07-26 08:42:03,914 [INFO] Finished create_transaction.py
+2025-07-26 08:42:03,914 [ERROR] Transaction creation failed
+2025-07-26 08:43:10,158 [INFO] Starting create_transaction.py
+2025-07-26 08:43:10,158 [INFO] Starting create_transaction
+2025-07-26 08:43:10,158 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:43:10,158 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:43:10,158 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:43:10,159 [DEBUG] Full path to public_key_registry.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:43:10,159 [INFO] Loading private key
+2025-07-26 08:43:10,159 [INFO] Loading private key from private_key.pem
+2025-07-26 08:43:10,159 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 08:43:10,159 [DEBUG] Private key PEM loaded
+2025-07-26 08:43:10,201 [DEBUG] Private key and public key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7c4e16965f90>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7c4e16965e30>
+2025-07-26 08:43:10,201 [INFO] Saving public key
+2025-07-26 08:43:10,201 [INFO] Saving public key for ASN 2 to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:43:10,202 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag
+MU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P
+RNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC
+XgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU
+ByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R
+niyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q
+owIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:43:10,202 [DEBUG] Existing public_key_registry.json content: {
+  "2": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag\nMU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P\nRNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC\nXgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU\nByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R\nniyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q\nowIDAQAB\n-----END PUBLIC KEY-----\n"
+}
+2025-07-26 08:43:10,202 [DEBUG] Public key saved successfully for ASN 2
+2025-07-26 08:43:10,202 [DEBUG] Prepared transaction: {
+  "transaction_id": "3e5ede05-8408-4291-98c5-22809bf78825",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:43:10.202868+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:43:10,203 [INFO] Signing transaction
+2025-07-26 08:43:10,203 [INFO] Preparing to sign transaction: {
+  "transaction_id": "3e5ede05-8408-4291-98c5-22809bf78825",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:43:10.202868+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:43:10,203 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "3e5ede05-8408-4291-98c5-22809bf78825", "transaction_timestamp": "2025-07-26T12:43:10.202868+00:00", "trust_score": "N/A"}
+2025-07-26 08:43:10,203 [DEBUG] Transaction data hash: fd174ba03b88eb312325503c6e44c2180e714c83b168797f86ff3a6a037a0fab
+2025-07-26 08:43:10,205 [DEBUG] Transaction signed, signature length: 256 bytes, signature: bbe31b4aa6d3569a67f011c7ccfe6ed243b31e95d4f03c7aa09e958049ef85cd...
+2025-07-26 08:43:10,205 [INFO] Transaction signed successfully
+2025-07-26 08:43:10,205 [INFO] Adding transaction to pool
+2025-07-26 08:43:10,205 [INFO] Starting add_transaction for transaction_id: 3e5ede05-8408-4291-98c5-22809bf78825
+2025-07-26 08:43:10,205 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:43:10,205 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:43:10,205 [INFO] Checking transaction_pool.json
+2025-07-26 08:43:10,205 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 08:43:10,206 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 08:43:10,206 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:43:10,206 [DEBUG] Transaction added: {
+  "transaction_id": "3e5ede05-8408-4291-98c5-22809bf78825",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:43:10.202868+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "bbe31b4aa6d3569a67f011c7ccfe6ed243b31e95d4f03c7aa09e958049ef85cd8ac1beb85607fa6bea3b16364617ab65fa6b8b84211f4434e9479fa423a63b4fe4cb39ae052f1965338b3de58ca8801977b1052e5b49c24f5fcadbd34fa7db1d9dbb6cbc99757c7abc3fbaeb9cede18135c2331df181a2c4a12f6d9e794ecb07fe39ea521dc27da31369144b0d94b3465f51ef7d4d9832f4f4023e2e331387eb371110695b8b076be7ec95a3847a211ac654435de58979815b6ab3fbb59eef187b1f6b05edc82d557c58669486300367806ea7f3c705ea7d47bdada4ce31c5e5517f7bc3f00bd5d6551707375596df4942b72e7278c03efccffc8964146f6c4b"
+}
+2025-07-26 08:43:10,206 [INFO] Writing to transaction_pool.json
+2025-07-26 08:43:10,206 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 08:43:10,207 [ERROR] Failed to add transaction to pool
+2025-07-26 08:43:10,207 [INFO] Finished create_transaction.py
+2025-07-26 08:43:10,207 [ERROR] Transaction creation failed
+2025-07-26 08:54:06,768 [INFO] Starting create_transaction.py
+2025-07-26 08:54:06,768 [INFO] Starting create_transaction
+2025-07-26 08:54:06,768 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 08:54:06,768 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:54:06,769 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 08:54:06,769 [DEBUG] Full path to public_key_registry.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:54:06,769 [INFO] Loading private key
+2025-07-26 08:54:06,769 [INFO] Loading private key from private_key.pem
+2025-07-26 08:54:06,769 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 08:54:06,769 [DEBUG] Private key PEM loaded
+2025-07-26 08:54:06,812 [DEBUG] Private key and public key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7154a0361f90>, public_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPublicKey object at 0x7154a0361e30>
+2025-07-26 08:54:06,812 [INFO] Saving public key
+2025-07-26 08:54:06,812 [INFO] Saving public key for ASN 2 to /home/anik/code/BGP_Announcement_Recorder/shared_data/public_key_registry.json
+2025-07-26 08:54:06,813 [DEBUG] Public key PEM: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag
+MU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P
+RNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC
+XgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU
+ByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R
+niyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q
+owIDAQAB
+-----END PUBLIC KEY-----
+
+2025-07-26 08:54:06,813 [DEBUG] Existing public_key_registry.json content: {
+  "2": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqzui8Oi0YcviAqQloag\nMU+FdBGsYDPPq+fLLoeBjwAi7Z1C5Z+hM0yjoAO4bV482LHIKRfMC3+QBPV+1l3P\nRNn7P64v32WFkRgVdOTyCSJrm5H96eurMVKguRhCZCjfkFEHi7EwYtfTwuDCrCvC\nXgnqL5wNMF3AKOS+1Ew2O2WgGEH2sE1+GarAHZJmybvq5hHaIFCN4BqKFWT0fmpU\nByiiL9brSBjFWZlppaWfjdAkYniugWCuH7ed93zUawQrFaxByADEf7zWGe5TDQ9R\nniyONh9fK0xVmtxvxocNV3GqX9QSHocEWWEV9NIKit6djyX/rltxu+lboprWOi3q\nowIDAQAB\n-----END PUBLIC KEY-----\n"
+}
+2025-07-26 08:54:06,813 [DEBUG] Public key saved successfully for ASN 2
+2025-07-26 08:54:06,813 [DEBUG] Prepared transaction: {
+  "transaction_id": "8817bcfb-f273-4ff7-888c-d7b69d7a2102",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:54:06.813727+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:54:06,813 [INFO] Signing transaction
+2025-07-26 08:54:06,813 [INFO] Preparing to sign transaction: {
+  "transaction_id": "8817bcfb-f273-4ff7-888c-d7b69d7a2102",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:54:06.813727+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 08:54:06,814 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "8817bcfb-f273-4ff7-888c-d7b69d7a2102", "transaction_timestamp": "2025-07-26T12:54:06.813727+00:00", "trust_score": "N/A"}
+2025-07-26 08:54:06,814 [DEBUG] Transaction data hash: 1101b663e578549928a0ab22baea7069a53d932e52e9b05e32d4e037b432cfc4
+2025-07-26 08:54:06,815 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 982524e82db81e094b5cf760a1d3daae634b0e557b31666cce149b1f39c6363b...
+2025-07-26 08:54:06,816 [INFO] Transaction signed successfully
+2025-07-26 08:54:06,816 [INFO] Adding transaction to pool
+2025-07-26 08:54:06,816 [INFO] Starting add_transaction for transaction_id: 8817bcfb-f273-4ff7-888c-d7b69d7a2102
+2025-07-26 08:54:06,816 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 08:54:06,816 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 08:54:06,816 [INFO] Checking transaction_pool.json
+2025-07-26 08:54:06,816 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 08:54:06,816 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 08:54:06,816 [INFO] Appending transaction to transaction_pool
+2025-07-26 08:54:06,816 [DEBUG] Transaction added: {
+  "transaction_id": "8817bcfb-f273-4ff7-888c-d7b69d7a2102",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T12:54:06.813727+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "982524e82db81e094b5cf760a1d3daae634b0e557b31666cce149b1f39c6363b1e56b3a6697e9afe6c03eb8272a0b80d3896f8cbbe29bc8cf8c19f5bac2b72572f861a36a9182c69dd417d8a6e8c9160d0997d74b92580e15b84e0d9c29a1c613e47f2f1666cf10a2651f2714ce6ff1794ed8bd11873f72d92ffc5d81ce37829f02313279651e6219f0e336ba1b52a33c0522246afaa89c6ba4619da1d149749d7428ee1b2ef026673b4afb9b63491cd5779349defa133a01a5cf808e029f8bfce97382124a966a7fa25a3bb30f79247e110177dd7206f62729f41479485ec169e7c17711118ec77d7331586bb95caa81e7be753ca42d76927df7aa09d301934"
+}
+2025-07-26 08:54:06,817 [INFO] Writing to transaction_pool.json
+2025-07-26 08:54:06,817 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 08:54:06,817 [ERROR] Failed to add transaction to pool
+2025-07-26 08:54:06,817 [INFO] Finished create_transaction.py
+2025-07-26 08:54:06,817 [ERROR] Transaction creation failed
+2025-07-26 09:06:34,946 [INFO] Starting create_transaction.py
+2025-07-26 09:06:34,946 [INFO] Starting create_transaction
+2025-07-26 09:06:34,946 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:06:34,947 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:06:34,947 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 09:06:34,947 [INFO] Loading private key
+2025-07-26 09:06:34,947 [INFO] Loading private key from private_key.pem
+2025-07-26 09:06:34,947 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:34,947 [ERROR] private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:34,947 [ERROR] Failed to load private key: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:34,948 [ERROR] Unexpected error: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 141, in create_transaction
+    private_key = load_private_key()
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:34,948 [INFO] Finished create_transaction.py
+2025-07-26 09:06:34,948 [ERROR] Transaction creation failed
+2025-07-26 09:06:42,106 [INFO] Starting create_transaction.py
+2025-07-26 09:06:42,106 [INFO] Starting create_transaction
+2025-07-26 09:06:42,106 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:06:42,106 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:06:42,107 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 09:06:42,107 [INFO] Loading private key
+2025-07-26 09:06:42,107 [INFO] Loading private key from private_key.pem
+2025-07-26 09:06:42,107 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:42,107 [ERROR] private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:42,107 [ERROR] Failed to load private key: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:42,107 [ERROR] Unexpected error: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 141, in create_transaction
+    private_key = load_private_key()
+                  ^^^^^^^^^^^^^^^^^^
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/create_transaction.py", line 60, in load_private_key
+    raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+FileNotFoundError: private_key.pem not found at /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 09:06:42,108 [INFO] Finished create_transaction.py
+2025-07-26 09:06:42,108 [ERROR] Transaction creation failed
+2025-07-26 09:07:09,523 [INFO] Starting create_transaction.py
+2025-07-26 09:07:09,523 [INFO] Starting create_transaction
+2025-07-26 09:07:09,523 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:07:09,524 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:07:09,524 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 09:07:09,524 [INFO] Loading private key
+2025-07-26 09:07:09,524 [INFO] Loading private key from private_key.pem
+2025-07-26 09:07:09,524 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 09:07:09,524 [DEBUG] Private key PEM loaded
+2025-07-26 09:07:09,570 [DEBUG] Private key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7df5c0d5ddf0>
+2025-07-26 09:07:09,570 [DEBUG] Prepared transaction: {
+  "transaction_id": "8d171a59-047c-438a-a472-6dd779e75c91",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:07:09.570749+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:07:09,570 [INFO] Signing transaction
+2025-07-26 09:07:09,570 [INFO] Preparing to sign transaction: {
+  "transaction_id": "8d171a59-047c-438a-a472-6dd779e75c91",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:07:09.570749+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:07:09,571 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "8d171a59-047c-438a-a472-6dd779e75c91", "transaction_timestamp": "2025-07-26T13:07:09.570749+00:00", "trust_score": "N/A"}
+2025-07-26 09:07:09,571 [DEBUG] Transaction data hash: 26488f3223af96f850c035e248754694dae97517ce1880d428723483d409a8e1
+2025-07-26 09:07:09,572 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 4a420f249a330c1f897d6197454d0f816ed45b97f41580cf6a861286c3422e64...
+2025-07-26 09:07:09,573 [INFO] Transaction signed successfully
+2025-07-26 09:07:09,573 [INFO] Adding transaction to pool
+2025-07-26 09:07:09,573 [INFO] Starting add_transaction for transaction_id: 8d171a59-047c-438a-a472-6dd779e75c91
+2025-07-26 09:07:09,573 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:07:09,573 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 09:07:09,573 [INFO] Checking transaction_pool.json
+2025-07-26 09:07:09,573 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 09:07:09,573 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 09:07:09,573 [INFO] Appending transaction to transaction_pool
+2025-07-26 09:07:09,574 [DEBUG] Transaction added: {
+  "transaction_id": "8d171a59-047c-438a-a472-6dd779e75c91",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:07:09.570749+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "4a420f249a330c1f897d6197454d0f816ed45b97f41580cf6a861286c3422e64446a6396de8ec8e2be378da73f93936eb95fbadaf828a155291d373485433ccd9ed94d4d8c1ab2650f07138d1c440d9f596650d63dd2193d12bccb2ec04b9b6fe7e92233e74d2677288edb7ae4a41b5a628c539eae4d9e1ee172aee489aa3e2b467671a4bc9a94d3563454464d518341863507e921c67bb5e33342222679245894249af3452015d346c10f121bf9f47ffcb9f402c3f1b31d9139ddedcbeedf2a0bd9d84e93eee4bcfa2a48769bfe9598e9bd62cb30b5389a8372a5a004cb1e24e0f97fc2a1b6f13e085a8be5490cf9dad5c63721ee9c5ce07be3cfa6fdbfcaf1"
+}
+2025-07-26 09:07:09,574 [INFO] Writing to transaction_pool.json
+2025-07-26 09:07:09,574 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 09:07:09,574 [ERROR] Failed to add transaction to pool
+2025-07-26 09:07:09,574 [INFO] Finished create_transaction.py
+2025-07-26 09:07:09,575 [ERROR] Transaction creation failed
+2025-07-26 09:12:13,848 [INFO] Starting create_transaction.py
+2025-07-26 09:12:13,849 [INFO] Starting create_transaction
+2025-07-26 09:12:13,849 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:12:13,849 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:12:13,849 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 09:12:13,849 [INFO] Loading private key
+2025-07-26 09:12:13,850 [INFO] Loading private key from private_key.pem
+2025-07-26 09:12:13,850 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 09:12:13,850 [DEBUG] Private key PEM loaded
+2025-07-26 09:12:13,893 [DEBUG] Private key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x74a06ab5ddf0>
+2025-07-26 09:12:13,893 [DEBUG] Prepared transaction: {
+  "transaction_id": "2341cc09-4418-4a5a-9e99-e2b90ae4c4d2",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:12:13.893774+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:12:13,893 [INFO] Signing transaction
+2025-07-26 09:12:13,894 [INFO] Preparing to sign transaction: {
+  "transaction_id": "2341cc09-4418-4a5a-9e99-e2b90ae4c4d2",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:12:13.893774+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:12:13,894 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "2341cc09-4418-4a5a-9e99-e2b90ae4c4d2", "transaction_timestamp": "2025-07-26T13:12:13.893774+00:00", "trust_score": "N/A"}
+2025-07-26 09:12:13,894 [DEBUG] Transaction data hash: 976a9c7a2c44ae71d3b55745504b7d5a7cc14ea47818f62ea4cd1c3ca2726d8a
+2025-07-26 09:12:13,895 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 8bf013e44dcddf6abf9f74efc5501d35f2c3a486b09fc92864c77eb6e6d9d726...
+2025-07-26 09:12:13,895 [INFO] Transaction signed successfully
+2025-07-26 09:12:13,896 [INFO] Adding transaction to pool
+2025-07-26 09:12:13,896 [INFO] Starting add_transaction for transaction_id: 2341cc09-4418-4a5a-9e99-e2b90ae4c4d2
+2025-07-26 09:12:13,896 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:12:13,896 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 09:12:13,896 [INFO] Checking transaction_pool.json
+2025-07-26 09:12:13,896 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 09:12:13,896 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 09:12:13,896 [INFO] Appending transaction to transaction_pool
+2025-07-26 09:12:13,896 [DEBUG] Transaction added: {
+  "transaction_id": "2341cc09-4418-4a5a-9e99-e2b90ae4c4d2",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:12:13.893774+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "8bf013e44dcddf6abf9f74efc5501d35f2c3a486b09fc92864c77eb6e6d9d726dec315438541aefa6d56ec4e8abfad6f511d89d34a5f4975feb655c454bd3b534017f663f420a9ce79f41bb9c48e9aebe76e88cace37787638adc11c1ec3ed8657cebbfad21d2ac29212bada50ad5f86ff33cde782f8c9b5e181b5bd07242bb4f72e58c4160a2f2ca5e5953d5b3775c2555ea882904bf4426c5a800af446fe91edd5d5605730b9e6b096c45c56334cc04660451262e2a143b7e918cba70008acc02d0db8287b180c81fc653d3427844b25d35dc560f905d0ded144d4a6a8224a5f43c2bb71f9bd002d6d167cca07c9b85262afcffe1cc285637416939b0c4e3f"
+}
+2025-07-26 09:12:13,896 [INFO] Writing to transaction_pool.json
+2025-07-26 09:12:13,896 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 09:12:13,897 [ERROR] Failed to add transaction to pool
+2025-07-26 09:12:13,897 [INFO] Finished create_transaction.py
+2025-07-26 09:12:13,897 [ERROR] Transaction creation failed
+2025-07-26 09:16:48,239 [INFO] Starting create_transaction.py
+2025-07-26 09:16:48,239 [INFO] Starting create_transaction
+2025-07-26 09:16:48,240 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:16:48,241 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:16:48,241 [DEBUG] Full path to transaction_pool.json: /home/anik/code/shared_data/transaction_pool.json
+2025-07-26 09:16:48,241 [INFO] Loading private key
+2025-07-26 09:16:48,241 [INFO] Loading private key from private_key.pem
+2025-07-26 09:16:48,241 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 09:16:48,242 [DEBUG] Private key PEM loaded
+2025-07-26 09:16:48,285 [DEBUG] Private key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x7fbdff55dfd0>
+2025-07-26 09:16:48,285 [DEBUG] Prepared transaction: {
+  "transaction_id": "ce424890-97fb-4fb8-a662-db8dfab75573",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:16:48.285886+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:16:48,286 [INFO] Signing transaction
+2025-07-26 09:16:48,286 [INFO] Preparing to sign transaction: {
+  "transaction_id": "ce424890-97fb-4fb8-a662-db8dfab75573",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:16:48.285886+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:16:48,286 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "ce424890-97fb-4fb8-a662-db8dfab75573", "transaction_timestamp": "2025-07-26T13:16:48.285886+00:00", "trust_score": "N/A"}
+2025-07-26 09:16:48,286 [DEBUG] Transaction data hash: 4d89329c20431631e6d0fc8b77cafbcf709f25ab32628a3e201450640c507d5c
+2025-07-26 09:16:48,288 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 3ec2eb76565e47e916e866418e362a3d3cb1bc5c2287916e5a6543e7075a4866...
+2025-07-26 09:16:48,288 [INFO] Transaction signed successfully
+2025-07-26 09:16:48,288 [INFO] Adding transaction to pool
+2025-07-26 09:16:48,288 [INFO] Starting add_transaction for transaction_id: ce424890-97fb-4fb8-a662-db8dfab75573
+2025-07-26 09:16:48,288 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:16:48,289 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 09:16:48,289 [INFO] Checking transaction_pool.json
+2025-07-26 09:16:48,289 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 09:16:48,289 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 09:16:48,289 [INFO] Appending transaction to transaction_pool
+2025-07-26 09:16:48,289 [DEBUG] Transaction added: {
+  "transaction_id": "ce424890-97fb-4fb8-a662-db8dfab75573",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:16:48.285886+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "3ec2eb76565e47e916e866418e362a3d3cb1bc5c2287916e5a6543e7075a4866edebabe827d574d1c56b4496eb7e02aea9eb174d1aeda7ece67dc2ac4e6f68221b0d41ef67ee5770041c0efa4fcb2bccb2cd504922e526b81c10750f60386d9c26972d8029ad4585ac1d189edca8170b5be74bf5e2c8e6e20ef6f334b91e075fc43f760bd2b6aad2d9f4c17fef6b9ba4f5938cedad2d0da0488f4a9fe095374be855cb8088324a2f19a5b07b52a17e2c817d45bf9b968d087a6f5d621684084071af17775d9888cb8191394a131a9991702001e9f0648cdffba2c780882fd51f79fa22b36ac0bc6ddfa55a5760e4d1a1f63d4d7618be18c5030439f0551d188e"
+}
+2025-07-26 09:16:48,289 [INFO] Writing to transaction_pool.json
+2025-07-26 09:16:48,289 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 09:16:48,291 [ERROR] Failed to add transaction to pool
+2025-07-26 09:16:48,291 [INFO] Finished create_transaction.py
+2025-07-26 09:16:48,291 [ERROR] Transaction creation failed
+2025-07-26 09:17:23,482 [INFO] Starting create_transaction.py
+2025-07-26 09:17:23,482 [INFO] Starting create_transaction
+2025-07-26 09:17:23,482 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:17:23,482 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:17:23,483 [DEBUG] Full path to transaction_pool.json: /home/anik/code/shared_data/transaction_pool.json
+2025-07-26 09:17:23,483 [INFO] Loading private key
+2025-07-26 09:17:23,483 [INFO] Loading private key from private_key.pem
+2025-07-26 09:17:23,483 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 09:17:23,483 [DEBUG] Private key PEM loaded
+2025-07-26 09:17:23,528 [DEBUG] Private key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x77fc1135dfd0>
+2025-07-26 09:17:23,528 [DEBUG] Prepared transaction: {
+  "transaction_id": "58e55b1e-48ca-46ce-b61c-551e8d35c1f1",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:17:23.528431+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:17:23,528 [INFO] Signing transaction
+2025-07-26 09:17:23,528 [INFO] Preparing to sign transaction: {
+  "transaction_id": "58e55b1e-48ca-46ce-b61c-551e8d35c1f1",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:17:23.528431+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:17:23,529 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "58e55b1e-48ca-46ce-b61c-551e8d35c1f1", "transaction_timestamp": "2025-07-26T13:17:23.528431+00:00", "trust_score": "N/A"}
+2025-07-26 09:17:23,529 [DEBUG] Transaction data hash: 8e4db6356ecbccab2d16ae734b4f02d4bdbb0c39e4e2b7edd5a69552b940811a
+2025-07-26 09:17:23,531 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 86c573fe5aee1b2c58404a9dc0d48d94b6d05b544173dfe00d6d6f77bd3cf608...
+2025-07-26 09:17:23,531 [INFO] Transaction signed successfully
+2025-07-26 09:17:23,531 [INFO] Adding transaction to pool
+2025-07-26 09:17:23,531 [INFO] Starting add_transaction for transaction_id: 58e55b1e-48ca-46ce-b61c-551e8d35c1f1
+2025-07-26 09:17:23,531 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:17:23,531 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json
+2025-07-26 09:17:23,531 [INFO] Checking transaction_pool.json
+2025-07-26 09:17:23,531 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 09:17:23,531 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 09:17:23,531 [INFO] Appending transaction to transaction_pool
+2025-07-26 09:17:23,532 [DEBUG] Transaction added: {
+  "transaction_id": "58e55b1e-48ca-46ce-b61c-551e8d35c1f1",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:17:23.528431+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "86c573fe5aee1b2c58404a9dc0d48d94b6d05b544173dfe00d6d6f77bd3cf60808063923d0dcce9e563d01adeb081aab6665fb6d446a495b898b4a0e424a89b21b2da16365dbb99e266721d0d4a451581b2e51f3ea7bf39c98914eb296270e7bffa19f7552414fab08308f2dbff6aa69543dacdf8635fc17c2140e87b8398fa832263f579775ba81b6d629cfe346fbd36924e1470d9b8d635bcb85d6a5bb8baa3852f4956e3e9899aa45d94ba39f674d8a2bd9c5564e1f6961e1a38c2f99ec4aa4ee87238c1736beb7018d7896ebe1c969cbf99efec82d1a3233c0685f9bc190329b9c694c346807188408c5c9fe8002bb3bf565dfbfd1942cb24a6c71e5bd25"
+}
+2025-07-26 09:17:23,532 [INFO] Writing to transaction_pool.json
+2025-07-26 09:17:23,532 [ERROR] Failed to write to transaction_pool.json: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+Traceback (most recent call last):
+  File "/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/transaction_pool.py", line 82, in add_transaction
+    with open(pool_path, 'w') as file:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/shared_data/transaction_pool.json'
+2025-07-26 09:17:23,532 [ERROR] Failed to add transaction to pool
+2025-07-26 09:17:23,532 [INFO] Finished create_transaction.py
+2025-07-26 09:17:23,533 [ERROR] Transaction creation failed
+2025-07-26 09:22:46,992 [INFO] Starting create_transaction.py
+2025-07-26 09:22:46,992 [INFO] Starting create_transaction
+2025-07-26 09:22:46,992 [DEBUG] Received parsed data: {
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "prefix_length": 24
+}
+2025-07-26 09:22:46,992 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:22:46,993 [DEBUG] Full path to transaction_pool.json: /home/anik/code/shared_data/transaction_pool.json
+2025-07-26 09:22:46,993 [INFO] Loading private key
+2025-07-26 09:22:46,993 [INFO] Loading private key from private_key.pem
+2025-07-26 09:22:46,993 [DEBUG] Private key path: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 09:22:46,993 [DEBUG] Private key PEM loaded
+2025-07-26 09:22:47,037 [DEBUG] Private key loaded successfully: private_key=<cryptography.hazmat.bindings._rust.openssl.rsa.RSAPrivateKey object at 0x70829d55e370>
+2025-07-26 09:22:47,037 [DEBUG] Prepared transaction: {
+  "transaction_id": "2a3b173a-5c6f-4f37-929d-cc96b61f6aba",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:22:47.037336+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:22:47,037 [INFO] Signing transaction
+2025-07-26 09:22:47,037 [INFO] Preparing to sign transaction: {
+  "transaction_id": "2a3b173a-5c6f-4f37-929d-cc96b61f6aba",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:22:47.037336+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": []
+}
+2025-07-26 09:22:47,037 [DEBUG] Transaction data serialized for signing: {"ip_prefix": "203.0.113.0/24", "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000", "sender_asn": 2, "timestamp": "2025-07-24T14:00:00Z", "transaction_id": "2a3b173a-5c6f-4f37-929d-cc96b61f6aba", "transaction_timestamp": "2025-07-26T13:22:47.037336+00:00", "trust_score": "N/A"}
+2025-07-26 09:22:47,037 [DEBUG] Transaction data hash: d88f0815dbea48049a54ba4c4947a815e191f98064f467fad23aecd2f33489e5
+2025-07-26 09:22:47,039 [DEBUG] Transaction signed, signature length: 256 bytes, signature: 23b910aa258e21ea29f25a197d916fac20cd9bf551062854e76cd85dda1ffe96...
+2025-07-26 09:22:47,039 [INFO] Transaction signed successfully
+2025-07-26 09:22:47,039 [INFO] Adding transaction to pool
+2025-07-26 09:22:47,039 [INFO] Starting add_transaction for transaction_id: 2a3b173a-5c6f-4f37-929d-cc96b61f6aba
+2025-07-26 09:22:47,039 [DEBUG] Current script directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node
+2025-07-26 09:22:47,039 [DEBUG] Full path to transaction_pool.json: /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json
+2025-07-26 09:22:47,039 [INFO] Checking transaction_pool.json
+2025-07-26 09:22:47,039 [DEBUG] Checking if transaction_pool.json exists: False
+2025-07-26 09:22:47,040 [INFO] transaction_pool.json not found at /home/anik/code/BGP_Announcement_Recorder/shared_data/transaction_pool.json. Creating new file.
+2025-07-26 09:22:47,040 [INFO] Appending transaction to transaction_pool
+2025-07-26 09:22:47,040 [DEBUG] Transaction added: {
+  "transaction_id": "2a3b173a-5c6f-4f37-929d-cc96b61f6aba",
+  "sender_asn": 2,
+  "ip_prefix": "203.0.113.0/24",
+  "timestamp": "2025-07-24T14:00:00Z",
+  "trust_score": "N/A",
+  "transaction_timestamp": "2025-07-26T13:22:47.037336+00:00",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "votes": [],
+  "signature": "23b910aa258e21ea29f25a197d916fac20cd9bf551062854e76cd85dda1ffe9648b52d4d54865c6650cd7f182f0db763cce68bbe4e2298adb4b4814b5073c32b8961cb32642233342f57725e13f117ff636a3d66480d56ee5a6a23dc3e14dbe648f565c9122a18caa6b6d63d8baec43f10165ab14789da57a7de7b5dff1a64c5dd94ffbb4d2e7f440b57ca78d6f5d8e0a123848bc10194f641b8e45f9b25cfb4856db1ad1e0e4dcd361e86c2b3f43f7cac8133e277224dc8cd21bcee80d6b5da18962d1ef7c1a0271a3c75f4bce5e3f1ab71dba8f896599b268a1e7a5be0bc15afe53c2a0401d1bdccecfac6004f37597021b77bcb2fb05eed2dd637cdad8892"
+}
+2025-07-26 09:22:47,040 [INFO] Writing to transaction_pool.json
+2025-07-26 09:22:47,040 [INFO] Transaction 2a3b173a-5c6f-4f37-929d-cc96b61f6aba added to transaction_pool.json
+2025-07-26 09:22:47,040 [INFO] Transaction 2a3b173a-5c6f-4f37-929d-cc96b61f6aba added to transaction_pool.json
+2025-07-26 09:22:47,040 [INFO] Finished create_transaction.py
+2025-07-26 09:22:47,040 [DEBUG] Created transaction_id: 2a3b173a-5c6f-4f37-929d-cc96b61f6aba

@@ -9,8 +9,8 @@ Calls:
 
 Location:
     - File: Located in blockchain_node directory (e.g., blockchain_node/parse_bgp.py).
-    - shared_data: Located three levels up from this script (../../../shared_data),
-      containing bgpd.json and trust_state.json.
+    - shared_data: Located three levels up from this script (../../../shared_data) containing trust_state.json
+    - bgpd file is located on step up   bgpd.json 
 
 Notes:
     - Logs all operations to parse_bgp.log and console for debugging.

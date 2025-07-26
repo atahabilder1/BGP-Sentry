@@ -1,21 +1,23 @@
 """
 Purpose:
-    Creates a signed transaction from parsed BGP data, adds it to transaction_pool.json,
-    and saves the public key to shared_data/public_keys/<sender_asn>.pem for verification.
+    Creates a signed transaction from parsed BGP data and adds it to transaction_pool.json.
     The transaction includes transaction_id, sender_asn, ip_prefix, timestamp, trust_score,
     transaction_timestamp, previous_hash, signature, and an empty votes list.
+    The public key is assumed to be pre-registered in shared_data/public_key_registry.json.
 
 Calls:
     - transaction_pool.py: Calls add_transaction to add the transaction to the pool.
-    - Internal: generate_key_pair, save_public_key, sign_transaction.
+    - Internal: load_private_key, sign_transaction.
 
 Location:
     - File: Located in blockchain_node directory (e.g., blockchain_node/create_transaction.py).
-    - shared_data: Located three levels up from this script (../../../shared_data),
-      containing transaction_pool.json and public_keys/<sender_asn>.pem.
+    - shared_data: Located four levels up from this script (../../../../shared_data),
+      containing transaction_pool.json and public_key_registry.json.
+    - private_key.pem: Located in blockchain_node directory (e.g., blockchain_node/private_key.pem).
 
 Notes:
-    - Generates a new RSA key pair for demo purposes (in practice, use persistent keys).
+    - Uses a persistent private key from private_key.pem for signing (loaded from blockchain_node).
+    - Assumes the corresponding public key is already in shared_data/public_key_registry.json.
     - Logs all operations to create_transaction.log and console for debugging.
     - Returns the transaction_id on success, None on failure.
 """
@@ -23,7 +25,7 @@ Notes:
 from pathlib import Path
 import json
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 import hashlib
 from cryptography.hazmat.primitives import serialization, hashes
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
@@ -42,43 +44,34 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-def generate_key_pair():
+def load_private_key():
     """
-    Generate an RSA private-public key pair for signing (for demo purposes).
-    Returns: private_key, public_key.
+    Load the private key from private_key.pem in the blockchain_node directory.
+    Returns: private_key.
     """
-    logger.info("Generating RSA key pair")
+    logger.info("Loading private key from private_key.pem")
     try:
-        private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=2048,
+        private_key_path = Path(__file__).parent /".."/ "private_key.pem"
+        private_key_path = private_key_path.resolve()
+        logger.debug("Private key path: %s", private_key_path)
+        
+        if not private_key_path.exists():
+            logger.error("private_key.pem not found at %s", private_key_path)
+            raise FileNotFoundError(f"private_key.pem not found at {private_key_path}")
+        
+        with open(private_key_path, 'rb') as f:
+            pem = f.read()
+        logger.debug("Private key PEM loaded")
+        
+        private_key = serialization.load_pem_private_key(
+            pem,
+            password=None,
             backend=default_backend()
         )
-        public_key = private_key.public_key()
-        logger.debug("RSA key pair generated successfully: private_key=%s, public_key=%s", 
-                     private_key, public_key)
-        return private_key, public_key
+        logger.debug("Private key loaded successfully: private_key=%s", private_key)
+        return private_key
     except Exception as e:
-        logger.error("Failed to generate key pair: %s", str(e), exc_info=True)
-        raise
-
-def save_public_key(public_key, public_key_path):
-    """
-    Save the public key to a PEM file.
-    """
-    logger.info("Saving public key to %s", public_key_path)
-    try:
-        public_key_path.parent.mkdir(parents=True, exist_ok=True)
-        pem = public_key.public_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PublicFormat.SubjectPublicKeyInfo
-        )
-        logger.debug("Public key PEM: %s", pem.decode())
-        with open(public_key_path, 'wb') as f:
-            f.write(pem)
-        logger.debug("Public key saved successfully")
-    except Exception as e:
-        logger.error("Failed to save public key: %s", str(e), exc_info=True)
+        logger.error("Failed to load private key: %s", str(e), exc_info=True)
         raise
 
 def sign_transaction(transaction_data, private_key):
@@ -123,7 +116,7 @@ def create_transaction(parsed_data):
     Creates a signed transaction from parsed BGP data and writes it to transaction_pool.json.
     Args:
         parsed_data: dict with sender_asn, ip_prefix, timestamp, trust_score, prefix_length.
-    Returns: transaction_id if successful, None otherwise.
+    Returns: transaction_id if successful, None on failure.
     """
     logger.info("Starting create_transaction")
     
@@ -137,21 +130,15 @@ def create_transaction(parsed_data):
     current_dir = Path(__file__).parent
     logger.debug("Current script directory: %s", current_dir)
 
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".."/ ".." / "shared_data"
     pool_path = shared_data_dir / "transaction_pool.json"
-    public_key_path = shared_data_dir / "public_keys" / f"{parsed_data['sender_asn']}.pem"
 
     pool_path = pool_path.resolve()
-    public_key_path = public_key_path.resolve()
     logger.debug("Full path to transaction_pool.json: %s", pool_path)
-    logger.debug("Full path to public_key.pem: %s", public_key_path)
 
     try:
-        logger.info("Generating key pair for signing")
-        private_key, public_key = generate_key_pair()
-        
-        logger.info("Saving public key")
-        save_public_key(public_key, public_key_path)
+        logger.info("Loading private key")
+        private_key = load_private_key()
 
         transaction = {
             "transaction_id": str(uuid.uuid4()),
@@ -159,7 +146,7 @@ def create_transaction(parsed_data):
             "ip_prefix": parsed_data["ip_prefix"],
             "timestamp": parsed_data["timestamp"],
             "trust_score": parsed_data["trust_score"],
-            "transaction_timestamp": datetime.utcnow().isoformat() + "Z",
+            "transaction_timestamp": datetime.now(timezone.utc).isoformat(),
             "previous_hash": "0" * 64,
             "votes": []
         }

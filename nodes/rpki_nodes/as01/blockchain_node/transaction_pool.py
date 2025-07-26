@@ -11,7 +11,7 @@ Calls:
 
 Location:
     - File: Located in blockchain_node directory (e.g., blockchain_node/transaction_pool.py).
-    - shared_data: Located three levels up from this script (../../../shared_data),
+    - shared_data: Located four levels up from this script (../../../../shared_data),
       containing transaction_pool.json.
 
 Notes:
@@ -23,6 +23,8 @@ Notes:
 from pathlib import Path
 import json
 import logging
+from datetime import datetime, timezone
+import uuid
 
 # Configure logging
 logging.basicConfig(
@@ -47,7 +49,7 @@ def add_transaction(transaction):
     current_dir = Path(__file__).parent
     logger.debug("Current script directory: %s", current_dir)
 
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".." / "shared_data"
     pool_path = shared_data_dir / "transaction_pool.json"
     pool_path = pool_path.resolve()
     logger.debug("Full path to transaction_pool.json: %s", pool_path)
@@ -79,6 +81,7 @@ def add_transaction(transaction):
 
         logger.info("Writing to transaction_pool.json")
         try:
+            pool_path.parent.mkdir(parents=True, exist_ok=True)
             with open(pool_path, 'w') as file:
                 json.dump(pool_data, file, indent=4)
             logger.info("Transaction %s added to transaction_pool.json", transaction.get("transaction_id", "unknown"))
@@ -105,7 +108,7 @@ def add_vote(transaction_id, voter_asn):
     logger.info("Starting add_vote for transaction_id: %s, voter_asn: %s", transaction_id, voter_asn)
     
     current_dir = Path(__file__).parent
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".." / "shared_data"
     pool_path = shared_data_dir / "transaction_pool.json"
     pool_path = pool_path.resolve()
     logger.debug("Full path to transaction_pool.json: %s", pool_path)
@@ -173,7 +176,7 @@ def get_verified_transactions(min_votes=3):
     logger.info("Starting get_verified_transactions with min_votes: %d", min_votes)
     
     current_dir = Path(__file__).parent
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".." / "shared_data"
     pool_path = shared_data_dir / "transaction_pool.json"
     pool_path = pool_path.resolve()
     logger.debug("Full path to transaction_pool.json: %s", pool_path)
@@ -225,7 +228,7 @@ def remove_transactions(transaction_ids):
                 len(transaction_ids), transaction_ids)
     
     current_dir = Path(__file__).parent
-    shared_data_dir = current_dir / ".." / ".." / ".." / "shared_data"
+    shared_data_dir = current_dir / ".." / ".." / ".." / ".." / "shared_data"
     pool_path = shared_data_dir / "transaction_pool.json"
     pool_path = pool_path.resolve()
     logger.debug("Full path to transaction_pool.json: %s", pool_path)
@@ -280,7 +283,7 @@ if __name__ == "__main__":
         "ip_prefix": "203.0.113.0/24",
         "timestamp": "2025-07-24T14:00:00Z",
         "trust_score": "N/A",
-        "transaction_timestamp": datetime.utcnow().isoformat() + "Z",
+        "transaction_timestamp": datetime.now(timezone.utc).isoformat(),
         "previous_hash": "0" * 64,
         "signature": "dummy_signature",
         "votes": []
