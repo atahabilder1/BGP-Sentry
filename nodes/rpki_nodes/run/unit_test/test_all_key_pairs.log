@@ -1,0 +1,322 @@
+2025-07-26 18:13:27,815 [INFO] Starting key pair test for all nodes
+2025-07-26 18:13:27,815 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/run/unit_test
+2025-07-26 18:13:27,815 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/run/unit_test/shared_blockchain_stack/shared_data
+2025-07-26 18:13:27,816 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/run/unit_test/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:13:27,816 [ERROR] Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/run/unit_test/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+2025-07-26 18:13:27,816 [ERROR] Aborting due to registry load failure
+2025-07-26 18:26:27,456 [INFO] Starting key pair test for all nodes
+2025-07-26 18:26:27,456 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:26:27,456 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:26:27,456 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/shared_blockchain_stack/shared_data
+2025-07-26 18:26:27,456 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:26:27,456 [ERROR] Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP_Announcement_Recorder/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+2025-07-26 18:26:27,456 [ERROR] Aborting due to registry load failure
+2025-07-26 18:28:28,621 [INFO] Starting key pair test for all nodes
+2025-07-26 18:28:28,621 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:28:28,621 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:28:28,621 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data
+2025-07-26 18:28:28,621 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:28:28,622 [DEBUG] Public key registry loaded with 9 entries
+2025-07-26 18:28:28,622 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 18:28:28,689 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,689 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/blockchain_node/private_key.pem
+2025-07-26 18:28:28,742 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,743 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as05/blockchain_node/private_key.pem
+2025-07-26 18:28:28,783 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,783 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as07/blockchain_node/private_key.pem
+2025-07-26 18:28:28,823 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,823 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as09/blockchain_node/private_key.pem
+2025-07-26 18:28:28,863 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,864 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as11/blockchain_node/private_key.pem
+2025-07-26 18:28:28,904 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,904 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as13/blockchain_node/private_key.pem
+2025-07-26 18:28:28,946 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,947 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as15/blockchain_node/private_key.pem
+2025-07-26 18:28:28,986 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:28,986 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as17/blockchain_node/private_key.pem
+2025-07-26 18:28:29,027 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:28:29,027 [INFO] Testing key pair for ASN: as01
+2025-07-26 18:28:29,029 [DEBUG] Public key loaded for as01: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,030 [ERROR] Key pair test failed for as01: name 'hashlib' is not defined
+2025-07-26 18:28:29,030 [INFO] Testing key pair for ASN: as03
+2025-07-26 18:28:29,030 [DEBUG] Public key loaded for as03: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,030 [ERROR] Key pair test failed for as03: name 'hashlib' is not defined
+2025-07-26 18:28:29,030 [INFO] Testing key pair for ASN: as05
+2025-07-26 18:28:29,030 [DEBUG] Public key loaded for as05: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,030 [ERROR] Key pair test failed for as05: name 'hashlib' is not defined
+2025-07-26 18:28:29,030 [INFO] Testing key pair for ASN: as07
+2025-07-26 18:28:29,030 [DEBUG] Public key loaded for as07: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,030 [ERROR] Key pair test failed for as07: name 'hashlib' is not defined
+2025-07-26 18:28:29,030 [INFO] Testing key pair for ASN: as09
+2025-07-26 18:28:29,030 [DEBUG] Public key loaded for as09: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,030 [ERROR] Key pair test failed for as09: name 'hashlib' is not defined
+2025-07-26 18:28:29,031 [INFO] Testing key pair for ASN: as11
+2025-07-26 18:28:29,031 [DEBUG] Public key loaded for as11: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,031 [ERROR] Key pair test failed for as11: name 'hashlib' is not defined
+2025-07-26 18:28:29,031 [INFO] Testing key pair for ASN: as13
+2025-07-26 18:28:29,031 [DEBUG] Public key loaded for as13: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,031 [ERROR] Key pair test failed for as13: name 'hashlib' is not defined
+2025-07-26 18:28:29,031 [INFO] Testing key pair for ASN: as15
+2025-07-26 18:28:29,031 [DEBUG] Public key loaded for as15: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,031 [ERROR] Key pair test failed for as15: name 'hashlib' is not defined
+2025-07-26 18:28:29,031 [INFO] Testing key pair for ASN: as17
+2025-07-26 18:28:29,031 [DEBUG] Public key loaded for as17: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:28:29,031 [ERROR] Key pair test failed for as17: name 'hashlib' is not defined
+2025-07-26 18:28:29,031 [INFO] Completed key pair tests
+2025-07-26 18:30:29,607 [INFO] Starting key pair test for all nodes
+2025-07-26 18:30:29,607 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:30:29,607 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:30:29,607 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data
+2025-07-26 18:30:29,607 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:30:29,608 [DEBUG] Public key registry loaded with 9 entries
+2025-07-26 18:30:29,608 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/private_key.pem
+2025-07-26 18:30:29,654 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:29,654 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/blockchain_node/private_key.pem
+2025-07-26 18:30:29,714 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:29,715 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as05/blockchain_node/private_key.pem
+2025-07-26 18:30:29,817 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:29,817 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as07/blockchain_node/private_key.pem
+2025-07-26 18:30:29,911 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:29,913 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as09/blockchain_node/private_key.pem
+2025-07-26 18:30:29,979 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:29,981 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as11/blockchain_node/private_key.pem
+2025-07-26 18:30:30,063 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:30,064 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as13/blockchain_node/private_key.pem
+2025-07-26 18:30:30,132 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:30,132 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as15/blockchain_node/private_key.pem
+2025-07-26 18:30:30,202 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:30,202 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as17/blockchain_node/private_key.pem
+2025-07-26 18:30:30,248 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:30:30,248 [INFO] Testing key pair for ASN: as01
+2025-07-26 18:30:30,248 [DEBUG] Public key loaded for as01: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,252 [DEBUG] Message signed for as01, signature length: 256 bytes
+2025-07-26 18:30:30,252 [ERROR] Key pair test failed for as01: Signature verification failed
+2025-07-26 18:30:30,252 [INFO] Testing key pair for ASN: as03
+2025-07-26 18:30:30,252 [DEBUG] Public key loaded for as03: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,254 [DEBUG] Message signed for as03, signature length: 256 bytes
+2025-07-26 18:30:30,254 [ERROR] Key pair test failed for as03: Signature verification failed
+2025-07-26 18:30:30,254 [INFO] Testing key pair for ASN: as05
+2025-07-26 18:30:30,254 [DEBUG] Public key loaded for as05: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,256 [DEBUG] Message signed for as05, signature length: 256 bytes
+2025-07-26 18:30:30,256 [ERROR] Key pair test failed for as05: Signature verification failed
+2025-07-26 18:30:30,256 [INFO] Testing key pair for ASN: as07
+2025-07-26 18:30:30,256 [DEBUG] Public key loaded for as07: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,257 [DEBUG] Message signed for as07, signature length: 256 bytes
+2025-07-26 18:30:30,258 [ERROR] Key pair test failed for as07: Signature verification failed
+2025-07-26 18:30:30,258 [INFO] Testing key pair for ASN: as09
+2025-07-26 18:30:30,258 [DEBUG] Public key loaded for as09: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,259 [DEBUG] Message signed for as09, signature length: 256 bytes
+2025-07-26 18:30:30,259 [ERROR] Key pair test failed for as09: Signature verification failed
+2025-07-26 18:30:30,260 [INFO] Testing key pair for ASN: as11
+2025-07-26 18:30:30,260 [DEBUG] Public key loaded for as11: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,261 [DEBUG] Message signed for as11, signature length: 256 bytes
+2025-07-26 18:30:30,262 [ERROR] Key pair test failed for as11: Signature verification failed
+2025-07-26 18:30:30,262 [INFO] Testing key pair for ASN: as13
+2025-07-26 18:30:30,262 [DEBUG] Public key loaded for as13: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,264 [DEBUG] Message signed for as13, signature length: 256 bytes
+2025-07-26 18:30:30,264 [ERROR] Key pair test failed for as13: Signature verification failed
+2025-07-26 18:30:30,264 [INFO] Testing key pair for ASN: as15
+2025-07-26 18:30:30,265 [DEBUG] Public key loaded for as15: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,266 [DEBUG] Message signed for as15, signature length: 256 bytes
+2025-07-26 18:30:30,267 [INFO] Key pair test successful for as15
+2025-07-26 18:30:30,268 [INFO] Testing key pair for ASN: as17
+2025-07-26 18:30:30,268 [DEBUG] Public key loaded for as17: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:30:30,270 [DEBUG] Message signed for as17, signature length: 256 bytes
+2025-07-26 18:30:30,270 [ERROR] Key pair test failed for as17: Signature verification failed
+2025-07-26 18:30:30,271 [INFO] Completed key pair tests
+2025-07-26 18:32:56,499 [INFO] Starting key pair test for all nodes
+2025-07-26 18:32:56,499 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:32:56,499 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:32:56,499 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data
+2025-07-26 18:32:56,499 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:32:56,500 [DEBUG] Public key registry loaded with 9 entries
+2025-07-26 18:32:56,500 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 18:32:56,544 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,544 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/blockchain_node/private_key.pem
+2025-07-26 18:32:56,585 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,585 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as05/blockchain_node/private_key.pem
+2025-07-26 18:32:56,626 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,626 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as07/blockchain_node/private_key.pem
+2025-07-26 18:32:56,670 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,670 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as09/blockchain_node/private_key.pem
+2025-07-26 18:32:56,710 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,710 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as11/blockchain_node/private_key.pem
+2025-07-26 18:32:56,753 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,753 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as13/blockchain_node/private_key.pem
+2025-07-26 18:32:56,794 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,795 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as15/blockchain_node/private_key.pem
+2025-07-26 18:32:56,836 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,836 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as17/blockchain_node/private_key.pem
+2025-07-26 18:32:56,876 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:32:56,876 [INFO] Testing key pair for ASN: as01
+2025-07-26 18:32:56,876 [DEBUG] Public key loaded for as01: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,878 [DEBUG] Message signed for as01, signature length: 256 bytes
+2025-07-26 18:32:56,878 [ERROR] Key pair test failed for as01: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,878 [INFO] Testing key pair for ASN: as03
+2025-07-26 18:32:56,878 [DEBUG] Public key loaded for as03: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,880 [DEBUG] Message signed for as03, signature length: 256 bytes
+2025-07-26 18:32:56,880 [ERROR] Key pair test failed for as03: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,881 [INFO] Testing key pair for ASN: as05
+2025-07-26 18:32:56,881 [DEBUG] Public key loaded for as05: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,883 [DEBUG] Message signed for as05, signature length: 256 bytes
+2025-07-26 18:32:56,884 [ERROR] Key pair test failed for as05: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,884 [INFO] Testing key pair for ASN: as07
+2025-07-26 18:32:56,884 [DEBUG] Public key loaded for as07: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,886 [DEBUG] Message signed for as07, signature length: 256 bytes
+2025-07-26 18:32:56,887 [ERROR] Key pair test failed for as07: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,887 [INFO] Testing key pair for ASN: as09
+2025-07-26 18:32:56,887 [DEBUG] Public key loaded for as09: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,889 [DEBUG] Message signed for as09, signature length: 256 bytes
+2025-07-26 18:32:56,889 [ERROR] Key pair test failed for as09: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,889 [INFO] Testing key pair for ASN: as11
+2025-07-26 18:32:56,889 [DEBUG] Public key loaded for as11: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,891 [DEBUG] Message signed for as11, signature length: 256 bytes
+2025-07-26 18:32:56,891 [ERROR] Key pair test failed for as11: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,891 [INFO] Testing key pair for ASN: as13
+2025-07-26 18:32:56,891 [DEBUG] Public key loaded for as13: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,893 [DEBUG] Message signed for as13, signature length: 256 bytes
+2025-07-26 18:32:56,893 [ERROR] Key pair test failed for as13: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,894 [INFO] Testing key pair for ASN: as15
+2025-07-26 18:32:56,894 [DEBUG] Public key loaded for as15: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,896 [DEBUG] Message signed for as15, signature length: 256 bytes
+2025-07-26 18:32:56,896 [INFO] Key pair test successful for as15
+2025-07-26 18:32:56,896 [INFO] Testing key pair for ASN: as17
+2025-07-26 18:32:56,896 [DEBUG] Public key loaded for as17: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:32:56,898 [DEBUG] Message signed for as17, signature length: 256 bytes
+2025-07-26 18:32:56,898 [ERROR] Key pair test failed for as17: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:32:56,898 [INFO] Completed key pair tests
+2025-07-26 18:40:26,508 [INFO] Starting key pair test for all nodes
+2025-07-26 18:40:26,509 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:40:26,509 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:40:26,509 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data
+2025-07-26 18:40:26,509 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:40:26,509 [DEBUG] Public key registry loaded with 14 entries
+2025-07-26 18:40:26,509 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 18:40:26,560 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,561 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/blockchain_node/private_key.pem
+2025-07-26 18:40:26,601 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,601 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as05/blockchain_node/private_key.pem
+2025-07-26 18:40:26,645 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,645 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as07/blockchain_node/private_key.pem
+2025-07-26 18:40:26,685 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,685 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as09/blockchain_node/private_key.pem
+2025-07-26 18:40:26,728 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,728 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as11/blockchain_node/private_key.pem
+2025-07-26 18:40:26,768 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,768 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as13/blockchain_node/private_key.pem
+2025-07-26 18:40:26,825 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,825 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as15/blockchain_node/private_key.pem
+2025-07-26 18:40:26,880 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,880 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as17/blockchain_node/private_key.pem
+2025-07-26 18:40:26,921 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:40:26,921 [INFO] Testing key pair for ASN: as01
+2025-07-26 18:40:26,922 [DEBUG] Public key loaded for as01: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,924 [DEBUG] Message signed for as01, signature length: 256 bytes
+2025-07-26 18:40:26,924 [ERROR] Key pair test failed for as01: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:40:26,925 [INFO] Testing key pair for ASN: as03
+2025-07-26 18:40:26,925 [DEBUG] Public key loaded for as03: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,926 [DEBUG] Message signed for as03, signature length: 256 bytes
+2025-07-26 18:40:26,927 [ERROR] Key pair test failed for as03: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:40:26,927 [INFO] Testing key pair for ASN: as05
+2025-07-26 18:40:26,927 [DEBUG] Public key loaded for as05: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,928 [DEBUG] Message signed for as05, signature length: 256 bytes
+2025-07-26 18:40:26,928 [ERROR] Key pair test failed for as05: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:40:26,928 [INFO] Testing key pair for ASN: as07
+2025-07-26 18:40:26,928 [DEBUG] Public key loaded for as07: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,930 [DEBUG] Message signed for as07, signature length: 256 bytes
+2025-07-26 18:40:26,930 [ERROR] Key pair test failed for as07: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:40:26,930 [INFO] Testing key pair for ASN: as09
+2025-07-26 18:40:26,930 [DEBUG] Public key loaded for as09: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,931 [DEBUG] Message signed for as09, signature length: 256 bytes
+2025-07-26 18:40:26,931 [ERROR] Key pair test failed for as09: Signature verification failed. Public key snippet: -----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQE...
+2025-07-26 18:40:26,931 [INFO] Testing key pair for ASN: as11
+2025-07-26 18:40:26,931 [DEBUG] Public key loaded for as11: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,933 [DEBUG] Message signed for as11, signature length: 256 bytes
+2025-07-26 18:40:26,933 [INFO] Key pair test successful for as11
+2025-07-26 18:40:26,933 [INFO] Testing key pair for ASN: as13
+2025-07-26 18:40:26,933 [DEBUG] Public key loaded for as13: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,934 [DEBUG] Message signed for as13, signature length: 256 bytes
+2025-07-26 18:40:26,934 [INFO] Key pair test successful for as13
+2025-07-26 18:40:26,934 [INFO] Testing key pair for ASN: as15
+2025-07-26 18:40:26,934 [DEBUG] Public key loaded for as15: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,936 [DEBUG] Message signed for as15, signature length: 256 bytes
+2025-07-26 18:40:26,936 [INFO] Key pair test successful for as15
+2025-07-26 18:40:26,936 [INFO] Testing key pair for ASN: as17
+2025-07-26 18:40:26,936 [DEBUG] Public key loaded for as17: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:40:26,937 [DEBUG] Message signed for as17, signature length: 256 bytes
+2025-07-26 18:40:26,937 [INFO] Key pair test successful for as17
+2025-07-26 18:40:26,937 [INFO] Completed key pair tests
+2025-07-26 18:42:50,216 [INFO] Starting key pair test for all nodes
+2025-07-26 18:42:50,216 [DEBUG] Project root: /home/anik/code/BGP_Announcement_Recorder
+2025-07-26 18:42:50,216 [DEBUG] RPKI node directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes
+2025-07-26 18:42:50,216 [DEBUG] Shared data directory: /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data
+2025-07-26 18:42:50,217 [INFO] Loading public key registry from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-26 18:42:50,217 [DEBUG] Public key registry loaded with 9 entries
+2025-07-26 18:42:50,217 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as01/blockchain_node/private_key.pem
+2025-07-26 18:42:50,261 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,261 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as03/blockchain_node/private_key.pem
+2025-07-26 18:42:50,302 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,302 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as05/blockchain_node/private_key.pem
+2025-07-26 18:42:50,346 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,347 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as07/blockchain_node/private_key.pem
+2025-07-26 18:42:50,386 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,386 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as09/blockchain_node/private_key.pem
+2025-07-26 18:42:50,427 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,427 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as11/blockchain_node/private_key.pem
+2025-07-26 18:42:50,468 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,468 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as13/blockchain_node/private_key.pem
+2025-07-26 18:42:50,508 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,508 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as15/blockchain_node/private_key.pem
+2025-07-26 18:42:50,553 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,553 [INFO] Loading private key from /home/anik/code/BGP_Announcement_Recorder/nodes/rpki_nodes/as17/blockchain_node/private_key.pem
+2025-07-26 18:42:50,593 [DEBUG] Private key loaded: type=RSAPrivateKey, size=2048 bits
+2025-07-26 18:42:50,594 [INFO] Testing key pair for ASN: as01
+2025-07-26 18:42:50,594 [DEBUG] Public key loaded for as01: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,596 [DEBUG] Message signed for as01, signature length: 256 bytes
+2025-07-26 18:42:50,596 [INFO] Key pair test successful for as01
+2025-07-26 18:42:50,596 [INFO] Testing key pair for ASN: as03
+2025-07-26 18:42:50,596 [DEBUG] Public key loaded for as03: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,597 [DEBUG] Message signed for as03, signature length: 256 bytes
+2025-07-26 18:42:50,597 [INFO] Key pair test successful for as03
+2025-07-26 18:42:50,598 [INFO] Testing key pair for ASN: as05
+2025-07-26 18:42:50,598 [DEBUG] Public key loaded for as05: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,599 [DEBUG] Message signed for as05, signature length: 256 bytes
+2025-07-26 18:42:50,599 [INFO] Key pair test successful for as05
+2025-07-26 18:42:50,599 [INFO] Testing key pair for ASN: as07
+2025-07-26 18:42:50,599 [DEBUG] Public key loaded for as07: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,600 [DEBUG] Message signed for as07, signature length: 256 bytes
+2025-07-26 18:42:50,601 [INFO] Key pair test successful for as07
+2025-07-26 18:42:50,601 [INFO] Testing key pair for ASN: as09
+2025-07-26 18:42:50,601 [DEBUG] Public key loaded for as09: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,602 [DEBUG] Message signed for as09, signature length: 256 bytes
+2025-07-26 18:42:50,602 [INFO] Key pair test successful for as09
+2025-07-26 18:42:50,602 [INFO] Testing key pair for ASN: as11
+2025-07-26 18:42:50,602 [DEBUG] Public key loaded for as11: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,603 [DEBUG] Message signed for as11, signature length: 256 bytes
+2025-07-26 18:42:50,603 [INFO] Key pair test successful for as11
+2025-07-26 18:42:50,603 [INFO] Testing key pair for ASN: as13
+2025-07-26 18:42:50,604 [DEBUG] Public key loaded for as13: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,605 [DEBUG] Message signed for as13, signature length: 256 bytes
+2025-07-26 18:42:50,605 [INFO] Key pair test successful for as13
+2025-07-26 18:42:50,605 [INFO] Testing key pair for ASN: as15
+2025-07-26 18:42:50,605 [DEBUG] Public key loaded for as15: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,606 [DEBUG] Message signed for as15, signature length: 256 bytes
+2025-07-26 18:42:50,606 [INFO] Key pair test successful for as15
+2025-07-26 18:42:50,606 [INFO] Testing key pair for ASN: as17
+2025-07-26 18:42:50,606 [DEBUG] Public key loaded for as17: type=RSAPublicKey, size=2048 bits
+2025-07-26 18:42:50,608 [DEBUG] Message signed for as17, signature length: 256 bytes
+2025-07-26 18:42:50,609 [INFO] Key pair test successful for as17
+2025-07-26 18:42:50,609 [INFO] Completed key pair tests
