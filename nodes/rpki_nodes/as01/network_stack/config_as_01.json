@@ -14,5 +14,5 @@
   "round_time": 10,
   "private_key_path": "nodes/rpki_nodes/keys/private/private_key_65001.pem",
   "public_key_path": "nodes/rpki_nodes/keys/public/public_key_65001.pem",
-  "AS": 19
+  "AS": 1
 }
