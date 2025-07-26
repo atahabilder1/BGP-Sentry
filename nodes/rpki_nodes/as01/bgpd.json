@@ -6,62 +6,6 @@
         "203.0.113.0/24"
       ],
       "timestamp": "2025-07-24T14:00:00Z"
-    },
-    {
-      "sender_asn": 4,
-      "announced_prefixes": [
-        "198.51.100.0/24"
-      ],
-      "timestamp": "2025-07-24T14:00:30Z"
-    },
-    {
-      "sender_asn": 6,
-      "announced_prefixes": [
-        "203.0.113.0/24"
-      ],
-      "timestamp": "2025-07-24T14:01:00Z"
-    },
-    {
-      "sender_asn": 8,
-      "announced_prefixes": [
-        "192.0.2.0/24"
-      ],
-      "timestamp": "2025-07-24T14:01:30Z"
-    },
-    {
-      "sender_asn": 10,
-      "announced_prefixes": [
-        "198.51.100.0/24"
-      ],
-      "timestamp": "2025-07-24T14:02:00Z"
-    },
-    {
-      "sender_asn": 12,
-      "announced_prefixes": [
-        "198.51.100.0/24"
-      ],
-      "timestamp": "2025-07-24T14:03:00Z"
-    },
-    {
-      "sender_asn": 14,
-      "announced_prefixes": [
-        "172.16.0.0/16"
-      ],
-      "timestamp": "2025-07-24T14:03:30Z"
-    },
-    {
-      "sender_asn": 16,
-      "announced_prefixes": [
-        "172.16.0.0/16"
-      ],
-      "timestamp": "2025-07-24T14:04:00Z"
-    },
-    {
-      "sender_asn": 18,
-      "announced_prefixes": [
-        "192.0.2.0/24"
-      ],
-      "timestamp": "2025-07-24T14:04:30Z"
     }
   ]
 }
