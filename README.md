@@ -1,157 +1,144 @@
 # 🛡️ BGP TrustChain: Blockchain-Based BGP Announcement Auditor
 
 ## 📚 Overview
+BGP TrustChain is a simulation framework designed to **audit and secure BGP (Border Gateway Protocol) announcements** using a dual-blockchain trust architecture. It models real-world **Autonomous Systems (ASes)** as nodes in a Mininet-based topology and separates them into two categories:
 
-**BGP TrustChain** is a simulation framework designed to secure and audit BGP (Border Gateway Protocol) announcements using a dual-blockchain architecture and trust management. It represents real-world Autonomous Systems (ASes) as nodes in a Mininet-based topology. These nodes are split into two types:
+- **RPKI-enabled nodes**: Trusted validators that participate in consensus and are authorized to write to the blockchain.
+- **Non-RPKI nodes**: Untrusted ASes whose announcements are validated by RPKI nodes and whose trust scores are tracked and penalized/rewarded.
 
-- **RPKI-enabled nodes**: Trusted ASes allowed to write to the blockchain.
-- **non-RPKI nodes**: Less trusted ASes that must maintain a minimum trust score and may stake USDC tokens on a public blockchain to boost credibility.
+> **Note:** In the current simulation, all BGP announcements are generated from **Mininet logs**, not directly from non-RPKI nodes.
 
-The simulation aims to log all BGP announcements (including hijacks and withdrawals), penalize malicious ASes, and reward good behavior over time. It combines real-time enforcement with historical trend-based scoring.
+The framework emphasizes a combination of **real-time enforcement** and **historical behavior tracking** to identify and penalize BGP hijacks and other anomalies.
 
 ---
 
 ## 📁 Folder & File Structure
-
 ```
 BGP_ANNOUNCEMENT_RECORDER/
-│
+|
 ├── bgp_feed/
-│   └── bgp_simulator.py              # Simulates BGP announcements and withdrawals
-│
-├── blockchain/
-│   ├── block.py                      # BGPAnnouncement and Block classes
-│   ├── blockchain.py                 # Blockchain A: append/read chain
-│   ├── staking_interface.py         # Checks stake amount on Blockchain B
-│   ├── trust_state.py               # Tracks trust scores for (ASN, prefix)
-│   └── utils.py                     # Utility functions (hashing, validation)
-│
+│   └── mininet_logs/                 # BGP logs from simulated routers (used as input)
+|
 ├── nodes/
 │   ├── rpki_nodes/
-│   │   ├── rpki_65001.py             # Example RPKI node logic
-│   │   └── config_65001.json         # Config for RPKI node ASN 65001
-│   └── non_rpki_nodes/
-│       ├── nonrpki_65010.py         # Example non-RPKI node logic
-│       └── config_65010.json         # Config for non-RPKI node ASN 65010
-│
-├── shared_data/
-│   ├── bgp_stream.jsonl             # Shared buffer for incoming BGP data
-│   ├── blockchain.json              # Chain of accepted BGP blocks
-│   ├── trust_log.jsonl              # Append-only log of trust score events
-│   └── trust_state.json             # Current trust scores by (ASN, prefix)
-│
-├── smart_contract/
-│   ├── StakingContract.sol          # Solidity contract for staking (Blockchain B)
-│   └── deploy_and_test.py           # Deploy/interact using Web3
-│
-├── trust_engine/
-│   ├── trust_engine_instant.py      # Real-time penalty system for hijacks
-│   └── trust_engine_periodic.py     # Monthly trust adjustment from behavior logs
-│
-├── node.py                          # RPKI node loop for proposing and endorsing blocks
-├── requirements.txt                 # Python package dependencies
-├── LICENSE
+│   │   ├── as01/, as03/, ..., as19/      # Each RPKI AS node
+│   │   │   ├── blockchain_node/         # Blockchain logic
+│   │   │   └── network_stack/           # Stores BGP log entries for each AS
+│   │   ├── rpki_verification_system/     # Prefix and path validation logic
+│   │   └── shared_blockchain_stack/
+│   │       ├── block_proposer/          # Proposes new blocks
+│   │       ├── concensus_engine/        # Validates and agrees on transactions
+│   │       ├── shared_data/
+│   │       │   ├── chain/               # Blockchain A (private ledger)
+│   │       │   ├── shared_registry/     # Trusted AS registry
+│   │       │   └── state/               # Trust scores, staking info
+│   │       └── utils/
+│   │           ├── stake_engine/        # Reads USDC staking data from Blockchain B
+│   │           └── trust_engine/        # Updates trust scores based on logs
+│   └── non_rpki_nodes/                # Not used for generating logs in current version
+|
+├── smart_contract/                       # Blockchain B (public) staking system
+│   ├── contracts/                     # Solidity source
+│   ├── scripts/                       # Deployment/test scripts
+│   └── test/                          # Smart contract unit tests
+|
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🔁 Data Flow Summary
-
-```text
-[Mininet] → bgp_simulator.py
-              ↓
-     shared_data/bgp_stream.jsonl
-              ↓
-        [RPKI Node: node.py]
-          ├── validates prefix
-          ├── checks trust (trust_state.json)
-          ├── checks stake (staking_interface.py)
-          ├── logs announcement (blockchain.json)
-          └── adjusts trust (trust_engine_instant.py or periodic.py)
+## 🔄 Data Flow Summary
+```
+[Mininet BGP Simulation]
+      ↳ bgp_feed/mininet_logs/
+            ↳ Parsed into: nodes/rpki_nodes/*/network_stack/
+                  ↳ Announcements validated (prefix, AS-path)
+                        ↳ Trust and stake checked
+                              ↳ Written to shared_blockchain_stack/shared_data/chain/
+                              ↳ Trust score updated in shared_data/state/
 ```
 
 ---
 
 ## 🔐 Trust Architecture
 
-### ✅ Trust Score Design
+### ✅ Trust Score Model
+- **Initial trust** for non-RPKI nodes = 70
+- **Minimum accepted trust** = 70
+- **Penalty for hijack** = -30 (immediate)
+- **Periodic adjustment**:
+  - Reward: +5 per good cycle
+  - Penalty: -10 per suspicious cycle
+- **Stake-based boost**:
+  - Stake 100 USDC if trust ≥ 50 and < 70
+  - Temporary boost: +20
 
-- Trust score is maintained for each (ASN, prefix) pair.
-- Initial score for non-RPKI = 70
-- Minimum to be accepted = 70
-- Real-time penalty for confirmed hijack = -30
-- Periodic reward = +5 or penalty = -10
-- Stake boost if trust ≥ 50 but < 70 → +20 (temporary)
-- Required stake: 100 USDC on Blockchain B
-
-### ✅ Trust Engine
-
-- `trust_engine_instant.py`: Triggered by malicious behavior (real-time).
-- `trust_engine_periodic.py`: Runs monthly, analyzes behavior from blockchain logs.
-
----
-
-## ⛓️ Blockchain Models
-
-### Blockchain A (Local TrustChain)
-
-- Private/permissioned
-- Only RPKI nodes can write
-- Stores full BGP announcements (announce/withdraw)
-- Logs who endorsed it (`endorsed_by`)
-- Tracks AS-path, prefix, timestamp, type, digital signature
-
-### Blockchain B (Public, USDC Staking)
-
-- Holds a smart contract deployed manually (Ethereum/Solana)
-- Used by non-RPKI nodes to boost trust
-- Smart contract supports:
-  - `stake(asn, amount)`
-  - `getStake(asn)` → Used in `staking_interface.py`
+### 🔑 Trust Engine Logic
+Located in:
+```
+nodes/rpki_nodes/shared_blockchain_stack/utils/trust_engine/
+```
+- Applies real-time penalties (e.g., for hijacks)
+- Performs periodic trust adjustment (e.g., monthly)
 
 ---
 
-## 🧪 How to Run
+## ⚖️ Blockchain Models
 
-### 1. Set up virtual environment
+### ⛓️ Blockchain A (TrustChain)
+- Permissioned private chain
+- Stores full BGP announcement records
+- Operated by RPKI-enabled nodes
+- Located in:
+```
+nodes/rpki_nodes/shared_blockchain_stack/shared_data/chain/
+```
+
+### ₵ Blockchain B (Public USDC Staking)
+- Smart contract on Ethereum/Solana
+- Allows non-RPKI nodes to stake USDC
+- Used for trust boosting
+- Interacted with by `stake_engine/`
+
+---
+
+## 🔮 How to Run
+
+### 1. Set up Environment
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Simulate BGP feed
+### 2. Generate BGP Logs
 ```bash
-python bgp_feed/bgp_simulator.py
+python bgp_feed/mininet_logs/simulator.py
+```
+> Simulated announcements will be written to `nodes/rpki_nodes/*/network_stack/`
+
+### 3. Run RPKI Node
+```bash
+python nodes/rpki_nodes/as01/blockchain_node/main.py --asn 65001
 ```
 
-### 3. Launch a RPKI node
+### 4. Update Trust Scores
 ```bash
-python node.py --asn 65001
+python nodes/rpki_nodes/shared_blockchain_stack/utils/trust_engine/main.py
 ```
 
-### 4. Run trust engine (instant check)
-```bash
-python trust_engine/trust_engine_instant.py
-```
-
-### 5. Run trust engine (periodic analysis)
-```bash
-python trust_engine/trust_engine_periodic.py
-```
-
-### 6. Deploy smart contract and stake
+### 5. Deploy Smart Contract (Blockchain B)
 ```bash
 cd smart_contract/
-python deploy_and_test.py
+python scripts/deploy_and_test.py
 ```
+More on the readme file of the smart contract folder.
 
 ---
 
-## 🔐 Announcement Format Example
-
+## 🔒 Announcement Format
 ```json
 {
   "asn": 65010,
@@ -167,43 +154,37 @@ python deploy_and_test.py
 
 ---
 
-## 💼 Responsibilities
-
-### Major Components
-
-| File/Folder                     | Description |
-|--------------------------------|-------------|
-| `blockchain/block.py`          | Defines BGPAnnouncement and Block structures |
-| `blockchain/blockchain.py`     | Blockchain A logic (append, read chain) |
-| `blockchain/trust_state.py`    | Maintains and updates trust scores |
-| `blockchain/staking_interface.py` | Reads stake from public chain (Blockchain B) |
-| `node.py`                      | Main RPKI node logic: validate and propose blocks |
-| `bgp_feed/bgp_simulator.py`    | Generates test BGP data to mimic Mininet stack |
-| `trust_engine/*.py`            | Real-time or periodic trust logic |
-| `shared_data/*.json`           | Intermediate storage, logs, and buffers |
+## 💼 Major Responsibilities
+| Component Path | Description |
+|----------------|-------------|
+| `blockchain_node/` | Proposes blocks, validates and writes announcements |
+| `shared_blockchain_stack/` | Manages Blockchain A: proposing, consensus, logging |
+| `trust_engine/` | Adjusts trust scores using logs and penalties |
+| `stake_engine/` | Reads on-chain stake data from Blockchain B |
+| `network_stack/` | Receives and stores simulated BGP logs |
+| `bgp_feed/mininet_logs/` | Generator of all BGP test input logs (Not being used now)|
+| `shared_data/` | Stores blockchain chain, trust state, and registries |
 
 ---
 
 ## 🧠 Realism Assumptions
-
-- Each node (RPKI or non-RPKI) represents an actual AS + router stack.
-- Mininet runs the routing daemons; Python agents simulate validation and logging.
-- Only **first-hop RPKI node** writes a BGP update to the blockchain.
-- Withdrawals and hijack attempts are handled and logged the same way.
-
----
-
-## 📘 For Research Paper / Report
-
-- Emphasize dual-blockchain architecture.
-- Two-level trust: Instant (real-time) and Periodic (monthly behavior).
-- Blockchain A is internal, Blockchain B is external public.
-- Smart contract incentivizes good routing behavior.
+- Each `asXX/` folder models a router stack (Mininet + validation agent)
+- All announcements come from **Mininet logs**, not directly from non-RPKI nodes
+- Only **RPKI first-hop nodes** write to the blockchain
+- Withdrawals and hijacks follow the same logging and trust rules
 
 ---
 
-## 👨‍💻 Author
+## 📄 For Research or Reports
+- Emphasize dual blockchain design
+  - Blockchain A: permissioned, local
+  - Blockchain B: public, stake-based
+- Trust score is dynamic and based on behavior
+- Mininet simulates real-world topology and attack scenarios
 
+---
+
+## 👨‍💼 Author
 **Anik Tahabilder**  
 Blockchain Researcher | PhD Student | Smart Contract Security Architect  
-Project Lead and System Architect of BGP TrustChain
+*Project Lead and System Architect of BGP TrustChain*

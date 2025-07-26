@@ -1,0 +1,70 @@
+.
+├── bgp_feed
+│   └── mininet_logs
+├── nodes
+│   ├── non_rpki_nodes
+│   │   ├── as02
+│   │   ├── as04
+│   │   ├── as06
+│   │   ├── as08
+│   │   ├── as10
+│   │   ├── as12
+│   │   ├── as14
+│   │   ├── as16
+│   │   ├── as18
+│   │   └── as20
+│   └── rpki_nodes
+│       ├── as01
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as03
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as05
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as07
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as09
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as11
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as13
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as15
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as17
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── as19
+│       │   ├── blockchain_node
+│       │   └── network_stack
+│       ├── rpki_verification_system
+│       └── shared_blockchain_stack
+│           ├── block_proposer
+│           ├── concensus_engine
+│           ├── shared_data
+│           │   ├── chain
+│           │   ├── shared_registry
+│           │   └── state
+│           └── utils
+│               ├── stake_engine
+│               └── trust_engine
+└── smart_contract
+    ├── artifacts
+    │   ├── build-info
+    │   └── contracts
+    │       └── StakingContract.sol
+    ├── cache
+    ├── contracts
+    ├── ignition
+    │   └── modules
+    ├── scripts
+    └── test
+
+68 directories

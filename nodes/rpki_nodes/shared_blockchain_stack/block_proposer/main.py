@@ -30,7 +30,7 @@ from parse_bgp import parse_bgp_announcement
 from create_transaction import create_transaction
 from transaction_pool import get_verified_transactions, add_vote
 from commit_to_blockchain import commit_to_blockchain
-from nodes.rpki_nodes.shared_blockchain_stack.utils.verify_transaction import verify_pool_transaction, verify_blockchain_transaction
+from nodes.rpki_nodes.shared_blockchain_stack.block_proposer.verify_transaction import verify_pool_transaction, verify_blockchain_transaction
 
 # Configure logging
 logging.basicConfig(
