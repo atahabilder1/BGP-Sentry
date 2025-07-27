@@ -40,7 +40,7 @@ from nodes.rpki_nodes.shared_blockchain_stack.block_proposer.create_transaction 
 from nodes.rpki_nodes.shared_blockchain_stack.block_proposer.commit_to_blockchain import commit_to_blockchain
 from nodes.rpki_nodes.shared_blockchain_stack.transaction_pool import add_transaction
 from nodes.rpki_nodes.shared_blockchain_stack.utils.stake_engine.staking_interface import stake
-from nodes.rpki_nodes.shared_blockchain_stack.utils.trust_engine.trust_engine_instant import calculate_trust_instant
+from nodes.rpki_nodes.shared_blockchain_stack.utils.trust_engine.reactive_trust_engine import calculate_trust_instant
 from nodes.rpki_nodes.shared_blockchain_stack.utils.trust_engine.trust_engine_periodic import calculate_trust_periodic
 from nodes.rpki_nodes.shared_blockchain_stack.utils.trust_engine.trust_state import update_trust_state
 
