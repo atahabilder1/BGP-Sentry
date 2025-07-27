@@ -1,3 +1,4 @@
+# File: verify_transaction.py
 """
 Purpose:
     Verifies transactions in transaction_pool.json or blockchain.json. For pool transactions,
