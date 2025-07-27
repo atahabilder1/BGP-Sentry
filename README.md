@@ -31,6 +31,7 @@ BGP_ANNOUNCEMENT_RECORDER/
 │   │   │   └── network_stack/           # Stores BGP log entries for each AS
 │   │   ├── rpki_verification_system/     # Prefix and path validation logic
 │   │   └── shared_blockchain_stack/
+            |── bgp_parser/              # parse the bgp announcement  
 │   │       ├── block_proposer/          # Proposes new blocks
 │   │       ├── concensus_engine/        # Validates and agrees on transactions
 │   │       ├── shared_data/
