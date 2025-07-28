@@ -1,3 +1,6 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.analysis.extraPaths": [
+        "./nodes/rpki_nodes/shared_blockchain_stack/utils_common"
+    ]
 }

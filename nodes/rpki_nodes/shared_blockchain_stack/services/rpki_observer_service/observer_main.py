@@ -37,21 +37,10 @@ import json
 from pathlib import Path
 from datetime import datetime
 import sys
+import os
 
-# Add paths for imports
-current_dir = Path(__file__).parent
-project_root = current_dir.parent.parent.parent.parent
-sys.path.insert(0, str(project_root / "nodes" / "rpki_nodes"))
-
-# Import components
-try:
-    from .bgp_monitor import parse_bgp_announcement
-    from .transaction_creator import create_transaction
-    from ...utils_common.transaction_pool import TransactionPool
-    from ...utils_common.trust_manager import TrustManager
-except ImportError:
-    # Fallback for testing
-    print("⚠️  Import error - using fallback classes")
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 class RPKIObserverService:
     """
@@ -93,6 +82,19 @@ class RPKIObserverService:
     def _initialize_components(self):
         """Initialize BGP monitor, transaction creator, and other components."""
         try:
+            # Try to import real components
+            current_file_dir = os.path.dirname(os.path.abspath(__file__))
+            sys.path.insert(0, current_file_dir)
+            
+            utils_common_dir = os.path.join(current_file_dir, '..', '..', 'utils_common')
+            utils_common_dir = os.path.abspath(utils_common_dir)
+            sys.path.insert(0, utils_common_dir)
+            
+            from bgp_monitor import BGPMonitor
+            from transaction_creator import TransactionCreator
+            from transaction_pool import TransactionPool
+            from trust_manager import TrustManager
+            
             # Initialize BGP monitor for parsing network_stack/bgpd.json
             self.bgp_monitor = BGPMonitor(
                 bgpd_path=self.network_stack_path / "bgpd.json",
@@ -132,10 +134,13 @@ class RPKIObserverService:
                 }]
         
         class FallbackTransactionCreator:
-            def create_signed_transaction(self, bgp_data):
+            def __init__(self):
+                self.as_number = None
+                
+            def create_transaction(self, bgp_data):
                 return {
                     "transaction_id": f"tx_{int(time.time())}",
-                    "observer_as": self.as_number,
+                    "observer_as": bgp_data.get('observer_as', 5),
                     "bgp_data": bgp_data,
                     "timestamp": datetime.now().isoformat(),
                     "signature": "fallback_signature"
@@ -148,7 +153,7 @@ class RPKIObserverService:
         
         class FallbackTrustManager:
             def get_trust_score(self, as_number):
-                return 100.0  # Default trust score
+                return 80.0  # Default trust score
         
         self.bgp_monitor = FallbackBGPMonitor()
         self.transaction_creator = FallbackTransactionCreator()
@@ -267,7 +272,7 @@ class RPKIObserverService:
                 }
                 
                 # 4. Create and sign transaction
-                transaction = self.transaction_creator.create_signed_transaction(enhanced_data)
+                transaction = self.transaction_creator.create_transaction(enhanced_data)
                 
                 if transaction:
                     # 5. Submit to transaction pool for consensus
