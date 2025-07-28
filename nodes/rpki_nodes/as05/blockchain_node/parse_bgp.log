@@ -1,0 +1,212 @@
+2025-07-27 19:27:59,172 [INFO] Starting AS05 blockchain node
+2025-07-27 19:27:59,172 [INFO] Starting background thread for bgp_parser: Monitors BGP announcements from router logs
+2025-07-27 19:27:59,172 [INFO] Started bgp_parser thread
+2025-07-27 19:27:59,172 [DEBUG] Executing bgp_parser
+2025-07-27 19:27:59,173 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:27:59,173 [INFO] Starting background thread for block_proposer: Creates and proposes blockchain transactions
+2025-07-27 19:27:59,173 [INFO] Started block_proposer thread
+2025-07-27 19:27:59,173 [DEBUG] Executing block_proposer
+2025-07-27 19:27:59,173 [INFO] Starting background thread for consensus_engine: Validates transactions and participates in consensus
+2025-07-27 19:27:59,173 [INFO] Started consensus_engine thread
+2025-07-27 19:27:59,174 [DEBUG] Executing consensus_engine
+2025-07-27 19:27:59,174 [WARNING] Trust Coordinator failed to start: name 'TrustCoordinator' is not defined
+2025-07-27 19:27:59,174 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:27:59,174 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:27:59,174 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:27:59,174 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:27:59,174 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:28:29,173 [DEBUG] Executing bgp_parser
+2025-07-27 19:28:29,173 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:28:44,174 [DEBUG] Executing consensus_engine
+2025-07-27 19:28:59,173 [DEBUG] Executing bgp_parser
+2025-07-27 19:28:59,174 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:28:59,174 [DEBUG] Executing block_proposer
+2025-07-27 19:29:29,174 [DEBUG] Executing bgp_parser
+2025-07-27 19:29:29,174 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:29:29,174 [DEBUG] Executing consensus_engine
+2025-07-27 19:29:59,174 [DEBUG] Executing block_proposer
+2025-07-27 19:29:59,174 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:29:59,174 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:29:59,174 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:29:59,174 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:29:59,175 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:29:59,175 [DEBUG] Executing bgp_parser
+2025-07-27 19:29:59,175 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:30:14,175 [DEBUG] Executing consensus_engine
+2025-07-27 19:30:29,175 [DEBUG] Executing bgp_parser
+2025-07-27 19:30:29,175 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:30:59,174 [DEBUG] Executing block_proposer
+2025-07-27 19:30:59,175 [DEBUG] Executing consensus_engine
+2025-07-27 19:30:59,175 [DEBUG] Executing bgp_parser
+2025-07-27 19:30:59,175 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:31:29,176 [DEBUG] Executing bgp_parser
+2025-07-27 19:31:29,176 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:31:44,176 [DEBUG] Executing consensus_engine
+2025-07-27 19:31:59,174 [DEBUG] Executing block_proposer
+2025-07-27 19:31:59,175 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:31:59,175 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:31:59,175 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:31:59,175 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:31:59,175 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:31:59,176 [DEBUG] Executing bgp_parser
+2025-07-27 19:31:59,176 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:32:29,176 [DEBUG] Executing consensus_engine
+2025-07-27 19:32:29,177 [DEBUG] Executing bgp_parser
+2025-07-27 19:32:29,177 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:32:59,175 [DEBUG] Executing block_proposer
+2025-07-27 19:32:59,177 [DEBUG] Executing bgp_parser
+2025-07-27 19:32:59,178 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:33:14,176 [DEBUG] Executing consensus_engine
+2025-07-27 19:33:29,178 [DEBUG] Executing bgp_parser
+2025-07-27 19:33:29,178 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:33:59,175 [DEBUG] Executing block_proposer
+2025-07-27 19:33:59,176 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:33:59,176 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:33:59,176 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:33:59,176 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:33:59,176 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:33:59,177 [DEBUG] Executing consensus_engine
+2025-07-27 19:33:59,178 [DEBUG] Executing bgp_parser
+2025-07-27 19:33:59,178 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:34:29,179 [DEBUG] Executing bgp_parser
+2025-07-27 19:34:29,179 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:34:44,177 [DEBUG] Executing consensus_engine
+2025-07-27 19:34:59,176 [DEBUG] Executing block_proposer
+2025-07-27 19:34:59,179 [DEBUG] Executing bgp_parser
+2025-07-27 19:34:59,179 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:35:29,177 [DEBUG] Executing consensus_engine
+2025-07-27 19:35:29,180 [DEBUG] Executing bgp_parser
+2025-07-27 19:35:29,180 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:35:59,176 [DEBUG] Executing block_proposer
+2025-07-27 19:35:59,177 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:35:59,177 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:35:59,177 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:35:59,177 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:35:59,177 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:35:59,180 [DEBUG] Executing bgp_parser
+2025-07-27 19:35:59,180 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:36:14,178 [DEBUG] Executing consensus_engine
+2025-07-27 19:36:29,180 [DEBUG] Executing bgp_parser
+2025-07-27 19:36:29,180 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:36:59,177 [DEBUG] Executing block_proposer
+2025-07-27 19:36:59,178 [DEBUG] Executing consensus_engine
+2025-07-27 19:36:59,181 [DEBUG] Executing bgp_parser
+2025-07-27 19:36:59,181 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:37:29,181 [DEBUG] Executing bgp_parser
+2025-07-27 19:37:29,181 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:37:44,178 [DEBUG] Executing consensus_engine
+2025-07-27 19:37:59,177 [DEBUG] Executing block_proposer
+2025-07-27 19:37:59,177 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:37:59,177 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:37:59,178 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:37:59,178 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:37:59,178 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:37:59,181 [DEBUG] Executing bgp_parser
+2025-07-27 19:37:59,182 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:38:29,179 [DEBUG] Executing consensus_engine
+2025-07-27 19:38:29,182 [DEBUG] Executing bgp_parser
+2025-07-27 19:38:29,182 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:38:59,178 [DEBUG] Executing block_proposer
+2025-07-27 19:38:59,182 [DEBUG] Executing bgp_parser
+2025-07-27 19:38:59,182 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:39:14,179 [DEBUG] Executing consensus_engine
+2025-07-27 19:39:29,182 [DEBUG] Executing bgp_parser
+2025-07-27 19:39:29,183 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:39:59,178 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:39:59,178 [DEBUG] Executing block_proposer
+2025-07-27 19:39:59,178 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:39:59,178 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:39:59,179 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:39:59,179 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:39:59,179 [DEBUG] Executing consensus_engine
+2025-07-27 19:39:59,183 [DEBUG] Executing bgp_parser
+2025-07-27 19:39:59,184 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:40:29,184 [DEBUG] Executing bgp_parser
+2025-07-27 19:40:29,184 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:40:44,180 [DEBUG] Executing consensus_engine
+2025-07-27 19:40:59,179 [DEBUG] Executing block_proposer
+2025-07-27 19:40:59,185 [DEBUG] Executing bgp_parser
+2025-07-27 19:40:59,185 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:41:29,180 [DEBUG] Executing consensus_engine
+2025-07-27 19:41:29,185 [DEBUG] Executing bgp_parser
+2025-07-27 19:41:29,185 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:41:59,179 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:41:59,179 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:41:59,179 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:41:59,179 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:41:59,179 [DEBUG] Executing block_proposer
+2025-07-27 19:41:59,180 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:41:59,185 [DEBUG] Executing bgp_parser
+2025-07-27 19:41:59,186 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:42:14,180 [DEBUG] Executing consensus_engine
+2025-07-27 19:42:29,186 [DEBUG] Executing bgp_parser
+2025-07-27 19:42:29,186 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:42:59,180 [DEBUG] Executing block_proposer
+2025-07-27 19:42:59,180 [DEBUG] Executing consensus_engine
+2025-07-27 19:42:59,186 [DEBUG] Executing bgp_parser
+2025-07-27 19:42:59,187 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:43:29,187 [DEBUG] Executing bgp_parser
+2025-07-27 19:43:29,187 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:43:44,181 [DEBUG] Executing consensus_engine
+2025-07-27 19:43:59,180 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:43:59,180 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:43:59,180 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:43:59,180 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:43:59,180 [DEBUG] Executing block_proposer
+2025-07-27 19:43:59,180 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:43:59,187 [DEBUG] Executing bgp_parser
+2025-07-27 19:43:59,187 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:44:29,181 [DEBUG] Executing consensus_engine
+2025-07-27 19:44:29,188 [DEBUG] Executing bgp_parser
+2025-07-27 19:44:29,188 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:44:59,181 [DEBUG] Executing block_proposer
+2025-07-27 19:44:59,188 [DEBUG] Executing bgp_parser
+2025-07-27 19:44:59,188 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:45:14,181 [DEBUG] Executing consensus_engine
+2025-07-27 19:45:29,188 [DEBUG] Executing bgp_parser
+2025-07-27 19:45:29,188 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:45:59,181 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:45:59,181 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:45:59,181 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:45:59,181 [DEBUG] Executing block_proposer
+2025-07-27 19:45:59,181 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:45:59,181 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:45:59,182 [DEBUG] Executing consensus_engine
+2025-07-27 19:45:59,189 [DEBUG] Executing bgp_parser
+2025-07-27 19:45:59,189 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:46:29,189 [DEBUG] Executing bgp_parser
+2025-07-27 19:46:29,189 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:46:44,182 [DEBUG] Executing consensus_engine
+2025-07-27 19:46:59,182 [DEBUG] Executing block_proposer
+2025-07-27 19:46:59,189 [DEBUG] Executing bgp_parser
+2025-07-27 19:46:59,190 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:47:29,182 [DEBUG] Executing consensus_engine
+2025-07-27 19:47:29,190 [DEBUG] Executing bgp_parser
+2025-07-27 19:47:29,190 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:47:59,182 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:47:59,182 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:47:59,182 [DEBUG] Executing block_proposer
+2025-07-27 19:47:59,182 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:47:59,183 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:47:59,183 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:47:59,190 [DEBUG] Executing bgp_parser
+2025-07-27 19:47:59,190 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:48:14,183 [DEBUG] Executing consensus_engine
+2025-07-27 19:48:29,191 [DEBUG] Executing bgp_parser
+2025-07-27 19:48:29,191 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:48:59,183 [DEBUG] Executing block_proposer
+2025-07-27 19:48:59,183 [DEBUG] Executing consensus_engine
+2025-07-27 19:48:59,191 [DEBUG] Executing bgp_parser
+2025-07-27 19:48:59,191 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:49:29,192 [DEBUG] Executing bgp_parser
+2025-07-27 19:49:29,192 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:49:44,184 [DEBUG] Executing consensus_engine
+2025-07-27 19:49:59,183 [DEBUG] Executing block_proposer
+2025-07-27 19:49:59,184 [INFO] AS05 node heartbeat - monitoring blockchain services
+2025-07-27 19:49:59,184 [DEBUG] bgp_parser thread is healthy
+2025-07-27 19:49:59,184 [DEBUG] block_proposer thread is healthy
+2025-07-27 19:49:59,184 [DEBUG] consensus_engine thread is healthy
+2025-07-27 19:49:59,184 [ERROR] Error in node logic: name 'create_transaction' is not defined
+2025-07-27 19:49:59,192 [DEBUG] Executing bgp_parser
+2025-07-27 19:49:59,192 [INFO] bgp_parser executed successfully: {'sender_asn': 5, 'ip_prefix': '203.0.113.0/24', 'timestamp': '2025-01-27T10:30:00Z'}
+2025-07-27 19:50:02,321 [INFO] Received shutdown signal
