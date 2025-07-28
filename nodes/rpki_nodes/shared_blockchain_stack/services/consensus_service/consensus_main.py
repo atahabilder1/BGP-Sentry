@@ -47,8 +47,8 @@ sys.path.insert(0, str(project_root / "nodes" / "rpki_nodes"))
 
 # Import components
 try:
-    from .transaction_validator import TransactionValidator
-    from .blockchain_writer import BlockchainWriter
+    from .transaction_validator import verify_transaction
+    from .blockchain_writer import commit_to_blockchain
     from ...utils_common.transaction_pool import TransactionPool
     from ...utils_common.signature_utils import SignatureUtils
     from ...utils_common.trust_manager import TrustManager
@@ -102,12 +102,12 @@ class ConsensusService:
         """Initialize transaction validator, blockchain writer, and other components."""
         try:
             # Initialize transaction validator for signature and economic validation
-            self.transaction_validator = TransactionValidator(
+            self.verify_transaction_func = verify_transaction(
                 as_number=self.as_number
             )
             
             # Initialize blockchain writer for committing transactions
-            self.blockchain_writer = BlockchainWriter()
+            self.commit_to_blockchain_func = BlockchainWriter()
             
             # Initialize transaction pool for monitoring pending transactions
             self.transaction_pool = TransactionPool()

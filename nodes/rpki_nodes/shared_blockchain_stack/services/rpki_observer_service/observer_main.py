@@ -45,8 +45,8 @@ sys.path.insert(0, str(project_root / "nodes" / "rpki_nodes"))
 
 # Import components
 try:
-    from .bgp_monitor import BGPMonitor
-    from .transaction_creator import TransactionCreator
+    from .bgp_monitor import parse_bgp_announcement
+    from .transaction_creator import create_transaction
     from ...utils_common.transaction_pool import TransactionPool
     from ...utils_common.trust_manager import TrustManager
 except ImportError:
