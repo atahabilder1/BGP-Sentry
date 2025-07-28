@@ -7,10 +7,18 @@
 # Output: Updated trust scores for all ASes
 # =============================================================================
 
-from .periodic_evaluator import PeriodicEvaluator
-from .behavioral_metrics import BehavioralMetrics
-from .trust_score_calculator import TrustScoreCalculator
-from ..shared.config import Config
+import sys
+from pathlib import Path
+
+# Add parent directories to path for imports
+current_dir = Path(__file__).parent
+trust_engine_root = current_dir.parent
+sys.path.insert(0, str(trust_engine_root))
+
+from adaptive_trust_engine.periodic_evaluator import PeriodicEvaluator
+from adaptive_trust_engine.behavioral_metrics import BehavioralMetrics
+from adaptive_trust_engine.trust_score_calculator import TrustScoreCalculator
+from shared.config import Config
 
 class AdaptiveTrustEngine:
     """

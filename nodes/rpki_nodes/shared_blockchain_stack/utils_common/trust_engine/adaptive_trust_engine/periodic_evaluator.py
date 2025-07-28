@@ -7,9 +7,17 @@
 # Output: List of ASes to evaluate
 # =============================================================================
 
+import sys
 from datetime import datetime, timedelta
-from ..shared.blockchain_interface import BlockchainInterface
-from ..shared.trust_utils import TrustUtils
+from pathlib import Path
+
+# Add parent directories to path for imports
+current_dir = Path(__file__).parent
+trust_engine_root = current_dir.parent
+sys.path.insert(0, str(trust_engine_root))
+
+from shared.blockchain_interface import BlockchainInterface
+from shared.trust_utils import TrustUtils
 
 class PeriodicEvaluator:
     """
@@ -63,7 +71,11 @@ class PeriodicEvaluator:
             active_ases.add(int(as_str))
         
         # Add some default ASes for testing (AS 10-18 from your simulation)
-        for as_num in range(10, 19):
+        for as_num in range(1, 19):
+            active_ases.add(as_num)
+        
+        # Add attacker ASes for testing
+        for as_num in [666, 777, 888, 999]:
             active_ases.add(as_num)
         
         return list(active_ases)

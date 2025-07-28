@@ -7,9 +7,17 @@
 # Output: 5 behavioral metric scores
 # =============================================================================
 
+import sys
 from datetime import datetime, timedelta
-from .historical_analyzer import HistoricalAnalyzer
-from ..shared.config import Config
+from pathlib import Path
+
+# Add parent directories to path for imports
+current_dir = Path(__file__).parent
+trust_engine_root = current_dir.parent
+sys.path.insert(0, str(trust_engine_root))
+
+from adaptive_trust_engine.historical_analyzer import HistoricalAnalyzer
+from shared.config import Config
 
 class BehavioralMetrics:
     """

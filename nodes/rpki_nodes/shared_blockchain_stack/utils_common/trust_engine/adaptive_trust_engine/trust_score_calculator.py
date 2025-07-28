@@ -7,9 +7,18 @@
 # Output: New periodic trust score
 # =============================================================================
 
-from ..shared.config import Config
-from ..shared.trust_utils import TrustUtils
-from ..shared.blockchain_interface import BlockchainInterface
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+# Add parent directories to path for imports
+current_dir = Path(__file__).parent
+trust_engine_root = current_dir.parent
+sys.path.insert(0, str(trust_engine_root))
+
+from shared.config import Config
+from shared.trust_utils import TrustUtils
+from shared.blockchain_interface import BlockchainInterface
 
 class TrustScoreCalculator:
     """

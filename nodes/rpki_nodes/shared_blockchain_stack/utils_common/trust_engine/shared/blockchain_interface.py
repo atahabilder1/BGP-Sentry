@@ -1,72 +1,69 @@
-# =============================================================================
-# File: shared/blockchain_interface.py
-# Location: trust_engine/shared/blockchain_interface.py
-# Called by: Multiple files for data persistence
-# Calls: External blockchain APIs
-# Input: Trust scores, violations, timestamps
-# Output: Blockchain transaction results
-# =============================================================================
+#!/usr/bin/env python3
+"""
+Blockchain Interface for Trust Engines
+"""
 
 import json
-from datetime import datetime
+from datetime import datetime, timezone
+from pathlib import Path
 
 class BlockchainInterface:
-    """
-    Interface to blockchain for immutable logging
-    Handles all blockchain read/write operations
-    """
+    """Interface to blockchain data for trust engines"""
     
     def __init__(self):
-        # Initialize blockchain connection
-        self.blockchain_data = {}  # Simulated blockchain storage
+        self.blockchain_file = Path("../shared_data/chain/blockchain.json")
+        self.transaction_file = Path("../shared_data/chain/transaction_pool.json")
         
-    def log_violation(self, violation_data, new_trust_score):
-        """
-        Log violation event to blockchain
-        Creates immutable audit trail
-        """
-        log_entry = {
-            'timestamp': datetime.now().isoformat(),
-            'as_number': violation_data['as_number'],
-            'attack_type': violation_data['attack_type'],
-            'penalty_applied': violation_data.get('penalty_amount', 0),
-            'new_trust_score': new_trust_score,
-            'reporter': violation_data.get('reporter_node', 'unknown')
+        # Load blockchain data
+        self.blockchain_data = self._load_blockchain_data()
+    
+    def _load_blockchain_data(self):
+        """Load blockchain data from files"""
+        data = {
+            'violations': [],
+            'trust_scores': {},
+            'evaluations': [],
+            'transactions': []
         }
         
-        # Add to blockchain (simplified implementation)
-        if 'violations' not in self.blockchain_data:
-            self.blockchain_data['violations'] = []
+        # Load from transaction pool
+        try:
+            if self.transaction_file.exists():
+                with open(self.transaction_file, 'r') as f:
+                    tx_data = json.load(f)
+                    data['transactions'] = tx_data.get('transactions', [])
+                    
+                    # Extract violations from transactions
+                    for tx in data['transactions']:
+                        if 'validation_result' in tx:
+                            result = tx['validation_result']
+                            if 'detection_results' in result:
+                                detection = result['detection_results']
+                                if not detection.get('legitimate', True):
+                                    for attack in detection.get('attacks_detected', []):
+                                        violation = {
+                                            'as_number': attack.get('hijacker_asn', tx.get('sender_asn')),
+                                            'attack_type': attack.get('attack_type'),
+                                            'timestamp': tx.get('timestamp'),
+                                            'prefix': attack.get('hijacked_prefix')
+                                        }
+                                        data['violations'].append(violation)
+        except Exception as e:
+            print(f"Warning: Could not load blockchain data: {e}")
         
-        self.blockchain_data['violations'].append(log_entry)
-        print(f"Logged violation to blockchain: AS{violation_data['as_number']}")
+        return data
     
-    def get_trust_score(self, as_number):
-        """Retrieve trust score from blockchain"""
-        trust_scores = self.blockchain_data.get('trust_scores', {})
-        return trust_scores.get(str(as_number), None)
-    
-    def update_trust_score(self, as_number, new_score):
-        """Update trust score on blockchain"""
-        if 'trust_scores' not in self.blockchain_data:
-            self.blockchain_data['trust_scores'] = {}
+    def get_last_evaluation_time(self, as_number):
+        """Get last evaluation time for AS from blockchain"""
+        evaluations = self.blockchain_data.get('evaluations', [])
         
-        self.blockchain_data['trust_scores'][str(as_number)] = new_score
-    
-    def get_last_violation_time(self, as_number):
-        """Get timestamp of last violation"""
-        violations = self.blockchain_data.get('violations', [])
+        as_evaluations = [e for e in evaluations if e.get('as_number') == as_number]
         
-        # Find most recent violation for this AS
-        as_violations = [v for v in violations if v['as_number'] == as_number]
-        
-        if as_violations:
-            latest = max(as_violations, key=lambda x: x['timestamp'])
-            return datetime.fromisoformat(latest['timestamp'])
+        if as_evaluations:
+            # Get most recent evaluation
+            latest = max(as_evaluations, key=lambda x: x.get('timestamp', ''))
+            timestamp_str = latest.get('timestamp')
+            if timestamp_str:
+                return datetime.fromisoformat(timestamp_str.replace('Z', '+00:00'))
         
         return None
-    
-    def record_violation_time(self, as_number, timestamp):
-        """Record violation timestamp"""
-        # This is typically handled by log_violation method
-        pass
