@@ -1,5 +1,3 @@
-from pathlib import Path
-import json
 class TransactionPool:
     """Manages the shared transaction pool"""
     
@@ -18,26 +16,10 @@ class TransactionPool:
     def add_transaction(self, transaction):
         """Add a transaction to the pool"""
         try:
-            pool_file = Path("../shared_data/chain/transaction_pool.json")
-            
-            # Read existing transactions
-            if pool_file.exists():
-                with open(pool_file, 'r') as f:
-                    data = json.load(f)
-            else:
-                data = {"transactions": []}
-            
-            # Add new transaction
-            data["transactions"].append(transaction)
-            
-            # Write back to file
-            with open(pool_file, 'w') as f:
-                json.dump(data, f, indent=4)
-            
-            self.logger.info(f"✅ Transaction {transaction.get('transaction_id')} written to pool file")
+            self.logger.info(f"Adding transaction to pool: {transaction.get('transaction_id')}")
             return True
         except Exception as e:
-            self.logger.error(f"❌ Failed to add transaction: {e}")
+            self.logger.error(f"Failed to add transaction: {e}")
             return False
     
     def get_transaction_by_id(self, transaction_id):

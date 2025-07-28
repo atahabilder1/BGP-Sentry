@@ -10,6 +10,34 @@
             "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
             "votes": [],
             "signature": "23b910aa258e21ea29f25a197d916fac20cd9bf551062854e76cd85dda1ffe9648b52d4d54865c6650cd7f182f0db763cce68bbe4e2298adb4b4814b5073c32b8961cb32642233342f57725e13f117ff636a3d66480d56ee5a6a23dc3e14dbe648f565c9122a18caa6b6d63d8baec43f10165ab14789da57a7de7b5dff1a64c5dd94ffbb4d2e7f440b57ca78d6f5d8e0a123848bc10194f641b8e45f9b25cfb4856db1ad1e0e4dcd361e86c2b3f43f7cac8133e277224dc8cd21bcee80d6b5da18962d1ef7c1a0271a3c75f4bce5e3f1ab71dba8f896599b268a1e7a5be0bc15afe53c2a0401d1bdccecfac6004f37597021b77bcb2fb05eed2dd637cdad8892"
+        },
+        {
+            "transaction_id": "debug-test-123",
+            "sender_asn": 888
+        },
+        {
+            "transaction_id": "44895148-7248-4afc-b75c-c2efcde9d178",
+            "observer_as": 5,
+            "sender_asn": 12,
+            "ip_prefix": "203.0.113.0/24",
+            "timestamp": "2025-07-28T01:00:00Z",
+            "trust_score": 80.0,
+            "transaction_timestamp": "2025-07-28T05:10:02.665835+00:00",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "signature": "test_signature_5_1753679402",
+            "votes": []
+        },
+        {
+            "transaction_id": "840acc3b-a460-4ba9-8271-c4aa86783dab",
+            "observer_as": 5,
+            "sender_asn": 12,
+            "ip_prefix": "203.0.113.0/24",
+            "timestamp": "2025-07-27T21:00:00Z",
+            "trust_score": 80.0,
+            "transaction_timestamp": "2025-07-28T05:10:59.941091+00:00",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "signature": "test_signature_5_1753679459",
+            "votes": []
         }
     ]
 }

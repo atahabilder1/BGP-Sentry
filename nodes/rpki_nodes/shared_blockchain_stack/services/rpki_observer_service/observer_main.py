@@ -320,39 +320,19 @@ class RPKIObserverService:
         """
         Determine if an announcement needs to be recorded on blockchain.
         
-        Record on blockchain if:
-        - RPKI validation failed (violation)
-        - Sender has low trust score (monitoring)
-        - Behavioral flags detected (suspicious activity)
-        - Random sampling for good behavior tracking
+        For comprehensive BGP monitoring, ALL announcements are recorded.
+        This provides complete audit trail and behavioral analysis.
         
         Args:
             announcement: BGP announcement data
             validation_result: Validation results
             
         Returns:
-            Bool indicating if blockchain recording is needed
+            Bool indicating if blockchain recording is needed (always True)
         """
-        # Always record violations
-        if not validation_result['rpki_valid'] or not validation_result['irr_valid']:
-            return True
-        
-        # Record if behavioral flags detected
-        if validation_result['behavioral_flags']:
-            return True
-        
-        # Record for low trust senders (enhanced monitoring)
-        sender_asn = announcement.get('sender_asn')
-        trust_score = self.trust_manager.get_trust_score(sender_asn)
-        if trust_score < 50:
-            return True
-        
-        # Random sampling for good behavior (10% chance)
-        import random
-        if random.random() < 0.1:
-            return True
-        
-        return False
+        # Record ALL BGP announcements for comprehensive monitoring
+        self.logger.debug(f"Recording ALL announcements for comprehensive BGP monitoring")
+        return True
     
     def _update_statistics(self):
         """Update service statistics and performance metrics."""
