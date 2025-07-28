@@ -38,6 +38,30 @@
             "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
             "signature": "test_signature_5_1753679459",
             "votes": []
+        },
+        {
+            "transaction_id": "98d4ddc7-dee2-4ccc-bb0d-868fe1bc2fbf",
+            "observer_as": 5,
+            "sender_asn": 12,
+            "ip_prefix": "203.0.113.0/24",
+            "timestamp": "2025-07-27T21:00:00Z",
+            "trust_score": 80.0,
+            "transaction_timestamp": "2025-07-28T06:49:47.670721+00:00",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "signature": "test_signature_5_1753685387",
+            "votes": []
+        },
+        {
+            "transaction_id": "9f98e55f-fc62-4666-a852-fb7d2ea73446",
+            "observer_as": 5,
+            "sender_asn": 12,
+            "ip_prefix": "203.0.113.0/24",
+            "timestamp": "2025-07-27T21:00:00Z",
+            "trust_score": 80.0,
+            "transaction_timestamp": "2025-07-28T07:03:24.743136+00:00",
+            "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+            "signature": "test_signature_5_1753686204",
+            "votes": []
         }
     ]
 }

@@ -1,0 +1,13 @@
+Timestamp,Observer_ASN,Sender_ASN,IP_Prefix,Is_Attack,Attack_Type,Severity,Legitimate_Owner,Confidence,Detection_Time_MS
+2025-07-28 07:01:18,99,12,192.168.12.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,5,192.168.5.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,18,233.252.0.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,2,172.16.2.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,6,198.51.100.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,666,192.168.12.0/24,Yes,prefix_hijacking,critical,12,0.95,5
+2025-07-28 07:01:18,99,777,10.5.0.0/16,Yes,prefix_hijacking,critical,5,0.95,5
+2025-07-28 07:01:18,99,888,203.0.113.0/24,Yes,prefix_hijacking,critical,12,0.95,5
+2025-07-28 07:01:18,99,999,192.168.2.0/25,Yes,subprefix_hijacking,high,2,0.9,5
+2025-07-28 07:01:18,99,1001,10.1.1.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,12,203.0.113.0/24,No,None,Low,,,5
+2025-07-28 07:01:18,99,1,10.1.0.0/16,No,None,Low,,,5
