@@ -49,9 +49,9 @@ sys.path.insert(0, str(project_root / "nodes" / "rpki_nodes"))
 try:
     from .transaction_validator import verify_transaction
     from .blockchain_writer import BlockchainWriter
-    from ...utils_common.transaction_pool import TransactionPool
-    from ...utils_common.signature_utils import SignatureUtils
-    from ...utils_common.trust_manager import TrustManager
+    from ...blockchain_utils.transaction_pool import TransactionPool
+    from ...blockchain_utils.signature_utils import SignatureUtils
+    from ...blockchain_utils.trust_manager import TrustManager
 except ImportError:
     # Fallback for testing
     print("⚠️  Import error - using fallback classes")
