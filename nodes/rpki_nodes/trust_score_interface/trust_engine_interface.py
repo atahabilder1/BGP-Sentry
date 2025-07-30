@@ -7,7 +7,7 @@ import sys
 import os
 
 # Add trust engine path
-TRUST_ENGINE_PATH = "/home/anik/code/BGP_Announcement_Recorder/trust_engine"
+TRUST_ENGINE_PATH = "/home/anik/code/BGP-Sentry/trust_engine"
 sys.path.insert(0, TRUST_ENGINE_PATH)
 sys.path.insert(0, os.path.join(TRUST_ENGINE_PATH, 'reactive_trust_engine'))
 sys.path.insert(0, os.path.join(TRUST_ENGINE_PATH, 'adaptive_trust_engine'))
