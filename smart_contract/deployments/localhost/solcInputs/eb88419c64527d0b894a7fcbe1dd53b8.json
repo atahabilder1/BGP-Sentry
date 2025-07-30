@@ -1,0 +1,36 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/StakingContract.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\n/**\n * @title StakingContract with Admin Control (Account #0 Admin: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)\n * @notice Allows non-RPKI nodes to stake native ETH and admin to deduct stake\n * @dev Deployed on Hardhat; accepts random ETH values from 3.0 to 3.5 during testing\n */\n\ncontract StakingContract {\n    uint256 public minStakeAmount = 0.1 ether;\n    address public admin = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;\n\n    mapping(address => uint256) public stakes;\n\n    event Staked(address indexed user, uint256 amount);\n    event Unstaked(address indexed user, uint256 amount);\n    event Deducted(address indexed user, uint256 amount, address indexed to);\n\n    /// @notice Restrict access to only the admin address\n    modifier onlyAdmin() {\n        require(msg.sender == admin, \"Not admin\");\n        _;\n    }\n\n    /// @notice Allow users to stake ETH (must be >= minStakeAmount)\n    function stake() external payable {\n        require(msg.value >= minStakeAmount, \"Minimum 0.1 ETH required\");\n        stakes[msg.sender] += msg.value;\n        emit Staked(msg.sender, msg.value);\n    }\n\n    /// @notice Allow users to unstake their full balance\n    function unstake() external {\n        uint256 amount = stakes[msg.sender];\n        require(amount > 0, \"No funds to unstake\");\n        stakes[msg.sender] = 0;\n        payable(msg.sender).transfer(amount);\n        emit Unstaked(msg.sender, amount);\n    }\n\n    /// @notice Admin can deduct from a user's stake and transfer to admin\n    /// @param user The address whose stake will be reduced\n    /// @param amount The amount to deduct\n    function deductStake(address user, uint256 amount) external onlyAdmin {\n        require(stakes[user] >= amount, \"Insufficient staked balance\");\n        stakes[user] -= amount;\n        payable(admin).transfer(amount);\n        emit Deducted(user, amount, admin);\n    }\n\n    /// @notice View a user’s staked ETH\n    /// @param user The address to check\n    /// @return The amount of ETH staked by that address\n    function getStake(address user) external view returns (uint256) {\n        return stakes[user];\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "evmVersion": "paris",
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

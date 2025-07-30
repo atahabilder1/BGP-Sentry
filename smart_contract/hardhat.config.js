@@ -1,43 +1,42 @@
-// Import Hardhat toolbox plugins (ethers, waffle, chai, etc.)
 require("@nomicfoundation/hardhat-toolbox");
+require("hardhat-deploy"); // ✅ Add deploy plugin
 
-/** 
- * @type import('hardhat/config').HardhatUserConfig 
+/**
+ * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
   solidity: "0.8.28",
 
-  // Define multiple networks
   networks: {
-    // 🧪 Local Hardhat network (used when running `npx hardhat node`)
     hardhat: {
-      chainId: 31337, // Default Hardhat chain ID
-      // Enable persistent storage by specifying a database path
-      db: {
-        path: "./hardhat-data" // Directory to store blockchain state
-      },
+      chainId: 31337,
+      saveDeployments: true, // ✅ Ensure deployment info is saved
       accounts: {
-        mnemonic: "test test test test test test test test test test test junk", // Consistent mnemonic for deterministic accounts
-        count: 20 // Number of accounts to generate
+        mnemonic: "test test test test test test test test test test test junk",
+        count: 20
       },
-      saveDeployments: true // Save deployment data to disk
+      // Optional: persistent chain state between runs (if desired)
+      db: {
+        path: "./hardhat-data"
+      }
     },
+
     localhost: {
       url: "http://127.0.0.1:8545",
-      chainId: 31337 // Match Hardhat's chain ID
-    },
-
-    // ✅ Add Sepolia or other testnets here later if needed
-    // sepolia: {
-    //   url: "https://sepolia.infura.io/v3/YOUR_INFURA_KEY",
-    //   accounts: ["0xYOUR_PRIVATE_KEY"]
-    // }
+      chainId: 31337,
+      saveDeployments: true
+    }
   },
 
-  // Optional: Specify paths for artifacts and deployments
+  namedAccounts: {
+    deployer: {
+      default: 0 // 👈 First account is used as deployer by default
+    }
+  },
+
   paths: {
     artifacts: "./artifacts",
     cache: "./cache",
-    deployments: "./deployments" // Store deployment data
+    deployments: "./deployments" // ✅ Store deployment addresses here
   }
 };

@@ -120,7 +120,8 @@ Expected output: each of 20 accounts stakes 100 ETH and contract holds 4000 ETH.
 ## Checking Balances and Staked Amounts
 
 ```bash
-npx hardhat run scripts/check_stake.js --network localhost
+ADDRESS=0x70997970C51812dc3A010C7d01b50e0d17dc79C8 npx hardhat run scripts/check_single_stake.js --network localhost
+
 ```
 
 Expected: Each account shows `100 ETH` staked, `~9900 ETH` remaining.

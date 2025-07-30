@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/anik/code/BGP_Announcement_Recorder/smart_contract/contracts/StakingContract.sol": {
-      "lastModificationDate": 1752821891516,
-      "contentHash": "8e7f50ddd5bdec07c083f1e6682e057d",
+      "lastModificationDate": 1753835658405,
+      "contentHash": "51ea89b0c3f25c58be25bcb7b8df56a3",
       "sourceName": "contracts/StakingContract.sol",
       "solcConfig": {
         "version": "0.8.28",
@@ -20,12 +20,19 @@
                 "evm.bytecode",
                 "evm.deployedBytecode",
                 "evm.methodIdentifiers",
-                "metadata"
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
               ],
               "": [
                 "ast"
               ]
             }
+          },
+          "metadata": {
+            "useLiteralContent": true
           }
         }
       },
