@@ -20,7 +20,7 @@ def test_prefix_hijacking():
     """Test prefix hijacking detection"""
     print("🚨 Testing Prefix Hijacking...")
     
-    from attack_detector_fixed import BGPSecurityAnalyzer
+    from attack_detector import BGPSecurityAnalyzer
     analyzer = BGPSecurityAnalyzer()
     
     hijack_announcement = {
@@ -46,7 +46,7 @@ def test_subprefix_hijacking():
     """Test subprefix hijacking detection"""
     print("🚨 Testing Subprefix Hijacking...")
     
-    from attack_detector_fixed import BGPSecurityAnalyzer
+    from attack_detector import BGPSecurityAnalyzer
     analyzer = BGPSecurityAnalyzer()
     
     subprefix_announcement = {
@@ -72,7 +72,7 @@ def test_route_leak():
     """Test route leak detection"""
     print("🚨 Testing Route Leak...")
     
-    from attack_detector_fixed import BGPSecurityAnalyzer
+    from attack_detector import BGPSecurityAnalyzer
     analyzer = BGPSecurityAnalyzer()
     
     route_leak_announcement = {

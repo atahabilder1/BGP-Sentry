@@ -178,7 +178,7 @@ class PreSimulationChecker:
         # Test imports
         import_tests = [
             ('RPKI Verification', 'from verifier import is_as_verified'),
-            ('BGP Attack Detection', 'from attack_detector_fixed import BGPSecurityAnalyzer'),
+            ('BGP Attack Detection', 'from attack_detector import BGPSecurityAnalyzer'),
             ('Trust Engine Interface', 'from trust_engine_interface import TrustEngineInterface'),
             ('Staking Checker', 'from staking_amountchecker import StakingAmountChecker'),
             ('Blockchain Interface', 'from integrated_trust_manager import IntegratedTrustManager')
