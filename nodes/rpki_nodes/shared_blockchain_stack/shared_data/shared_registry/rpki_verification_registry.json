@@ -1,22 +1,82 @@
 {
-  "as01": true,
-  "as02": false,
-  "as03": true,
-  "as04": false,
-  "as05": true,
-  "as06": false,
-  "as07": true,
-  "as08": false,
-  "as09": true,
-  "as10": false,
-  "as11": true,
-  "as12": false,
-  "as13": true,
-  "as14": false,
-  "as15": true,
-  "as16": false,
-  "as17": true,
-  "as18": false,
-  "as19": true,
-  "as20": false
+  "AS01": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089522"
+  },
+  "AS02": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089542"
+  },
+  "AS03": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089548"
+  },
+  "AS04": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089553"
+  },
+  "AS05": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089557"
+  },
+  "AS06": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089563"
+  },
+  "AS07": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089568"
+  },
+  "AS08": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089573"
+  },
+  "AS09": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089575"
+  },
+  "AS10": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089577"
+  },
+  "AS11": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089578"
+  },
+  "AS12": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089580"
+  },
+  "AS13": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089582"
+  },
+  "AS14": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089584"
+  },
+  "AS15": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089589"
+  },
+  "AS16": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089609"
+  },
+  "AS17": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089613"
+  },
+  "AS18": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089618"
+  },
+  "AS19": {
+    "verified": true,
+    "last_check": "2025-07-30T18:08:27.089622"
+  },
+  "AS20": {
+    "verified": false,
+    "last_check": "2025-07-30T18:08:27.089627"
+  }
 }
