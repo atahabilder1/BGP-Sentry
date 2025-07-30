@@ -8,6 +8,7 @@ This repository contains a `StakingContract` smart contract designed for staking
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Configuration](#configuration)
+  - [The admin account](#the-admin-account)
   - [Compiling the Contract](#compiling-the-contract)
   - [Deploying the Contract](#deploying-the-contract)
   - [Staking Funds for All Accounts](#staking-funds-for-all-accounts)
@@ -85,6 +86,10 @@ module.exports = {
   }
 };
 ```
+
+## The admin account 
+0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+This account can adjust the amount and it can also withdraw the amount. 
 
 ## Compiling the Contract
 
