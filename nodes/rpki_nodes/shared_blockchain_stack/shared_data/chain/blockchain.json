@@ -1,34 +1,20 @@
 [
-    {
-        "index": 0,
-        "timestamp": 1752875442,
-        "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
-        "proposer": 65001,
-        "announcements": [
-            {
-                "asn": 65010,
-                "prefix": "203.0.113.0/24",
-                "as_path": [
-                    65001
-                ],
-                "next_hop": "10.0.0.1",
-                "timestamp": 1752874471,
-                "type": "announce",
-                "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
-            },
-            {
-                "asn": 65010,
-                "prefix": "203.0.113.0/24",
-                "as_path": [
-                    65011,
-                    65002
-                ],
-                "next_hop": "10.1.1.1",
-                "timestamp": 1752874526,
-                "type": "announce",
-                "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"
-            }
-        ],
-        "hash": "bbe757eb14cf82cd2d0f68b164425b9516a145b81f6203ad08e48d16eb712e3d"
-    }
+  {
+    "index": 0,
+    "timestamp": 1753897058,
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "transactions": [
+      {
+        "transaction_id": "2adbdc74-847f-4c89-8b61-592ed0f2211f",
+        "sender_asn": 1,
+        "ip_prefix": "192.0.2.0/24",
+        "timestamp": 1753897058,
+        "trust_score": 75,
+        "transaction_timestamp": 1753897058,
+        "previous_hash": "",
+        "signature": "7e576ff711330690150122ae5f347727882cda59c2116c43191030fcd8823cf5de41c8af07f895e745fe00e4a3f2e273c9a83393b98f9c46977ec8a39b32f56b0069d0cc6fa61888f5b2e1d3c244c033d70c6ccb4072a1c5fd9a659e5a4403913aa10cacb228378ed2616271ace58febf80516106be52bed6bc8f1ade14678a231f0967e4837141d73a96d57d781492553befda5cda4e86a142e82accb6e5bcd7ba6df95eebd70eb38d8df8c2314b1752dda6710b0522e0e165cd2ae1793af3768b1621a80b490c3f378f1a8e04e274f0b6cb71785969341c0f55db4c417c57b22d050ddb7d971c7c2af25af0f9dfe7e8434bf56d854f89576507256f90e4d13"
+      }
+    ],
+    "hash": "add76049a936b36762bd6e9194f6b29f227345617cf17e1af80b75816f0d71c1"
+  }
 ]
