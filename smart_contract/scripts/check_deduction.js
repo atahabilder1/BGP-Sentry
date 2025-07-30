@@ -1,5 +1,7 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
 async function main() {
   const userAddress = process.env.ADDRESS;
@@ -15,15 +17,18 @@ async function main() {
     process.exit(1);
   }
 
-  const contractAddress = "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707";
-  const contract = await ethers.getContractAt("StakingContract", contractAddress);
+  // ✅ Load deployed address and ABI from deployment JSON
+  const deploymentPath = path.join(__dirname, "../deployments/localhost/StakingContract.json");
+  const { address: contractAddress, abi } = JSON.parse(fs.readFileSync(deploymentPath, "utf8"));
+
   const [admin] = await ethers.getSigners();
+  const contract = new ethers.Contract(contractAddress, abi, admin);
 
   const initialStake = await contract.getStake(userAddress);
   console.log(`📊 Initial stake for ${userAddress}: ${ethers.formatEther(initialStake)} ETH`);
 
   const deductionAmount = ethers.parseEther(amountEth);
-  const tx = await contract.connect(admin).deductStake(userAddress, deductionAmount);
+  const tx = await contract.deductStake(userAddress, deductionAmount);
   await tx.wait();
 
   const updatedStake = await contract.getStake(userAddress);

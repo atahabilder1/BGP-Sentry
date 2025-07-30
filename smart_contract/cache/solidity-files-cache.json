@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/anik/code/BGP_Announcement_Recorder/smart_contract/contracts/StakingContract.sol": {
-      "lastModificationDate": 1753835658405,
+      "lastModificationDate": 1753840323526,
       "contentHash": "51ea89b0c3f25c58be25bcb7b8df56a3",
       "sourceName": "contracts/StakingContract.sol",
       "solcConfig": {

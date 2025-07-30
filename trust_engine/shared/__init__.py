@@ -1,9 +1,9 @@
 """
-Shared Trust Engine Components
+Shared components for Trust Engine System
+Common utilities, data structures, and configurations
 """
 
+from .trust_state import TrustState
 from .config import Config
-from .trust_utils import TrustUtils
-from .blockchain_interface import BlockchainInterface
 
-__all__ = ['Config', 'TrustUtils', 'BlockchainInterface']
+__all__ = ['TrustState', 'Config']
