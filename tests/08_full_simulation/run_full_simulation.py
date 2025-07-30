@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-BGP-Sentry Full Simulation
-Complete end-to-end BGP security simulation
+BGP-Sentry Full Simulation - Fully Automated
+Automatically starts Hardhat, deploys contracts, funds wallets, and runs simulation
 """
 
 import sys
+import subprocess
 import time
+import signal
+import os
 from pathlib import Path
 
 # Add interface paths
@@ -21,10 +24,117 @@ interfaces = [
 for interface in interfaces:
     sys.path.insert(0, str(base_path / interface))
 
+class HardhatManager:
+    """Manages Hardhat node lifecycle"""
+    
+    def __init__(self):
+        self.hardhat_process = None
+        self.smart_contract_path = base_path / "smart_contract"
+    
+    def start_hardhat(self):
+        """Start Hardhat node in background"""
+        print("🔧 Starting Hardhat node...")
+        
+        try:
+            self.hardhat_process = subprocess.Popen(
+                ['npx', 'hardhat', 'node'],
+                cwd=str(self.smart_contract_path),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                preexec_fn=os.setsid  # Create new process group
+            )
+            
+            # Wait for node to start
+            print("⏳ Waiting for Hardhat to initialize...")
+            
+            for attempt in range(30):
+                time.sleep(1)
+                if self._test_connection():
+                    print(f"✅ Hardhat node ready after {attempt + 1} seconds")
+                    return True
+                
+                # Check if process died
+                if self.hardhat_process.poll() is not None:
+                    stdout, stderr = self.hardhat_process.communicate()
+                    print(f"❌ Hardhat process failed: {stderr.decode()}")
+                    return False
+                
+                if attempt % 5 == 0 and attempt > 0:
+                    print(f"⏳ Still starting... ({attempt}/30 seconds)")
+            
+            print("❌ Hardhat failed to start within 30 seconds")
+            self.stop_hardhat()
+            return False
+            
+        except Exception as e:
+            print(f"❌ Error starting Hardhat: {e}")
+            return False
+    
+    def _test_connection(self):
+        """Test if Hardhat is responding"""
+        try:
+            import requests
+            response = requests.post('http://localhost:8545', 
+                                   json={'jsonrpc': '2.0', 'method': 'eth_blockNumber', 'params': [], 'id': 1},
+                                   timeout=2)
+            return response.status_code == 200
+        except Exception:
+            return False
+    
+    def fund_wallets(self):
+        """Fund all wallets with ETH"""
+        print("💰 Funding wallets...")
+        
+        try:
+            result = subprocess.run(
+                ['npx', 'hardhat', 'run', 'scripts/deposit_from_all.js', '--network', 'localhost'],
+                cwd=str(self.smart_contract_path),
+                capture_output=True,
+                text=True,
+                timeout=60
+            )
+            
+            if result.returncode == 0:
+                print("✅ All wallets funded successfully!")
+                
+                # Show funding summary
+                lines = result.stdout.strip().split('\n')
+                funded_count = sum(1 for line in lines if 'staked' in line and 'ETH' in line)
+                
+                # Extract total from last line
+                for line in reversed(lines):
+                    if 'Final Contract Balance:' in line:
+                        total_eth = line.split(':')[1].strip()
+                        print(f"   📊 {funded_count} accounts funded - Total: {total_eth}")
+                        break
+                
+                return True
+            else:
+                print(f"❌ Wallet funding failed: {result.stderr}")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Error funding wallets: {e}")
+            return False
+    
+    def stop_hardhat(self):
+        """Stop Hardhat node"""
+        if self.hardhat_process:
+            try:
+                os.killpg(os.getpgid(self.hardhat_process.pid), signal.SIGTERM)
+                self.hardhat_process = None
+                print("🔧 Hardhat node stopped")
+            except Exception as e:
+                print(f"⚠️  Could not stop Hardhat: {e}")
+    
+    def __del__(self):
+        """Cleanup on exit"""
+        self.stop_hardhat()
+
 def run_full_simulation():
     """Run complete BGP-Sentry simulation"""
     
-    print("🚀 BGP-Sentry Full Simulation Starting...")
+    print("\n🚀 BGP-Sentry Full Simulation Starting...")
     print("=" * 60)
     
     # Import all modules
@@ -90,7 +200,7 @@ def run_full_simulation():
         
         if not eligibility['can_participate']:
             print(f"   ❌ Economic eligibility failed: {eligibility['reason']}")
-            print(f"   💰 Needs {eligibility['stake_deficit']:.3f} more ETH")
+            print(f"   �� Needs {eligibility['stake_deficit']:.3f} more ETH")
             results.append({'as': announcement['as_number'], 'result': 'rejected', 'reason': 'insufficient stake'})
             continue
         
@@ -133,5 +243,48 @@ def run_full_simulation():
     print(f"\n🎉 Simulation Complete!")
     print(f"=" * 60)
 
+def main():
+    """Fully automated simulation"""
+    
+    print("🚀 BGP-Sentry Fully Automated Simulation")
+    print("=" * 60)
+    
+    hardhat = HardhatManager()
+    
+    try:
+        # Step 1: Start Hardhat
+        if not hardhat.start_hardhat():
+            print("🚫 Failed to start Hardhat node")
+            return
+        
+        # Step 2: Fund wallets
+        if not hardhat.fund_wallets():
+            print("🚫 Failed to fund wallets")
+            return
+        
+        # Step 3: Wait for transactions to settle
+        print("\n⏳ Waiting for blockchain to settle...")
+        time.sleep(3)
+        
+        # Step 4: Run simulation
+        run_full_simulation()
+        
+        # Step 5: Ask user about cleanup
+        print(f"\n🔧 Hardhat is still running (PID: {hardhat.hardhat_process.pid})")
+        response = input("Stop Hardhat node? (y/N): ").lower().strip()
+        
+        if response == 'y':
+            hardhat.stop_hardhat()
+        else:
+            print("Hardhat node left running for additional testing")
+            hardhat.hardhat_process = None  # Don't auto-cleanup
+        
+    except KeyboardInterrupt:
+        print(f"\n\n⚠️  Simulation interrupted")
+        hardhat.stop_hardhat()
+    except Exception as e:
+        print(f"\n💥 Unexpected error: {e}")
+        hardhat.stop_hardhat()
+
 if __name__ == "__main__":
-    run_full_simulation()
+    main()
