@@ -27,7 +27,7 @@ from signature_utils import SignatureUtils
 
 # Import existing components
 from verifier import is_as_verified, get_all_unverified_ases
-from attack_detector_fixed import BGPSecurityAnalyzer
+from attack_detector import BGPSecurityAnalyzer
 from trust_engine_interface import TrustEngineInterface
 from staking_amountchecker import StakingAmountChecker
 from main_trust_coordinator_fixed import TrustCoordinator
