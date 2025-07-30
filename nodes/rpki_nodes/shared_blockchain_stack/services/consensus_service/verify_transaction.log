@@ -1,0 +1,28 @@
+2025-07-30 12:49:14,223 [INFO] Starting REAL verify_pool_transaction for transaction_id: test_transaction_001, node_asn: 2
+2025-07-30 12:49:14,223 [INFO] Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-30 12:49:14,245 [DEBUG] Loaded public key for AS01
+2025-07-30 12:49:14,246 [DEBUG] Loaded public key for AS03
+2025-07-30 12:49:14,246 [DEBUG] Loaded public key for AS05
+2025-07-30 12:49:14,247 [DEBUG] Loaded public key for AS07
+2025-07-30 12:49:14,247 [DEBUG] Loaded public key for AS09
+2025-07-30 12:49:14,247 [DEBUG] Loaded public key for AS11
+2025-07-30 12:49:14,248 [DEBUG] Loaded public key for AS13
+2025-07-30 12:49:14,248 [DEBUG] Loaded public key for AS15
+2025-07-30 12:49:14,249 [DEBUG] Loaded public key for AS17
+2025-07-30 12:49:14,249 [INFO] Successfully loaded 9 public keys
+2025-07-30 12:49:14,249 [INFO] ✅ REAL verification system active with 9 keys
+2025-07-30 12:49:45,227 [INFO] Starting verify_pool_transaction for transaction_id: test_transaction_001, node_asn: 2
+2025-07-30 12:49:45,227 [INFO] Verifying transaction test_transaction_001 for node 2
+2025-07-30 12:50:13,626 [INFO] Starting REAL verify_pool_transaction for transaction_id: deploy_test, node_asn: 3
+2025-07-30 12:50:13,627 [INFO] Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+2025-07-30 12:50:13,649 [DEBUG] Loaded public key for AS01
+2025-07-30 12:50:13,649 [DEBUG] Loaded public key for AS03
+2025-07-30 12:50:13,650 [DEBUG] Loaded public key for AS05
+2025-07-30 12:50:13,650 [DEBUG] Loaded public key for AS07
+2025-07-30 12:50:13,651 [DEBUG] Loaded public key for AS09
+2025-07-30 12:50:13,651 [DEBUG] Loaded public key for AS11
+2025-07-30 12:50:13,652 [DEBUG] Loaded public key for AS13
+2025-07-30 12:50:13,652 [DEBUG] Loaded public key for AS15
+2025-07-30 12:50:13,653 [DEBUG] Loaded public key for AS17
+2025-07-30 12:50:13,653 [INFO] Successfully loaded 9 public keys
+2025-07-30 12:50:13,653 [INFO] ✅ REAL verification system active with 9 keys
