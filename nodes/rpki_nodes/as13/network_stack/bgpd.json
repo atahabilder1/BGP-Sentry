@@ -1,54 +1,91 @@
 {
   "bgp_announcements": [
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.18.0.0/15", "198.19.0.0/15"],
-      "timestamp": "2025-07-24T14:01:00Z"
+      "sender_asn": 11,
+      "announced_prefix": "172.16.10.0/24",
+      "as_path": [
+        11,
+        10
+      ],
+      "timestamp": "2025-07-30T15:18:13.840691Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.20.0.0/15"],
-      "timestamp": "2025-07-24T14:02:00Z"
+      "sender_asn": 17,
+      "announced_prefix": "192.168.10.0/24",
+      "as_path": [
+        17,
+        10
+      ],
+      "timestamp": "2025-07-30T15:18:13.840752Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.21.0.0/15", "198.22.0.0/15"],
-      "timestamp": "2025-07-24T14:03:00Z"
+      "sender_asn": 17,
+      "announced_prefix": "172.16.4.0/24",
+      "as_path": [
+        17
+      ],
+      "timestamp": "2025-07-30T15:23:13.840788Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.23.0.0/15"],
-      "timestamp": "2025-07-24T14:04:00Z"
+      "sender_asn": 11,
+      "announced_prefix": "172.16.10.0/24",
+      "as_path": [
+        11,
+        10
+      ],
+      "timestamp": "2025-07-30T15:25:13.840740Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.24.0.0/15", "198.25.0.0/15"],
-      "timestamp": "2025-07-24T14:05:00Z"
+      "sender_asn": 11,
+      "announced_prefix": "192.168.4.0/24",
+      "as_path": [
+        11,
+        4
+      ],
+      "timestamp": "2025-07-30T15:27:13.840716Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.26.0.0/15"],
-      "timestamp": "2025-07-24T14:06:00Z"
+      "sender_asn": 11,
+      "announced_prefix": "192.168.5.0/24",
+      "as_path": [
+        11
+      ],
+      "timestamp": "2025-07-30T15:32:13.840765Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.27.0.0/15", "198.28.0.0/15"],
-      "timestamp": "2025-07-24T14:07:00Z"
+      "sender_asn": 17,
+      "announced_prefix": "192.168.16.0/24",
+      "as_path": [
+        17,
+        16
+      ],
+      "timestamp": "2025-07-30T15:50:13.840674Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.29.0.0/15"],
-      "timestamp": "2025-07-24T14:08:00Z"
+      "sender_asn": 17,
+      "announced_prefix": "192.168.8.0/24",
+      "as_path": [
+        17
+      ],
+      "timestamp": "2025-07-30T16:01:13.840777Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.30.0.0/15", "198.31.0.0/15"],
-      "timestamp": "2025-07-24T14:09:00Z"
+      "sender_asn": 17,
+      "announced_prefix": "172.16.6.0/24",
+      "as_path": [
+        17,
+        6
+      ],
+      "timestamp": "2025-07-30T16:02:13.840728Z"
     },
     {
-      "sender_asn": 14,
-      "announced_prefixes": ["198.32.0.0/15"],
-      "timestamp": "2025-07-24T14:10:00Z"
+      "sender_asn": 15,
+      "announced_prefix": "192.168.3.0/24",
+      "as_path": [
+        15,
+        3
+      ],
+      "timestamp": "2025-07-30T16:06:13.840704Z"
     }
   ]
 }

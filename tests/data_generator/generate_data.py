@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 BGP Test Data Generator
-Located: /home/anik/code/BGP-Sentry/tests/data_generator/generatedata.py
+Located: /home/anik/code/BGP-Sentry/tests/data_generator/generate_data.py
 Reads configurations from shared_registry and generates BGP test data for RPKI nodes
 """
 
