@@ -1,54 +1,22 @@
 {
-  "Blockchain Reset": {
-    "duration": 2.03629732131958,
-    "timestamp": "2025-07-30T18:08:17.268346"
-  },
-  "Hardhat Startup": {
-    "duration": 3.772390842437744,
-    "timestamp": "2025-07-30T18:08:21.040824"
-  },
-  "Contract Deployment": {
-    "duration": 1.739628791809082,
-    "timestamp": "2025-07-30T18:08:22.780509"
-  },
-  "Wallet Funding": {
-    "duration": 3.8506057262420654,
-    "timestamp": "2025-07-30T18:08:26.631229"
-  },
-  "Data Generation": {
-    "duration": 0.4594080448150635,
-    "timestamp": "2025-07-30T18:08:27.090684"
+  "System Environment Check": {
+    "duration": 0.19738268852233887,
+    "timestamp": "2025-08-01T12:12:23.689414"
   },
   "Directory Structure Check": {
-    "duration": 0.0005695819854736328,
-    "timestamp": "2025-07-30T18:08:27.091340"
-  },
-  "BGP Data Validation": {
-    "duration": 0.0007297992706298828,
-    "timestamp": "2025-07-30T18:08:27.092105"
+    "duration": 0.0009772777557373047,
+    "timestamp": "2025-08-01T12:12:23.690455"
   },
   "Blockchain Connectivity Check": {
-    "duration": 0.0044901371002197266,
-    "timestamp": "2025-07-30T18:08:27.096654"
+    "duration": 0.0022771358489990234,
+    "timestamp": "2025-08-01T12:12:23.692779"
   },
-  "Interface Module Check": {
-    "duration": 0.002285003662109375,
-    "timestamp": "2025-07-30T18:08:27.099154"
+  "Module Import Check": {
+    "duration": 0.0023872852325439453,
+    "timestamp": "2025-08-01T12:12:23.695220"
   },
-  "Trust Engine Integration Check": {
-    "duration": 0.0006389617919921875,
-    "timestamp": "2025-07-30T18:08:27.099859"
-  },
-  "Staking Amounts Check": {
-    "duration": 0.0001399517059326172,
-    "timestamp": "2025-07-30T18:08:27.100027"
-  },
-  "RPKI Consensus Check": {
-    "duration": 0.00032520294189453125,
-    "timestamp": "2025-07-30T18:08:27.100379"
-  },
-  "Data Registries Check": {
-    "duration": 0.00028705596923828125,
-    "timestamp": "2025-07-30T18:08:27.100693"
+  "Data Files Check": {
+    "duration": 0.0006232261657714844,
+    "timestamp": "2025-08-01T12:12:23.695906"
   }
 }
