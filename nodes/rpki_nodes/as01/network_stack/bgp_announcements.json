@@ -1,0 +1,32 @@
+{
+  "bgp_announcements": [
+    {
+      "sender_asn": 4,
+      "announced_prefixes": [
+        "10.3.0.0/24"
+      ],
+      "timestamp": "2025/07/18 19:50:15.215128"
+    },
+    {
+      "sender_asn": 4,
+      "announced_prefixes": [
+        "10.3.1.0/24"
+      ],
+      "timestamp": "2025/07/18 19:50:15.215139"
+    },
+    {
+      "sender_asn": 2,
+      "announced_prefixes": [
+        "10.1.0.0/24"
+      ],
+      "timestamp": "2025/07/18 19:50:15.264998"
+    },
+    {
+      "sender_asn": 2,
+      "announced_prefixes": [
+        "10.1.1.0/24"
+      ],
+      "timestamp": "2025/07/18 19:50:15.265004"
+    }
+  ]
+}
