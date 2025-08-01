@@ -1,6 +1,7 @@
 {
-  "simulation_id": "sim_1753913307",
-  "start_time": "2025-07-30T18:08:27.090558",
+  "simulation_id": "sim_1754066300",
+  "start_time": "2025-08-01T12:38:20.693935",
+  "data_source": "test",
   "rpki_nodes": [
     "as01",
     "as03",
@@ -28,5 +29,6 @@
     "prefix_hijack",
     "route_leak",
     "path_manipulation"
-  ]
+  ],
+  "funded_accounts": 10
 }
