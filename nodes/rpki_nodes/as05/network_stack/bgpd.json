@@ -1,8 +1,91 @@
 {
-  "router_id": "10.0.05.1",
-  "as_number": 5,
-  "neighbors": [],
-  "routes": [],
-  "timestamp": "02:16:13 (2025-08-04)",
-  "data_source": "test"
+  "bgp_announcements": [
+    {
+      "sender_asn": 1,
+      "announced_prefix": "172.16.8.0/24",
+      "as_path": [
+        1,
+        8
+      ],
+      "timestamp": "2025-08-04T08:57:09.132958Z"
+    },
+    {
+      "sender_asn": 1,
+      "announced_prefix": "192.168.13.0/24",
+      "as_path": [
+        1,
+        13
+      ],
+      "timestamp": "2025-08-04T08:57:09.132992Z"
+    },
+    {
+      "sender_asn": 3,
+      "announced_prefix": "192.168.18.0/24",
+      "as_path": [
+        3,
+        18
+      ],
+      "timestamp": "2025-08-04T09:06:09.132747Z"
+    },
+    {
+      "sender_asn": 7,
+      "announced_prefix": "172.16.4.0/24",
+      "as_path": [
+        7,
+        4
+      ],
+      "timestamp": "2025-08-04T09:11:09.132876Z"
+    },
+    {
+      "sender_asn": 1,
+      "announced_prefix": "192.168.16.0/24",
+      "as_path": [
+        1,
+        16
+      ],
+      "timestamp": "2025-08-04T09:14:09.132800Z"
+    },
+    {
+      "sender_asn": 3,
+      "announced_prefix": "10.11.0.0/16",
+      "as_path": [
+        3,
+        11
+      ],
+      "timestamp": "2025-08-04T09:15:09.132923Z"
+    },
+    {
+      "sender_asn": 3,
+      "announced_prefix": "192.168.9.0/24",
+      "as_path": [
+        3,
+        9
+      ],
+      "timestamp": "2025-08-04T09:20:09.132840Z"
+    },
+    {
+      "sender_asn": 7,
+      "announced_prefix": "10.1.0.0/16",
+      "as_path": [
+        7
+      ],
+      "timestamp": "2025-08-04T09:29:09.133041Z"
+    },
+    {
+      "sender_asn": 7,
+      "announced_prefix": "192.168.16.0/24",
+      "as_path": [
+        7
+      ],
+      "timestamp": "2025-08-04T09:45:09.133138Z"
+    },
+    {
+      "sender_asn": 3,
+      "announced_prefix": "10.1.0.0/16",
+      "as_path": [
+        3
+      ],
+      "timestamp": "2025-08-04T09:52:09.133075Z"
+    }
+  ]
 }

@@ -1,8 +1,91 @@
 {
-  "router_id": "10.0.13.1",
-  "as_number": 13,
-  "neighbors": [],
-  "routes": [],
-  "timestamp": "02:16:13 (2025-08-04)",
-  "data_source": "test"
+  "bgp_announcements": [
+    {
+      "sender_asn": 15,
+      "announced_prefix": "192.168.5.0/24",
+      "as_path": [
+        15,
+        5
+      ],
+      "timestamp": "2025-08-04T09:05:09.135364Z"
+    },
+    {
+      "sender_asn": 11,
+      "announced_prefix": "192.168.6.0/24",
+      "as_path": [
+        11,
+        6
+      ],
+      "timestamp": "2025-08-04T09:10:09.135427Z"
+    },
+    {
+      "sender_asn": 15,
+      "announced_prefix": "192.168.11.0/24",
+      "as_path": [
+        15
+      ],
+      "timestamp": "2025-08-04T09:12:09.135475Z"
+    },
+    {
+      "sender_asn": 17,
+      "announced_prefix": "192.168.2.0/24",
+      "as_path": [
+        17
+      ],
+      "timestamp": "2025-08-04T09:13:09.135490Z"
+    },
+    {
+      "sender_asn": 17,
+      "announced_prefix": "192.168.14.0/24",
+      "as_path": [
+        17,
+        14
+      ],
+      "timestamp": "2025-08-04T09:16:09.135400Z"
+    },
+    {
+      "sender_asn": 17,
+      "announced_prefix": "203.0.113.0/24",
+      "as_path": [
+        17,
+        12
+      ],
+      "timestamp": "2025-08-04T09:17:09.135385Z"
+    },
+    {
+      "sender_asn": 15,
+      "announced_prefix": "10.7.0.0/16",
+      "as_path": [
+        15
+      ],
+      "timestamp": "2025-08-04T09:17:09.135503Z"
+    },
+    {
+      "sender_asn": 15,
+      "announced_prefix": "192.168.6.0/24",
+      "as_path": [
+        15,
+        6
+      ],
+      "timestamp": "2025-08-04T09:26:09.135413Z"
+    },
+    {
+      "sender_asn": 15,
+      "announced_prefix": "10.5.0.0/16",
+      "as_path": [
+        15,
+        5
+      ],
+      "timestamp": "2025-08-04T09:26:09.135440Z"
+    },
+    {
+      "sender_asn": 17,
+      "announced_prefix": "192.168.4.0/24",
+      "as_path": [
+        17,
+        4
+      ],
+      "timestamp": "2025-08-04T09:43:09.135454Z"
+    }
+  ]
 }
