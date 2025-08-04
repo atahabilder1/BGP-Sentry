@@ -57,7 +57,7 @@ class UltimatePreSimulationChecker:
             print(f"🔬 Extended Test Mode: Core validation + ALL test suites")
         print("=" * 70)
     
-    def log_timing(self, operation, duration):
+    def log_timing(self, operation, duration, details=None):
         """Log timing information for operations"""
         self.timing_log[operation] = {
             'duration': duration,

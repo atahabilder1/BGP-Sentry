@@ -1,0 +1,300 @@
+.
+├── bgp_feed
+│   ├── bgp_collector.py
+│   ├── bgp_simulator.py
+│   └── mininet_logs
+│       └── readme.md
+├── blockchain_backup.json
+├── clean_tree_5.txt
+├── clean_tree_7.txt
+├── command.md
+├── LICENSE
+├── node.py
+├── nodes
+│   ├── non_rpki_nodes
+│   │   ├── as02
+│   │   │   ├── config_as_02.json
+│   │   │   └── nrpki_as_02.py
+│   │   ├── as04
+│   │   │   ├── config_as_04.json
+│   │   │   └── nrpki_as_04.py
+│   │   ├── as06
+│   │   │   ├── config_as_06.json
+│   │   │   └── nrpki_as_06.py
+│   │   ├── as08
+│   │   │   ├── config_as_08.json
+│   │   │   └── nrpki_as_08.py
+│   │   ├── as10
+│   │   │   ├── config_as_10.json
+│   │   │   └── nrpki_as_10.py
+│   │   ├── as12
+│   │   │   ├── config_as_12.json
+│   │   │   └── nrpki_as_12.py
+│   │   ├── as14
+│   │   │   ├── config_as_14.json
+│   │   │   └── nrpki_as_14.py
+│   │   ├── as16
+│   │   │   ├── config_as_16.json
+│   │   │   └── nrpki_as_16.py
+│   │   ├── as18
+│   │   │   ├── config_as_18.json
+│   │   │   └── nrpki_as_18.py
+│   │   ├── generate_wallet_registry.py
+│   │   ├── run_all_nonrpki_nodes.py
+│   │   └── web3_wallet.txt
+│   └── rpki_nodes
+│       ├── as01
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── config.json
+│       │       └── parser.py
+│       ├── as03
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── config.json
+│       │       └── parser.py
+│       ├── as05
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as07
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as09
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as11
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as13
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as15
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── as17
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       └── config.json
+│       ├── bgp_attack_detection
+│       │   ├── attack_detector.py
+│       │   ├── detectors
+│       │   │   ├── __init__.py
+│       │   │   ├── prefix_hijack_detector.py
+│       │   │   ├── route_leak_detector.py
+│       │   │   └── subprefix_detector.py
+│       │   ├── __init__.py
+│       │   └── validators
+│       │       ├── __init__.py
+│       │       ├── irr_validator.py
+│       │       └── rpki_validator.py
+│       ├── rpki_verification_interface
+│       │   ├── utils.py
+│       │   ├── verifier_debug.py
+│       │   └── verifier.py
+│       ├── shared_blockchain_stack
+│       │   ├── blockchain_utils
+│       │   │   ├── blockchain_interface.py
+│       │   │   ├── enhanced_attack_logger.py
+│       │   │   ├── __init__.py
+│       │   │   ├── integrated_trust_manager.py
+│       │   │   ├── signature_utils_broken_backup.py
+│       │   │   ├── signature_utils.py
+│       │   │   ├── signature_utils.py.backup
+│       │   │   ├── simple_attack_logger.py
+│       │   │   ├── transaction_pool.py
+│       │   │   └── transaction_signer.py
+│       │   ├── services
+│       │   │   ├── consensus_service
+│       │   │   │   ├── blockchain_writer_class.py
+│       │   │   │   ├── blockchain_writer.py
+│       │   │   │   ├── consensus_main.py
+│       │   │   │   ├── fix_validator.py
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── replace_functions.py
+│       │   │   │   ├── transaction_validator_broken_backup.py
+│       │   │   │   ├── transaction_validator_original_broken.py
+│       │   │   │   └── transaction_validator.py
+│       │   │   ├── __init__.py
+│       │   │   └── rpki_observer_service
+│       │   │       ├── bgp_monitor.py
+│       │   │       ├── __init__.py
+│       │   │       ├── observer_main.py
+│       │   │       ├── transaction_creator.py
+│       │   │       └── transaction_creator.py.backup
+│       │   ├── shared_data
+│       │   │   ├── chain
+│       │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   ├── blockchain.json
+│       │   │   │   ├── blockchain_lock.json
+│       │   │   │   ├── transaction_pool.json
+│       │   │   │   └── trust_log.jsonl
+│       │   │   ├── logs
+│       │   │   │   ├── attack_detection_summary.csv
+│       │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   ├── detection_summary.csv
+│       │   │   │   └── enhanced_detection_summary.csv
+│       │   │   ├── shared_registry
+│       │   │   │   ├── as_relationships.json
+│       │   │   │   ├── attack_scenarios.json
+│       │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   ├── public_key_registry.json
+│       │   │   │   ├── public_network_registry.json
+│       │   │   │   ├── routing_policies.json
+│       │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   └── simulation_config.json
+│       │   │   └── state
+│       │   │       └── trust_state.json
+│       │   └── utils_common
+│       │       └── trust_engine
+│       │           ├── adaptive_trust_engine
+│       │           └── shared
+│       ├── staking_amount_interface
+│       │   ├── blockchain_status_checker.py
+│       │   ├── __init__.py
+│       │   └── staking_amountchecker.py
+│       └── trust_score_interface
+│           ├── __init__.py
+│           ├── trust_engine_interface.py
+│           └── trust_score_checker.py
+├── README.md
+├── requirements.txt
+├── run_simulation.sh
+├── smart_contract
+│   ├── contracts
+│   │   ├── accounts.txt
+│   │   └── StakingContract.sol
+│   ├── deploy
+│   │   └── 00_deploy_staking.js
+│   ├── hardhat.config.js
+│   ├── ignition
+│   │   └── modules
+│   │       └── Lock.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   ├── scripts
+│   │   ├── check_deduction.js
+│   │   ├── check_single_stake.js
+│   │   └── deposit_from_all.js
+│   └── test
+│       ├── check_balances.js
+│       ├── check_stake.js
+│       └── StakingContract.test.js
+├── tests
+│   ├── 00_directory_structure
+│   │   ├── __init__.py
+│   │   └── test_directory_structure.py
+│   ├── 00_initialization_check
+│   ├── 01_initialization_check
+│   │   ├── __init__.py
+│   │   └── test_initialization.py
+│   ├── 01_staking
+│   ├── 02_blockchain_connectivity
+│   │   ├── __init__.py
+│   │   └── test_blockchain.py
+│   ├── 02_trust_engine
+│   ├── 03_rpki_verification
+│   ├── 03_sc_interface
+│   │   └── __init__.py
+│   ├── 04_staking
+│   │   ├── __init__.py
+│   │   └── test_staking.py
+│   ├── 05_data_registries
+│   │   └── __init__.py
+│   ├── 06_bgp_attack_detection
+│   ├── 06_module_imports
+│   │   └── __init__.py
+│   ├── 07_rpki_verification
+│   │   └── __init__.py
+│   ├── 08_trust_engine
+│   │   └── __init__.py
+│   ├── 09_trust_score_interface
+│   │   └── __init__.py
+│   ├── 10_bgp_data_validation
+│   │   └── __init__.py
+│   ├── 11_bgp_attack_detection
+│   │   └── __init__.py
+│   ├── 12_consensus_readiness
+│   │   └── __init__.py
+│   ├── 13_economic_tests
+│   │   └── __init__.py
+│   ├── 14_blockchain_functionality
+│   │   └── __init__.py
+│   ├── 15_attack_scenarios
+│   │   └── __init__.py
+│   ├── 16_full_simulation
+│   │   └── __init__.py
+│   ├── 17_setup_automation
+│   │   └── __init__.py
+│   ├── 18_master_runner
+│   │   └── __init__.py
+│   ├── commands.sh
+│   ├── data_generator
+│   │   ├── generate_data.py
+│   │   └── README.md
+│   ├── enhanced_pre_simulation.py
+│   ├── __init__.py
+│   └── run_test_suite.py
+├── timing_analysis.json
+└── trust_engine
+    ├── adaptive_trust_engine
+    │   ├── adaptive_trust_engine_fixed.py
+    │   ├── adaptive_trust_engine.py
+    │   ├── behavioral_metrics.py
+    │   ├── historical_analyzer.py
+    │   ├── __init__.py
+    │   ├── periodic_evaluator.py
+    │   └── trust_score_calculator.py
+    ├── __init__.py
+    ├── main_trust_coordinator_fixed.py
+    ├── main_trust_coordinator.py
+    ├── reactive_trust_engine
+    │   ├── attack_classifier.py
+    │   ├── event_processor.py
+    │   ├── __init__.py
+    │   ├── penalty_calculator.py
+    │   ├── reactive_trust_engine_fixed.py
+    │   ├── reactive_trust_engine.py
+    │   └── trust_updater.py
+    ├── shared
+    │   ├── blockchain_interface.py
+    │   ├── config.py
+    │   ├── __init__.py
+    │   └── trust_utils.py
+    ├── trust_engine.md
+    └── trust_state.py
+
+99 directories, 199 files
