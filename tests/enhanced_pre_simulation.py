@@ -788,6 +788,8 @@ class UltimatePreSimulationChecker:
         
         duration = time.time() - start_time
         
+        # Get failed suites
+        failed_suites = [name for name, result in suite_results.items() if result["status"] != "passed"]
         self.log_timing("Extended Test Suites", duration, {
             'total_suites': len(test_folders),
             'suites_passed': total_suites_passed,

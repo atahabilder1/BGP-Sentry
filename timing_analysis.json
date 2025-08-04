@@ -1,22 +1,26 @@
 {
   "System Environment Check": {
-    "duration": 0.13511323928833008,
-    "timestamp": "2025-08-04T02:10:39.659607"
+    "duration": 0.12595868110656738,
+    "timestamp": "2025-08-04T02:18:23.663889"
   },
   "Directory Structure Check": {
-    "duration": 0.0002651214599609375,
-    "timestamp": "2025-08-04T02:10:39.659893"
+    "duration": 0.00021719932556152344,
+    "timestamp": "2025-08-04T02:18:23.664126"
   },
   "Blockchain Connectivity Check": {
-    "duration": 0.006669044494628906,
-    "timestamp": "2025-08-04T02:10:39.666579"
+    "duration": 0.0069239139556884766,
+    "timestamp": "2025-08-04T02:18:23.671072"
   },
   "Module Import Check": {
-    "duration": 0.0011625289916992188,
-    "timestamp": "2025-08-04T02:10:39.667863"
+    "duration": 0.0012967586517333984,
+    "timestamp": "2025-08-04T02:18:23.672502"
   },
   "Data Files Check": {
-    "duration": 0.0003020763397216797,
-    "timestamp": "2025-08-04T02:10:39.668186"
+    "duration": 0.00038242340087890625,
+    "timestamp": "2025-08-04T02:18:23.672908"
+  },
+  "Extended Test Suites": {
+    "duration": 11.051196098327637,
+    "timestamp": "2025-08-04T02:18:34.724135"
   }
 }

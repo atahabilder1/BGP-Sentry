@@ -1,6 +1,6 @@
 {
-  "simulation_id": "sim_1754287924",
-  "start_time": "2025-08-04T02:12:04.917160",
+  "simulation_id": "sim_1754288173",
+  "start_time": "2025-08-04T02:16:13.631045",
   "data_source": "test",
   "rpki_nodes": [
     "as01",
