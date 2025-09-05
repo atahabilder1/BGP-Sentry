@@ -1,0 +1,286 @@
+.
+├── bgp_dashboard.py
+├── bgp_feed
+│   ├── bgp_collector.py
+│   ├── bgp_simulator.py
+│   └── mininet_logs
+│       ├── R10-bgpd.log
+│       ├── R10.log
+│       ├── R11-bgpd.log
+│       ├── R11.log
+│       ├── R12-bgpd.log
+│       ├── R12.log
+│       ├── R13-bgpd.log
+│       ├── R13.log
+│       ├── R14-bgpd.log
+│       ├── R14.log
+│       ├── R15-bgpd.log
+│       ├── R15.log
+│       ├── R16-bgpd.log
+│       ├── R16.log
+│       ├── R17-bgpd.log
+│       ├── R17.log
+│       ├── R18-bgpd.log
+│       ├── R18.log
+│       ├── R1-bgpd.log
+│       ├── R1.log
+│       ├── R2-bgpd.log
+│       ├── R2.log
+│       ├── R3-bgpd.log
+│       ├── R3.log
+│       ├── R4-bgpd.log
+│       ├── R4.log
+│       ├── R5-bgpd.log
+│       ├── R5.log
+│       ├── R6-bgpd.log
+│       ├── R6.log
+│       ├── R7-bgpd.log
+│       ├── R7.log
+│       ├── R8-bgpd.log
+│       ├── R8.log
+│       ├── R9-bgpd.log
+│       ├── R9.log
+│       └── readme.md
+├── context_informain.txt
+├── directory_list.txt
+├── directory_list.txt~
+├── docs
+│   └── command.md
+├── implementaionidea.md
+├── LICENSE
+├── main_experiment.py
+├── nodes
+│   ├── non_rpki_nodes
+│   │   ├── as02
+│   │   │   ├── config_as_02.json
+│   │   │   └── nrpki_as_02.py
+│   │   ├── as04
+│   │   │   ├── config_as_04.json
+│   │   │   └── nrpki_as_04.py
+│   │   ├── as06
+│   │   │   ├── config_as_06.json
+│   │   │   └── nrpki_as_06.py
+│   │   ├── as08
+│   │   │   ├── config_as_08.json
+│   │   │   └── nrpki_as_08.py
+│   │   ├── as10
+│   │   │   ├── config_as_10.json
+│   │   │   └── nrpki_as_10.py
+│   │   ├── as12
+│   │   │   ├── config_as_12.json
+│   │   │   └── nrpki_as_12.py
+│   │   ├── as14
+│   │   │   ├── config_as_14.json
+│   │   │   └── nrpki_as_14.py
+│   │   ├── as16
+│   │   │   ├── config_as_16.json
+│   │   │   └── nrpki_as_16.py
+│   │   ├── as18
+│   │   │   ├── config_as_18.json
+│   │   │   └── nrpki_as_18.py
+│   │   ├── generate_wallet_registry.py
+│   │   ├── run_all_nonrpki_nodes.py
+│   │   └── web3_wallet.txt
+│   └── rpki_nodes
+│       ├── as01
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       ├── config.json
+│       │       └── parser.py
+│       ├── as03
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       ├── config.json
+│       │       └── parser.py
+│       ├── as05
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as07
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as09
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as11
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as13
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as15
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── as17
+│       │   ├── blockchain_node
+│       │   │   ├── node.py
+│       │   │   └── private_key.pem
+│       │   └── network_stack
+│       │       ├── bgpd.json
+│       │       ├── bgpd.log
+│       │       └── config.json
+│       ├── bgp_attack_detection
+│       │   ├── attack_detector.py
+│       │   ├── detectors
+│       │   │   ├── __init__.py
+│       │   │   ├── prefix_hijack_detector.py
+│       │   │   ├── route_leak_detector.py
+│       │   │   └── subprefix_detector.py
+│       │   ├── __init__.py
+│       │   └── validators
+│       │       ├── __init__.py
+│       │       ├── irr_validator.py
+│       │       └── rpki_validator.py
+│       ├── rpki_verification_interface
+│       │   ├── utils.py
+│       │   └── verifier.py
+│       ├── shared_blockchain_stack
+│       │   ├── blockchain_utils
+│       │   │   ├── blockchain_interface.py
+│       │   │   ├── enhanced_attack_logger.py
+│       │   │   ├── __init__.py
+│       │   │   ├── integrated_trust_manager.py
+│       │   │   ├── signature_utils.py
+│       │   │   ├── simple_attack_logger.py
+│       │   │   ├── transaction_pool.py
+│       │   │   ├── transaction_signer.py
+│       │   │   └── verify_transaction.log
+│       │   ├── services
+│       │   │   ├── consensus_service
+│       │   │   │   ├── blockchain_writer_class.py
+│       │   │   │   ├── blockchain_writer.py
+│       │   │   │   ├── consensus_main.py
+│       │   │   │   ├── fix_validator.py
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── replace_functions.py
+│       │   │   │   ├── transaction_validator.py
+│       │   │   │   └── verify_transaction.log
+│       │   │   ├── __init__.py
+│       │   │   └── rpki_observer_service
+│       │   │       ├── bgp_monitor.py
+│       │   │       ├── __init__.py
+│       │   │       ├── observer_main.py
+│       │   │       └── transaction_creator.py
+│       │   ├── shared_data
+│       │   │   ├── chain
+│       │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   ├── blockchain.json
+│       │   │   │   ├── blockchain_lock.json
+│       │   │   │   ├── transaction_pool.json
+│       │   │   │   └── trust_log.jsonl
+│       │   │   ├── logs
+│       │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   └── enhanced_detection_summary.csv
+│       │   │   ├── shared_registry
+│       │   │   │   ├── as_relationships.json
+│       │   │   │   ├── attack_scenarios.json
+│       │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   ├── public_key_registry.json
+│       │   │   │   ├── public_network_registry.json
+│       │   │   │   ├── routing_policies.json
+│       │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   └── simulation_config.json
+│       │   │   └── state
+│       │   │       ├── ip_asn_mapping.json
+│       │   │       └── trust_state.json
+│       │   └── utils_common
+│       │       └── trust_engine
+│       │           ├── adaptive_trust_engine
+│       │           └── shared
+│       ├── shared_trust_engine
+│       │   ├── adaptive_trust_engine
+│       │   │   ├── adaptive_trust_engine.py
+│       │   │   ├── behavioral_metrics.py
+│       │   │   ├── historical_analyzer.py
+│       │   │   ├── __init__.py
+│       │   │   ├── periodic_evaluator.py
+│       │   │   └── trust_score_calculator.py
+│       │   ├── __init__.py
+│       │   ├── main_trust_coordinator.py
+│       │   ├── reactive_trust_engine
+│       │   │   ├── attack_classifier.py
+│       │   │   ├── event_processor.py
+│       │   │   ├── __init__.py
+│       │   │   ├── penalty_calculator.py
+│       │   │   ├── reactive_trust_engine.py
+│       │   │   └── trust_updater.py
+│       │   ├── shared
+│       │   │   ├── blockchain_interface.py
+│       │   │   ├── config.py
+│       │   │   ├── __init__.py
+│       │   │   └── trust_utils.py
+│       │   ├── trust_engine.md
+│       │   └── trust_state.py
+│       └── trust_score_interface
+│           ├── __init__.py
+│           ├── trust_engine_interface.py
+│           └── trust_score_checker.py
+├── README.md
+├── requirements.txt
+├── results
+│   ├── detections.csv
+│   ├── enhanced_attack_detections.json
+│   ├── enhanced_simulation_summary.json
+│   ├── last_run_info.json
+│   ├── metrics.csv
+│   ├── performance.csv
+│   └── trust_changes.csv
+├── scripts
+│   └── final_report.py
+├── simulation_helpers
+│   ├── coordination
+│   │   ├── health_monitor.py
+│   │   ├── __init__.py
+│   │   └── orchestrator.py
+│   ├── __init__.py
+│   ├── shared_data
+│   │   ├── experiment_config.json
+│   │   └── simulation_clock.json
+│   └── timing
+│       ├── __init__.py
+│       ├── shared_clock.py
+│       └── time_synchronizer.py
+└── tests
+    ├── data_generator
+    │   ├── generate_data.py
+    │   └── README.md
+    └── __init__.py
+
+74 directories, 210 files

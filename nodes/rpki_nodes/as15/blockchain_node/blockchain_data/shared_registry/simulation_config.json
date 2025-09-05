@@ -1,0 +1,34 @@
+{
+  "simulation_id": "sim_1754288173",
+  "start_time": "2025-08-04T02:16:13.631045",
+  "data_source": "test",
+  "rpki_nodes": [
+    "as01",
+    "as03",
+    "as05",
+    "as07",
+    "as09",
+    "as11",
+    "as13",
+    "as15",
+    "as17"
+  ],
+  "non_rpki_nodes": [
+    "as02",
+    "as04",
+    "as06",
+    "as08",
+    "as10",
+    "as12",
+    "as14",
+    "as16",
+    "as18",
+    "as20"
+  ],
+  "attack_scenarios": [
+    "prefix_hijack",
+    "route_leak",
+    "path_manipulation"
+  ],
+  "funded_accounts": 10
+}

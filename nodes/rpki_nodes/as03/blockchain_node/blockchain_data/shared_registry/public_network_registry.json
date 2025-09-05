@@ -1,0 +1,221 @@
+{
+    "registry": {
+        "name": "BGP Network Public Registry",
+        "description": "Centralized public information for all 18 nodes",
+        "version": "1.0.0",
+        "last_updated": "2025-07-28"
+    },
+    
+    "rpki_nodes": {
+        "1": {
+            "asn": 1,
+            "name": "AS01-RPKI",
+            "type": "rpki_validator",
+            "tier": 2,
+            "role": "regional_isp",
+            "public_key_file": "as01_public.pem",
+            "owned_prefixes": ["192.168.1.0/24", "10.1.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as01.example.com",
+            "location": "Region-A"
+        },
+        "3": {
+            "asn": 3,
+            "name": "AS03-RPKI", 
+            "type": "rpki_validator",
+            "tier": 2,
+            "role": "regional_isp",
+            "public_key_file": "as03_public.pem",
+            "owned_prefixes": ["192.168.3.0/24", "10.3.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as03.example.com",
+            "location": "Region-B"
+        },
+        "5": {
+            "asn": 5,
+            "name": "AS05-RPKI",
+            "type": "rpki_validator", 
+            "tier": 3,
+            "role": "enterprise",
+            "public_key_file": "as05_public.pem",
+            "owned_prefixes": ["192.168.5.0/24", "10.5.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as05.example.com",
+            "location": "Region-C"
+        },
+        "7": {
+            "asn": 7,
+            "name": "AS07-RPKI",
+            "type": "rpki_validator",
+            "tier": 2,
+            "role": "tier2_isp",
+            "public_key_file": "as07_public.pem", 
+            "owned_prefixes": ["192.168.7.0/24", "10.7.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as07.example.com",
+            "location": "Region-D"
+        },
+        "9": {
+            "asn": 9,
+            "name": "AS09-RPKI",
+            "type": "rpki_validator",
+            "tier": 3,
+            "role": "content_provider",
+            "public_key_file": "as09_public.pem",
+            "owned_prefixes": ["192.168.9.0/24", "10.9.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as09.example.com",
+            "location": "Region-E"
+        },
+        "11": {
+            "asn": 11,
+            "name": "AS11-RPKI",
+            "type": "rpki_validator",
+            "tier": 2,
+            "role": "tier2_isp",
+            "public_key_file": "as11_public.pem",
+            "owned_prefixes": ["192.168.11.0/24", "10.11.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as11.example.com",
+            "location": "Region-F"
+        },
+        "13": {
+            "asn": 13,
+            "name": "AS13-RPKI",
+            "type": "rpki_validator",
+            "tier": 3,
+            "role": "enterprise",
+            "public_key_file": "as13_public.pem",
+            "owned_prefixes": ["192.168.13.0/24", "10.13.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as13.example.com",
+            "location": "Region-G"
+        },
+        "15": {
+            "asn": 15,
+            "name": "AS15-RPKI",
+            "type": "rpki_validator",
+            "tier": 2,
+            "role": "regional_isp",
+            "public_key_file": "as15_public.pem",
+            "owned_prefixes": ["192.168.15.0/24", "10.15.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as15.example.com",
+            "location": "Region-H"
+        },
+        "17": {
+            "asn": 17,
+            "name": "AS17-RPKI",
+            "type": "rpki_validator",
+            "tier": 3,
+            "role": "stub",
+            "public_key_file": "as17_public.pem",
+            "owned_prefixes": ["192.168.17.0/24", "10.17.0.0/16"],
+            "blockchain_services": ["observer", "consensus"],
+            "contact_info": "admin@as17.example.com",
+            "location": "Region-I"
+        }
+    },
+    
+    "non_rpki_nodes": {
+        "2": {
+            "asn": 2,
+            "name": "AS02-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "enterprise",
+            "owned_prefixes": ["192.168.2.0/24", "172.16.2.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as02.example.com",
+            "location": "Region-A"
+        },
+        "4": {
+            "asn": 4,
+            "name": "AS04-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "stub",
+            "owned_prefixes": ["192.168.4.0/24", "172.16.4.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as04.example.com", 
+            "location": "Region-B"
+        },
+        "6": {
+            "asn": 6,
+            "name": "AS06-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "content_provider",
+            "owned_prefixes": ["192.168.6.0/24", "172.16.6.0/24", "198.51.100.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as06.example.com",
+            "location": "Region-C"
+        },
+        "8": {
+            "asn": 8,
+            "name": "AS08-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "enterprise",
+            "owned_prefixes": ["192.168.8.0/24", "172.16.8.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as08.example.com",
+            "location": "Region-D"
+        },
+        "10": {
+            "asn": 10,
+            "name": "AS10-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "stub",
+            "owned_prefixes": ["192.168.10.0/24", "172.16.10.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as10.example.com",
+            "location": "Region-E"
+        },
+        "12": {
+            "asn": 12,
+            "name": "AS12-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "content_provider",
+            "owned_prefixes": ["192.168.12.0/24", "172.16.12.0/24", "203.0.113.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as12.example.com",
+            "location": "Region-F"
+        },
+        "14": {
+            "asn": 14,
+            "name": "AS14-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "enterprise",
+            "owned_prefixes": ["192.168.14.0/24", "172.16.14.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as14.example.com",
+            "location": "Region-G"
+        },
+        "16": {
+            "asn": 16,
+            "name": "AS16-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "stub",
+            "owned_prefixes": ["192.168.16.0/24", "172.16.16.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as16.example.com",
+            "location": "Region-H"
+        },
+        "18": {
+            "asn": 18,
+            "name": "AS18-BGP",
+            "type": "bgp_router",
+            "tier": 3,
+            "role": "content_provider",
+            "owned_prefixes": ["192.168.18.0/24", "172.16.18.0/24", "233.252.0.0/24"],
+            "blockchain_services": [],
+            "contact_info": "admin@as18.example.com",
+            "location": "Region-I"
+        }
+    }
+}
