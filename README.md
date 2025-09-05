@@ -2,6 +2,8 @@
 
 <div align="center">
 
+### <span style="color:red">⚠️ Use Python 3.10 with a Virtual Environment</span>
+
 ![BGP-Sentry Logo](https://img.shields.io/badge/BGP--Sentry-v2.0-blue?style=for-the-badge&logo=shield&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/downloads/)
