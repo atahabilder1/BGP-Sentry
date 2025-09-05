@@ -1,7 +1,0 @@
-Metric,Count,Percentage
-Total Announcements,12,100%
-Attacks Detected,4,33.3%
-Prefix Hijacking,3,25.0%
-Subprefix Hijacking,1,8.3%
-Route Leaks,0,0.0%
-Legitimate,8,66.7%
