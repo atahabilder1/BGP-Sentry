@@ -241,6 +241,14 @@ class BGPSentryExperiment:
         logger.info("Starting RPKI node network...")
         
         try:
+            # Ensure health monitor is ready
+            if not self.health_monitor:
+                node_configs = self.orchestrator.rpki_node_configs
+                monitoring_interval = self.config.get("monitoring", {}).get("health_check_interval", 10)
+                self.health_monitor = NodeHealthMonitor(node_configs, monitoring_interval)
+            if not self.dashboard:
+                self.dashboard = HealthDashboard(self.health_monitor)
+
             # Start health monitoring first
             self.health_monitor.start_monitoring()
             
@@ -351,6 +359,15 @@ class BGPSentryExperiment:
             active_nodes = self.orchestrator.get_active_nodes()
             total_nodes = len(self.orchestrator.rpki_node_configs)
             
+            if not self.health_monitor:
+                logger.info(
+                    "SIMULATION STATUS - Time: %.1fs | Nodes: %d/%d | Health monitor unavailable",
+                    sim_time,
+                    len(active_nodes),
+                    total_nodes,
+                )
+                return
+
             # Get health summary
             health_summary = self.health_monitor.get_node_health_summary()
             
@@ -361,7 +378,10 @@ class BGPSentryExperiment:
                        f"Issues: {health_summary['nodes_with_issues']}")
             
             # Print dashboard if enabled
-            if self.config.get("monitoring", {}).get("enable_dashboard", False):
+            if (
+                self.dashboard
+                and self.config.get("monitoring", {}).get("enable_dashboard", False)
+            ):
                 print("\n" + "="*80)
                 self.dashboard.print_status_summary()
                 self.dashboard.print_recent_alerts(max_alerts=5)
@@ -411,9 +431,23 @@ class BGPSentryExperiment:
             simulation_summary = self.orchestrator.get_simulation_summary()
             
             # Get health report
-            health_summary = self.health_monitor.get_node_health_summary()
-            performance_metrics = self.health_monitor.get_performance_metrics()
-            blockchain_status = self.health_monitor.get_blockchain_sync_status()
+            if self.health_monitor:
+                health_summary = self.health_monitor.get_node_health_summary()
+                performance_metrics = self.health_monitor.get_performance_metrics()
+                blockchain_status = self.health_monitor.get_blockchain_sync_status()
+            else:
+                health_summary = {
+                    "total_nodes": len(self.orchestrator.rpki_node_configs),
+                    "running_nodes": 0,
+                    "responsive_nodes": 0,
+                    "nodes_with_issues": len(self.orchestrator.rpki_node_configs),
+                }
+                performance_metrics = {}
+                blockchain_status = {
+                    "nodes_with_blockchain": 0,
+                    "average_block_count": 0.0,
+                    "block_counts": [],
+                }
             
             # Compile final results
             final_results = {
@@ -440,7 +474,8 @@ class BGPSentryExperiment:
             
             # Save health report
             health_report_file = results_dir / f"health_report_{timestamp}.json"
-            self.health_monitor.export_health_report(str(health_report_file))
+            if self.health_monitor:
+                self.health_monitor.export_health_report(str(health_report_file))
             
             # Save orchestrator results
             self.orchestrator.save_simulation_results(str(results_dir))

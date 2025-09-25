@@ -1,0 +1,130 @@
+2025-09-25 18:16:12,905 - BGP-Sentry-Main - ERROR - Error loading config: Expecting value: line 1 column 1 (char 0), using defaults
+2025-09-25 18:16:12,905 - simulation_helpers.timing.shared_clock - INFO - SharedClockManager initialized with clock file: simulation_helpers/shared_data/simulation_clock.json
+2025-09-25 18:16:12,905 - simulation_helpers.coordination.orchestrator - INFO - SimulationOrchestrator initialized
+2025-09-25 18:16:12,905 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-09-25 18:16:12,905 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-09-25 18:16:12,906 - simulation_helpers.timing.shared_clock - INFO - Initializing simulation clock for new experiment
+2025-09-25 18:16:12,906 - simulation_helpers.timing.shared_clock - INFO - Simulation clock initialized - ID: bgp_sentry_exp_1758838572, Scale: 1.0x
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - INFO - Shared clock test successful: bgp_sentry_exp_1758838572
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-09-25 18:16:12,906 - simulation_helpers.coordination.orchestrator - INFO - Validating simulation prerequisites...
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - ERROR - Prerequisites validation failed: [Errno 1] Operation not permitted
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-09-25 18:16:12,906 - simulation_helpers.coordination.orchestrator - INFO - Stopping all RPKI nodes...
+2025-09-25 18:16:12,906 - simulation_helpers.coordination.orchestrator - INFO - All nodes shut down gracefully
+2025-09-25 18:16:12,906 - simulation_helpers.coordination.orchestrator - INFO - All nodes stopped
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - ERROR - Error generating results: 'NoneType' object has no attribute 'get_node_health_summary'
+2025-09-25 18:16:12,906 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-09-25 18:27:59,255 - BGP-Sentry-Main - ERROR - Error loading config: Expecting value: line 1 column 1 (char 0), using defaults
+2025-09-25 18:27:59,255 - simulation_helpers.timing.shared_clock - INFO - SharedClockManager initialized with clock file: simulation_helpers/shared_data/simulation_clock.json
+2025-09-25 18:27:59,255 - simulation_helpers.coordination.orchestrator - INFO - SimulationOrchestrator initialized
+2025-09-25 18:27:59,255 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-09-25 18:27:59,255 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-09-25 18:27:59,255 - simulation_helpers.timing.shared_clock - INFO - Initializing simulation clock for new experiment
+2025-09-25 18:27:59,255 - simulation_helpers.timing.shared_clock - INFO - Simulation clock initialized - ID: bgp_sentry_exp_1758839279, Scale: 1.0x
+2025-09-25 18:27:59,255 - BGP-Sentry-Main - INFO - Shared clock test successful: bgp_sentry_exp_1758839279
+2025-09-25 18:27:59,255 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-09-25 18:27:59,255 - simulation_helpers.coordination.orchestrator - INFO - Validating simulation prerequisites...
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.orchestrator - INFO - All required ports (8001-8017 odd) are available
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.orchestrator - INFO - Prerequisites validation completed successfully
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-09-25 18:27:59,256 - simulation_helpers.timing.shared_clock - INFO - Initializing simulation clock for new experiment
+2025-09-25 18:27:59,256 - simulation_helpers.timing.shared_clock - INFO - Simulation clock initialized - ID: exp_1758839279, Scale: 1.0x
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.health_monitor - INFO - NodeHealthMonitor initialized
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1758839279
+2025-09-25 18:27:59,256 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.health_monitor - INFO - Starting node health monitoring
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.health_monitor - INFO - Health monitoring loop started
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.orchestrator - INFO - Starting all RPKI nodes...
+2025-09-25 18:27:59,256 - simulation_helpers.coordination.orchestrator - INFO - Starting node as01 on port 8001
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as01 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as03 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as05 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as07 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as09 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as11 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as13 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as15 [node_down]: Node process is not running
+2025-09-25 18:27:59,259 - simulation_helpers.coordination.health_monitor - WARNING - Alert for as17 [node_down]: Node process is not running
+2025-09-25 18:28:00,258 - simulation_helpers.coordination.orchestrator - ERROR - Node as01 terminated immediately:
+2025-09-25 18:28:00,258 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: 
+2025-09-25 18:28:00,258 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 2025-09-25 18:27:59,276 [INFO] Step 2 completed: Added parent folder to sys.path.
+Traceback (most recent call last):
+  File "/home/anik/code/BGP-Sentry/nodes/rpki_nodes/as01/blockchain_node/node.py", line 65, in <module>
+    from blockchain.block import Block
+ModuleNotFoundError: No module named 'blockchain'
+
+2025-09-25 18:28:00,259 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as01
+2025-09-25 18:28:00,259 - simulation_helpers.coordination.orchestrator - INFO - Starting node as03 on port 8003
+2025-09-25 18:28:01,261 - simulation_helpers.coordination.orchestrator - ERROR - Node as03 terminated immediately:
+2025-09-25 18:28:01,261 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: 
+2025-09-25 18:28:01,261 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 2025-09-25 18:28:00,290 [INFO] Step 2 completed: Added parent folder to sys.path.
+Traceback (most recent call last):
+  File "/home/anik/code/BGP-Sentry/nodes/rpki_nodes/as03/blockchain_node/node.py", line 65, in <module>
+    from blockchain.block import Block
+ModuleNotFoundError: No module named 'blockchain'
+
+2025-09-25 18:28:01,261 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as03
+2025-09-25 18:28:01,261 - simulation_helpers.coordination.orchestrator - INFO - Starting node as05 on port 8005
+2025-09-25 18:28:02,263 - simulation_helpers.coordination.orchestrator - ERROR - Node as05 terminated immediately:
+2025-09-25 18:28:02,263 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: 
+2025-09-25 18:28:02,263 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: Traceback (most recent call last):
+  File "/home/anik/code/BGP-Sentry/nodes/rpki_nodes/as05/blockchain_node/node.py", line 2, in <module>
+    from services.rpki_observer_service.observer_main import RPKIObserverService
+ModuleNotFoundError: No module named 'services'
+
+2025-09-25 18:28:02,263 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as05
+2025-09-25 18:28:02,264 - simulation_helpers.coordination.orchestrator - INFO - Starting node as07 on port 8007
+2025-09-25 18:28:03,266 - simulation_helpers.coordination.orchestrator - ERROR - Node as07 terminated immediately:
+2025-09-25 18:28:03,266 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:03,266 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:03,266 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as07
+2025-09-25 18:28:03,266 - simulation_helpers.coordination.orchestrator - INFO - Starting node as09 on port 8009
+2025-09-25 18:28:04,268 - simulation_helpers.coordination.orchestrator - ERROR - Node as09 terminated immediately:
+2025-09-25 18:28:04,268 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:04,268 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:04,268 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as09
+2025-09-25 18:28:04,268 - simulation_helpers.coordination.orchestrator - INFO - Starting node as11 on port 8011
+2025-09-25 18:28:05,271 - simulation_helpers.coordination.orchestrator - ERROR - Node as11 terminated immediately:
+2025-09-25 18:28:05,271 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:05,271 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:05,271 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as11
+2025-09-25 18:28:05,271 - simulation_helpers.coordination.orchestrator - INFO - Starting node as13 on port 8013
+2025-09-25 18:28:06,274 - simulation_helpers.coordination.orchestrator - ERROR - Node as13 terminated immediately:
+2025-09-25 18:28:06,274 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:06,274 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:06,274 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as13
+2025-09-25 18:28:06,274 - simulation_helpers.coordination.orchestrator - INFO - Starting node as15 on port 8015
+2025-09-25 18:28:07,277 - simulation_helpers.coordination.orchestrator - ERROR - Node as15 terminated immediately:
+2025-09-25 18:28:07,277 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:07,277 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:07,277 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as15
+2025-09-25 18:28:07,277 - simulation_helpers.coordination.orchestrator - INFO - Starting node as17 on port 8017
+2025-09-25 18:28:08,279 - simulation_helpers.coordination.orchestrator - ERROR - Node as17 terminated immediately:
+2025-09-25 18:28:08,279 - simulation_helpers.coordination.orchestrator - ERROR - STDOUT: [!] Failed to import blockchain modules: No module named 'blockchain'
+
+2025-09-25 18:28:08,279 - simulation_helpers.coordination.orchestrator - ERROR - STDERR: 
+2025-09-25 18:28:08,279 - simulation_helpers.coordination.orchestrator - ERROR - Failed to start node as17
+2025-09-25 18:28:08,279 - simulation_helpers.coordination.orchestrator - ERROR - Only 0/9 nodes started
+2025-09-25 18:28:08,279 - BGP-Sentry-Main - ERROR - Failed to start all nodes
+2025-09-25 18:28:08,279 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-09-25 18:28:08,280 - simulation_helpers.coordination.orchestrator - INFO - Stopping all RPKI nodes...
+2025-09-25 18:28:08,280 - simulation_helpers.coordination.orchestrator - INFO - All nodes shut down gracefully
+2025-09-25 18:28:08,280 - simulation_helpers.coordination.orchestrator - INFO - All nodes stopped
+2025-09-25 18:28:08,280 - simulation_helpers.coordination.health_monitor - INFO - Stopping node health monitoring
+2025-09-25 18:28:09,269 - simulation_helpers.coordination.health_monitor - INFO - Health monitoring loop ended
+2025-09-25 18:28:09,270 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-09-25 18:28:09,272 - simulation_helpers.coordination.orchestrator - INFO - Saving simulation results to results
+2025-09-25 18:28:09,272 - simulation_helpers.coordination.orchestrator - INFO - Simulation summary saved to results/simulation_summary_20250925_182809.json
+2025-09-25 18:28:09,272 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20250925_182809.json
+2025-09-25 18:28:09,273 - BGP-Sentry-Main - INFO - Experiment shutdown completed

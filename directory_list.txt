@@ -41,9 +41,10 @@
 │       ├── R9-bgpd.log
 │       ├── R9.log
 │       └── readme.md
+├── constraints.txt
 ├── context_informain.txt
+├── directory_list
 ├── directory_list.txt
-├── directory_list.txt~
 ├── docs
 │   └── command.md
 ├── implementaionidea.md
@@ -84,6 +85,27 @@
 │   └── rpki_nodes
 │       ├── as01
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -93,6 +115,27 @@
 │       │       └── parser.py
 │       ├── as03
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -102,6 +145,27 @@
 │       │       └── parser.py
 │       ├── as05
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -110,6 +174,27 @@
 │       │       └── config.json
 │       ├── as07
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -118,6 +203,27 @@
 │       │       └── config.json
 │       ├── as09
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -126,6 +232,27 @@
 │       │       └── config.json
 │       ├── as11
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -134,6 +261,27 @@
 │       │       └── config.json
 │       ├── as13
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -142,6 +290,27 @@
 │       │       └── config.json
 │       ├── as15
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -150,6 +319,27 @@
 │       │       └── config.json
 │       ├── as17
 │       │   ├── blockchain_node
+│       │   │   ├── blockchain_data
+│       │   │   │   ├── chain
+│       │   │   │   │   ├── bgp_stream.jsonl
+│       │   │   │   │   ├── blockchain.json
+│       │   │   │   │   ├── blockchain_lock.json
+│       │   │   │   │   └── trust_log.jsonl
+│       │   │   │   ├── logs
+│       │   │   │   │   ├── attack_detection_with_trust.csv
+│       │   │   │   │   └── enhanced_detection_summary.csv
+│       │   │   │   ├── shared_registry
+│       │   │   │   │   ├── as_relationships.json
+│       │   │   │   │   ├── attack_scenarios.json
+│       │   │   │   │   ├── nonrpki_wallet_registry.json
+│       │   │   │   │   ├── public_key_registry.json
+│       │   │   │   │   ├── public_network_registry.json
+│       │   │   │   │   ├── routing_policies.json
+│       │   │   │   │   ├── rpki_verification_registry.json
+│       │   │   │   │   └── simulation_config.json
+│       │   │   │   └── state
+│       │   │   │       ├── ip_asn_mapping.json
+│       │   │   │       └── trust_state.json
 │       │   │   ├── node.py
 │       │   │   └── private_key.pem
 │       │   └── network_stack
@@ -182,48 +372,22 @@
 │       │   │   ├── transaction_pool.py
 │       │   │   ├── transaction_signer.py
 │       │   │   └── verify_transaction.log
-│       │   ├── services
-│       │   │   ├── consensus_service
-│       │   │   │   ├── blockchain_writer_class.py
-│       │   │   │   ├── blockchain_writer.py
-│       │   │   │   ├── consensus_main.py
-│       │   │   │   ├── fix_validator.py
-│       │   │   │   ├── __init__.py
-│       │   │   │   ├── replace_functions.py
-│       │   │   │   ├── transaction_validator.py
-│       │   │   │   └── verify_transaction.log
-│       │   │   ├── __init__.py
-│       │   │   └── rpki_observer_service
-│       │   │       ├── bgp_monitor.py
-│       │   │       ├── __init__.py
-│       │   │       ├── observer_main.py
-│       │   │       └── transaction_creator.py
-│       │   ├── shared_data
-│       │   │   ├── chain
-│       │   │   │   ├── bgp_stream.jsonl
-│       │   │   │   ├── blockchain.json
-│       │   │   │   ├── blockchain_lock.json
-│       │   │   │   ├── transaction_pool.json
-│       │   │   │   └── trust_log.jsonl
-│       │   │   ├── logs
-│       │   │   │   ├── attack_detection_with_trust.csv
-│       │   │   │   └── enhanced_detection_summary.csv
-│       │   │   ├── shared_registry
-│       │   │   │   ├── as_relationships.json
-│       │   │   │   ├── attack_scenarios.json
-│       │   │   │   ├── nonrpki_wallet_registry.json
-│       │   │   │   ├── public_key_registry.json
-│       │   │   │   ├── public_network_registry.json
-│       │   │   │   ├── routing_policies.json
-│       │   │   │   ├── rpki_verification_registry.json
-│       │   │   │   └── simulation_config.json
-│       │   │   └── state
-│       │   │       ├── ip_asn_mapping.json
-│       │   │       └── trust_state.json
-│       │   └── utils_common
-│       │       └── trust_engine
-│       │           ├── adaptive_trust_engine
-│       │           └── shared
+│       │   └── services
+│       │       ├── consensus_service
+│       │       │   ├── blockchain_writer_class.py
+│       │       │   ├── blockchain_writer.py
+│       │       │   ├── consensus_main.py
+│       │       │   ├── fix_validator.py
+│       │       │   ├── __init__.py
+│       │       │   ├── replace_functions.py
+│       │       │   ├── transaction_validator.py
+│       │       │   └── verify_transaction.log
+│       │       ├── __init__.py
+│       │       └── rpki_observer_service
+│       │           ├── bgp_monitor.py
+│       │           ├── __init__.py
+│       │           ├── observer_main.py
+│       │           └── transaction_creator.py
 │       ├── shared_trust_engine
 │       │   ├── adaptive_trust_engine
 │       │   │   ├── adaptive_trust_engine.py
@@ -283,4 +447,4 @@
     │   └── README.md
     └── __init__.py
 
-74 directories, 210 files
+110 directories, 338 files

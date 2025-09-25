@@ -17,8 +17,8 @@ import socket
 import json
 import os
 import psutil
-from datetime import datetime, timedelta
-from typing import Dict, List, Any, Optional
+from datetime import datetime
+from typing import Dict, List, Any
 import logging
 
 logger = logging.getLogger(__name__)
@@ -52,7 +52,11 @@ class NodeHealthMonitor:
         self.network_topology = {}
         self.performance_history = {}
         self.alerts = []
-        
+        self._active_alerts = {}
+        self.alert_cooldown_seconds = 30
+        self.history_retention_seconds = 3600
+        self.max_alerts = 200
+
         # Monitoring thresholds
         self.thresholds = {
             "cpu_usage_warning": 80.0,
@@ -334,8 +338,258 @@ class NodeHealthMonitor:
     def _check_alert_conditions(self):
         """Check for conditions that should trigger alerts."""
         current_time = time.time()
-        
+
         for node_id, health_data in self.node_health_data.items():
             # Check if node is down
             if not health_data.get("process_running", False):
-                self
+                self._record_alert(
+                    node_id,
+                    alert_type="node_down",
+                    severity="critical",
+                    message="Node process is not running",
+                    timestamp=current_time,
+                )
+                continue
+
+            # Port responsiveness
+            if not health_data.get("port_responsive", False):
+                self._record_alert(
+                    node_id,
+                    alert_type="port_unresponsive",
+                    severity="warning",
+                    message="Node port is not accepting connections",
+                    timestamp=current_time,
+                )
+
+            # Resource usage thresholds
+            usage = health_data.get("resource_usage", {})
+            cpu = usage.get("cpu_percent")
+            if cpu is not None and cpu >= self.thresholds["cpu_usage_warning"]:
+                self._record_alert(
+                    node_id,
+                    alert_type="high_cpu",
+                    severity="warning",
+                    message=f"CPU usage at {cpu:.1f}% exceeds threshold",
+                    timestamp=current_time,
+                )
+
+            memory = usage.get("memory_percent")
+            if memory is not None and memory >= self.thresholds["memory_usage_warning"]:
+                self._record_alert(
+                    node_id,
+                    alert_type="high_memory",
+                    severity="warning",
+                    message=f"Memory usage at {memory:.1f}% exceeds threshold",
+                    timestamp=current_time,
+                )
+
+            # Blockchain status parity
+            blockchain_status = health_data.get("blockchain_status", {})
+            if blockchain_status.get("sync_status") == "error":
+                message = blockchain_status.get("error", "Blockchain status error detected")
+                self._record_alert(
+                    node_id,
+                    alert_type="blockchain_error",
+                    severity="error",
+                    message=message,
+                    timestamp=current_time,
+                )
+
+        # After processing individual nodes, compare block counts
+        block_counts = [
+            data.get("blockchain_status", {}).get("block_count", 0)
+            for data in self.node_health_data.values()
+            if data.get("process_running", False)
+        ]
+        if block_counts:
+            max_blocks = max(block_counts)
+            for node_id, health_data in self.node_health_data.items():
+                blockchain_status = health_data.get("blockchain_status", {})
+                block_count = blockchain_status.get("block_count", 0)
+                if max_blocks - block_count >= self.thresholds["blockchain_sync_lag_warning"]:
+                    self._record_alert(
+                        node_id,
+                        alert_type="blockchain_lag",
+                        severity="warning",
+                        message=(
+                            f"Blockchain lag detected: {block_count} blocks vs {max_blocks} max"
+                        ),
+                        timestamp=current_time,
+                    )
+
+    def _record_alert(
+        self,
+        node_id: str,
+        *,
+        alert_type: str,
+        severity: str,
+        message: str,
+        timestamp: float,
+    ) -> None:
+        """Record an alert with basic de-duplication semantics."""
+
+        key = (node_id, alert_type)
+        last_timestamp = self._active_alerts.get(key)
+        if last_timestamp and timestamp - last_timestamp < self.alert_cooldown_seconds:
+            return
+
+        alert = {
+            "timestamp": datetime.fromtimestamp(timestamp).isoformat(),
+            "node_id": node_id,
+            "type": alert_type,
+            "severity": severity,
+            "message": message,
+        }
+        self.alerts.append(alert)
+        self._active_alerts[key] = timestamp
+
+        if len(self.alerts) > self.max_alerts:
+            self.alerts = self.alerts[-self.max_alerts:]
+
+        logger.warning(
+            "Alert for %s [%s]: %s", node_id, alert_type, message
+        )
+
+    def _cleanup_old_data(self):
+        """Trim alert history and drop stale node entries."""
+
+        cutoff = time.time() - self.history_retention_seconds
+
+        # Expire alerts beyond retention window
+        def _alert_ts(alert: Dict[str, Any]) -> float:
+            try:
+                return datetime.fromisoformat(alert["timestamp"]).timestamp()
+            except (KeyError, ValueError):
+                return float("inf")
+
+        self.alerts = [alert for alert in self.alerts if _alert_ts(alert) >= cutoff]
+
+        # Release cooldown entries that are outside the retention window
+        self._active_alerts = {
+            key: ts for key, ts in self._active_alerts.items() if ts >= cutoff
+        }
+
+        # Drop node health entries we have not checked in a long time
+        stale_nodes = [
+            node_id
+            for node_id, data in self.node_health_data.items()
+            if cutoff > data.get("last_checked", 0)
+        ]
+        for node_id in stale_nodes:
+            self.node_health_data.pop(node_id, None)
+
+    def get_node_health_summary(self) -> Dict[str, Any]:
+        """Return aggregated counts of node health states."""
+
+        total_nodes = len(self.node_configs)
+        running = sum(1 for data in self.node_health_data.values() if data.get("process_running"))
+        responsive = sum(1 for data in self.node_health_data.values() if data.get("port_responsive"))
+        nodes_with_issues = sum(
+            1
+            for data in self.node_health_data.values()
+            if (not data.get("process_running", False))
+            or (not data.get("port_responsive", False))
+            or data.get("errors")
+        )
+
+        return {
+            "total_nodes": total_nodes,
+            "running_nodes": running,
+            "responsive_nodes": responsive,
+            "nodes_with_issues": nodes_with_issues,
+        }
+
+    def get_performance_metrics(self) -> Dict[str, Any]:
+        """Aggregate CPU and memory stats for each node."""
+
+        metrics: Dict[str, Any] = {}
+        for node_id, history in self.performance_history.items():
+            if not history:
+                continue
+
+            avg_cpu = sum(sample["cpu_percent"] for sample in history) / len(history)
+            avg_mem = sum(sample["memory_percent"] for sample in history) / len(history)
+            last_sample = history[-1]
+
+            metrics[node_id] = {
+                "average_cpu_percent": avg_cpu,
+                "average_memory_percent": avg_mem,
+                "latest": last_sample,
+            }
+
+        return metrics
+
+    def get_blockchain_sync_status(self) -> Dict[str, Any]:
+        """Summarise blockchain availability and synchronisation."""
+
+        block_counts = []
+        nodes_with_blockchain = 0
+
+        for data in self.node_health_data.values():
+            blockchain_status = data.get("blockchain_status", {})
+            if blockchain_status.get("blockchain_file_exists"):
+                nodes_with_blockchain += 1
+                block_counts.append(blockchain_status.get("block_count", 0))
+
+        average_block_count = sum(block_counts) / len(block_counts) if block_counts else 0.0
+
+        return {
+            "nodes_with_blockchain": nodes_with_blockchain,
+            "average_block_count": average_block_count,
+            "block_counts": block_counts,
+        }
+
+    def get_recent_alerts(self, limit: int = 10) -> List[Dict[str, Any]]:
+        """Return the most recent alerts up to ``limit`` entries."""
+
+        return self.alerts[-limit:]
+
+    def export_health_report(self, output_path: str) -> None:
+        """Persist a JSON health report for external analysis."""
+
+        report = {
+            "generated_at": datetime.utcnow().isoformat() + "Z",
+            "summary": self.get_node_health_summary(),
+            "node_health": self.node_health_data,
+            "performance_metrics": self.get_performance_metrics(),
+            "blockchain_status": self.get_blockchain_sync_status(),
+            "alerts": self.get_recent_alerts(limit=100),
+            "network_topology": self.network_topology,
+        }
+
+        with open(output_path, "w") as f:
+            json.dump(report, f, indent=2)
+
+
+class HealthDashboard:
+    """Lightweight console dashboard for experiment status output."""
+
+    def __init__(self, monitor: NodeHealthMonitor) -> None:
+        self._monitor = monitor
+
+    def print_status_summary(self) -> None:
+        summary = self._monitor.get_node_health_summary()
+        print(
+            f"Nodes running: {summary['running_nodes']}/{summary['total_nodes']} | "
+            f"Responsive: {summary['responsive_nodes']} | "
+            f"Issues: {summary['nodes_with_issues']}"
+        )
+
+        blockchain = self._monitor.get_blockchain_sync_status()
+        print(
+            f"Blockchain copies: {blockchain['nodes_with_blockchain']} | "
+            f"Avg blocks: {blockchain['average_block_count']:.1f}"
+        )
+
+    def print_recent_alerts(self, max_alerts: int = 5) -> None:
+        alerts = self._monitor.get_recent_alerts(limit=max_alerts)
+        if not alerts:
+            print("No recent alerts")
+            return
+
+        print("Recent alerts:")
+        for alert in alerts:
+            print(
+                f"  [{alert['timestamp']}] {alert['node_id']} "
+                f"({alert['severity']}): {alert['message']}"
+            )

@@ -1,0 +1,17 @@
+{
+  "experiment_id": "exp_1758839279",
+  "experiment_start_time": 1758839279.2564478,
+  "simulation_start_time": 0.0,
+  "current_simulation_time": 0.0,
+  "time_scale_factor": 1.0,
+  "max_simulation_duration": 3600,
+  "status": "initialized",
+  "last_updated": 1758839279.2564478,
+  "nodes_registered": [],
+  "bgp_data_loaded": false,
+  "metadata": {
+    "created_by": "SharedClockManager",
+    "creation_timestamp": "2025-09-25T18:27:59.256448",
+    "version": "1.0"
+  }
+}

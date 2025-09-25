@@ -1,0 +1,276 @@
+{
+  "generated_at": "2025-09-25T22:28:09.271694Z",
+  "summary": {
+    "total_nodes": 9,
+    "running_nodes": 0,
+    "responsive_nodes": 0,
+    "nodes_with_issues": 9
+  },
+  "node_health": {
+    "as01": {
+      "node_id": "as01",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as03": {
+      "node_id": "as03",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as05": {
+      "node_id": "as05",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as07": {
+      "node_id": "as07",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as09": {
+      "node_id": "as09",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as11": {
+      "node_id": "as11",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as13": {
+      "node_id": "as13",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as15": {
+      "node_id": "as15",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    },
+    "as17": {
+      "node_id": "as17",
+      "status": "not_started",
+      "process_running": false,
+      "port_responsive": false,
+      "resource_usage": {},
+      "blockchain_status": {},
+      "errors": [],
+      "last_checked": 1758839279.256871
+    }
+  },
+  "performance_metrics": {},
+  "blockchain_status": {
+    "nodes_with_blockchain": 0,
+    "average_block_count": 0.0,
+    "block_counts": []
+  },
+  "alerts": [
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as01",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as03",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as05",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as07",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as09",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as11",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as13",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as15",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    },
+    {
+      "timestamp": "2025-09-25T18:27:59.259299",
+      "node_id": "as17",
+      "type": "node_down",
+      "severity": "critical",
+      "message": "Node process is not running"
+    }
+  ],
+  "network_topology": {
+    "connectivity_matrix": {
+      "as01": {
+        "as01": "self",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as03": {
+        "as01": "unreachable",
+        "as03": "self",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as05": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "self",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as07": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "self",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as09": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "self",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as11": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "self",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as13": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "self",
+        "as15": "unreachable",
+        "as17": "unreachable"
+      },
+      "as15": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "self",
+        "as17": "unreachable"
+      },
+      "as17": {
+        "as01": "unreachable",
+        "as03": "unreachable",
+        "as05": "unreachable",
+        "as07": "unreachable",
+        "as09": "unreachable",
+        "as11": "unreachable",
+        "as13": "unreachable",
+        "as15": "unreachable",
+        "as17": "self"
+      }
+    },
+    "last_updated": 1758839279.2592928
+  }
+}
