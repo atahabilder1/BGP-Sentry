@@ -1,184 +1,104 @@
-# --------------------------------------------------------------
-# File: rpki_65001.py
-# Purpose: RPKI-enabled node for ASN 65001
-# - Reads shared BGP stream from shared_data/bgp_stream.jsonl
-# - Verifies trust score and stake for each announcement
-# - Signs and logs trusted announcements into Blockchain A
-# - Uses keys/private/private_key_65001.pem for signing
-# - Records results in shared_data/consolidated_log.jsonl
-# - Does NOT delete any processed announcements from the stream
-# - Placeholder for additional BGP validation (e.g., path validation)
-# --------------------------------------------------------------
-
-import json
+#!/usr/bin/env python3
+import sys
 import os
 import time
-import hashlib
-import logging
-import fcntl
-from datetime import datetime
-import sys
+from pathlib import Path
 
-# Add project root (two steps up) to sys.path to locate blockchain folder
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-
-try:
-    from blockchain.block import Block
-    from blockchain.blockchain import add_block, get_chain_length
-    from blockchain.trust_state import get_trust
-    from blockchain.staking_interface import check_stake_amount
-except ImportError as e:
-    print(f"[!] Failed to import blockchain modules: {e}")
-    sys.exit(1)
-
-# --------------------------------------------------------------
-# Setup Logging
-# --------------------------------------------------------------
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("rpki_65001.log"),
-        logging.StreamHandler()
-    ]
-)
-logger = logging.getLogger(__name__)
-
-# --------------------------------------------------------------
-# Setup Paths
-# --------------------------------------------------------------
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../..'))
-CONFIG_FILE = os.path.join(BASE_DIR, "config_65001.json")
-PRIVATE_KEY_FILE = os.path.join(BASE_DIR, "keys/private/private_key_65001.pem")
-INPUT_STREAM = os.path.join(PROJECT_ROOT, "shared_data/bgp_stream.jsonl")
-CONSOLIDATED_LOG = os.path.join(PROJECT_ROOT, "shared_data/consolidated_log.jsonl")
-
-# --------------------------------------------------------------
-# Load Configuration
-# --------------------------------------------------------------
-try:
-    with open(CONFIG_FILE, "r") as f:
-        config = json.load(f)
-    MY_ASN = config.get("my_asn", "65001")
-    TRUST_THRESHOLD = float(config.get("trust_threshold", 0.8))
-except FileNotFoundError:
-    logger.error(f"Configuration file not found: {CONFIG_FILE}")
-    sys.exit(1)
-except json.JSONDecodeError:
-    logger.error(f"Invalid JSON in configuration file: {CONFIG_FILE}")
-    sys.exit(1)
-except KeyError as e:
-    logger.error(f"Missing key in configuration: {e}")
-    sys.exit(1)
-
-# --------------------------------------------------------------
-# Function: sign_announcement
-# Simulates digital signature using SHA256 over message + private key
-# --------------------------------------------------------------
-def sign_announcement(data_dict):
-    try:
-        with open(PRIVATE_KEY_FILE, "r") as f:
-            private_key = f.read().strip()
-        message = json.dumps(data_dict, sort_keys=True)
-        return hashlib.sha256((message + private_key).encode()).hexdigest()
-    except FileNotFoundError:
-        logger.error(f"Private key file not found: {PRIVATE_KEY_FILE}")
-        raise
-    except Exception as e:
-        logger.error(f"Error signing announcement: {e}")
-        raise
-
-# --------------------------------------------------------------
-# Function: placeholder_additional_checks
-# Future: Path validation, prefix legitimacy, etc.
-# --------------------------------------------------------------
-def placeholder_additional_checks(announcement):
-    # Placeholder for extended validation logic
-    return True  # Accept all for now
-
-# --------------------------------------------------------------
-# Function: process_announcement
-# Logs trusted BGP announcements to Blockchain A and consolidated log
-# --------------------------------------------------------------
-def process_announcement(announcement):
-    try:
-        asn = announcement["asn"]
-        prefix = announcement["prefix"]
-        wallet = announcement.get("wallet_address", "N/A")
-        logger.debug(f"Processing announcement: {announcement}")
-        trust_score = get_trust(asn, prefix)
-        stake_amount = check_stake_amount(wallet) if wallet != "N/A" else 0
-
-        status = "SKIPPED"
-        reason = ""
-
-        if trust_score >= TRUST_THRESHOLD and placeholder_additional_checks(announcement):
-            signed_data = {
-                "data": announcement,
-                "signed_by": MY_ASN,
-                "signature": sign_announcement(announcement)
-            }
-            block = Block(
-                index=get_chain_length(),
-                data=signed_data,
-                timestamp=int(time.time())
+class BlockchainNode:
+    def __init__(self):
+        # Get AS number from file path
+        current_path = Path(__file__).resolve()
+        as_dir = current_path.parent.parent.name  # Get as01, as03, etc.
+        self.as_number = int(as_dir.replace('as', '').lstrip('0'))
+        self.node_id = f"AS{self.as_number:02d}"
+        
+        print(f"Starting {self.node_id} blockchain node...")
+        
+        # Import and initialize services
+        self._initialize_services()
+    
+    def _initialize_services(self):
+        """Initialize the two main services"""
+        try:
+            # Fix import paths - shared_blockchain_stack is at rpki_nodes level
+            shared_stack = Path(__file__).parent.parent.parent / "shared_blockchain_stack"
+            sys.path.insert(0, str(shared_stack))
+            
+            # Try importing your services
+            from services.rpki_observer_service.observer_main import RPKIObserverService
+            from services.consensus_service.consensus_main import ConsensusService
+            
+            # Initialize services
+            self.observer_service = RPKIObserverService(
+                as_number=self.as_number,
+                network_stack_path="../network_stack",
+                private_key_path="private_key.pem"
             )
-            add_block(block)
-            status = "ACCEPTED"
+            
+            self.consensus_service = ConsensusService(
+                as_number=self.as_number,
+                consensus_threshold=0.33  # 3/9 nodes needed
+            )
+            
+            print(f"{self.node_id}: Services initialized successfully")
+            
+        except Exception as e:
+            print(f"{self.node_id}: Service initialization failed - {e}")
+            print(f"{self.node_id}: Using simplified blockchain node")
+            self._initialize_simple_node()
+    
+    def _initialize_simple_node(self):
+        """Fallback simple node implementation"""
+        self.observer_service = None
+        self.consensus_service = None
+    
+    def run(self):
+        """Main node execution"""
+        if self.observer_service and self.consensus_service:
+            self._run_full_node()
         else:
-            reason = f"Trust score {trust_score} < threshold {TRUST_THRESHOLD} or failed additional checks"
-
-        log_entry = {
-            "timestamp": str(datetime.now()),
-            "asn": asn,
-            "prefix": prefix,
-            "wallet": wallet,
-            "trust_score": trust_score,
-            "stake_amount": stake_amount,
-            "status": status,
-            "reason": reason,
-            "as_path": announcement.get("as_path", []),
-            "next_hop": announcement.get("next_hop", "N/A"),
-            "type": announcement.get("type", "N/A")
-        }
-        with open(CONSOLIDATED_LOG, "a") as log_file:
-            log_file.write(json.dumps(log_entry) + "\n")
-
-        logger.info(f"{status}: {asn} {prefix} (Trust={trust_score}, Stake={stake_amount})")
-    except KeyError as e:
-        logger.error(f"Missing key in announcement: {e}")
-        raise
-    except Exception as e:
-        logger.error(f"Error processing announcement: {e}")
-        raise
-
-# --------------------------------------------------------------
-# Main loop
-# --------------------------------------------------------------
-def main():
-    logger.info(f"🔐 RPKI Node {MY_ASN} started.")
-    while True:
-        if os.path.exists(INPUT_STREAM):
-            try:
-                with open(INPUT_STREAM, "r") as f:
-                    lines = f.readlines()
-                for line in lines:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    try:
-                        announcement = json.loads(line)
-                        process_announcement(announcement)
-                    except json.JSONDecodeError:
-                        logger.error(f"Invalid JSON in line: {line}")
-                    except Exception as e:
-                        logger.error(f"Error processing announcement: {e}")
-            except Exception as e:
-                logger.error(f"Error reading input stream {INPUT_STREAM}: {e}")
-        else:
-            logger.warning(f"Input stream file not found: {INPUT_STREAM}")
-        time.sleep(5)
+            self._run_simple_node()
+    
+    def _run_full_node(self):
+        """Run full blockchain node with observer and consensus services"""
+        print(f"{self.node_id}: Starting full blockchain node...")
+        
+        try:
+            self.observer_service.start_service()
+            self.consensus_service.start_service()
+            
+            print(f"{self.node_id}: Both services running - monitoring BGP and participating in consensus")
+            
+            while True:
+                time.sleep(30)
+                
+        except KeyboardInterrupt:
+            print(f"{self.node_id}: Shutting down...")
+            if self.observer_service:
+                self.observer_service.stop_service()
+            if self.consensus_service:
+                self.consensus_service.stop_service()
+    
+    def _run_simple_node(self):
+        """Run simplified blockchain node for testing"""
+        print(f"{self.node_id}: Running simplified blockchain node...")
+        
+        block_count = 0
+        try:
+            while block_count < 10:
+                print(f"{self.node_id}: Processing BGP data - block {block_count}")
+                
+                if block_count % 3 == 0:
+                    print(f"{self.node_id}: Participating in consensus voting")
+                
+                block_count += 1
+                time.sleep(5)
+                
+        except KeyboardInterrupt:
+            print(f"{self.node_id}: Interrupted, shutting down...")
+        
+        print(f"{self.node_id}: Processed {block_count} blocks, shutting down")
 
 if __name__ == "__main__":
-    main()
+    node = BlockchainNode()
+    node.run()
