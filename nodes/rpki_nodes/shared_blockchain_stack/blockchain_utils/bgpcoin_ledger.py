@@ -39,6 +39,9 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional
 
+# Import RPKI Node Registry
+from rpki_node_registry import RPKINodeRegistry
+
 class BGPCoinLedger:
     """
     Manages BGPCOIN token economy for BGP-Sentry blockchain.
@@ -110,8 +113,8 @@ class BGPCoinLedger:
         # Load existing ledger or initialize nodes with 0 balance
         self._load_ledger()
 
-        # Initialize all RPKI nodes (AS01-AS17) if not already in ledger
-        rpki_nodes = [1, 3, 5, 7, 9, 11, 13, 15, 17]
+        # Initialize all RPKI nodes from registry if not already in ledger
+        rpki_nodes = RPKINodeRegistry.get_all_rpki_nodes()
         for as_num in rpki_nodes:
             if as_num not in self.ledger_data["balances"]:
                 self.ledger_data["balances"][as_num] = 0

@@ -931,3 +931,130 @@ ModuleNotFoundError: No module named 'services'
 2025-10-21 13:39:12,578 - BGP-Sentry-Main - INFO - Generating final experiment results...
 2025-10-21 13:39:12,580 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_133912.json
 2025-10-21 13:39:12,580 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-10-21 18:29:38,777 - BGP-Sentry-Main - INFO - Loaded configuration from simulation_helpers/shared_data/experiment_config.json
+2025-10-21 18:29:38,777 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-10-21 18:29:38,777 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-10-21 18:29:38,777 - BGP-Sentry-Main - INFO - Shared clock test successful: exp_1761085778
+2025-10-21 18:29:38,777 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-10-21 18:29:38,778 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-10-21 18:29:38,778 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-10-21 18:29:38,778 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-10-21 18:29:38,778 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+2025-10-21 18:29:38,778 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-10-21 18:29:38,783 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1761085778
+2025-10-21 18:29:38,783 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+2025-10-21 18:30:43,850 - BGP-Sentry-Main - WARNING - Not all nodes registered with shared clock
+2025-10-21 18:30:43,850 - BGP-Sentry-Main - INFO - All nodes started and network converged
+2025-10-21 18:30:43,851 - BGP-Sentry-Main - INFO - Starting BGP simulation...
+2025-10-21 18:30:43,858 - BGP-Sentry-Main - INFO - Simulation running - Duration: 50s, Monitoring interval: 5.0s
+2025-10-21 18:30:48,862 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 5.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:30:53,863 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 10.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:30:58,869 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 15.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:03,874 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 20.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:08,880 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 25.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:13,885 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 30.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:18,890 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 35.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:23,894 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 40.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:28,900 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 45.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 18:31:33,904 - BGP-Sentry-Main - INFO - Simulation duration reached, stopping...
+2025-10-21 18:31:33,911 - BGP-Sentry-Main - INFO - Simulation completed successfully
+2025-10-21 18:31:33,911 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-10-21 18:31:33,911 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-10-21 18:31:33,914 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_183133.json
+2025-10-21 18:31:33,915 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-10-21 19:17:04,183 - BGP-Sentry-Main - INFO - Loaded configuration from simulation_helpers/shared_data/experiment_config.json
+2025-10-21 19:17:04,183 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-10-21 19:17:04,183 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-10-21 19:17:04,183 - BGP-Sentry-Main - INFO - Shared clock test successful: exp_1761088624
+2025-10-21 19:17:04,183 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-10-21 19:17:04,184 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-10-21 19:17:04,184 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-10-21 19:17:04,184 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-10-21 19:17:04,184 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+2025-10-21 19:17:04,184 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-10-21 19:17:04,190 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1761088624
+2025-10-21 19:17:04,190 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+2025-10-21 19:18:09,261 - BGP-Sentry-Main - WARNING - Not all nodes registered with shared clock
+2025-10-21 19:18:09,262 - BGP-Sentry-Main - INFO - All nodes started and network converged
+2025-10-21 19:18:09,262 - BGP-Sentry-Main - INFO - Starting BGP simulation...
+2025-10-21 19:18:09,262 - BGP-Sentry-Main - INFO - Simulation running - Duration: 50s, Monitoring interval: 5.0s
+2025-10-21 19:18:14,268 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 5.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:19,273 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 10.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:24,278 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 15.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:29,283 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 20.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:34,289 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 25.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:39,294 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 30.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:44,300 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 35.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:49,306 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 40.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:54,311 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 45.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:18:59,317 - BGP-Sentry-Main - INFO - Simulation duration reached, stopping...
+2025-10-21 19:18:59,317 - BGP-Sentry-Main - INFO - Simulation completed successfully
+2025-10-21 19:18:59,317 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-10-21 19:18:59,318 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-10-21 19:18:59,320 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_191859.json
+2025-10-21 19:18:59,320 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Loaded configuration from simulation_helpers/shared_data/experiment_config.json
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Shared clock test successful: exp_1761089142
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-10-21 19:25:42,615 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+2025-10-21 19:25:42,616 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-10-21 19:25:42,621 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1761089142
+2025-10-21 19:25:42,621 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+2025-10-21 19:26:47,695 - BGP-Sentry-Main - WARNING - Not all nodes registered with shared clock
+2025-10-21 19:26:47,696 - BGP-Sentry-Main - INFO - All nodes started and network converged
+2025-10-21 19:26:47,696 - BGP-Sentry-Main - INFO - Starting BGP simulation...
+2025-10-21 19:26:47,697 - BGP-Sentry-Main - INFO - Simulation running - Duration: 50s, Monitoring interval: 5.0s
+2025-10-21 19:26:52,703 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 5.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:26:57,707 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 10.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:02,713 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 15.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:07,718 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 20.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:12,723 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 25.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:17,729 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 30.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:22,735 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 35.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:27,735 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 40.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:32,740 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 45.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:27:37,746 - BGP-Sentry-Main - INFO - Simulation duration reached, stopping...
+2025-10-21 19:27:37,747 - BGP-Sentry-Main - INFO - Simulation completed successfully
+2025-10-21 19:27:37,747 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-10-21 19:27:37,747 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-10-21 19:27:37,749 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_192737.json
+2025-10-21 19:27:37,749 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-10-21 19:39:49,268 - BGP-Sentry-Main - INFO - Loaded configuration from simulation_helpers/shared_data/experiment_config.json
+2025-10-21 19:39:49,268 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+2025-10-21 19:39:49,268 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-10-21 19:39:49,268 - BGP-Sentry-Main - INFO - Shared clock test successful: exp_1761089989
+2025-10-21 19:39:49,268 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-10-21 19:39:49,269 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-10-21 19:39:49,269 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-10-21 19:39:49,269 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-10-21 19:39:49,269 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+2025-10-21 19:39:49,269 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-10-21 19:39:49,274 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1761089989
+2025-10-21 19:39:49,274 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+2025-10-21 19:40:54,341 - BGP-Sentry-Main - WARNING - Not all nodes registered with shared clock
+2025-10-21 19:40:54,341 - BGP-Sentry-Main - INFO - All nodes started and network converged
+2025-10-21 19:40:54,341 - BGP-Sentry-Main - INFO - Starting BGP simulation...
+2025-10-21 19:40:54,342 - BGP-Sentry-Main - INFO - Simulation running - Duration: 50s, Monitoring interval: 5.0s
+2025-10-21 19:40:59,348 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 5.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:04,352 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 10.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:09,357 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 15.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:14,363 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 20.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:19,368 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 25.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:24,373 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 30.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:29,379 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 35.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:34,384 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 40.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+2025-10-21 19:41:36,719 - BGP-Sentry-Main - INFO - Received signal 2, initiating graceful shutdown...
+2025-10-21 19:41:36,719 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-10-21 19:41:36,720 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-10-21 19:41:36,723 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_194136.json
+2025-10-21 19:41:36,724 - BGP-Sentry-Main - INFO - Experiment shutdown completed
+2025-10-21 19:41:39,387 - BGP-Sentry-Main - INFO - Simulation completed successfully
+2025-10-21 19:41:39,388 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-10-21 19:41:39,388 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-10-21 19:41:39,389 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251021_194139.json
+2025-10-21 19:41:39,389 - BGP-Sentry-Main - INFO - Experiment shutdown completed

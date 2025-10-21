@@ -59,6 +59,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+# Import RPKI node registry for AS type checking
+from rpki_node_registry import RPKINodeRegistry
+
 class AttackConsensus:
     """
     Manages attack detection consensus voting.
@@ -556,11 +559,20 @@ class AttackConsensus:
             print(f"   Type: {attack_type}")
 
             # 1. Update non-RPKI rating (instant penalty)
-            rating_update = self.rating_system.record_attack(
-                as_number=attacker_as,
-                attack_type=attack_type,
-                attack_details=verdict["attack_details"]
-            )
+            # Check if attacker is RPKI or non-RPKI
+            if RPKINodeRegistry.should_apply_rating(attacker_as):
+                # Non-RPKI AS - apply instant rating penalty
+                rating_update = self.rating_system.record_attack(
+                    as_number=attacker_as,
+                    attack_type=attack_type,
+                    attack_details=verdict["attack_details"]
+                )
+                print(f"   Applied rating penalty to non-RPKI AS{attacker_as}")
+            else:
+                # RPKI validator attacked - serious issue!
+                print(f"   ⚠️⚠️⚠️  WARNING: RPKI VALIDATOR AS{attacker_as} detected as attacker!")
+                print(f"   Rating system NOT applied (RPKI nodes use behavioral analysis)")
+                print(f"   This should be investigated immediately!")
 
             # 2. Award BGPCOIN to detector
             detector_as = proposal["proposer_as"]

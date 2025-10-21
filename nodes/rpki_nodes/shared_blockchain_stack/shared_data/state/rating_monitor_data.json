@@ -1,0 +1,183 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-10-21T19:52:54.842326",
+  "monitored_ases": [
+    666,
+    31337
+  ],
+  "rating_history": {
+    "666": [
+      {
+        "timestamp": "2025-10-21T19:51:14.728429",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Monitor started"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:14.730806",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #1"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:24.741726",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #2"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:34.744444",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #3"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:44.756571",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #4"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:54.768573",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #5"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:04.780760",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #6"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:14.792869",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #7"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:24.805049",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #8"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:34.817222",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #9"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:44.824386",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #10"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:54.841656",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #11"
+      }
+    ],
+    "31337": [
+      {
+        "timestamp": "2025-10-21T19:51:14.728429",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Monitor started"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:14.730806",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #1"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:24.741726",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #2"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:34.744444",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #3"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:44.756571",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #4"
+      },
+      {
+        "timestamp": "2025-10-21T19:51:54.768573",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #5"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:04.780760",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #6"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:14.792869",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #7"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:24.805049",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #8"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:34.817222",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #9"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:44.824386",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #10"
+      },
+      {
+        "timestamp": "2025-10-21T19:52:54.841656",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #11"
+      }
+    ]
+  },
+  "total_snapshots": 24
+}

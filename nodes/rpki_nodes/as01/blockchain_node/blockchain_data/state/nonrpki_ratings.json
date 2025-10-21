@@ -1,0 +1,40 @@
+{
+  "version": "1.0",
+  "last_updated": "2025-10-21T18:40:05.278423",
+  "as_ratings": {
+    "666": {
+      "as_number": 666,
+      "trust_score": 30,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2025-10-21T18:40:05.278420",
+      "created_at": "2025-10-21T18:40:05.278367",
+      "last_updated": "2025-10-21T18:40:05.278421",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2025-10-21T18:40:05.278422",
+          "event": "ip_prefix_hijacking",
+          "score_change": -20,
+          "new_score": 30,
+          "details": {
+            "attack_type": "ip_prefix_hijacking",
+            "severity": "HIGH",
+            "attacker_as": 666,
+            "victim_prefix": "8.8.8.0/24",
+            "legitimate_owner": 15169,
+            "evidence": {
+              "roa_authorized_as": 15169,
+              "announcing_as": 666,
+              "mismatch": true
+            },
+            "description": "AS666 claiming 8.8.8.0/24 but ROA shows AS15169",
+            "detected_at": "2025-10-21T18:40:05.278359"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -111,8 +111,15 @@ def test_route_leak():
             print(f"\n🚨 ATTACK DETECTED!")
             print(f"   Type: {attack['attack_type']}")
             print(f"   Severity: {attack['severity']}")
-            print(f"   Leaker: AS{attack['leaker_as']}")
-            print(f"   AS Path: {' → '.join(map(str, attack['as_path']))}")
+
+            if attack['attack_type'] == 'route_leak':
+                print(f"   Leaker: AS{attack['leaker_as']}")
+                print(f"   AS Path: {' → '.join(map(str, attack['as_path']))}")
+            elif attack['attack_type'] == 'ip_prefix_hijacking':
+                print(f"   Attacker: AS{attack['attacker_as']}")
+                print(f"   Victim Prefix: {attack['victim_prefix']}")
+                print(f"   Legitimate Owner: AS{attack['legitimate_owner']}")
+
             print(f"   Description: {attack['description']}")
         return True
     else:

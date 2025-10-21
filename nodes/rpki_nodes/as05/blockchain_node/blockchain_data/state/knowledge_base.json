@@ -1,0 +1,30 @@
+{
+  "as_number": 5,
+  "last_updated": "2025-10-21T19:40:54.377103",
+  "observation_count": 3,
+  "observations": [
+    {
+      "ip_prefix": "203.0.113.0/24",
+      "observed_at": "2025-10-21T19:39:49.314421",
+      "sender_asn": 12,
+      "timestamp": "2025-07-27T21:00:00Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": "203.0.113.0/24",
+      "observed_at": "2025-10-21T19:40:19.344899",
+      "sender_asn": 12,
+      "timestamp": "2025-07-27T21:00:00Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": "203.0.113.0/24",
+      "observed_at": "2025-10-21T19:40:49.375944",
+      "sender_asn": 12,
+      "timestamp": "2025-07-27T21:00:00Z",
+      "trust_score": 50.0
+    }
+  ],
+  "version": "1.0",
+  "window_seconds": 300
+}

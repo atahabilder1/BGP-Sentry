@@ -3,6 +3,7 @@ import json
 import logging
 import socket
 import threading
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -11,6 +12,13 @@ from blockchain_interface import BlockchainInterface
 
 # Import BGPCOIN ledger for token rewards
 from bgpcoin_ledger import BGPCoinLedger
+
+# Import RPKI Node Registry for AS type checking
+from rpki_node_registry import RPKINodeRegistry
+
+# Import Relevant Neighbor Cache for optimized voting
+sys.path.insert(0, str(Path(__file__).parent.parent / "network_stack"))
+from relevant_neighbor_cache import RelevantNeighborCache
 
 class P2PTransactionPool:
     """
@@ -22,22 +30,8 @@ class P2PTransactionPool:
         self.as_number = as_number
         self.my_port = base_port + as_number
 
-        # All RPKI nodes in the network (hardcoded peer discovery)
-        self.peer_nodes = {
-            1: ("localhost", 8001),
-            3: ("localhost", 8003),
-            5: ("localhost", 8005),
-            7: ("localhost", 8007),
-            9: ("localhost", 8009),
-            11: ("localhost", 8011),
-            13: ("localhost", 8013),
-            15: ("localhost", 8015),
-            17: ("localhost", 8017)
-        }
-
-        # Remove self from peer list
-        if self.as_number in self.peer_nodes:
-            del self.peer_nodes[self.as_number]
+        # Get peer RPKI nodes from registry (excludes self automatically)
+        self.peer_nodes = RPKINodeRegistry.get_peer_nodes(self.as_number)
 
         # Initialize blockchain interface for writing to chain/ folder
         # Each node writes to its own blockchain file:
@@ -55,7 +49,7 @@ class P2PTransactionPool:
         # Transaction voting tracking (need 3/9 for consensus)
         self.pending_votes = {}  # transaction_id -> {transaction: {}, votes: [], needed: 3}
         self.committed_transactions = set()  # Track already committed transactions
-        self.total_nodes = 9
+        self.total_nodes = RPKINodeRegistry.get_node_count()
         self.consensus_threshold = 3  # 3/9 = 33% consensus (minimum 3 votes)
 
         # Knowledge base for time-windowed BGP observations
@@ -82,6 +76,14 @@ class P2PTransactionPool:
 
         # Initialize attack consensus (will be initialized after P2P server starts)
         self.attack_consensus = None
+
+        # Initialize relevant neighbor cache for optimized voting
+        network_stack_path = Path(__file__).parent.parent / "network_stack"
+        self.neighbor_cache = RelevantNeighborCache(
+            cache_path=str(network_stack_path),
+            my_as_number=self.as_number
+        )
+        self.logger.info(f"📡 Neighbor cache initialized")
 
         # Start background threads
         cleanup_thread = threading.Thread(target=self._cleanup_old_observations, daemon=True)
@@ -243,19 +245,42 @@ class P2PTransactionPool:
                 self._commit_to_blockchain(tx_id)
     
     def broadcast_transaction(self, transaction):
-        """Broadcast transaction to all peer nodes for signature collection"""
+        """
+        Broadcast transaction to RELEVANT peer nodes for signature collection.
+
+        OPTIMIZATION: Uses neighbor cache to only query RPKI nodes that are
+        likely to have observed this announcement (based on AS topology).
+        """
         tx_id = transaction["transaction_id"]
+        sender_asn = transaction.get("sender_asn")
+
         self.pending_votes[tx_id] = {
             "transaction": transaction,
             "votes": [],
             "needed": self.consensus_threshold
         }
 
-        # Send to all peers asking: "Did you see this BGP announcement?"
-        for peer_as, (host, port) in self.peer_nodes.items():
+        # Get relevant neighbors from cache (optimized voting)
+        relevant_neighbors = self.neighbor_cache.get_relevant_neighbors(sender_asn)
+
+        # Filter to only neighbors in our peer list
+        target_peers = {
+            peer_as: (host, port)
+            for peer_as, (host, port) in self.peer_nodes.items()
+            if peer_as in relevant_neighbors
+        }
+
+        # Fallback: if no relevant neighbors, use all peers
+        if not target_peers:
+            target_peers = self.peer_nodes
+            self.logger.warning(f"⚠️  No relevant neighbors cached for AS{sender_asn}, using all peers")
+
+        # Send vote requests to relevant peers only
+        for peer_as, (host, port) in target_peers.items():
             self._send_vote_request_to_node(peer_as, host, port, transaction)
 
-        self.logger.info(f"📡 Broadcast transaction {tx_id} to {len(self.peer_nodes)} peers for signatures")
+        self.logger.info(f"📡 Broadcast transaction {tx_id} to {len(target_peers)}/{len(self.peer_nodes)} "
+                        f"relevant peers (AS{sender_asn})")
     
     def _send_vote_request_to_node(self, peer_as, host, port, transaction):
         """Send vote request to specific peer node"""
@@ -326,6 +351,13 @@ class P2PTransactionPool:
             }
             self.knowledge_base.append(observation)
             self.logger.info(f"📚 Added to knowledge base: {ip_prefix} from AS{sender_asn} at {timestamp}")
+
+            # Record in neighbor cache: "I (RPKI node) observed this non-RPKI AS"
+            # This builds the mapping for optimized voting
+            self.neighbor_cache.record_observation(
+                non_rpki_as=sender_asn,
+                observed_by_rpki_as=self.as_number
+            )
 
     def _cleanup_old_observations(self):
         """
@@ -643,6 +675,51 @@ class P2PTransactionPool:
 
             except Exception as e:
                 self.logger.error(f"Error in periodic save: {e}")
+
+    def get_pending_transactions(self):
+        """
+        Get list of pending transactions (for compatibility with consensus monitoring).
+
+        Returns:
+            List of transactions waiting for consensus
+        """
+        with self.lock:
+            pending = []
+            for tx_id, vote_data in self.pending_votes.items():
+                if tx_id not in self.committed_transactions:
+                    transaction = vote_data.get("transaction", {})
+                    if transaction:
+                        pending.append(transaction)
+            return pending
+
+    def get_transaction_by_id(self, transaction_id):
+        """
+        Get transaction by ID (for compatibility with consensus monitoring).
+
+        Args:
+            transaction_id: Transaction ID to retrieve
+
+        Returns:
+            Transaction dict if found, None otherwise
+        """
+        with self.lock:
+            vote_data = self.pending_votes.get(transaction_id)
+            if vote_data:
+                return vote_data.get("transaction")
+            return None
+
+    def mark_transaction_processed(self, transaction_id):
+        """
+        Mark transaction as processed (for compatibility with consensus monitoring).
+
+        Args:
+            transaction_id: Transaction ID to mark as processed
+        """
+        with self.lock:
+            if transaction_id in self.pending_votes:
+                # Add to committed set
+                self.committed_transactions.add(transaction_id)
+                self.logger.debug(f"Marked transaction {transaction_id} as processed")
 
     def stop(self):
         """Stop P2P communication and save knowledge base"""
