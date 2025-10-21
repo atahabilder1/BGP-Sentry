@@ -45,16 +45,32 @@ current_dir = Path(__file__).parent
 project_root = current_dir.parent.parent.parent.parent
 sys.path.insert(0, str(project_root / "nodes" / "rpki_nodes"))
 
+# Add blockchain_utils to path
+import os
+current_file_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, current_file_dir)
+
+# Correct path to blockchain_utils
+blockchain_utils_dir = os.path.join(current_file_dir, '..', '..', 'blockchain_utils')
+blockchain_utils_dir = os.path.abspath(blockchain_utils_dir)
+sys.path.insert(0, blockchain_utils_dir)
+
 # Import components
 try:
-    from .transaction_validator import verify_transaction
-    from .blockchain_writer import BlockchainWriter
-    from ...blockchain_utils.transaction_pool import TransactionPool
-    from ...blockchain_utils.signature_utils import SignatureUtils
-    from ...blockchain_utils.trust_manager import TrustManager
-except ImportError:
+    # Local components from same directory
+    from transaction_validator import verify_transaction
+    from blockchain_writer import BlockchainWriter
+
+    # Blockchain utilities - P2P for signature collection
+    from p2p_transaction_pool import P2PTransactionPool
+    from signature_utils import SignatureUtils
+    from integrated_trust_manager import IntegratedTrustManager as TrustManager
+
+    imports_successful = True
+except ImportError as e:
     # Fallback for testing
-    print("⚠️  Import error - using fallback classes")
+    print(f"⚠️  Import error: {e} - using fallback classes")
+    imports_successful = False
 
 class ConsensusService:
     """
@@ -100,26 +116,36 @@ class ConsensusService:
     
     def _initialize_components(self):
         """Initialize transaction validator, blockchain writer, and other components."""
+        # Check if imports were successful
+        if not imports_successful:
+            self.logger.warning("Imports failed, using fallback components")
+            self._initialize_fallback_components()
+            return
+
         try:
             # Initialize transaction validator for signature and economic validation
-            self.verify_transaction_func = verify_transaction(
+            self.transaction_validator = verify_transaction(
                 as_number=self.as_number
             )
-            
+
             # Initialize blockchain writer for committing transactions
-            self.commit_to_blockchain_func = BlockchainWriter()
-            
-            # Initialize transaction pool for monitoring pending transactions
-            self.transaction_pool = TransactionPool()
-            
+            self.blockchain_writer = BlockchainWriter()
+
+            # Initialize P2P transaction pool for signature collection
+            # In P2P model, consensus is done via peer voting, not centralized validation
+            self.transaction_pool = P2PTransactionPool(as_number=self.as_number)
+
+            # Start P2P server to participate in signature collection
+            self.transaction_pool.start_p2p_server()
+
             # Initialize signature utilities for cryptographic verification
             self.signature_utils = SignatureUtils()
-            
+
             # Initialize trust manager for economic validation
             self.trust_manager = TrustManager()
-            
+
             self.logger.info("All consensus components initialized successfully")
-            
+
         except Exception as e:
             self.logger.error(f"Consensus component initialization failed: {e}")
             # Use fallback components for testing

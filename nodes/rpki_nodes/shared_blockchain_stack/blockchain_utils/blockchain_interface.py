@@ -62,12 +62,22 @@ class BlockchainInterface:
         self.bgp_stream_file = self.blockchain_dir / "bgp_stream.jsonl"
         self.trust_log_file = self.blockchain_dir / "trust_log.jsonl"
         self.lock_file = self.blockchain_dir / "blockchain_lock.json"
-        
-        # Thread safety
-        self.lock = threading.Lock()
-        
+
+        # State folder for fast queries (IP prefix → ASN mappings)
+        self.state_dir = self.blockchain_dir.parent / "state"
+        self.ip_asn_mapping_file = self.state_dir / "ip_asn_mapping.json"
+
+        # Thread safety - use RLock for reentrant locking (nested lock acquisition)
+        self.lock = threading.RLock()
+
         # Create directories if they don't exist
         self.blockchain_dir.mkdir(parents=True, exist_ok=True)
+        self.state_dir.mkdir(parents=True, exist_ok=True)
+
+        # Initialize IP-ASN mapping if it doesn't exist
+        if not self.ip_asn_mapping_file.exists():
+            with open(self.ip_asn_mapping_file, 'w') as f:
+                json.dump({}, f, indent=2)
         
         # Initialize blockchain structure
         self.blockchain_data = {
@@ -255,7 +265,10 @@ class BlockchainInterface:
                 
                 # Log to BGP stream
                 self._log_to_bgp_stream(transaction)
-                
+
+                # Update state folder with IP prefix → ASN mapping
+                self._update_state_mapping(transaction)
+
                 print(f"✅ Transaction added to blockchain: Block {new_block['block_number']}")
                 return True
                 
@@ -322,7 +335,7 @@ class BlockchainInterface:
         try:
             # Extract BGP data from transaction
             bgp_data = transaction.get('bgp_data', {})
-            
+
             stream_entry = {
                 "timestamp": datetime.now().isoformat(),
                 "transaction_id": transaction.get('transaction_id'),
@@ -332,14 +345,103 @@ class BlockchainInterface:
                 "announcement_type": bgp_data.get('announcement_type', 'unknown'),
                 "validation_result": bgp_data.get('validation_result', {})
             }
-            
+
             # Append to BGP stream file (JSONL format)
             with open(self.bgp_stream_file, 'a') as f:
                 f.write(json.dumps(stream_entry) + '\n')
-                
+
         except Exception as e:
             print(f"Error logging to BGP stream: {e}")
-    
+
+    def _update_state_mapping(self, transaction: Dict):
+        """
+        Update state folder with IP prefix → ASN mapping for fast queries.
+
+        Args:
+            transaction: Transaction containing BGP announcement data
+        """
+        try:
+            # Extract IP prefix and sender ASN from transaction
+            ip_prefix = transaction.get('ip_prefix')
+            sender_asn = transaction.get('sender_asn')
+
+            # Also check bgp_data for backward compatibility
+            if not ip_prefix or not sender_asn:
+                bgp_data = transaction.get('bgp_data', {})
+                ip_prefix = bgp_data.get('ip_prefix')
+                sender_asn = bgp_data.get('sender_asn')
+
+            if not ip_prefix or not sender_asn:
+                # No IP prefix or ASN data in this transaction
+                return
+
+            # Load current IP-ASN mapping
+            mapping = {}
+            if self.ip_asn_mapping_file.exists():
+                try:
+                    with open(self.ip_asn_mapping_file, 'r') as f:
+                        mapping = json.load(f)
+                except json.JSONDecodeError:
+                    # File is corrupted, start fresh
+                    mapping = {}
+
+            # Update mapping with new IP prefix → ASN
+            mapping[str(ip_prefix)] = int(sender_asn)
+
+            # Atomic write to state file
+            temp_file = self.ip_asn_mapping_file.with_suffix('.tmp')
+            with open(temp_file, 'w') as f:
+                json.dump(mapping, f, indent=2, sort_keys=True)
+
+            # Atomic rename
+            temp_file.replace(self.ip_asn_mapping_file)
+
+            print(f"📍 Updated state: {ip_prefix} → AS{sender_asn}")
+
+        except Exception as e:
+            print(f"Error updating state mapping: {e}")
+
+    def query_ip_prefix(self, ip_prefix: str) -> Optional[int]:
+        """
+        Fast query for IP prefix → ASN mapping from state folder.
+
+        Args:
+            ip_prefix: IP prefix to query (e.g., "203.0.113.0/24")
+
+        Returns:
+            ASN number if found, None otherwise
+        """
+        try:
+            if not self.ip_asn_mapping_file.exists():
+                return None
+
+            with open(self.ip_asn_mapping_file, 'r') as f:
+                mapping = json.load(f)
+
+            return mapping.get(str(ip_prefix))
+
+        except Exception as e:
+            print(f"Error querying IP prefix: {e}")
+            return None
+
+    def get_all_ip_mappings(self) -> Dict[str, int]:
+        """
+        Get all IP prefix → ASN mappings from state folder.
+
+        Returns:
+            Dict of IP prefix → ASN mappings
+        """
+        try:
+            if not self.ip_asn_mapping_file.exists():
+                return {}
+
+            with open(self.ip_asn_mapping_file, 'r') as f:
+                return json.load(f)
+
+        except Exception as e:
+            print(f"Error getting IP mappings: {e}")
+            return {}
+
     def get_blockchain_info(self) -> Dict:
         """
         Get blockchain information and statistics.

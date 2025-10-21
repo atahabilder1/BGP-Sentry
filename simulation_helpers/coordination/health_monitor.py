@@ -1,3 +1,6 @@
+import json
+from pathlib import Path
+
 class NodeHealthMonitor:
     def __init__(self, node_configs, interval):
         self.node_configs = node_configs
@@ -21,10 +24,53 @@ class NodeHealthMonitor:
         return {}
     
     def get_blockchain_sync_status(self):
+        """
+        Read actual blockchain data from each node and return real statistics.
+
+        Returns:
+            dict: Blockchain sync status with actual block counts
+        """
+        block_counts = []
+        nodes_with_blockchain = 0
+
+        for node_config in self.node_configs:
+            # Construct path to blockchain.json for this node
+            blockchain_path = Path(f"nodes/rpki_nodes/{node_config}/blockchain_node/blockchain_data/chain/blockchain.json")
+
+            try:
+                if blockchain_path.exists():
+                    with open(blockchain_path, 'r') as f:
+                        blockchain_data = json.load(f)
+
+                    # Count blocks in the blockchain
+                    if isinstance(blockchain_data, dict):
+                        blocks = blockchain_data.get('blocks', blockchain_data.get('chain', []))
+                    elif isinstance(blockchain_data, list):
+                        blocks = blockchain_data
+                    else:
+                        blocks = []
+
+                    block_count = len(blocks)
+                    block_counts.append(block_count)
+                    nodes_with_blockchain += 1
+                else:
+                    # No blockchain file exists for this node
+                    block_counts.append(0)
+
+            except Exception as e:
+                # Error reading blockchain file
+                block_counts.append(0)
+
+        # Calculate average block count
+        if block_counts:
+            average_block_count = sum(block_counts) / len(block_counts)
+        else:
+            average_block_count = 0.0
+
         return {
-            "nodes_with_blockchain": len(self.node_configs),
-            "average_block_count": 10.0,
-            "block_counts": [10] * len(self.node_configs)
+            "nodes_with_blockchain": nodes_with_blockchain,
+            "average_block_count": average_block_count,
+            "block_counts": block_counts
         }
     
     def export_health_report(self, filename):

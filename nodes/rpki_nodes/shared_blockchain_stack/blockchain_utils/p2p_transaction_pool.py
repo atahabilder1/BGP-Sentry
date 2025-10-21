@@ -6,6 +6,12 @@ import threading
 from pathlib import Path
 from datetime import datetime
 
+# Import BlockchainInterface for writing to blockchain
+from blockchain_interface import BlockchainInterface
+
+# Import BGPCOIN ledger for token rewards
+from bgpcoin_ledger import BGPCoinLedger
+
 class P2PTransactionPool:
     """
     Peer-to-peer transaction pool with direct node-to-node communication.
@@ -15,11 +21,11 @@ class P2PTransactionPool:
     def __init__(self, as_number, base_port=8000):
         self.as_number = as_number
         self.my_port = base_port + as_number
-        
+
         # All RPKI nodes in the network (hardcoded peer discovery)
         self.peer_nodes = {
             1: ("localhost", 8001),
-            3: ("localhost", 8003), 
+            3: ("localhost", 8003),
             5: ("localhost", 8005),
             7: ("localhost", 8007),
             9: ("localhost", 8009),
@@ -28,24 +34,61 @@ class P2PTransactionPool:
             15: ("localhost", 8015),
             17: ("localhost", 8017)
         }
-        
+
         # Remove self from peer list
         if self.as_number in self.peer_nodes:
             del self.peer_nodes[self.as_number]
-        
-        # Local transaction storage
-        self.local_dir = Path("blockchain_data/transaction_pool")
-        self.local_dir.mkdir(exist_ok=True)
-        self.pending_file = self.local_dir / "pending.json"
-        
+
+        # Initialize blockchain interface for writing to chain/ folder
+        # Each node writes to its own blockchain file:
+        # Path: nodes/rpki_nodes/as01/blockchain_node/blockchain_data/chain/
+        as_formatted = f"as{self.as_number:02d}"  # Format as as01, as03, etc.
+        blockchain_path = f"nodes/rpki_nodes/{as_formatted}/blockchain_node/blockchain_data/chain"
+        self.blockchain = BlockchainInterface(blockchain_path)
+
         # P2P communication
         self.server_socket = None
         self.running = False
         self.lock = threading.Lock()
         self.logger = logging.getLogger(f"P2P-AS{self.as_number}")
-        
-        # Transaction voting tracking
-        self.pending_votes = {}  # transaction_id -> {votes: [], needed: 3}
+
+        # Transaction voting tracking (need 3/9 for consensus)
+        self.pending_votes = {}  # transaction_id -> {transaction: {}, votes: [], needed: 3}
+        self.committed_transactions = set()  # Track already committed transactions
+        self.total_nodes = 9
+        self.consensus_threshold = 3  # 3/9 = 33% consensus (minimum 3 votes)
+
+        # Knowledge base for time-windowed BGP observations
+        # Each node maintains observations to validate incoming transactions
+        self.knowledge_base = []  # List of observed BGP announcements
+        self.knowledge_window_seconds = 300  # Keep observations ±5 minutes (300 seconds)
+        self.cleanup_interval = 60  # Clean old observations every 60 seconds
+
+        # Persistent storage for knowledge base
+        self.knowledge_base_file = self.blockchain.state_dir / "knowledge_base.json"
+
+        # Load existing knowledge base from disk
+        self._load_knowledge_base()
+
+        # Initialize BGPCOIN ledger for token rewards
+        self.bgpcoin_ledger = BGPCoinLedger(ledger_path=self.blockchain.state_dir)
+        self.logger.info(f"💰 BGPCOIN ledger initialized")
+
+        # Track first commit for bonus rewards
+        self.first_commit_tracker = {}  # transaction_id -> first_committer_as
+
+        # Initialize governance system (will be initialized after P2P server starts)
+        self.governance = None
+
+        # Initialize attack consensus (will be initialized after P2P server starts)
+        self.attack_consensus = None
+
+        # Start background threads
+        cleanup_thread = threading.Thread(target=self._cleanup_old_observations, daemon=True)
+        cleanup_thread.start()
+
+        save_thread = threading.Thread(target=self._periodic_save_knowledge_base, daemon=True)
+        save_thread.start()
     
     def start_p2p_server(self):
         """Start P2P server to listen for incoming messages"""
@@ -55,13 +98,47 @@ class P2PTransactionPool:
             self.server_socket.bind(("localhost", self.my_port))
             self.server_socket.listen(5)
             self.running = True
-            
+
             self.logger.info(f"P2P server started on port {self.my_port}")
-            
+
+            # Initialize governance system now that P2P is ready
+            from governance_system import GovernanceSystem
+            self.governance = GovernanceSystem(
+                as_number=self.as_number,
+                bgpcoin_ledger=self.bgpcoin_ledger,
+                p2p_pool=self,
+                governance_path=self.blockchain.state_dir
+            )
+            self.logger.info(f"📜 Governance system initialized")
+
+            # Initialize attack consensus system
+            from attack_detector import AttackDetector
+            from nonrpki_rating import NonRPKIRatingSystem
+            from attack_consensus import AttackConsensus
+
+            attack_detector = AttackDetector(
+                roa_database_path=str(self.blockchain.state_dir / "roa_database.json"),
+                as_relationships_path=str(self.blockchain.state_dir / "as_relationships.json")
+            )
+
+            rating_system = NonRPKIRatingSystem(
+                rating_path=str(self.blockchain.state_dir)
+            )
+
+            self.attack_consensus = AttackConsensus(
+                as_number=self.as_number,
+                attack_detector=attack_detector,
+                rating_system=rating_system,
+                bgpcoin_ledger=self.bgpcoin_ledger,
+                p2p_pool=self,
+                blockchain_dir=self.blockchain.blockchain_dir
+            )
+            self.logger.info(f"🛡️  Attack consensus system initialized")
+
             # Start server thread
             server_thread = threading.Thread(target=self._server_loop, daemon=True)
             server_thread.start()
-            
+
         except Exception as e:
             self.logger.error(f"Failed to start P2P server: {e}")
     
@@ -87,12 +164,28 @@ class P2PTransactionPool:
         try:
             data = client_socket.recv(4096).decode('utf-8')
             message = json.loads(data)
-            
+
             if message["type"] == "vote_request":
                 self._handle_vote_request(message)
             elif message["type"] == "vote_response":
                 self._handle_vote_response(message)
-                
+            elif message["type"] == "governance_proposal":
+                # Handle governance proposal (monthly analysis, etc.)
+                if self.governance:
+                    self.governance.handle_proposal_message(message)
+            elif message["type"] == "governance_vote":
+                # Handle governance vote
+                if self.governance:
+                    self.governance.handle_vote_message(message)
+            elif message["type"] == "attack_proposal":
+                # Handle attack detection proposal
+                if self.attack_consensus:
+                    self.attack_consensus.handle_attack_proposal(message)
+            elif message["type"] == "attack_vote":
+                # Handle attack vote
+                if self.attack_consensus:
+                    self.attack_consensus.handle_attack_vote(message)
+
         except Exception as e:
             self.logger.error(f"Error handling client message: {e}")
         finally:
@@ -112,39 +205,57 @@ class P2PTransactionPool:
         self._send_vote_to_node(from_as, transaction["transaction_id"], vote)
     
     def _handle_vote_response(self, message):
-        """Handle incoming vote response"""
+        """Handle incoming signature (vote) response from peer"""
         tx_id = message["transaction_id"]
         vote = message["vote"]
         from_as = message["from_as"]
-        
+
         if tx_id not in self.pending_votes:
-            self.pending_votes[tx_id] = {"votes": [], "needed": 3}
-        
-        # Record vote
-        self.pending_votes[tx_id]["votes"].append({
-            "from_as": from_as,
-            "vote": vote
-        })
-        
-        self.logger.info(f"Received {vote} vote for {tx_id} from AS{from_as}")
-        
-        # Check if consensus reached
-        approve_votes = len([v for v in self.pending_votes[tx_id]["votes"] if v["vote"] == "approve"])
-        
-        if approve_votes >= 3:
-            self.logger.info(f"Consensus reached for {tx_id} - writing to blockchain")
-            self._commit_to_blockchain(tx_id)
+            self.logger.warning(f"Received vote for unknown transaction {tx_id}")
+            return
+
+        # Thread-safe vote recording and consensus checking
+        with self.lock:
+            # Check if already committed (prevent duplicates)
+            if tx_id in self.committed_transactions:
+                self.logger.debug(f"Transaction {tx_id} already committed, skipping")
+                return
+
+            # Record signature/vote
+            self.pending_votes[tx_id]["votes"].append({
+                "from_as": from_as,
+                "vote": vote,
+                "timestamp": message.get("timestamp")
+            })
+
+            self.logger.info(f"✅ Received signature from AS{from_as} for {tx_id}")
+
+            # Check if consensus reached (6/9 signatures)
+            approve_votes = len([v for v in self.pending_votes[tx_id]["votes"] if v["vote"] == "approve"])
+
+            self.logger.info(f"Signatures collected: {approve_votes}/{self.consensus_threshold} for {tx_id}")
+
+            if approve_votes >= self.consensus_threshold:
+                # Mark as committed BEFORE writing to prevent race condition
+                self.committed_transactions.add(tx_id)
+
+                self.logger.info(f"🎉 CONSENSUS REACHED ({approve_votes}/{self.total_nodes}) - Writing to blockchain!")
+                self._commit_to_blockchain(tx_id)
     
     def broadcast_transaction(self, transaction):
-        """Broadcast transaction to all peer nodes for voting"""
+        """Broadcast transaction to all peer nodes for signature collection"""
         tx_id = transaction["transaction_id"]
-        self.pending_votes[tx_id] = {"votes": [], "needed": 3}
-        
-        # Send to all peers
+        self.pending_votes[tx_id] = {
+            "transaction": transaction,
+            "votes": [],
+            "needed": self.consensus_threshold
+        }
+
+        # Send to all peers asking: "Did you see this BGP announcement?"
         for peer_as, (host, port) in self.peer_nodes.items():
             self._send_vote_request_to_node(peer_as, host, port, transaction)
-        
-        self.logger.info(f"Broadcast transaction {tx_id} to {len(self.peer_nodes)} peers")
+
+        self.logger.info(f"📡 Broadcast transaction {tx_id} to {len(self.peer_nodes)} peers for signatures")
     
     def _send_vote_request_to_node(self, peer_as, host, port, transaction):
         """Send vote request to specific peer node"""
@@ -194,18 +305,352 @@ class P2PTransactionPool:
         except Exception as e:
             self.logger.warning(f"Failed to send vote to AS{target_as}: {e}")
     
+    def add_bgp_observation(self, ip_prefix, sender_asn, timestamp, trust_score):
+        """
+        Add BGP observation to knowledge base.
+        Called when this node observes a BGP announcement.
+
+        Args:
+            ip_prefix: IP prefix announced (e.g., "203.0.113.0/24")
+            sender_asn: AS number that made the announcement
+            timestamp: Timestamp of the announcement
+            trust_score: Trust score for this announcement
+        """
+        with self.lock:
+            observation = {
+                "ip_prefix": ip_prefix,
+                "sender_asn": sender_asn,
+                "timestamp": timestamp,
+                "trust_score": trust_score,
+                "observed_at": datetime.now().isoformat()
+            }
+            self.knowledge_base.append(observation)
+            self.logger.info(f"📚 Added to knowledge base: {ip_prefix} from AS{sender_asn} at {timestamp}")
+
+    def _cleanup_old_observations(self):
+        """
+        Background thread that removes old observations outside time window.
+        Keeps knowledge base size manageable.
+        """
+        import time
+        from dateutil import parser
+
+        while self.running:
+            try:
+                time.sleep(self.cleanup_interval)
+
+                with self.lock:
+                    current_time = datetime.now()
+                    initial_count = len(self.knowledge_base)
+
+                    # Remove observations older than the time window
+                    self.knowledge_base = [
+                        obs for obs in self.knowledge_base
+                        if (current_time - parser.parse(obs["observed_at"])).total_seconds()
+                           <= self.knowledge_window_seconds
+                    ]
+
+                    removed = initial_count - len(self.knowledge_base)
+                    if removed > 0:
+                        self.logger.debug(f"🧹 Cleaned {removed} old observations from knowledge base")
+
+            except Exception as e:
+                self.logger.error(f"Error cleaning knowledge base: {e}")
+
+    def _check_knowledge_base(self, transaction):
+        """
+        Check if transaction matches any observation in knowledge base.
+
+        Args:
+            transaction: Transaction to validate
+
+        Returns:
+            True if matching observation found, False otherwise
+        """
+        try:
+            from dateutil import parser
+
+            ip_prefix = transaction.get("ip_prefix")
+            sender_asn = transaction.get("sender_asn")
+            tx_timestamp = transaction.get("timestamp")
+
+            if not all([ip_prefix, sender_asn, tx_timestamp]):
+                self.logger.warning("Transaction missing required fields for validation")
+                return False
+
+            # Parse transaction timestamp
+            tx_time = parser.parse(tx_timestamp)
+
+            # Search knowledge base for matching observation
+            with self.lock:
+                for obs in self.knowledge_base:
+                    # Check if IP prefix and sender ASN match
+                    if obs["ip_prefix"] == ip_prefix and obs["sender_asn"] == sender_asn:
+                        # Check if timestamp is within window
+                        obs_time = parser.parse(obs["timestamp"])
+                        time_diff = abs((tx_time - obs_time).total_seconds())
+
+                        if time_diff <= self.knowledge_window_seconds:
+                            self.logger.info(f"✅ Knowledge match: {ip_prefix} from AS{sender_asn} "
+                                           f"(time diff: {time_diff:.0f}s)")
+                            return True
+
+            self.logger.warning(f"❌ No knowledge match: {ip_prefix} from AS{sender_asn} at {tx_timestamp}")
+            return False
+
+        except Exception as e:
+            self.logger.error(f"Error checking knowledge base: {e}")
+            return False
+
     def _validate_transaction(self, transaction):
-        """Validate incoming transaction (simplified)"""
-        # In real implementation: check signatures, validate BGP data, etc.
-        return "approve"  # For now, approve all transactions
+        """
+        Validate incoming transaction based on knowledge base.
+        Node votes 'approve' if it also observed this BGP announcement.
+        Node votes 'reject' if it has no record of seeing this announcement.
+        """
+        try:
+            # Check if transaction matches our knowledge base
+            if self._check_knowledge_base(transaction):
+                self.logger.info(f"✅ APPROVE: Transaction matches my observations")
+                return "approve"
+            else:
+                self.logger.warning(f"❌ REJECT: Transaction not in my knowledge base")
+                return "reject"
+
+        except Exception as e:
+            self.logger.error(f"Validation error: {e}")
+            return "reject"  # Reject on errors for safety
     
     def _commit_to_blockchain(self, transaction_id):
-        """Commit approved transaction to local blockchain"""
-        # This would integrate with your blockchain_interface.py
-        self.logger.info(f"Committed transaction {transaction_id} to blockchain")
+        """Commit approved transaction with signatures to blockchain"""
+        try:
+            self.logger.info(f"🔍 DEBUG: _commit_to_blockchain called for {transaction_id}")
+
+            if transaction_id not in self.pending_votes:
+                self.logger.error(f"Transaction {transaction_id} not found in pending votes")
+                return
+
+            vote_data = self.pending_votes[transaction_id]
+            transaction = vote_data["transaction"]
+
+            # Add collected signatures to transaction
+            transaction["signatures"] = vote_data["votes"]
+            transaction["consensus_reached"] = True
+            transaction["signature_count"] = len(vote_data["votes"])
+
+            self.logger.info(f"🔍 DEBUG: About to call add_transaction_to_blockchain for {transaction_id}")
+
+            # Write to blockchain using BlockchainInterface
+            # This writes to: blockchain_data/chain/blockchain.json
+            success = self.blockchain.add_transaction_to_blockchain(transaction)
+
+            self.logger.info(f"🔍 DEBUG: add_transaction_to_blockchain returned: {success}")
+
+            if success:
+                self.logger.info(f"⛓️  Transaction {transaction_id} committed to blockchain with {len(vote_data['votes'])} signatures")
+
+                # Award BGPCOIN rewards for block commit
+                self._award_bgpcoin_rewards(transaction_id, vote_data)
+
+                # Trigger attack detection for this transaction
+                self._trigger_attack_detection(transaction, transaction_id)
+
+                # Remove from pending votes
+                del self.pending_votes[transaction_id]
+            else:
+                self.logger.error(f"Failed to write transaction {transaction_id} to blockchain")
+
+        except Exception as e:
+            self.logger.error(f"Error committing transaction to blockchain: {e}")
+            import traceback
+            self.logger.error(f"Traceback: {traceback.format_exc()}")
     
+    def _award_bgpcoin_rewards(self, transaction_id: str, vote_data: dict):
+        """
+        Award BGPCOIN tokens for successful block commit.
+
+        IMMEDIATE REWARDS (instant):
+        - Block committer gets base reward
+        - First-to-commit bonus
+        - Voters get smaller rewards
+
+        Args:
+            transaction_id: ID of the committed transaction
+            vote_data: Vote data containing voters
+        """
+        try:
+            # Check if this node was first to commit (bonus reward)
+            is_first = transaction_id not in self.first_commit_tracker
+            if is_first:
+                self.first_commit_tracker[transaction_id] = self.as_number
+
+            # Get list of voters who approved
+            voter_as_list = [
+                vote["from_as"]
+                for vote in vote_data["votes"]
+                if vote["vote"] == "approve"
+            ]
+
+            # Award rewards using BGPCOIN ledger
+            result = self.bgpcoin_ledger.award_block_commit_reward(
+                committer_as=self.as_number,
+                voter_as_list=voter_as_list,
+                is_first=is_first
+            )
+
+            if result.get("success"):
+                self.logger.info(f"💰 BGPCOIN rewards distributed:")
+                self.logger.info(f"   Committer (AS{self.as_number}): {result['committer_reward']} BGPCOIN")
+                for voter_as, reward in result.get("voter_rewards", {}).items():
+                    self.logger.info(f"   Voter (AS{voter_as}): {reward} BGPCOIN")
+
+                # Show updated balance
+                my_balance = self.bgpcoin_ledger.get_balance(self.as_number)
+                self.logger.info(f"   💼 My balance: {my_balance} BGPCOIN")
+            else:
+                self.logger.warning(f"⚠️ BGPCOIN reward failed: {result.get('reason', 'unknown')}")
+
+        except Exception as e:
+            self.logger.error(f"Error awarding BGPCOIN rewards: {e}")
+
+    def _trigger_attack_detection(self, transaction: dict, transaction_id: str):
+        """
+        Trigger attack detection analysis for committed transaction.
+
+        This runs AFTER the transaction is written to blockchain.
+        If attack detected, nodes vote on whether it's truly an attack.
+
+        Args:
+            transaction: Committed transaction
+            transaction_id: Transaction ID
+        """
+        try:
+            if not self.attack_consensus:
+                return  # Attack consensus not initialized
+
+            # Extract BGP announcement details
+            announcement = {
+                "sender_asn": transaction.get("sender_asn"),
+                "ip_prefix": transaction.get("ip_prefix"),
+                "as_path": transaction.get("as_path", [transaction.get("sender_asn")]),
+                "timestamp": transaction.get("timestamp")
+            }
+
+            # Check if all required fields present
+            if not announcement["sender_asn"] or not announcement["ip_prefix"]:
+                self.logger.warning("Transaction missing required fields for attack detection")
+                return
+
+            self.logger.info(f"🔍 Analyzing transaction {transaction_id} for potential attacks...")
+
+            # Trigger attack detection and consensus voting
+            self.attack_consensus.analyze_and_propose_attack(announcement, transaction_id)
+
+        except Exception as e:
+            self.logger.error(f"Error triggering attack detection: {e}")
+
+    def _load_knowledge_base(self):
+        """
+        Load knowledge base from disk on startup.
+        Provides crash recovery and persistence across restarts.
+        """
+        try:
+            if self.knowledge_base_file.exists():
+                with open(self.knowledge_base_file, 'r') as f:
+                    data = json.load(f)
+
+                # Load observations and filter out expired ones
+                from dateutil import parser
+                current_time = datetime.now()
+
+                loaded = data.get('observations', [])
+                valid_observations = []
+
+                for obs in loaded:
+                    try:
+                        observed_at = parser.parse(obs['observed_at'])
+                        age_seconds = (current_time - observed_at).total_seconds()
+
+                        if age_seconds <= self.knowledge_window_seconds:
+                            valid_observations.append(obs)
+                    except Exception as e:
+                        self.logger.warning(f"Skipping invalid observation: {e}")
+
+                self.knowledge_base = valid_observations
+                self.logger.info(f"📂 Loaded {len(valid_observations)} observations from knowledge base "
+                               f"({len(loaded) - len(valid_observations)} expired)")
+            else:
+                self.logger.info("📂 No existing knowledge base found, starting fresh")
+
+        except json.JSONDecodeError as e:
+            # Handle corrupted file
+            self.logger.error(f"Knowledge base file corrupted: {e}")
+            if self.knowledge_base_file.exists():
+                # Rename corrupted file for forensics
+                corrupted_path = self.knowledge_base_file.with_suffix('.json.corrupted')
+                self.knowledge_base_file.rename(corrupted_path)
+                self.logger.warning(f"Corrupted file moved to: {corrupted_path}")
+            self.knowledge_base = []
+
+        except Exception as e:
+            self.logger.error(f"Error loading knowledge base: {e}")
+            self.knowledge_base = []
+
+    def _save_knowledge_base(self):
+        """
+        Save knowledge base to disk atomically.
+        Uses temp file + rename to prevent corruption.
+        """
+        try:
+            data = {
+                "version": "1.0",
+                "as_number": self.as_number,
+                "last_updated": datetime.now().isoformat(),
+                "window_seconds": self.knowledge_window_seconds,
+                "observation_count": len(self.knowledge_base),
+                "observations": self.knowledge_base
+            }
+
+            # Atomic write: write to temp file then rename
+            temp_file = self.knowledge_base_file.with_suffix('.tmp')
+
+            with self.lock:
+                with open(temp_file, 'w') as f:
+                    json.dump(data, f, indent=2, sort_keys=True)
+
+                # Atomic rename
+                temp_file.replace(self.knowledge_base_file)
+
+            self.logger.debug(f"💾 Saved {len(self.knowledge_base)} observations to knowledge base")
+
+        except Exception as e:
+            self.logger.error(f"Error saving knowledge base: {e}")
+
+    def _periodic_save_knowledge_base(self):
+        """
+        Background thread that periodically saves knowledge base to disk.
+        Provides crash recovery with minimal data loss (≤60 seconds).
+        """
+        import time
+
+        # Wait for server to start before saving
+        time.sleep(5)
+
+        while self.running:
+            try:
+                time.sleep(60)  # Save every 60 seconds
+                self._save_knowledge_base()
+
+            except Exception as e:
+                self.logger.error(f"Error in periodic save: {e}")
+
     def stop(self):
-        """Stop P2P communication"""
+        """Stop P2P communication and save knowledge base"""
         self.running = False
+
+        # Save knowledge base before shutdown
+        self.logger.info("💾 Saving knowledge base before shutdown...")
+        self._save_knowledge_base()
+
         if self.server_socket:
             self.server_socket.close()

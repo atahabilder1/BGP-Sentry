@@ -1,2 +1,8 @@
-{"asn": 65010, "prefix": "203.0.113.0/24", "as_path": [65001], "next_hop": "10.0.0.1", "timestamp": 1752874471, "type": "announce", "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"}
-{"asn": 65010, "prefix": "203.0.113.0/24", "as_path": [65011, 65002], "next_hop": "10.1.1.1", "timestamp": 1752874526, "type": "announce", "wallet_address": "0xBcd4042DE499D14e55001CcbB24a551F3b954096"}
+{"timestamp": "2025-10-21T13:31:48.074682", "transaction_id": "6ecc878b-5a34-42a0-9063-4d355335f9df", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:32:18.076190", "transaction_id": "58e21530-172d-4c79-a782-bec2e5e719b1", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:32:48.087439", "transaction_id": "20af1fe9-ad00-461a-90e8-afafd634fdcb", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:33:18.095033", "transaction_id": "270b3d95-05ef-45e1-96a4-100eb87600c2", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:37:17.599392", "transaction_id": "62b39793-d34c-49f8-9875-0ee21f1221c0", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:37:47.611931", "transaction_id": "3abc871e-d944-4900-a834-4dff96f3c551", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:38:17.619269", "transaction_id": "52fd3f4e-ede8-428d-9ae2-27baea634b09", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T13:38:47.624104", "transaction_id": "cd9cdc48-ccfe-44e9-918e-ac7d8c36f422", "observer_as": 1, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}

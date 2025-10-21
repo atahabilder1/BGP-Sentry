@@ -85,15 +85,19 @@ class RPKIObserverService:
             # Try to import real components
             current_file_dir = os.path.dirname(os.path.abspath(__file__))
             sys.path.insert(0, current_file_dir)
-            
-            utils_common_dir = os.path.join(current_file_dir, '..', '..', 'utils_common')
-            utils_common_dir = os.path.abspath(utils_common_dir)
-            sys.path.insert(0, utils_common_dir)
-            
+
+            # Correct path to blockchain_utils (was incorrectly named utils_common)
+            blockchain_utils_dir = os.path.join(current_file_dir, '..', '..', 'blockchain_utils')
+            blockchain_utils_dir = os.path.abspath(blockchain_utils_dir)
+            sys.path.insert(0, blockchain_utils_dir)
+
+            # Import local components from same directory
             from bgp_monitor import BGPMonitor
             from transaction_creator import TransactionCreator
-            from transaction_pool import TransactionPool
-            from trust_manager import TrustManager
+
+            # Import blockchain utilities - P2P for signature collection
+            from p2p_transaction_pool import P2PTransactionPool
+            from integrated_trust_manager import IntegratedTrustManager as TrustManager
             
             # Initialize BGP monitor for parsing network_stack/bgpd.json
             self.bgp_monitor = BGPMonitor(
@@ -107,8 +111,12 @@ class RPKIObserverService:
                 private_key_path=self.private_key_path
             )
             
-            # Initialize transaction pool for submitting transactions
-            self.transaction_pool = TransactionPool()
+            # Initialize P2P transaction pool for signature collection
+            # Real blockchain architecture: P2P communication with consensus
+            self.transaction_pool = P2PTransactionPool(as_number=self.as_number)
+
+            # Start P2P server to receive signature requests from other nodes
+            self.transaction_pool.start_p2p_server()
             
             # Initialize trust manager for trust score access
             self.trust_manager = TrustManager()
@@ -261,7 +269,7 @@ class RPKIObserverService:
             
             # 2. Determine if blockchain recording is needed
             if self._needs_blockchain_record(announcement, validation_result):
-                
+
                 # 3. Create enhanced announcement data for transaction
                 enhanced_data = {
                     **announcement,
@@ -270,18 +278,25 @@ class RPKIObserverService:
                     'trust_score': self.trust_manager.get_trust_score(sender_asn),
                     'processing_timestamp': datetime.now().isoformat()
                 }
-                
-                # 4. Create and sign transaction
+
+                # 4. Add to knowledge base BEFORE creating transaction
+                # This allows this node to vote on similar transactions from other nodes
+                self.transaction_pool.add_bgp_observation(
+                    ip_prefix=ip_prefix,
+                    sender_asn=sender_asn,
+                    timestamp=announcement.get('timestamp'),
+                    trust_score=self.trust_manager.get_trust_score(sender_asn)
+                )
+
+                # 5. Create and sign transaction
                 transaction = self.transaction_creator.create_transaction(enhanced_data)
-                
+
                 if transaction:
-                    # 5. Submit to transaction pool for consensus
-                    success = self.transaction_pool.add_transaction(transaction)
-                    
-                    if success:
-                        self.logger.info(f"✅ Transaction submitted: {transaction.get('transaction_id')}")
-                    else:
-                        self.logger.error(f"❌ Failed to submit transaction")
+                    # 6. Broadcast to peers for signature collection (Real Blockchain!)
+                    # This sends to all 8 peer nodes asking: "Did you see this BGP announcement?"
+                    # Peers will check their own knowledge base before voting
+                    self.transaction_pool.broadcast_transaction(transaction)
+                    self.logger.info(f"📡 Transaction broadcast to peers: {transaction.get('transaction_id')}")
                 
             else:
                 self.logger.debug(f"Announcement does not need blockchain recording")
