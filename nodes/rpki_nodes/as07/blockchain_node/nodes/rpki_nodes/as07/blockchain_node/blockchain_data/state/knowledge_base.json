@@ -1,67 +1,74 @@
 {
   "as_number": 7,
-  "last_updated": "2025-10-21T20:15:56.413297",
-  "observation_count": 9,
+  "last_updated": "2025-10-21T21:04:12.909600",
+  "observation_count": 10,
   "observations": [
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.212141",
+      "observed_at": "2025-10-21T20:58:07.595135",
+      "sender_asn": 5,
+      "timestamp": "2025-08-04T11:56:11.770688Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.597391",
       "sender_asn": 9,
       "timestamp": "2025-08-04T11:57:11.770637Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.229155",
+      "observed_at": "2025-10-21T20:58:07.599163",
       "sender_asn": 5,
       "timestamp": "2025-08-04T12:03:11.770762Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.234146",
+      "observed_at": "2025-10-21T20:58:08.626827",
       "sender_asn": 11,
       "timestamp": "2025-08-04T12:07:11.770701Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.242195",
+      "observed_at": "2025-10-21T20:58:08.633022",
       "sender_asn": 11,
       "timestamp": "2025-08-04T12:07:11.770716Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.251825",
+      "observed_at": "2025-10-21T20:58:08.635685",
       "sender_asn": 5,
       "timestamp": "2025-08-04T12:11:11.770746Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.254694",
+      "observed_at": "2025-10-21T20:58:08.643768",
       "sender_asn": 11,
       "timestamp": "2025-08-04T12:19:11.770658Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.266270",
+      "observed_at": "2025-10-21T20:58:08.648029",
       "sender_asn": 9,
       "timestamp": "2025-08-04T12:26:11.770777Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.271724",
+      "observed_at": "2025-10-21T20:58:08.650130",
       "sender_asn": 9,
       "timestamp": "2025-08-04T12:31:11.770673Z",
       "trust_score": 50.0
     },
     {
       "ip_prefix": null,
-      "observed_at": "2025-10-21T20:10:52.273908",
+      "observed_at": "2025-10-21T20:58:08.653724",
       "sender_asn": 11,
       "timestamp": "2025-08-04T12:48:11.770729Z",
       "trust_score": 50.0

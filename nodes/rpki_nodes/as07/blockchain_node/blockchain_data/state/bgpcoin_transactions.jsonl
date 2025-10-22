@@ -1,0 +1,16 @@
+{"timestamp": "2025-10-21T20:40:51.906367", "type": "block_commit_reward", "from_as": 7, "amount": 15.0, "details": {"is_first": true, "voters": [3, 1, 5]}}
+{"timestamp": "2025-10-21T20:40:51.906395", "type": "vote_reward", "from_as": 3, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:40:51.906408", "type": "vote_reward", "from_as": 1, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:40:51.906419", "type": "vote_reward", "from_as": 5, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:21.944251", "type": "block_commit_reward", "from_as": 7, "amount": 15.0, "details": {"is_first": true, "voters": [3, 13, 1]}}
+{"timestamp": "2025-10-21T20:41:21.944377", "type": "vote_reward", "from_as": 3, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:21.944478", "type": "vote_reward", "from_as": 13, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:21.944569", "type": "vote_reward", "from_as": 1, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:51.973956", "type": "block_commit_reward", "from_as": 7, "amount": 15.0, "details": {"is_first": true, "voters": [3, 1, 9]}}
+{"timestamp": "2025-10-21T20:41:51.974064", "type": "vote_reward", "from_as": 3, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:51.974114", "type": "vote_reward", "from_as": 1, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:41:51.974155", "type": "vote_reward", "from_as": 9, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:42:22.005531", "type": "block_commit_reward", "from_as": 7, "amount": 15.0, "details": {"is_first": true, "voters": [1, 5, 3]}}
+{"timestamp": "2025-10-21T20:42:22.005603", "type": "vote_reward", "from_as": 1, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:42:22.005641", "type": "vote_reward", "from_as": 5, "amount": 1.0, "details": {"committer": 7}}
+{"timestamp": "2025-10-21T20:42:22.005670", "type": "vote_reward", "from_as": 3, "amount": 1.0, "details": {"committer": 7}}

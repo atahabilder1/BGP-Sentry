@@ -190,11 +190,197 @@
         "block_type": "transaction",
         "transaction_count": 1
       }
+    },
+    {
+      "block_number": 5,
+      "timestamp": "2025-10-21T20:40:51.891791",
+      "previous_hash": "25ca8b024cbd28b668109fb3e8cca5a35e094d724359c80d0b94bbd9ed49788c",
+      "transactions": [
+        {
+          "transaction_id": "947c2b01-6323-4610-9454-502bc02909b0",
+          "observer_as": 3,
+          "sender_asn": 12,
+          "ip_prefix": "203.0.113.0/24",
+          "timestamp": "2025-07-27T21:00:00Z",
+          "trust_score": 50.0,
+          "transaction_timestamp": "2025-10-22T00:40:51.887775+00:00",
+          "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "signature": "test_signature_3_1761093651",
+          "votes": [],
+          "signatures": [
+            {
+              "from_as": 1,
+              "vote": "reject",
+              "timestamp": "2025-10-21T20:40:51.889781"
+            },
+            {
+              "from_as": 17,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:40:51.889891"
+            },
+            {
+              "from_as": 15,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:40:51.890655"
+            },
+            {
+              "from_as": 5,
+              "vote": "reject",
+              "timestamp": "2025-10-21T20:40:51.890773"
+            },
+            {
+              "from_as": 11,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:40:51.891287"
+            }
+          ],
+          "consensus_reached": true,
+          "signature_count": 5
+        }
+      ],
+      "block_hash": "ad602117e3ef246db050d0507fe67998a8ebf0b04a59e9c12ae71426b6017c23",
+      "merkle_root": "b100124cb6b8e0f118bfea08dde4d6747f1dd881ea9f4215e08a5bb42fc176f0",
+      "metadata": {
+        "block_type": "transaction",
+        "transaction_count": 1
+      }
+    },
+    {
+      "block_number": 6,
+      "timestamp": "2025-10-21T20:41:21.920607",
+      "previous_hash": "ad602117e3ef246db050d0507fe67998a8ebf0b04a59e9c12ae71426b6017c23",
+      "transactions": [
+        {
+          "transaction_id": "576b36a6-c012-4517-b501-8474c0bd6a13",
+          "observer_as": 3,
+          "sender_asn": 12,
+          "ip_prefix": "203.0.113.0/24",
+          "timestamp": "2025-07-27T21:00:00Z",
+          "trust_score": 50.0,
+          "transaction_timestamp": "2025-10-22T00:41:21.918737+00:00",
+          "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "signature": "test_signature_3_1761093681",
+          "votes": [],
+          "signatures": [
+            {
+              "from_as": 1,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:21.919122"
+            },
+            {
+              "from_as": 5,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:21.919384"
+            },
+            {
+              "from_as": 7,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:21.919548"
+            }
+          ],
+          "consensus_reached": true,
+          "signature_count": 3
+        }
+      ],
+      "block_hash": "c00093fdbf9f2b910c97d964bde50b944aadd0ff25826f5fbd3db3defd4f259d",
+      "merkle_root": "bada9fbbe77e7380fb9ba761574f27457801a3b24056793b1f15ad628cd0820a",
+      "metadata": {
+        "block_type": "transaction",
+        "transaction_count": 1
+      }
+    },
+    {
+      "block_number": 7,
+      "timestamp": "2025-10-21T20:41:51.928544",
+      "previous_hash": "c00093fdbf9f2b910c97d964bde50b944aadd0ff25826f5fbd3db3defd4f259d",
+      "transactions": [
+        {
+          "transaction_id": "d0dceff0-166e-4908-9216-ea7f868de2d0",
+          "observer_as": 3,
+          "sender_asn": 12,
+          "ip_prefix": "203.0.113.0/24",
+          "timestamp": "2025-07-27T21:00:00Z",
+          "trust_score": 50.0,
+          "transaction_timestamp": "2025-10-22T00:41:51.924105+00:00",
+          "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "signature": "test_signature_3_1761093711",
+          "votes": [],
+          "signatures": [
+            {
+              "from_as": 1,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:51.926261"
+            },
+            {
+              "from_as": 5,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:51.926263"
+            },
+            {
+              "from_as": 15,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:41:51.926260"
+            }
+          ],
+          "consensus_reached": true,
+          "signature_count": 3
+        }
+      ],
+      "block_hash": "c0df7d0fe8f80989c26592a624161a69678db88010de89a3933f39f2e3d31b4b",
+      "merkle_root": "3157b93d376ab7700cfa04aed607d1b5eb3e9a64e9e79bc3968c2bdd13d81dea",
+      "metadata": {
+        "block_type": "transaction",
+        "transaction_count": 1
+      }
+    },
+    {
+      "block_number": 8,
+      "timestamp": "2025-10-21T20:42:21.946146",
+      "previous_hash": "c0df7d0fe8f80989c26592a624161a69678db88010de89a3933f39f2e3d31b4b",
+      "transactions": [
+        {
+          "transaction_id": "8f9154eb-cbb4-4164-a3c5-6145d4ed16c4",
+          "observer_as": 3,
+          "sender_asn": 12,
+          "ip_prefix": "203.0.113.0/24",
+          "timestamp": "2025-07-27T21:00:00Z",
+          "trust_score": 50.0,
+          "transaction_timestamp": "2025-10-22T00:42:21.939902+00:00",
+          "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+          "signature": "test_signature_3_1761093741",
+          "votes": [],
+          "signatures": [
+            {
+              "from_as": 7,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:42:21.942067"
+            },
+            {
+              "from_as": 9,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:42:21.942104"
+            },
+            {
+              "from_as": 5,
+              "vote": "approve",
+              "timestamp": "2025-10-21T20:42:21.942142"
+            }
+          ],
+          "consensus_reached": true,
+          "signature_count": 3
+        }
+      ],
+      "block_hash": "dbd42d3629c9a29a42d11f36d35d56444867d645f6abfde93e82806370670c64",
+      "merkle_root": "9ebc13402c5b9368d9b86a9ec119e09f3ec752469e07b17a964992a8814f943f",
+      "metadata": {
+        "block_type": "transaction",
+        "transaction_count": 1
+      }
     }
   ],
   "metadata": {
-    "total_transactions": 4,
-    "total_blocks": 5,
-    "last_updated": "2025-10-21T13:38:47.626262"
+    "total_transactions": 8,
+    "total_blocks": 9,
+    "last_updated": "2025-10-21T20:42:21.946319"
   }
 }

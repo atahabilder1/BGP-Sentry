@@ -6,3 +6,7 @@
 {"timestamp": "2025-10-21T13:37:47.611067", "transaction_id": "01801410-0cce-46b7-9087-2213a3126f5a", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
 {"timestamp": "2025-10-21T13:38:17.622967", "transaction_id": "e9c284a2-56e1-48a3-b98a-3062b739d4ee", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
 {"timestamp": "2025-10-21T13:38:47.627397", "transaction_id": "39360433-0b27-42c7-afcd-7b9dc4265908", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T20:40:51.892345", "transaction_id": "947c2b01-6323-4610-9454-502bc02909b0", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T20:41:21.921345", "transaction_id": "576b36a6-c012-4517-b501-8474c0bd6a13", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T20:41:51.931722", "transaction_id": "d0dceff0-166e-4908-9216-ea7f868de2d0", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
+{"timestamp": "2025-10-21T20:42:21.948219", "transaction_id": "8f9154eb-cbb4-4164-a3c5-6145d4ed16c4", "observer_as": 3, "sender_asn": null, "ip_prefix": null, "announcement_type": "unknown", "validation_result": {}}
