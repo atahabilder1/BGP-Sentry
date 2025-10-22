@@ -1,0 +1,265 @@
+{
+  "monitoring_start": "2025-10-21T19:51:14.729680",
+  "monitoring_end": "2025-10-21T19:56:15.066815",
+  "duration_seconds": 0,
+  "total_transactions": 0,
+  "total_blocks": 0,
+  "tps_samples": [
+    {
+      "timestamp": "2025-10-21T19:51:14.731374",
+      "elapsed_seconds": 0.001683,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:51:24.742720",
+      "elapsed_seconds": 10.013029,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:51:34.745491",
+      "elapsed_seconds": 20.0158,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:51:44.757555",
+      "elapsed_seconds": 30.027864,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:51:54.769639",
+      "elapsed_seconds": 40.039948,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:04.781816",
+      "elapsed_seconds": 50.052125,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:14.793961",
+      "elapsed_seconds": 60.06427,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:24.806179",
+      "elapsed_seconds": 70.076488,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:34.818517",
+      "elapsed_seconds": 80.088826,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:44.831430",
+      "elapsed_seconds": 90.101739,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:52:54.843053",
+      "elapsed_seconds": 100.113362,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:04.855541",
+      "elapsed_seconds": 110.12585,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:14.858431",
+      "elapsed_seconds": 120.12874,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:24.869874",
+      "elapsed_seconds": 130.140183,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:34.882051",
+      "elapsed_seconds": 140.15236,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:44.893927",
+      "elapsed_seconds": 150.164236,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:53:54.906552",
+      "elapsed_seconds": 160.176861,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:04.919140",
+      "elapsed_seconds": 170.189449,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:14.922174",
+      "elapsed_seconds": 180.192483,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:24.934721",
+      "elapsed_seconds": 190.20503,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:34.947126",
+      "elapsed_seconds": 200.217435,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:44.959235",
+      "elapsed_seconds": 210.229544,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:54:54.972096",
+      "elapsed_seconds": 220.242405,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:04.984579",
+      "elapsed_seconds": 230.254888,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:14.995202",
+      "elapsed_seconds": 240.265511,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:25.007351",
+      "elapsed_seconds": 250.27766,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:35.020035",
+      "elapsed_seconds": 260.290344,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:45.032712",
+      "elapsed_seconds": 270.303021,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:55:55.045545",
+      "elapsed_seconds": 280.315854,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    },
+    {
+      "timestamp": "2025-10-21T19:56:05.057539",
+      "elapsed_seconds": 290.327848,
+      "transactions": 0,
+      "blocks": 0,
+      "tps": 0.0,
+      "blocks_per_second": 0.0
+    }
+  ],
+  "block_times": [],
+  "consensus_times": [],
+  "metrics": {
+    "duration_seconds": 300.337135,
+    "duration_minutes": 5.005618916666666,
+    "total_transactions": 0,
+    "total_blocks": 0,
+    "average_tps": 0.0,
+    "peak_tps": 0.0,
+    "average_blocks_per_second": 0.0,
+    "average_blocks_per_minute": 0.0,
+    "average_tx_per_block": 0,
+    "throughput_kb_per_second": 0.0,
+    "throughput_mb_per_second": 0.0,
+    "total_nodes_monitored": 9
+  }
+}

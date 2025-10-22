@@ -1,0 +1,51 @@
+{
+  "as_number": 9,
+  "last_updated": "2025-10-21T20:15:56.439705",
+  "observation_count": 6,
+  "observations": [
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.220871",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:25:11.771308Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.231148",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:27:11.771400Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.237008",
+      "sender_asn": 3,
+      "timestamp": "2025-08-04T12:29:11.771463Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.246902",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:32:11.771288Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.252498",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:36:11.771454Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.258142",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:53:11.771365Z",
+      "trust_score": 50.0
+    }
+  ],
+  "version": "1.0",
+  "window_seconds": 300
+}

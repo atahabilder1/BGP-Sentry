@@ -66,7 +66,22 @@ class ExperimentAnalyzer:
 
     def analyze_attack_detection(self) -> Dict:
         """Analyze attack detection performance"""
-        summary = self.ground_truth.get("summary", {})
+        # Handle both old format (with summary) and new format (flat structure)
+        if "summary" in self.ground_truth:
+            summary = self.ground_truth["summary"]
+        else:
+            # Create summary from flat structure
+            summary = {
+                "total_attacks": self.ground_truth.get("total_attacks", 0),
+                "total_legitimate": self.ground_truth.get("total_legitimate", 0),
+                "total_announcements": self.ground_truth.get("total_announcements", 0),
+                "attack_ratio_percent": self.ground_truth.get("attack_ratio", 0) * 100,
+                "attacker_ases": {}
+            }
+            # Build attacker_ases from attackers dict
+            for as_num, as_data in self.ground_truth.get("attackers", {}).items():
+                summary["attacker_ases"][as_num] = as_data.get("total_attacks", 0)
+
         total_attacks = summary.get("total_attacks", 0)
         total_legitimate = summary.get("total_legitimate", 0)
         attacker_ases = summary.get("attacker_ases", {})
@@ -133,7 +148,11 @@ class ExperimentAnalyzer:
 
     def analyze_classification_accuracy(self) -> Dict:
         """Analyze classification accuracy"""
-        attacker_ases = set(str(k) for k in self.ground_truth["summary"]["attacker_ases"].keys())
+        # Handle both old and new format
+        if "summary" in self.ground_truth:
+            attacker_ases = set(str(k) for k in self.ground_truth["summary"]["attacker_ases"].keys())
+        else:
+            attacker_ases = set(str(k) for k in self.ground_truth.get("attackers", {}).keys())
         time_series = self.monitoring_data.get("time_series", {})
         summary = self.monitoring_data.get("summary", {}).get("as_summary", {})
 
@@ -223,8 +242,20 @@ class ExperimentAnalyzer:
         print(f"   Location: {self.experiment_dir}")
         print()
 
-        # Ground truth summary
-        summary = self.ground_truth.get("summary", {})
+        # Ground truth summary - handle both formats
+        if "summary" in self.ground_truth:
+            summary = self.ground_truth["summary"]
+        else:
+            summary = {
+                "total_attacks": self.ground_truth.get("total_attacks", 0),
+                "total_legitimate": self.ground_truth.get("total_legitimate", 0),
+                "total_announcements": self.ground_truth.get("total_announcements", 0),
+                "attack_ratio_percent": self.ground_truth.get("attack_ratio", 0) * 100,
+                "attacker_ases": {}
+            }
+            for as_num, as_data in self.ground_truth.get("attackers", {}).items():
+                summary["attacker_ases"][as_num] = as_data.get("total_attacks", 0)
+
         print("=" * 80)
         print("📋 GROUND TRUTH SUMMARY")
         print("=" * 80)

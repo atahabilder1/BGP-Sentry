@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2025-10-21T19:52:54.842326",
+  "last_updated": "2025-10-21T20:16:18.203469",
   "monitored_ases": [
     666,
     31337
@@ -90,6 +90,356 @@
         "level": "suspicious",
         "attacks_detected": 1,
         "event": "Sample #11"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:04.854256",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #12"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:14.857167",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #13"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:24.868634",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #14"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:34.880738",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #15"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:44.892655",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #16"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:54.905043",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #17"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:04.917611",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #18"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:14.920734",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #19"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:24.933260",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #20"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:34.945721",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #21"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:44.957654",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #22"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:54.970453",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #23"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:04.983108",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #24"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:14.993641",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #25"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:25.005724",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #26"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:35.018472",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #27"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:45.031102",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #28"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:55.043775",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #29"
+      },
+      {
+        "timestamp": "2025-10-21T19:56:05.055761",
+        "rating": 30,
+        "level": "suspicious",
+        "attacks_detected": 1,
+        "event": "Sample #30"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:27.812865",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Monitor started"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:27.815891",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #1"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:37.831758",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #2"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:47.838309",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #3"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:57.851204",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #4"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:07.863699",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #5"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:17.871886",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #6"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:27.884640",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #7"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:37.898758",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #8"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:47.911645",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #9"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:57.924748",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #10"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:07.938553",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #11"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:17.951661",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #12"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:27.964720",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #13"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:37.977672",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #14"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:47.984512",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #15"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:58.004431",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #16"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:08.022660",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #17"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:18.036065",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #18"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:28.049482",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #19"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:38.062786",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #20"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:48.075638",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #21"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:58.088154",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #22"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:08.104200",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #23"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:18.118026",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #24"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:28.131463",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #25"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:38.144728",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #26"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:48.157646",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #27"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:58.170647",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #28"
+      },
+      {
+        "timestamp": "2025-10-21T20:16:08.189728",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #29"
+      },
+      {
+        "timestamp": "2025-10-21T20:16:18.202765",
+        "rating": 84.34,
+        "level": "excellent",
+        "attacks_detected": 0,
+        "event": "Sample #30"
       }
     ],
     "31337": [
@@ -176,8 +526,358 @@
         "level": "neutral",
         "attacks_detected": 0,
         "event": "Sample #11"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:04.854256",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #12"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:14.857167",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #13"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:24.868634",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #14"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:34.880738",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #15"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:44.892655",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #16"
+      },
+      {
+        "timestamp": "2025-10-21T19:53:54.905043",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #17"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:04.917611",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #18"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:14.920734",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #19"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:24.933260",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #20"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:34.945721",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #21"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:44.957654",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #22"
+      },
+      {
+        "timestamp": "2025-10-21T19:54:54.970453",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #23"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:04.983108",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #24"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:14.993641",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #25"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:25.005724",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #26"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:35.018472",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #27"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:45.031102",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #28"
+      },
+      {
+        "timestamp": "2025-10-21T19:55:55.043775",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #29"
+      },
+      {
+        "timestamp": "2025-10-21T19:56:05.055761",
+        "rating": 50,
+        "level": "neutral",
+        "attacks_detected": 0,
+        "event": "Sample #30"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:27.812865",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Monitor started"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:27.815891",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #1"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:37.831758",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #2"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:47.838309",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #3"
+      },
+      {
+        "timestamp": "2025-10-21T20:11:57.851204",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #4"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:07.863699",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #5"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:17.871886",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #6"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:27.884640",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #7"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:37.898758",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #8"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:47.911645",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #9"
+      },
+      {
+        "timestamp": "2025-10-21T20:12:57.924748",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #10"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:07.938553",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #11"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:17.951661",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #12"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:27.964720",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #13"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:37.977672",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #14"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:47.984512",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #15"
+      },
+      {
+        "timestamp": "2025-10-21T20:13:58.004431",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #16"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:08.022660",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #17"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:18.036065",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #18"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:28.049482",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #19"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:38.062786",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #20"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:48.075638",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #21"
+      },
+      {
+        "timestamp": "2025-10-21T20:14:58.088154",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #22"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:08.104200",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #23"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:18.118026",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #24"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:28.131463",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #25"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:38.144728",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #26"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:48.157646",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #27"
+      },
+      {
+        "timestamp": "2025-10-21T20:15:58.170647",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #28"
+      },
+      {
+        "timestamp": "2025-10-21T20:16:08.189728",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #29"
+      },
+      {
+        "timestamp": "2025-10-21T20:16:18.202765",
+        "rating": 82.58,
+        "level": "good",
+        "attacks_detected": 0,
+        "event": "Sample #30"
       }
     ]
   },
-  "total_snapshots": 24
+  "total_snapshots": 124
 }

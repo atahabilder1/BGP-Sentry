@@ -1,0 +1,72 @@
+{
+  "as_number": 7,
+  "last_updated": "2025-10-21T20:15:56.413297",
+  "observation_count": 9,
+  "observations": [
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.212141",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T11:57:11.770637Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.229155",
+      "sender_asn": 5,
+      "timestamp": "2025-08-04T12:03:11.770762Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.234146",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:07:11.770701Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.242195",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:07:11.770716Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.251825",
+      "sender_asn": 5,
+      "timestamp": "2025-08-04T12:11:11.770746Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.254694",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:19:11.770658Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.266270",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:26:11.770777Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.271724",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:31:11.770673Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:10:52.273908",
+      "sender_asn": 11,
+      "timestamp": "2025-08-04T12:48:11.770729Z",
+      "trust_score": 50.0
+    }
+  ],
+  "version": "1.0",
+  "window_seconds": 300
+}

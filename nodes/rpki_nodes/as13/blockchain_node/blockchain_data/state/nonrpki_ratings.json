@@ -1,108 +1,108 @@
 {
-  "last_updated": "2025-10-21T20:10:51.109313",
+  "last_updated": "2025-10-21T20:10:51.110132",
   "as_ratings": {
     "666": {
-      "trust_score": 84.34,
+      "trust_score": 81.51,
+      "rating_level": "good",
+      "attacks_detected": 0,
+      "good_announcements": 0,
+      "bad_announcements": 0,
+      "last_updated": "2025-10-21T20:10:51.110119",
+      "initialized": true,
+      "initial_rating": 81.51
+    },
+    "31337": {
+      "trust_score": 81.0,
+      "rating_level": "good",
+      "attacks_detected": 0,
+      "good_announcements": 0,
+      "bad_announcements": 0,
+      "last_updated": "2025-10-21T20:10:51.110121",
+      "initialized": true,
+      "initial_rating": 81.0
+    },
+    "100": {
+      "trust_score": 84.33,
       "rating_level": "excellent",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109293",
+      "last_updated": "2025-10-21T20:10:51.110122",
       "initialized": true,
-      "initial_rating": 84.34
-    },
-    "31337": {
-      "trust_score": 82.58,
-      "rating_level": "good",
-      "attacks_detected": 0,
-      "good_announcements": 0,
-      "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109301",
-      "initialized": true,
-      "initial_rating": 82.58
-    },
-    "100": {
-      "trust_score": 83.67,
-      "rating_level": "good",
-      "attacks_detected": 0,
-      "good_announcements": 0,
-      "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109303",
-      "initialized": true,
-      "initial_rating": 83.67
+      "initial_rating": 84.33
     },
     "200": {
-      "trust_score": 80.09,
+      "trust_score": 80.65,
       "rating_level": "good",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109304",
+      "last_updated": "2025-10-21T20:10:51.110124",
       "initialized": true,
-      "initial_rating": 80.09
+      "initial_rating": 80.65
     },
     "300": {
-      "trust_score": 82.74,
-      "rating_level": "good",
+      "trust_score": 84.43,
+      "rating_level": "excellent",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109305",
+      "last_updated": "2025-10-21T20:10:51.110125",
       "initialized": true,
-      "initial_rating": 82.74
+      "initial_rating": 84.43
     },
     "400": {
-      "trust_score": 82.06,
+      "trust_score": 83.37,
       "rating_level": "good",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109307",
+      "last_updated": "2025-10-21T20:10:51.110126",
       "initialized": true,
-      "initial_rating": 82.06
+      "initial_rating": 83.37
     },
     "500": {
-      "trust_score": 80.1,
+      "trust_score": 82.22,
       "rating_level": "good",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109308",
+      "last_updated": "2025-10-21T20:10:51.110128",
       "initialized": true,
-      "initial_rating": 80.1
+      "initial_rating": 82.22
     },
     "600": {
-      "trust_score": 82.57,
-      "rating_level": "good",
+      "trust_score": 84.69,
+      "rating_level": "excellent",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109310",
+      "last_updated": "2025-10-21T20:10:51.110129",
       "initialized": true,
-      "initial_rating": 82.57
+      "initial_rating": 84.69
     },
     "700": {
-      "trust_score": 82.18,
+      "trust_score": 80.05,
       "rating_level": "good",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109311",
+      "last_updated": "2025-10-21T20:10:51.110130",
       "initialized": true,
-      "initial_rating": 82.18
+      "initial_rating": 80.05
     },
     "800": {
-      "trust_score": 83.73,
+      "trust_score": 83.56,
       "rating_level": "good",
       "attacks_detected": 0,
       "good_announcements": 0,
       "bad_announcements": 0,
-      "last_updated": "2025-10-21T20:10:51.109312",
+      "last_updated": "2025-10-21T20:10:51.110131",
       "initialized": true,
-      "initial_rating": 83.73
+      "initial_rating": 83.56
     }
   },
   "total_non_rpki_ases": 10,
   "initialized": true,
-  "initialization_timestamp": "2025-10-21T20:10:51.109314"
+  "initialization_timestamp": "2025-10-21T20:10:51.110133"
 }
