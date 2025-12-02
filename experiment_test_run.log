@@ -1,0 +1,2395 @@
+Starting BGP-Sentry Distributed Blockchain Simulation
+============================================================
+2025-12-02 15:42:09,310 - BGP-Sentry-Main - INFO - Loaded configuration from simulation_helpers/shared_data/experiment_config.json
+2025-12-02 15:42:09,310 - BGP-Sentry-Main - INFO - BGP-Sentry Experiment initialized
+Step 1: Validating prerequisites...
+2025-12-02 15:42:09,310 - BGP-Sentry-Main - INFO - Validating experiment prerequisites...
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Shared clock test successful: exp_1764708129
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Simulation helpers validation passed
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Found 36 BGP data files
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Output directory ready: results
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Output directory ready: simulation_helpers/shared_data
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - All prerequisites validated successfully
+Step 2: Initializing experiment...
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Initializing BGP-Sentry experiment...
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Experiment initialized successfully - ID: exp_1764708129
+Step 3: Starting RPKI nodes...
+2025-12-02 15:42:09,311 - BGP-Sentry-Main - INFO - Starting RPKI node network...
+INFO:P2P-AS1:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS5:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS1:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS5:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS1:💰 BGPCOIN ledger initialized
+INFO:P2P-AS5:💰 BGPCOIN ledger initialized
+INFO:P2P-AS13:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS1:📡 Neighbor cache initialized
+INFO:P2P-AS13:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS3:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS17:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS15:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS5:📡 Neighbor cache initialized
+INFO:P2P-AS7:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS11:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS7:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS3:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS17:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS15:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS11:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS13:💰 BGPCOIN ledger initialized
+INFO:P2P-AS13:📡 Neighbor cache initialized
+INFO:P2P-AS11:💰 BGPCOIN ledger initialized
+INFO:P2P-AS7:💰 BGPCOIN ledger initialized
+INFO:P2P-AS9:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS11:📡 Neighbor cache initialized
+INFO:P2P-AS9:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS7:📡 Neighbor cache initialized
+INFO:P2P-AS3:💰 BGPCOIN ledger initialized
+INFO:P2P-AS17:💰 BGPCOIN ledger initialized
+INFO:P2P-AS15:💰 BGPCOIN ledger initialized
+INFO:P2P-AS3:📡 Neighbor cache initialized
+INFO:P2P-AS17:📡 Neighbor cache initialized
+INFO:P2P-AS15:📡 Neighbor cache initialized
+INFO:P2P-AS9:💰 BGPCOIN ledger initialized
+INFO:P2P-AS9:📡 Neighbor cache initialized
+INFO:P2P-AS1:P2P server started on port 8001
+INFO:P2P-AS5:P2P server started on port 8005
+INFO:P2P-AS13:P2P server started on port 8013
+INFO:P2P-AS7:P2P server started on port 8007
+INFO:P2P-AS17:P2P server started on port 8017
+INFO:P2P-AS3:P2P server started on port 8003
+INFO:P2P-AS11:P2P server started on port 8011
+INFO:P2P-AS9:P2P server started on port 8009
+INFO:P2P-AS15:P2P server started on port 8015
+INFO:P2P-AS13:📜 Governance system initialized
+INFO:P2P-AS1:📜 Governance system initialized
+INFO:P2P-AS5:📜 Governance system initialized
+INFO:P2P-AS3:📜 Governance system initialized
+INFO:P2P-AS7:📜 Governance system initialized
+INFO:P2P-AS17:📜 Governance system initialized
+INFO:P2P-AS9:📜 Governance system initialized
+INFO:P2P-AS11:📜 Governance system initialized
+INFO:P2P-AS15:📜 Governance system initialized
+INFO:P2P-AS11:🛡️  Attack consensus system initialized
+INFO:P2P-AS13:🛡️  Attack consensus system initialized
+INFO:RPKIObserver-AS11:All components initialized successfully
+INFO:RPKIObserver-AS11:RPKI Observer Service initialized for AS11
+INFO:RPKIObserver-AS13:All components initialized successfully
+INFO:RPKIObserver-AS13:RPKI Observer Service initialized for AS13
+INFO:P2P-AS11:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS11:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS13:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS13:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS11:💰 BGPCOIN ledger initialized
+INFO:P2P-AS11:📡 Neighbor cache initialized
+INFO:P2P-AS13:💰 BGPCOIN ledger initialized
+INFO:P2P-AS13:📡 Neighbor cache initialized
+INFO:P2P-AS15:🛡️  Attack consensus system initialized
+INFO:RPKIObserver-AS15:All components initialized successfully
+INFO:RPKIObserver-AS15:RPKI Observer Service initialized for AS15
+INFO:P2P-AS5:🛡️  Attack consensus system initialized
+INFO:RPKIObserver-AS5:All components initialized successfully
+INFO:RPKIObserver-AS5:RPKI Observer Service initialized for AS5
+ERROR:P2P-AS13:Failed to start P2P server: [Errno 98] Address already in use
+INFO:P2P-AS3:🛡️  Attack consensus system initialized
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:P2P-AS5:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS5:📂 No last_seen cache found, starting fresh
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS9:🛡️  Attack consensus system initialized
+INFO:Consensus-AS13:All consensus components initialized successfully
+INFO:Consensus-AS13:Consensus Service initialized for AS13
+INFO:Consensus-AS13:Consensus threshold: 0.33 (2/9 nodes)
+INFO:RPKIObserver-AS13:Starting RPKI Observer Service for AS13
+INFO:P2P-AS15:📂 No existing knowledge base found, starting fresh
+ERROR:P2P-AS11:Failed to start P2P server: [Errno 98] Address already in use
+INFO:RPKIObserver-AS3:All components initialized successfully
+INFO:P2P-AS1:🛡️  Attack consensus system initialized
+INFO:P2P-AS15:📂 No last_seen cache found, starting fresh
+INFO:RPKIObserver-AS3:RPKI Observer Service initialized for AS3
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:P2P-AS7:🛡️  Attack consensus system initialized
+INFO:RPKIObserver-AS1:All components initialized successfully
+INFO:P2P-AS3:📂 No existing knowledge base found, starting fresh
+INFO:RPKIObserver-AS9:All components initialized successfully
+INFO:RPKIObserver-AS7:All components initialized successfully
+INFO:RPKIObserver-AS7:RPKI Observer Service initialized for AS7
+INFO:RPKIObserver-AS9:RPKI Observer Service initialized for AS9
+INFO:RPKIObserver-AS1:RPKI Observer Service initialized for AS1
+INFO:P2P-AS5:💰 BGPCOIN ledger initialized
+INFO:RPKIObserver-AS13:Starting BGP observation loop
+INFO:P2P-AS5:📡 Neighbor cache initialized
+INFO:RPKIObserver-AS13:RPKI Observer Service started successfully
+INFO:RPKIObserver-AS13:Found 1 new BGP announcements
+INFO:Consensus-AS13:Starting Consensus Service for AS13
+INFO:RPKIObserver-AS13:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS13:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS7:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS9:📂 No existing knowledge base found, starting fresh
+INFO:transaction_creator:Created transaction 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS7:📂 No last_seen cache found, starting fresh
+WARNING:P2P-AS13:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:📂 No last_seen cache found, starting fresh
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS1:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS15:💰 BGPCOIN ledger initialized
+INFO:P2P-AS1:📂 No last_seen cache found, starting fresh
+INFO:Consensus-AS11:All consensus components initialized successfully
+INFO:Consensus-AS13:Starting consensus validation loop
+INFO:Consensus-AS11:Consensus Service initialized for AS11
+INFO:Consensus-AS11:Consensus threshold: 0.33 (2/9 nodes)
+INFO:P2P-AS15:📡 Neighbor cache initialized
+INFO:Consensus-AS13:Consensus Service started successfully
+INFO:P2P-AS3:📂 No last_seen cache found, starting fresh
+INFO:RPKIObserver-AS11:Starting RPKI Observer Service for AS11
+INFO:P2P-AS7:💰 BGPCOIN ledger initialized
+INFO:RPKIObserver-AS11:Starting BGP observation loop
+INFO:P2P-AS7:📡 Neighbor cache initialized
+INFO:RPKIObserver-AS11:RPKI Observer Service started successfully
+INFO:RPKIObserver-AS11:Found 1 new BGP announcements
+INFO:Consensus-AS11:Starting Consensus Service for AS11
+INFO:P2P-AS3:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:RPKIObserver-AS11:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:Consensus-AS11:Starting consensus validation loop
+INFO:P2P-AS11:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+ERROR:P2P-AS15:Failed to start P2P server: [Errno 98] Address already in use
+INFO:P2P-AS13:📡 Broadcast transaction 76afb920-9f49-481f-b07d-66aaaf840553 to 8/8 relevant peers (AS12)
+INFO:P2P-AS5:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:P2P-AS9:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:RPKIObserver-AS13:📡 Transaction broadcast to peers: 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:Consensus-AS11:Consensus Service started successfully
+INFO:P2P-AS11:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:P2P-AS7:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:transaction_creator:Created transaction e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:💰 BGPCOIN ledger initialized
+WARNING:P2P-AS11:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+WARNING:P2P-AS9:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+ERROR:P2P-AS5:Failed to start P2P server: [Errno 98] Address already in use
+WARNING:P2P-AS9:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS11:Sent approve vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:P2P-AS13:✅ Received signature from AS11 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS1:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+WARNING:P2P-AS5:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS1:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS1:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS15:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:P2P-AS5:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS9:💰 BGPCOIN ledger initialized
+INFO:P2P-AS1:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+WARNING:P2P-AS5:❌ REJECT: Transaction not in my knowledge base
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS13:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+WARNING:P2P-AS5:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS1:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:Consensus-AS5:All consensus components initialized successfully
+INFO:P2P-AS3:📡 Neighbor cache initialized
+INFO:P2P-AS9:📡 Neighbor cache initialized
+WARNING:P2P-AS1:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS11:📡 Broadcast transaction e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to 8/8 relevant peers (AS12)
+WARNING:P2P-AS5:❌ REJECT: Transaction not in my knowledge base
+INFO:RPKIObserver-AS11:📡 Transaction broadcast to peers: e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:Consensus-AS5:Consensus Service initialized for AS5
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:Consensus-AS5:Consensus threshold: 0.33 (2/9 nodes)
+INFO:RPKIObserver-AS5:Starting RPKI Observer Service for AS5
+INFO:P2P-AS1:💰 BGPCOIN ledger initialized
+INFO:RPKIObserver-AS5:Starting BGP observation loop
+INFO:P2P-AS9:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+INFO:P2P-AS13:✅ Received signature from AS9 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS1:📡 Neighbor cache initialized
+INFO:P2P-AS7:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:RPKIObserver-AS5:RPKI Observer Service started successfully
+INFO:P2P-AS11:✅ Received signature from AS1 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS13:✅ Received signature from AS5 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:RPKIObserver-AS5:Found 1 new BGP announcements
+INFO:P2P-AS1:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:P2P-AS11:Signatures collected: 0/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS5:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:P2P-AS15:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+INFO:Consensus-AS5:Starting Consensus Service for AS5
+INFO:P2P-AS1:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:RPKIObserver-AS5:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS9:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:Consensus-AS15:All consensus components initialized successfully
+WARNING:P2P-AS15:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS13:✅ Received signature from AS1 for 76afb920-9f49-481f-b07d-66aaaf840553
+WARNING:P2P-AS3:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS5:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+WARNING:P2P-AS3:❌ REJECT: Transaction not in my knowledge base
+WARNING:P2P-AS15:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:Consensus-AS15:Consensus Service initialized for AS15
+WARNING:P2P-AS9:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS11:✅ Received signature from AS5 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS11:Signatures collected: 0/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+WARNING:P2P-AS15:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS13:Sent approve vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:transaction_creator:Created transaction 5a58a049-68f9-40cb-8bed-7726d460b42b
+WARNING:P2P-AS15:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS11:✅ Received signature from AS13 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS17:🛡️  Attack consensus system initialized
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:Consensus-AS15:Consensus threshold: 0.33 (2/9 nodes)
+WARNING:P2P-AS3:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS3:❌ REJECT: Transaction not in my knowledge base
+WARNING:P2P-AS9:❌ REJECT: Transaction not in my knowledge base
+INFO:RPKIObserver-AS15:Starting RPKI Observer Service for AS15
+WARNING:P2P-AS7:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:Consensus-AS5:Starting consensus validation loop
+ERROR:P2P-AS7:Failed to start P2P server: [Errno 98] Address already in use
+WARNING:P2P-AS5:⚠️  No relevant neighbors cached for AS12, using all peers
+ERROR:P2P-AS9:Failed to start P2P server: [Errno 98] Address already in use
+INFO:RPKIObserver-AS15:Starting BGP observation loop
+INFO:P2P-AS5:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+ERROR:P2P-AS1:Failed to start P2P server: [Errno 98] Address already in use
+INFO:Consensus-AS5:Consensus Service started successfully
+WARNING:P2P-AS7:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:RPKIObserver-AS15:Found 1 new BGP announcements
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+WARNING:P2P-AS7:❌ REJECT: Transaction not in my knowledge base
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:Consensus-AS1:All consensus components initialized successfully
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:Consensus-AS1:Consensus Service initialized for AS1
+INFO:Consensus-AS1:Consensus threshold: 0.33 (2/9 nodes)
+INFO:Consensus-AS9:All consensus components initialized successfully
+INFO:RPKIObserver-AS1:Starting RPKI Observer Service for AS1
+INFO:Consensus-AS9:Consensus Service initialized for AS9
+INFO:RPKIObserver-AS15:RPKI Observer Service started successfully
+WARNING:P2P-AS7:❌ REJECT: Transaction not in my knowledge base
+INFO:RPKIObserver-AS17:All components initialized successfully
+INFO:Consensus-AS9:Consensus threshold: 0.33 (2/9 nodes)
+INFO:P2P-AS11:✅ Received signature from AS15 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS13:✅ Received signature from AS3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:RPKIObserver-AS17:RPKI Observer Service initialized for AS17
+INFO:RPKIObserver-AS1:Starting BGP observation loop
+INFO:Consensus-AS7:All consensus components initialized successfully
+INFO:Consensus-AS7:Consensus Service initialized for AS7
+INFO:RPKIObserver-AS9:Starting RPKI Observer Service for AS9
+INFO:RPKIObserver-AS15:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:Consensus-AS7:Consensus threshold: 0.33 (2/9 nodes)
+INFO:RPKIObserver-AS1:Found 1 new BGP announcements
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS11:✅ Received signature from AS9 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS3:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:RPKIObserver-AS1:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:RPKIObserver-AS7:Starting RPKI Observer Service for AS7
+INFO:RPKIObserver-AS9:Starting BGP observation loop
+INFO:P2P-AS13:✅ Received signature from AS15 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS1:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:Consensus-AS15:Starting Consensus Service for AS15
+INFO:RPKIObserver-AS9:Found 1 new BGP announcements
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:RPKIObserver-AS7:Starting BGP observation loop
+INFO:RPKIObserver-AS9:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:transaction_creator:Created transaction c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS9:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS15:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS11:✅ Received signature from AS3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS3:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS15:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:RPKIObserver-AS9:RPKI Observer Service started successfully
+INFO:RPKIObserver-AS7:Found 1 new BGP announcements
+INFO:RPKIObserver-AS7:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS15:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:P2P-AS7:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS3:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+INFO:RPKIObserver-AS1:RPKI Observer Service started successfully
+INFO:P2P-AS11:✅ Received signature from AS7 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:Consensus-AS15:Starting consensus validation loop
+INFO:P2P-AS17:Received vote request for 76afb920-9f49-481f-b07d-66aaaf840553 from AS13
+INFO:transaction_creator:Created transaction f8d51f3e-e8b7-4174-97ca-ec9227004a37
+WARNING:P2P-AS1:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:Consensus-AS15:Consensus Service started successfully
+INFO:transaction_creator:Created transaction 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+WARNING:P2P-AS7:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS1:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+INFO:P2P-AS9:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+WARNING:P2P-AS15:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:RPKIObserver-AS7:RPKI Observer Service started successfully
+INFO:P2P-AS13:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+INFO:transaction_creator:Created transaction 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:Consensus-AS7:Starting Consensus Service for AS7
+INFO:P2P-AS11:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+WARNING:P2P-AS3:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS15:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+WARNING:P2P-AS3:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS5:📡 Broadcast transaction 5a58a049-68f9-40cb-8bed-7726d460b42b to 8/8 relevant peers (AS12)
+INFO:Consensus-AS1:Starting Consensus Service for AS1
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:Consensus-AS9:Starting Consensus Service for AS9
+INFO:RPKIObserver-AS5:📡 Transaction broadcast to peers: 5a58a049-68f9-40cb-8bed-7726d460b42b
+ERROR:P2P-AS3:Failed to start P2P server: [Errno 98] Address already in use
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+WARNING:P2P-AS9:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+INFO:P2P-AS13:✅ Received signature from AS7 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS17:Received vote request for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 from AS11
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:Consensus-AS3:All consensus components initialized successfully
+INFO:P2P-AS5:✅ Received signature from AS11 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:Consensus-AS3:Consensus Service initialized for AS3
+INFO:Consensus-AS3:Consensus threshold: 0.33 (2/9 nodes)
+INFO:Consensus-AS9:Starting consensus validation loop
+INFO:Consensus-AS9:Consensus Service started successfully
+INFO:RPKIObserver-AS3:Starting RPKI Observer Service for AS3
+INFO:P2P-AS15:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Signatures collected: 1/3 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS13:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:P2P-AS5:✅ Received signature from AS15 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Signatures collected: 2/3 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:RPKIObserver-AS3:Starting BGP observation loop
+INFO:Consensus-AS1:Starting consensus validation loop
+INFO:Consensus-AS7:Starting consensus validation loop
+INFO:RPKIObserver-AS3:Found 1 new BGP announcements
+INFO:RPKIObserver-AS3:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS3:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS17:Received vote request for 5a58a049-68f9-40cb-8bed-7726d460b42b from AS5
+INFO:transaction_creator:Created transaction 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS17:📂 No existing knowledge base found, starting fresh
+INFO:P2P-AS7:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:Consensus-AS1:Consensus Service started successfully
+WARNING:P2P-AS3:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:Consensus-AS7:Consensus Service started successfully
+INFO:P2P-AS9:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS7:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:RPKIObserver-AS3:RPKI Observer Service started successfully
+INFO:P2P-AS1:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS17:📂 No last_seen cache found, starting fresh
+INFO:P2P-AS5:✅ Received signature from AS13 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS5:Signatures collected: 3/3 for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS5:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS5:🔍 DEBUG: _commit_to_blockchain called for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS5:🔍 DEBUG: About to call add_transaction_to_blockchain for 5a58a049-68f9-40cb-8bed-7726d460b42b
+INFO:P2P-AS11:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS3:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS15:📡 Broadcast transaction 27de1a22-f78e-4235-8f55-d6c939d3f6ac to 8/8 relevant peers (AS12)
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS15:📡 Transaction broadcast to peers: 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:Consensus-AS3:Starting Consensus Service for AS3
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Received signature from AS1 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Signatures collected: 1/3 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS11:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS13:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS17:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS9:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS7:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Received signature from AS11 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS15:Signatures collected: 2/3 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS3:Sent reject vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS1:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS15:✅ Received signature from AS13 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS7:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS15:Signatures collected: 3/3 for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Received vote request for 27de1a22-f78e-4235-8f55-d6c939d3f6ac from AS15
+INFO:P2P-AS15:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:🔍 DEBUG: _commit_to_blockchain called for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS15:🔍 DEBUG: About to call add_transaction_to_blockchain for 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS9:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS13:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:📡 Broadcast transaction 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:RPKIObserver-AS9:📡 Transaction broadcast to peers: 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS11:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS7:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Received signature from AS11 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Signatures collected: 1/3 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS5:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS7:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS9:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:Consensus-AS3:Starting consensus validation loop
+INFO:P2P-AS7:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS1:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS3:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS15:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS11:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS5:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:Consensus-AS3:Consensus Service started successfully
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS11:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:💰 BGPCOIN ledger initialized
+INFO:P2P-AS9:✅ Received signature from AS7 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS1:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS7:✅ Received signature from AS1 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS1:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Received vote request for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 from AS9
+INFO:P2P-AS7:Signatures collected: 1/3 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Signatures collected: 2/3 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS7:✅ Received signature from AS11 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:⛓️  Transaction 27de1a22-f78e-4235-8f55-d6c939d3f6ac committed to blockchain with 3 signatures
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS5:⛓️  Transaction 5a58a049-68f9-40cb-8bed-7726d460b42b committed to blockchain with 3 signatures
+INFO:P2P-AS1:✅ Received signature from AS3 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS9:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS1:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS5:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS3:✅ Received signature from AS1 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS11:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS3:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Signatures collected: 1/3 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS13:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS5:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS15:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+INFO:P2P-AS7:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS9:✅ Received signature from AS13 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS1:Signatures collected: 1/3 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS3:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS9:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS1:✅ Received signature from AS11 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS7:Signatures collected: 2/3 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS3:Sent approve vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+INFO:P2P-AS1:Signatures collected: 2/3 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS5:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS13:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS9:Signatures collected: 3/3 for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS9:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS9:🔍 DEBUG: _commit_to_blockchain called for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS11:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS9:🔍 DEBUG: About to call add_transaction_to_blockchain for 88f2f5fb-7999-452a-8b19-a8f36fb0c256
+INFO:P2P-AS1:✅ Received signature from AS13 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS1:Signatures collected: 3/3 for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS7:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS3:✅ Received signature from AS11 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS13:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS1:🔍 DEBUG: _commit_to_blockchain called for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS17:📡 Neighbor cache initialized
+INFO:P2P-AS3:Signatures collected: 2/3 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS7:✅ Received signature from AS9 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS1:🔍 DEBUG: About to call add_transaction_to_blockchain for c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Signatures collected: 3/3 for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:🔍 DEBUG: _commit_to_blockchain called for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:📡 Broadcast transaction 0df03e15-0707-4975-9de8-a8c367b9beba to 8/8 relevant peers (AS12)
+INFO:P2P-AS15:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS5:Sent approve vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+INFO:P2P-AS1:📡 Broadcast transaction c36d91b6-3c1c-4755-ae4e-2903c59d846c to 8/8 relevant peers (AS12)
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:🔍 DEBUG: About to call add_transaction_to_blockchain for f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:RPKIObserver-AS1:📡 Transaction broadcast to peers: c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:P2P-AS3:✅ Received signature from AS13 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS3:📡 Transaction broadcast to peers: 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS3:Signatures collected: 3/3 for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS3:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS3:🔍 DEBUG: _commit_to_blockchain called for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:🔍 DEBUG: About to call add_transaction_to_blockchain for 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS7:📡 Broadcast transaction f8d51f3e-e8b7-4174-97ca-ec9227004a37 to 8/8 relevant peers (AS12)
+INFO:P2P-AS5:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS5:   Committer (AS5): 15.0 BGPCOIN
+INFO:RPKIObserver-AS7:📡 Transaction broadcast to peers: f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS9:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS1:🔍 DEBUG: add_transaction_to_blockchain returned: True
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS1:⛓️  Transaction c36d91b6-3c1c-4755-ae4e-2903c59d846c committed to blockchain with 3 signatures
+INFO:P2P-AS9:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS5:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS15:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS5:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS7:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:P2P-AS15:💰 BGPCOIN rewards distributed:
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS5:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS9:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:⛓️  Transaction 88f2f5fb-7999-452a-8b19-a8f36fb0c256 committed to blockchain with 3 signatures
+INFO:P2P-AS5:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS15:   Committer (AS15): 15.0 BGPCOIN
+INFO:P2P-AS1:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:   Committer (AS1): 15.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS5:🔍 Analyzing transaction 5a58a049-68f9-40cb-8bed-7726d460b42b for potential attacks...
+INFO:P2P-AS1:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS1:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS1:🔍 Analyzing transaction c36d91b6-3c1c-4755-ae4e-2903c59d846c for potential attacks...
+INFO:P2P-AS15:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS13): 1.0 BGPCOIN
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS15:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS15:🔍 Analyzing transaction 27de1a22-f78e-4235-8f55-d6c939d3f6ac for potential attacks...
+INFO:P2P-AS13:✅ Received signature from AS17 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS13:Signatures collected: 1/3 for 76afb920-9f49-481f-b07d-66aaaf840553
+INFO:P2P-AS17:Received vote request for f8d51f3e-e8b7-4174-97ca-ec9227004a37 from AS7
+INFO:P2P-AS15:Sent approve vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:P2P-AS11:✅ Received signature from AS17 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS7:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:Signatures collected: 1/3 for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50
+INFO:P2P-AS7:⛓️  Transaction f8d51f3e-e8b7-4174-97ca-ec9227004a37 committed to blockchain with 3 signatures
+INFO:P2P-AS15:Sent approve vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:P2P-AS17:Received vote request for c36d91b6-3c1c-4755-ae4e-2903c59d846c from AS1
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS17:Received vote request for 0df03e15-0707-4975-9de8-a8c367b9beba from AS3
+INFO:P2P-AS9:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS9:   Committer (AS9): 15.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS7): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS7:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS9:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS7:   Committer (AS7): 15.0 BGPCOIN
+INFO:P2P-AS9:🔍 Analyzing transaction 88f2f5fb-7999-452a-8b19-a8f36fb0c256 for potential attacks...
+INFO:P2P-AS7:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS7:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS7:🔍 Analyzing transaction f8d51f3e-e8b7-4174-97ca-ec9227004a37 for potential attacks...
+INFO:P2P-AS17:Sent reject vote for 88f2f5fb-7999-452a-8b19-a8f36fb0c256 to AS9
+WARNING:P2P-AS5:Received vote for unknown transaction 5a58a049-68f9-40cb-8bed-7726d460b42b
+ERROR:P2P-AS17:Failed to start P2P server: [Errno 98] Address already in use
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS15:Received vote for unknown transaction 27de1a22-f78e-4235-8f55-d6c939d3f6ac
+INFO:P2P-AS17:Sent reject vote for 76afb920-9f49-481f-b07d-66aaaf840553 to AS13
+INFO:P2P-AS3:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS17:Sent reject vote for e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 to AS11
+INFO:P2P-AS3:⛓️  Transaction 0df03e15-0707-4975-9de8-a8c367b9beba committed to blockchain with 3 signatures
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+WARNING:P2P-AS17:❌ No knowledge match: 203.0.113.0/24 from AS12 at 2025-07-27T21:00:00Z
+INFO:P2P-AS17:Sent reject vote for 5a58a049-68f9-40cb-8bed-7726d460b42b to AS5
+INFO:signature_utils:Loading public key registry from: /home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS17:Sent reject vote for 27de1a22-f78e-4235-8f55-d6c939d3f6ac to AS15
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+WARNING:P2P-AS17:❌ REJECT: Transaction not in my knowledge base
+INFO:P2P-AS3:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS3:   Committer (AS3): 15.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS3:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS3:🔍 Analyzing transaction 0df03e15-0707-4975-9de8-a8c367b9beba for potential attacks...
+ERROR:signature_utils:Failed to load public key registry: [Errno 2] No such file or directory: '/home/anik/code/BGP-Sentry/nodes/rpki_nodes/shared_blockchain_stack/shared_data/shared_registry/public_key_registry.json'
+INFO:Consensus-AS17:All consensus components initialized successfully
+INFO:Consensus-AS17:Consensus Service initialized for AS17
+INFO:Consensus-AS17:Consensus threshold: 0.33 (2/9 nodes)
+INFO:RPKIObserver-AS17:Starting RPKI Observer Service for AS17
+WARNING:P2P-AS1:Received vote for unknown transaction c36d91b6-3c1c-4755-ae4e-2903c59d846c
+INFO:RPKIObserver-AS17:Starting BGP observation loop
+WARNING:P2P-AS3:Received vote for unknown transaction 0df03e15-0707-4975-9de8-a8c367b9beba
+INFO:RPKIObserver-AS17:RPKI Observer Service started successfully
+INFO:P2P-AS17:Sent reject vote for c36d91b6-3c1c-4755-ae4e-2903c59d846c to AS1
+INFO:RPKIObserver-AS17:Found 1 new BGP announcements
+WARNING:P2P-AS7:Received vote for unknown transaction f8d51f3e-e8b7-4174-97ca-ec9227004a37
+INFO:Consensus-AS17:Starting Consensus Service for AS17
+INFO:P2P-AS17:Sent reject vote for 0df03e15-0707-4975-9de8-a8c367b9beba to AS3
+INFO:RPKIObserver-AS17:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS17:Sent reject vote for f8d51f3e-e8b7-4174-97ca-ec9227004a37 to AS7
+INFO:Consensus-AS17:Starting consensus validation loop
+INFO:Consensus-AS17:Consensus Service started successfully
+INFO:P2P-AS17:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:transaction_creator:Created transaction c563af40-0de6-4ea6-8bf6-66fb869769d2
+WARNING:P2P-AS17:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS1:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS3:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS5:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS11:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ Received signature from AS1 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS17:Signatures collected: 1/3 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS9:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS17:✅ Received signature from AS5 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS7:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Signatures collected: 2/3 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS13:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS17:✅ Received signature from AS3 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS11:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Signatures collected: 3/3 for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS17:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS13:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS17:🔍 DEBUG: _commit_to_blockchain called for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS17:🔍 DEBUG: About to call add_transaction_to_blockchain for c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS15:Received vote request for c563af40-0de6-4ea6-8bf6-66fb869769d2 from AS17
+INFO:P2P-AS17:📡 Broadcast transaction c563af40-0de6-4ea6-8bf6-66fb869769d2 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS17:📡 Transaction broadcast to peers: c563af40-0de6-4ea6-8bf6-66fb869769d2
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Sent approve vote for c563af40-0de6-4ea6-8bf6-66fb869769d2 to AS17
+INFO:P2P-AS17:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS17:⛓️  Transaction c563af40-0de6-4ea6-8bf6-66fb869769d2 committed to blockchain with 3 signatures
+INFO:P2P-AS17:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:   Committer (AS17): 15.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS17:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS17:🔍 Analyzing transaction c563af40-0de6-4ea6-8bf6-66fb869769d2 for potential attacks...
+INFO:RPKIObserver-AS13:Found 1 new BGP announcements
+INFO:RPKIObserver-AS13:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS13:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:transaction_creator:Created transaction ecc67c45-2342-48e6-add6-a29328fecd0a
+WARNING:P2P-AS13:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:RPKIObserver-AS11:Found 1 new BGP announcements
+INFO:P2P-AS1:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:RPKIObserver-AS11:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:📚 Added to knowledge base: 203.0.113.0/24 from AS12 (REGULAR)
+INFO:P2P-AS3:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS13:📡 Broadcast transaction ecc67c45-2342-48e6-add6-a29328fecd0a to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS13:📡 Transaction broadcast to peers: ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:transaction_creator:Created transaction 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS5:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+WARNING:P2P-AS11:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS17:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for ecc67c45-2342-48e6-add6-a29328fecd0a from AS13
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:P2P-AS15:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:RPKIObserver-AS5:Found 1 new BGP announcements
+INFO:P2P-AS1:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:P2P-AS13:✅ Received signature from AS1 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:RPKIObserver-AS5:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS9:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:P2P-AS13:Signatures collected: 1/3 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS17:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:P2P-AS1:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS5:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS7:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:transaction_creator:Created transaction 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+WARNING:P2P-AS5:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:✅ Received signature from AS3 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:P2P-AS11:Sent approve vote for ecc67c45-2342-48e6-add6-a29328fecd0a to AS13
+INFO:RPKIObserver-AS15:Found 1 new BGP announcements
+INFO:P2P-AS13:Signatures collected: 2/3 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS3:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:RPKIObserver-AS15:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS1:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS13:✅ Received signature from AS15 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS15:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS13:Signatures collected: 3/3 for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS13:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:transaction_creator:Created transaction 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS15:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS9:Found 1 new BGP announcements
+INFO:RPKIObserver-AS9:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS9:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS13:🔍 DEBUG: _commit_to_blockchain called for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:transaction_creator:Created transaction 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS5:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS3:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS13:🔍 DEBUG: About to call add_transaction_to_blockchain for ecc67c45-2342-48e6-add6-a29328fecd0a
+INFO:P2P-AS11:📡 Broadcast transaction 07f42919-0821-4528-92ea-31c0ccbb0c11 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS11:📡 Transaction broadcast to peers: 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS15:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS17:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS9:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS5:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS11:✅ Received signature from AS3 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS7:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+WARNING:P2P-AS9:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:Signatures collected: 1/3 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS1:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:RPKIObserver-AS1:Found 1 new BGP announcements
+INFO:P2P-AS15:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS11:✅ Received signature from AS5 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS5:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS7:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:RPKIObserver-AS1:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Signatures collected: 2/3 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:RPKIObserver-AS3:Found 1 new BGP announcements
+INFO:P2P-AS15:✅ Received signature from AS1 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS5:✅ Received signature from AS1 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS3:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS15:Signatures collected: 1/3 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS1:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS5:Signatures collected: 1/3 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:RPKIObserver-AS7:Found 1 new BGP announcements
+INFO:transaction_creator:Created transaction 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS3:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Received signature from AS5 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS3:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:P2P-AS11:✅ Received signature from AS1 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS9:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS15:Signatures collected: 2/3 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:RPKIObserver-AS7:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS1:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS11:Signatures collected: 3/3 for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS11:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:transaction_creator:Created transaction 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS11:🔍 DEBUG: _commit_to_blockchain called for 07f42919-0821-4528-92ea-31c0ccbb0c11
+WARNING:P2P-AS1:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:🔍 DEBUG: About to call add_transaction_to_blockchain for 07f42919-0821-4528-92ea-31c0ccbb0c11
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:P2P-AS1:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS5:✅ Received signature from AS3 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Signatures collected: 2/3 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS3:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS7:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS1:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for 07f42919-0821-4528-92ea-31c0ccbb0c11 from AS11
+INFO:P2P-AS15:✅ Received signature from AS3 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:transaction_creator:Created transaction 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS15:Signatures collected: 3/3 for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+WARNING:P2P-AS3:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS15:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:🔍 DEBUG: _commit_to_blockchain called for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS5:✅ Received signature from AS7 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS15:🔍 DEBUG: About to call add_transaction_to_blockchain for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS5:Signatures collected: 3/3 for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS5:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS5:🔍 DEBUG: _commit_to_blockchain called for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS7:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS3:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:P2P-AS5:🔍 DEBUG: About to call add_transaction_to_blockchain for 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS9:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS7:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS1:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS15:📡 Broadcast transaction 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:RPKIObserver-AS15:📡 Transaction broadcast to peers: 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5
+INFO:P2P-AS9:✅ Received signature from AS1 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS9:Signatures collected: 1/3 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS17:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS11:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS13:Sent approve vote for 07f42919-0821-4528-92ea-31c0ccbb0c11 to AS11
+INFO:P2P-AS9:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS17:Found 1 new BGP announcements
+INFO:P2P-AS13:Received vote request for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 from AS15
+INFO:RPKIObserver-AS17:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:transaction_creator:Created transaction 092961cf-d846-4578-9a63-d4c0e314b09c
+WARNING:P2P-AS17:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS3:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS7:📡 Broadcast transaction 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to 8/8 relevant peers (AS12)
+INFO:P2P-AS9:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:RPKIObserver-AS7:📡 Transaction broadcast to peers: 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS1:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS5:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS5:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS3:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS7:✅ Received signature from AS9 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS7:Signatures collected: 1/3 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS17:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS13:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS5:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS1:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS13:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS1:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Received signature from AS1 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS17:📡 Broadcast transaction 092961cf-d846-4578-9a63-d4c0e314b09c to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS17:📡 Transaction broadcast to peers: 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS9:✅ Received signature from AS3 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Signatures collected: 2/3 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS7:Signatures collected: 2/3 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS13:⛓️  Transaction ecc67c45-2342-48e6-add6-a29328fecd0a committed to blockchain with 3 signatures
+INFO:P2P-AS5:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS17:✅ Received signature from AS1 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS17:Signatures collected: 1/3 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Received signature from AS17 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS3:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS17:✅ Received signature from AS9 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS11:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:⛓️  Transaction 07f42919-0821-4528-92ea-31c0ccbb0c11 committed to blockchain with 3 signatures
+INFO:P2P-AS9:✅ Received signature from AS7 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS17:Signatures collected: 2/3 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS9:Signatures collected: 3/3 for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS7:Signatures collected: 3/3 for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS15:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS9:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ Received signature from AS3 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS3:✅ Received signature from AS1 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS13:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS7:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS11:Received vote request for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 from AS7
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Signatures collected: 1/3 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS3:Signatures collected: 1/3 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS9:🔍 DEBUG: _commit_to_blockchain called for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS9:🔍 DEBUG: About to call add_transaction_to_blockchain for 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS9:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS3:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:📡 Broadcast transaction 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to 8/8 relevant peers (AS12)
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:RPKIObserver-AS1:📡 Transaction broadcast to peers: 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS15:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS17:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS7:🔍 DEBUG: _commit_to_blockchain called for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS9:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Received signature from AS5 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Signatures collected: 2/3 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS17:Received vote request for 2f10b8b4-5c04-463d-b5b1-87b617354a80 from AS5
+INFO:P2P-AS7:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS3:📡 Broadcast transaction 979af0ff-84fb-4e42-ad9b-e1269982c1eb to 8/8 relevant peers (AS12)
+INFO:P2P-AS5:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:RPKIObserver-AS3:📡 Transaction broadcast to peers: 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS9:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS7:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:📡 Broadcast transaction 2f10b8b4-5c04-463d-b5b1-87b617354a80 to 8/8 relevant peers (AS12)
+INFO:P2P-AS13:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS17:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS15:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:Received vote request for 092961cf-d846-4578-9a63-d4c0e314b09c from AS17
+INFO:P2P-AS7:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS15:⛓️  Transaction 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 committed to blockchain with 3 signatures
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS5:⛓️  Transaction 2f10b8b4-5c04-463d-b5b1-87b617354a80 committed to blockchain with 3 signatures
+INFO:P2P-AS1:✅ Received signature from AS17 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS15:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS1:Signatures collected: 3/3 for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS1:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS1:🔍 DEBUG: _commit_to_blockchain called for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS1:🔍 DEBUG: About to call add_transaction_to_blockchain for 0b2fcd77-a99e-496d-a4ed-185c956b9c42
+INFO:P2P-AS3:✅ Received signature from AS5 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS7:🔍 DEBUG: About to call add_transaction_to_blockchain for 27cfe8f2-8932-4dde-b477-28ab4f2cb111
+INFO:P2P-AS3:Signatures collected: 2/3 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS17:✅ Received signature from AS3 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS9:📡 Broadcast transaction 2ec57249-beb0-4dd8-8d20-a21a88477307 to 8/8 relevant peers (AS12)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Sent approve vote for 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 to AS15
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 from AS1
+INFO:P2P-AS5:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS17:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS5:📡 Transaction broadcast to peers: 2f10b8b4-5c04-463d-b5b1-87b617354a80
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS15:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:RPKIObserver-AS9:📡 Transaction broadcast to peers: 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS17:Signatures collected: 3/3 for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:Received vote request for 2ec57249-beb0-4dd8-8d20-a21a88477307 from AS9
+INFO:P2P-AS17:🔍 DEBUG: _commit_to_blockchain called for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:🔍 DEBUG: About to call add_transaction_to_blockchain for 092961cf-d846-4578-9a63-d4c0e314b09c
+INFO:P2P-AS9:⛓️  Transaction 2ec57249-beb0-4dd8-8d20-a21a88477307 committed to blockchain with 3 signatures
+INFO:P2P-AS5:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS13:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS3:✅ Received signature from AS9 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS3:Signatures collected: 3/3 for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS15:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS3:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS11:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS3:🔍 DEBUG: _commit_to_blockchain called for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:🔍 DEBUG: About to call add_transaction_to_blockchain for 979af0ff-84fb-4e42-ad9b-e1269982c1eb
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS15:Received vote request for 979af0ff-84fb-4e42-ad9b-e1269982c1eb from AS3
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS1:⛓️  Transaction 0b2fcd77-a99e-496d-a4ed-185c956b9c42 committed to blockchain with 3 signatures
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:   Committer (AS13): 15.0 BGPCOIN
+INFO:P2P-AS9:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS7:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS11:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS13:Sent approve vote for 2f10b8b4-5c04-463d-b5b1-87b617354a80 to AS5
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS11:Sent approve vote for 27cfe8f2-8932-4dde-b477-28ab4f2cb111 to AS7
+INFO:P2P-AS15:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS5:   Committer (AS5): 15.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS7): 1.0 BGPCOIN
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:🔍 Analyzing transaction 2f10b8b4-5c04-463d-b5b1-87b617354a80 for potential attacks...
+INFO:P2P-AS9:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS7:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:   Committer (AS11): 15.0 BGPCOIN
+INFO:P2P-AS9:   Committer (AS9): 15.0 BGPCOIN
+INFO:P2P-AS13:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS9:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS15:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS13:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:   Committer (AS15): 15.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS3:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS15:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS7:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS13:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS7): 1.0 BGPCOIN
+INFO:P2P-AS15:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS9:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS3:⛓️  Transaction 979af0ff-84fb-4e42-ad9b-e1269982c1eb committed to blockchain with 3 signatures
+INFO:P2P-AS15:🔍 Analyzing transaction 5df9730d-2aed-4c93-97c5-c3eb64b5e8a5 for potential attacks...
+INFO:P2P-AS7:⛓️  Transaction 27cfe8f2-8932-4dde-b477-28ab4f2cb111 committed to blockchain with 3 signatures
+INFO:P2P-AS9:🔍 Analyzing transaction 2ec57249-beb0-4dd8-8d20-a21a88477307 for potential attacks...
+INFO:P2P-AS11:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS15:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS13:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS13:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS13:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS13:🔍 Analyzing transaction ecc67c45-2342-48e6-add6-a29328fecd0a for potential attacks...
+INFO:P2P-AS13:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS11:Sent approve vote for 0b2fcd77-a99e-496d-a4ed-185c956b9c42 to AS1
+INFO:P2P-AS1:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS1:   Committer (AS1): 15.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS17): 1.0 BGPCOIN
+INFO:P2P-AS1:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS1:🔍 Analyzing transaction 0b2fcd77-a99e-496d-a4ed-185c956b9c42 for potential attacks...
+WARNING:P2P-AS9:Received vote for unknown transaction 2ec57249-beb0-4dd8-8d20-a21a88477307
+INFO:P2P-AS11:Sent approve vote for 092961cf-d846-4578-9a63-d4c0e314b09c to AS17
+INFO:P2P-AS11:   💼 My balance: 15.0 BGPCOIN
+INFO:P2P-AS17:Sent approve vote for 2ec57249-beb0-4dd8-8d20-a21a88477307 to AS9
+INFO:P2P-AS7:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS7:   Committer (AS7): 15.0 BGPCOIN
+INFO:P2P-AS11:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS7:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS11:🔍 Analyzing transaction 07f42919-0821-4528-92ea-31c0ccbb0c11 for potential attacks...
+INFO:P2P-AS7:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:Sent approve vote for 979af0ff-84fb-4e42-ad9b-e1269982c1eb to AS3
+INFO:P2P-AS7:   Voter (AS17): 1.0 BGPCOIN
+INFO:P2P-AS17:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS7:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS7:🔍 Analyzing transaction 27cfe8f2-8932-4dde-b477-28ab4f2cb111 for potential attacks...
+INFO:P2P-AS17:⛓️  Transaction 092961cf-d846-4578-9a63-d4c0e314b09c committed to blockchain with 3 signatures
+INFO:P2P-AS3:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS3:   Committer (AS3): 15.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS3:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS3:🔍 Analyzing transaction 979af0ff-84fb-4e42-ad9b-e1269982c1eb for potential attacks...
+INFO:P2P-AS17:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:   Committer (AS17): 15.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS17:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS17:🔍 Analyzing transaction 092961cf-d846-4578-9a63-d4c0e314b09c for potential attacks...
+INFO:RPKIObserver-AS13:Found 1 new BGP announcements
+INFO:RPKIObserver-AS13:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS13:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction 3678c615-6a98-4217-a961-6392ed265011
+WARNING:P2P-AS13:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS3:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS5:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS1:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS7:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS15:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS11:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS13:📡 Broadcast transaction 3678c615-6a98-4217-a961-6392ed265011 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS13:📡 Transaction broadcast to peers: 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS3:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS15:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS5:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS11:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Received vote request for 3678c615-6a98-4217-a961-6392ed265011 from AS13
+INFO:P2P-AS13:✅ Received signature from AS7 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS13:Signatures collected: 1/3 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS9:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:RPKIObserver-AS11:Found 1 new BGP announcements
+INFO:RPKIObserver-AS11:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction cd3aff9b-f348-49d7-907b-a468e0743cd8
+WARNING:P2P-AS11:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Sent approve vote for 3678c615-6a98-4217-a961-6392ed265011 to AS13
+INFO:P2P-AS13:✅ Received signature from AS15 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS13:Signatures collected: 2/3 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS1:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS3:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS5:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS9:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS7:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS11:📡 Broadcast transaction cd3aff9b-f348-49d7-907b-a468e0743cd8 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS11:📡 Transaction broadcast to peers: cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS13:✅ Received signature from AS3 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS9:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS13:Signatures collected: 3/3 for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS3:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS11:✅ Received signature from AS1 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS13:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS17:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS15:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS7:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:P2P-AS11:Signatures collected: 1/3 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS13:🔍 DEBUG: _commit_to_blockchain called for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS11:✅ Received signature from AS3 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS11:Signatures collected: 2/3 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS11:✅ Received signature from AS5 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS13:🔍 DEBUG: About to call add_transaction_to_blockchain for 3678c615-6a98-4217-a961-6392ed265011
+INFO:P2P-AS11:Signatures collected: 3/3 for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS11:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS11:🔍 DEBUG: _commit_to_blockchain called for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS11:🔍 DEBUG: About to call add_transaction_to_blockchain for cd3aff9b-f348-49d7-907b-a468e0743cd8
+INFO:P2P-AS13:Received vote request for cd3aff9b-f348-49d7-907b-a468e0743cd8 from AS11
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:RPKIObserver-AS15:Found 1 new BGP announcements
+INFO:P2P-AS13:Sent approve vote for cd3aff9b-f348-49d7-907b-a468e0743cd8 to AS11
+INFO:RPKIObserver-AS15:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:⛓️  Transaction cd3aff9b-f348-49d7-907b-a468e0743cd8 committed to blockchain with 3 signatures
+INFO:P2P-AS15:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+WARNING:P2P-AS15:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS1:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS13:⛓️  Transaction 3678c615-6a98-4217-a961-6392ed265011 committed to blockchain with 3 signatures
+INFO:RPKIObserver-AS7:Found 1 new BGP announcements
+INFO:P2P-AS3:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS11:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS5:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS11:   Committer (AS11): 15.0 BGPCOIN
+INFO:P2P-AS9:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS15:📡 Broadcast transaction eb04abce-b8d0-4fe1-bca0-24fd64c8546d to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS15:📡 Transaction broadcast to peers: eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS17:Received vote request for eb04abce-b8d0-4fe1-bca0-24fd64c8546d from AS15
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS5:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:RPKIObserver-AS7:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS3:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS7:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Received signature from AS1 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS11:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Signatures collected: 1/3 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:transaction_creator:Created transaction 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Received signature from AS5 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS17:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+WARNING:P2P-AS7:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Signatures collected: 2/3 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS7:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS11:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS11:🔍 Analyzing transaction cd3aff9b-f348-49d7-907b-a468e0743cd8 for potential attacks...
+INFO:P2P-AS15:✅ Received signature from AS3 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS1:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS3:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Signatures collected: 3/3 for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS13:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS11:Sent approve vote for eb04abce-b8d0-4fe1-bca0-24fd64c8546d to AS15
+INFO:P2P-AS9:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS13:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS5:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS1:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS13:   Committer (AS13): 15.0 BGPCOIN
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:   Voter (AS7): 1.0 BGPCOIN
+INFO:P2P-AS15:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS11:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS15:🔍 DEBUG: _commit_to_blockchain called for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Received signature from AS1 for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS9:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS13:   💼 My balance: 30.0 BGPCOIN
+INFO:P2P-AS15:🔍 DEBUG: About to call add_transaction_to_blockchain for eb04abce-b8d0-4fe1-bca0-24fd64c8546d
+INFO:RPKIObserver-AS17:Found 1 new BGP announcements
+INFO:P2P-AS13:🔍 Analyzing transaction 3678c615-6a98-4217-a961-6392ed265011 for potential attacks...
+INFO:RPKIObserver-AS17:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS7:Signatures collected: 1/3 for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS17:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS7:✅ Received signature from AS3 for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS7:Signatures collected: 2/3 for 263727a5-d63b-4a87-828c-ec93c52a3357
+WARNING:P2P-AS17:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS11:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS17:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS13:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS7:📡 Broadcast transaction 263727a5-d63b-4a87-828c-ec93c52a3357 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS7:📡 Transaction broadcast to peers: 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS7:✅ Received signature from AS9 for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS1:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS7:Signatures collected: 3/3 for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS5:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS7:🔍 DEBUG: _commit_to_blockchain called for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:P2P-AS7:🔍 DEBUG: About to call add_transaction_to_blockchain for 263727a5-d63b-4a87-828c-ec93c52a3357
+INFO:RPKIObserver-AS1:Found 1 new BGP announcements
+INFO:P2P-AS3:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS17:✅ Received signature from AS1 for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:RPKIObserver-AS1:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Received vote request for 263727a5-d63b-4a87-828c-ec93c52a3357 from AS7
+INFO:P2P-AS1:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:transaction_creator:Created transaction e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS17:Signatures collected: 1/3 for 0c3c416e-a043-4c96-b510-f25d52662331
+WARNING:P2P-AS1:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Received signature from AS3 for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS17:Signatures collected: 2/3 for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS3:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS15:Sent approve vote for 263727a5-d63b-4a87-828c-ec93c52a3357 to AS7
+INFO:P2P-AS17:✅ Received signature from AS5 for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS9:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS5:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS7:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS17:Signatures collected: 3/3 for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS15:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS17:🔍 DEBUG: _commit_to_blockchain called for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS15:⛓️  Transaction eb04abce-b8d0-4fe1-bca0-24fd64c8546d committed to blockchain with 3 signatures
+INFO:P2P-AS17:🔍 DEBUG: About to call add_transaction_to_blockchain for 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:RPKIObserver-AS3:Found 1 new BGP announcements
+INFO:RPKIObserver-AS3:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:transaction_creator:Created transaction a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS11:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+WARNING:P2P-AS3:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS3:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS15:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS5:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS1:✅ Received signature from AS5 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS9:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS1:Signatures collected: 1/3 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS1:✅ Received signature from AS3 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS7:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS1:Signatures collected: 2/3 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS15:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS9:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS1:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS5:Found 1 new BGP announcements
+INFO:P2P-AS17:Received vote request for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 from AS1
+INFO:P2P-AS3:✅ Received signature from AS5 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS13:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:RPKIObserver-AS5:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS15:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS5:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:P2P-AS3:Signatures collected: 1/3 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS15:   Committer (AS15): 15.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS7:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS15:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS3): 1.0 BGPCOIN
+INFO:transaction_creator:Created transaction 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS15:🔍 Analyzing transaction eb04abce-b8d0-4fe1-bca0-24fd64c8546d for potential attacks...
+WARNING:P2P-AS5:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:RPKIObserver-AS9:Found 1 new BGP announcements
+INFO:P2P-AS9:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:RPKIObserver-AS9:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS15:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS7:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS1:📡 Broadcast transaction e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:P2P-AS11:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:transaction_creator:Created transaction 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS1:✅ Received signature from AS13 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS1:📡 Transaction broadcast to peers: e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS1:Signatures collected: 3/3 for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS13:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS7:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS11:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS5:📡 Broadcast transaction 7fc11f09-6b08-442d-af2e-4fdf64997c37 to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:RPKIObserver-AS5:📡 Transaction broadcast to peers: 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS3:✅ Received signature from AS11 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS9:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS17:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS7:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Signatures collected: 2/3 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS15:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS9:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS1:Received vote request for 7fc11f09-6b08-442d-af2e-4fdf64997c37 from AS5
+INFO:P2P-AS3:📡 Broadcast transaction a47f52ae-df98-4dbe-94dd-15763e1ce767 to 8/8 relevant peers (AS12)
+INFO:P2P-AS7:⛓️  Transaction 263727a5-d63b-4a87-828c-ec93c52a3357 committed to blockchain with 3 signatures
+INFO:P2P-AS11:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS7:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS15:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Received signature from AS11 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Signatures collected: 1/3 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS13:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS13:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS9:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Received signature from AS13 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Received vote request for 0c3c416e-a043-4c96-b510-f25d52662331 from AS17
+INFO:P2P-AS5:Signatures collected: 2/3 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS1:🔍 DEBUG: _commit_to_blockchain called for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS7:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS3:✅ Received signature from AS1 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS17:Received vote request for a47f52ae-df98-4dbe-94dd-15763e1ce767 from AS3
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS7:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS9:📡 Broadcast transaction 076d050c-61a6-4352-a2de-45336ece7027 to 8/8 relevant peers (AS12)
+INFO:P2P-AS13:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:RPKIObserver-AS9:📡 Transaction broadcast to peers: 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ Received signature from AS15 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:RPKIObserver-AS3:📡 Transaction broadcast to peers: a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS15:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS11:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS5:Signatures collected: 3/3 for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:🔍 DEBUG: About to call add_transaction_to_blockchain for e23abc60-df7c-444e-a6c7-fa3896c6b9a5
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Received signature from AS11 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS17:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS13:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Signatures collected: 1/3 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS5:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Received signature from AS13 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS15:Sent approve vote for 0c3c416e-a043-4c96-b510-f25d52662331 to AS17
+INFO:P2P-AS5:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS3:Signatures collected: 3/3 for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS9:Signatures collected: 2/3 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS3:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS15:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS17:📡 Broadcast transaction 0c3c416e-a043-4c96-b510-f25d52662331 to 8/8 relevant peers (AS12)
+INFO:P2P-AS9:✅ Received signature from AS15 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS3:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS9:Signatures collected: 3/3 for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS3:🔍 DEBUG: _commit_to_blockchain called for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS9:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS9:🔍 DEBUG: _commit_to_blockchain called for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS3:🔍 DEBUG: About to call add_transaction_to_blockchain for a47f52ae-df98-4dbe-94dd-15763e1ce767
+INFO:P2P-AS9:🔍 DEBUG: About to call add_transaction_to_blockchain for 076d050c-61a6-4352-a2de-45336ece7027
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS17:Sent approve vote for e23abc60-df7c-444e-a6c7-fa3896c6b9a5 to AS1
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:🔍 DEBUG: _commit_to_blockchain called for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS17:⛓️  Transaction 0c3c416e-a043-4c96-b510-f25d52662331 committed to blockchain with 3 signatures
+INFO:P2P-AS1:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS7:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS17:Received vote request for 076d050c-61a6-4352-a2de-45336ece7027 from AS9
+INFO:P2P-AS7:   Committer (AS7): 15.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS7:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS7:🔍 Analyzing transaction 263727a5-d63b-4a87-828c-ec93c52a3357 for potential attacks...
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:🔍 DEBUG: About to call add_transaction_to_blockchain for 7fc11f09-6b08-442d-af2e-4fdf64997c37
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:RPKIObserver-AS17:📡 Transaction broadcast to peers: 0c3c416e-a043-4c96-b510-f25d52662331
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for 7fc11f09-6b08-442d-af2e-4fdf64997c37 to AS5
+INFO:P2P-AS9:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS9:⛓️  Transaction 076d050c-61a6-4352-a2de-45336ece7027 committed to blockchain with 3 signatures
+INFO:P2P-AS3:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS1:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS3:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS3:⛓️  Transaction a47f52ae-df98-4dbe-94dd-15763e1ce767 committed to blockchain with 3 signatures
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS1:⛓️  Transaction e23abc60-df7c-444e-a6c7-fa3896c6b9a5 committed to blockchain with 3 signatures
+INFO:P2P-AS5:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS5:⛓️  Transaction 7fc11f09-6b08-442d-af2e-4fdf64997c37 committed to blockchain with 3 signatures
+INFO:P2P-AS17:Sent approve vote for a47f52ae-df98-4dbe-94dd-15763e1ce767 to AS3
+INFO:P2P-AS1:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS1:   Committer (AS1): 15.0 BGPCOIN
+INFO:P2P-AS17:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS1:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS1:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS1:🔍 Analyzing transaction e23abc60-df7c-444e-a6c7-fa3896c6b9a5 for potential attacks...
+INFO:P2P-AS17:   Committer (AS17): 15.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS3:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS17:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS3:   Committer (AS3): 15.0 BGPCOIN
+INFO:P2P-AS17:🔍 Analyzing transaction 0c3c416e-a043-4c96-b510-f25d52662331 for potential attacks...
+INFO:P2P-AS3:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS5:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS3:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS5:   Committer (AS5): 15.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS3:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS5:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS17:Sent approve vote for 076d050c-61a6-4352-a2de-45336ece7027 to AS9
+INFO:P2P-AS5:🔍 Analyzing transaction 7fc11f09-6b08-442d-af2e-4fdf64997c37 for potential attacks...
+INFO:P2P-AS3:🔍 Analyzing transaction a47f52ae-df98-4dbe-94dd-15763e1ce767 for potential attacks...
+INFO:P2P-AS9:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS9:   Committer (AS9): 15.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS9:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS9:🔍 Analyzing transaction 076d050c-61a6-4352-a2de-45336ece7027 for potential attacks...
+2025-12-02 15:43:14,319 - BGP-Sentry-Main - WARNING - Not all nodes registered with shared clock
+2025-12-02 15:43:14,319 - BGP-Sentry-Main - INFO - All nodes started and network converged
+Step 4: Running simulation...
+2025-12-02 15:43:14,319 - BGP-Sentry-Main - INFO - Starting BGP simulation...
+2025-12-02 15:43:14,326 - BGP-Sentry-Main - INFO - Simulation running - Duration: 50s, Monitoring interval: 5.0s
+2025-12-02 15:43:19,326 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 5.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+WARNING:P2P-AS13:⏱️  Transaction 76afb920-9f49-481f-b07d-66aaaf840553 timed out after 70s (REGULAR, timeout=60s)
+WARNING:P2P-AS11:⏱️  Transaction e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 timed out after 70s (REGULAR, timeout=60s)
+INFO:P2P-AS13:⛓️  Transaction 76afb920-9f49-481f-b07d-66aaaf840553 committed with status=INSUFFICIENT_CONSENSUS (1 approve votes, timeout)
+INFO:P2P-AS11:⛓️  Transaction e7b451ed-80aa-4fb1-bfd8-c77ddeeb2f50 committed with status=INSUFFICIENT_CONSENSUS (1 approve votes, timeout)
+INFO:P2P-AS13:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS13:   Committer (AS13): 15.0 BGPCOIN
+INFO:P2P-AS13:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS13:   💼 My balance: 45.0 BGPCOIN
+INFO:P2P-AS11:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS11:   Committer (AS11): 15.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS11:   💼 My balance: 45.0 BGPCOIN
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:24,327 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 10.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:29,328 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 15.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:34,328 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 20.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:39,329 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 25.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+INFO:RPKIObserver-AS13:Found 1 new BGP announcements
+INFO:RPKIObserver-AS13:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS13:📊 Sampling: 203.0.113.0/24 from AS12 seen 20s ago, skipping
+INFO:transaction_creator:Created transaction 64bc6b07-09fb-496d-bdc3-46555862cee8
+WARNING:P2P-AS13:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS1:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS3:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS13:📡 Broadcast transaction 64bc6b07-09fb-496d-bdc3-46555862cee8 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS13:📡 Transaction broadcast to peers: 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS7:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS5:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS9:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS15:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS17:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS11:Received vote request for 64bc6b07-09fb-496d-bdc3-46555862cee8 from AS13
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS9:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS3:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS15:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:RPKIObserver-AS11:Found 1 new BGP announcements
+INFO:P2P-AS5:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS13:✅ Received signature from AS1 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS17:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:RPKIObserver-AS11:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Signatures collected: 1/3 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS11:📊 Sampling: 203.0.113.0/24 from AS12 seen 20s ago, skipping
+INFO:transaction_creator:Created transaction d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+WARNING:P2P-AS11:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:✅ Received signature from AS7 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS13:Signatures collected: 2/3 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS11:Sent approve vote for 64bc6b07-09fb-496d-bdc3-46555862cee8 to AS13
+INFO:P2P-AS1:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS13:✅ Received signature from AS3 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS3:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS13:Signatures collected: 3/3 for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS5:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS13:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:🔍 DEBUG: _commit_to_blockchain called for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS7:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS11:📡 Broadcast transaction d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS11:📡 Transaction broadcast to peers: d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS13:🔍 DEBUG: About to call add_transaction_to_blockchain for 64bc6b07-09fb-496d-bdc3-46555862cee8
+INFO:P2P-AS9:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Received signature from AS1 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS7:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS5:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS11:Signatures collected: 1/3 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS9:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS15:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS17:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS11:✅ Received signature from AS3 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS11:Signatures collected: 2/3 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS11:✅ Received signature from AS5 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:RPKIObserver-AS15:Found 1 new BGP announcements
+INFO:P2P-AS11:Signatures collected: 3/3 for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:RPKIObserver-AS15:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS11:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+WARNING:P2P-AS15:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:Received vote request for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c from AS11
+INFO:P2P-AS11:🔍 DEBUG: _commit_to_blockchain called for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS11:🔍 DEBUG: About to call add_transaction_to_blockchain for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS3:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS7:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS9:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:📡 Broadcast transaction 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to 8/8 relevant peers (AS12)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS15:📡 Transaction broadcast to peers: 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS13:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS3:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS15:✅ Received signature from AS1 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS5:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Signatures collected: 1/3 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS11:Received vote request for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b from AS15
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for d0a888c2-b8b0-450c-8a10-b7d5d6540e3c to AS11
+INFO:P2P-AS15:✅ Received signature from AS3 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS15:Signatures collected: 2/3 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS13:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS17:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS13:⛓️  Transaction 64bc6b07-09fb-496d-bdc3-46555862cee8 committed to blockchain with 3 signatures
+INFO:P2P-AS13:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ Received signature from AS5 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:Signatures collected: 3/3 for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:RPKIObserver-AS7:Found 1 new BGP announcements
+INFO:RPKIObserver-AS7:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS13:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS15:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS13:   Committer (AS13): 15.0 BGPCOIN
+INFO:P2P-AS7:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS13:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS13:   Voter (AS7): 1.0 BGPCOIN
+INFO:P2P-AS11:Sent approve vote for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b to AS15
+INFO:P2P-AS13:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS13:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS13:🔍 Analyzing transaction 64bc6b07-09fb-496d-bdc3-46555862cee8 for potential attacks...
+INFO:transaction_creator:Created transaction 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS11:🔍 DEBUG: add_transaction_to_blockchain returned: True
+WARNING:P2P-AS7:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS15:🔍 DEBUG: _commit_to_blockchain called for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS11:⛓️  Transaction d0a888c2-b8b0-450c-8a10-b7d5d6540e3c committed to blockchain with 3 signatures
+INFO:P2P-AS15:🔍 DEBUG: About to call add_transaction_to_blockchain for 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b
+INFO:P2P-AS1:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS3:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS11:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS11:   Committer (AS11): 15.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS11:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS11:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS5:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS11:🔍 Analyzing transaction d0a888c2-b8b0-450c-8a10-b7d5d6540e3c for potential attacks...
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS11:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS7:✅ Received signature from AS1 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS3:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS7:Signatures collected: 1/3 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS9:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS13:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Received signature from AS3 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Signatures collected: 2/3 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS11:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Received signature from AS5 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS15:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS15:⛓️  Transaction 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b committed to blockchain with 3 signatures
+INFO:P2P-AS7:Signatures collected: 3/3 for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS13:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS7:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS7:🔍 DEBUG: _commit_to_blockchain called for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS15:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS7:🔍 DEBUG: About to call add_transaction_to_blockchain for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS15:   Committer (AS15): 15.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS15:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS15:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS15:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+INFO:P2P-AS15:🔍 Analyzing transaction 5cefcec7-fb6b-4a6b-aedf-dd7074a9b51b for potential attacks...
+INFO:RPKIObserver-AS1:Found 1 new BGP announcements
+INFO:P2P-AS7:📡 Broadcast transaction 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to 8/8 relevant peers (AS12)
+INFO:RPKIObserver-AS1:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS17:Received vote request for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 from AS7
+INFO:P2P-AS1:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:RPKIObserver-AS7:📡 Transaction broadcast to peers: 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1
+INFO:transaction_creator:Created transaction 6a382935-e284-4cc5-a417-ae544c9fe364
+WARNING:P2P-AS1:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:RPKIObserver-AS5:Found 1 new BGP announcements
+INFO:RPKIObserver-AS5:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS7:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS7:⛓️  Transaction 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 committed to blockchain with 3 signatures
+INFO:P2P-AS3:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:transaction_creator:Created transaction 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS17:Sent approve vote for 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 to AS7
+WARNING:P2P-AS5:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS1:📡 Broadcast transaction 6a382935-e284-4cc5-a417-ae544c9fe364 to 8/8 relevant peers (AS12)
+INFO:P2P-AS11:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS1:📡 Transaction broadcast to peers: 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS13:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS3:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for 6a382935-e284-4cc5-a417-ae544c9fe364 from AS1
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Received signature from AS3 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Signatures collected: 1/3 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS17:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS1:✅ Received signature from AS9 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS7:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:P2P-AS5:Sent approve vote for 6a382935-e284-4cc5-a417-ae544c9fe364 to AS1
+INFO:RPKIObserver-AS9:Found 1 new BGP announcements
+INFO:RPKIObserver-AS9:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS1:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS3:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS9:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:transaction_creator:Created transaction 97e14d90-654f-4977-ab84-323b45e90e8a
+WARNING:P2P-AS9:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:RPKIObserver-AS3:Found 1 new BGP announcements
+INFO:P2P-AS1:Signatures collected: 2/3 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS9:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:📡 Broadcast transaction 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to 8/8 relevant peers (AS12)
+INFO:P2P-AS1:✅ Received signature from AS15 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:RPKIObserver-AS3:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:RPKIObserver-AS5:📡 Transaction broadcast to peers: 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS11:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS15:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS1:Signatures collected: 3/3 for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS13:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:📊 Sampling: 203.0.113.0/24 from AS12 seen 29s ago, skipping
+INFO:P2P-AS17:Received vote request for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c from AS5
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:transaction_creator:Created transaction a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS1:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+WARNING:P2P-AS3:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS5:✅ Received signature from AS3 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Signatures collected: 1/3 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS15:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS11:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS1:🔍 DEBUG: _commit_to_blockchain called for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS13:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS17:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS5:✅ Received signature from AS15 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS7:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS1:🔍 DEBUG: About to call add_transaction_to_blockchain for 6a382935-e284-4cc5-a417-ae544c9fe364
+INFO:P2P-AS7:   Committer (AS7): 15.0 BGPCOIN
+INFO:P2P-AS5:Signatures collected: 2/3 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS9:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS3:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS7:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS5:✅ Received signature from AS13 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS7:   Voter (AS1): 1.0 BGPCOIN
+INFO:P2P-AS7:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS5:Signatures collected: 3/3 for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS5:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:🔍 DEBUG: _commit_to_blockchain called for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS5:🔍 DEBUG: About to call add_transaction_to_blockchain for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:   Voter (AS5): 1.0 BGPCOIN
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS11:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS7:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:RPKIObserver-AS17:Found 1 new BGP announcements
+INFO:P2P-AS9:✅ Received signature from AS3 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:RPKIObserver-AS17:Processing BGP announcement: AS12 → 203.0.113.0/24
+INFO:P2P-AS9:Signatures collected: 1/3 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS17:📊 Sampling: 203.0.113.0/24 from AS12 seen 30s ago, skipping
+INFO:transaction_creator:Created transaction 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+WARNING:P2P-AS17:⚠️  No relevant neighbors cached for AS12, using all peers
+INFO:P2P-AS9:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS7:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS3:📡 Broadcast transaction a41add77-32b5-4445-9913-2e9e69921ed8 to 8/8 relevant peers (AS12)
+INFO:P2P-AS13:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:RPKIObserver-AS3:📡 Transaction broadcast to peers: a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS15:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS11:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS15:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS13:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS7:🔍 Analyzing transaction 5e2d7d1d-7098-4a4c-89a9-7123b8048bf1 for potential attacks...
+INFO:P2P-AS3:✅ Received signature from AS9 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS1:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS3:Signatures collected: 1/3 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS11:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS11:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS15:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Received signature from AS15 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS3:Signatures collected: 2/3 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:✅ Received signature from AS11 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS3:✅ Received signature from AS11 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS13:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS17:📡 Broadcast transaction 047b9edc-c6cf-4538-aa0d-011376b54513 to 8/8 relevant peers (AS12)
+INFO:P2P-AS3:Signatures collected: 3/3 for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS9:Signatures collected: 2/3 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:RPKIObserver-AS17:📡 Transaction broadcast to peers: 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS11:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS13:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS3:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS9:✅ Received signature from AS13 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS15:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS9:Signatures collected: 3/3 for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS1:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS11:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS11:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:🔍 DEBUG: _commit_to_blockchain called for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS7:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:Received vote request for a41add77-32b5-4445-9913-2e9e69921ed8 from AS3
+INFO:P2P-AS3:🔍 DEBUG: About to call add_transaction_to_blockchain for a41add77-32b5-4445-9913-2e9e69921ed8
+INFO:P2P-AS9:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS11:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS15:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS15:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:🔍 DEBUG: _commit_to_blockchain called for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS13:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS7:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS9:🔍 DEBUG: About to call add_transaction_to_blockchain for 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS17:✅ Received signature from AS11 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS15:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS13:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:Signatures collected: 1/3 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS7:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS13:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS15:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS3:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS9:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS7:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS17:✅ Received signature from AS15 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS1:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS17:Received vote request for 97e14d90-654f-4977-ab84-323b45e90e8a from AS9
+INFO:P2P-AS5:Received vote request for 047b9edc-c6cf-4538-aa0d-011376b54513 from AS17
+INFO:P2P-AS9:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS1:Sent approve vote for 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c to AS5
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS3:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Signatures collected: 2/3 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS1:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS17:✅ Received signature from AS13 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS1:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS17:Signatures collected: 3/3 for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS17:🎉 CONSENSUS REACHED (3/9) - Will write to blockchain!
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:🔍 DEBUG: _commit_to_blockchain called for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS5:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS9:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:⛓️  Transaction 6a382935-e284-4cc5-a417-ae544c9fe364 committed to blockchain with 3 signatures
+INFO:P2P-AS5:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS1:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS17:✅ Knowledge match: 203.0.113.0/24 from AS12 (time diff: 0s)
+INFO:P2P-AS5:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:⛓️  Transaction 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c committed to blockchain with 3 signatures
+INFO:P2P-AS9:📡 Broadcast transaction 97e14d90-654f-4977-ab84-323b45e90e8a to 8/8 relevant peers (AS12)
+INFO:P2P-AS17:🔍 DEBUG: About to call add_transaction_to_blockchain for 047b9edc-c6cf-4538-aa0d-011376b54513
+INFO:P2P-AS3:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS1:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS1:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS17:✅ APPROVE: Transaction matches my observations
+INFO:P2P-AS5:Sent approve vote for a41add77-32b5-4445-9913-2e9e69921ed8 to AS3
+INFO:P2P-AS5:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:RPKIObserver-AS9:📡 Transaction broadcast to peers: 97e14d90-654f-4977-ab84-323b45e90e8a
+INFO:P2P-AS1:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS9:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS3:Sent approve vote for 047b9edc-c6cf-4538-aa0d-011376b54513 to AS17
+INFO:P2P-AS5:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS5:   Committer (AS5): 15.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS3:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS5:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS5:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS5:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS5:🔍 Analyzing transaction 7c0a5b68-a6ca-45bc-a2fc-bb1a0791355c for potential attacks...
+INFO:P2P-AS3:⛓️  Transaction a41add77-32b5-4445-9913-2e9e69921ed8 committed to blockchain with 3 signatures
+INFO:P2P-AS1:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS1:   Committer (AS1): 15.0 BGPCOIN
+INFO:P2P-AS9:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS17:Sent approve vote for 97e14d90-654f-4977-ab84-323b45e90e8a to AS9
+INFO:P2P-AS1:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS9:⛓️  Transaction 97e14d90-654f-4977-ab84-323b45e90e8a committed to blockchain with 3 signatures
+INFO:P2P-AS1:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS1:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS1:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS1:🔍 Analyzing transaction 6a382935-e284-4cc5-a417-ae544c9fe364 for potential attacks...
+INFO:P2P-AS3:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS9:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:🔍 DEBUG: add_transaction_to_blockchain returned: True
+INFO:P2P-AS3:   Committer (AS3): 15.0 BGPCOIN
+INFO:P2P-AS17:⛓️  Transaction 047b9edc-c6cf-4538-aa0d-011376b54513 committed to blockchain with 3 signatures
+INFO:P2P-AS9:   Committer (AS9): 15.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS9): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS3): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS9:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS9:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS3:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS9:🔍 Analyzing transaction 97e14d90-654f-4977-ab84-323b45e90e8a for potential attacks...
+INFO:P2P-AS3:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS3:🔍 Analyzing transaction a41add77-32b5-4445-9913-2e9e69921ed8 for potential attacks...
+INFO:P2P-AS17:💰 BGPCOIN rewards distributed:
+INFO:P2P-AS17:   Committer (AS17): 15.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS11): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS15): 1.0 BGPCOIN
+INFO:P2P-AS17:   Voter (AS13): 1.0 BGPCOIN
+INFO:P2P-AS17:   💼 My balance: 60.0 BGPCOIN
+INFO:P2P-AS17:🔍 Analyzing transaction 047b9edc-c6cf-4538-aa0d-011376b54513 for potential attacks...
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:44,329 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 30.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:49,330 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 35.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:54,330 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 40.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:43:59,331 - BGP-Sentry-Main - INFO - SIMULATION STATUS - Time: 45.0s | Nodes: 9/9 | Responsive: 9 | Issues: 0
+
+================================================================================
+Health Dashboard: All systems operational
+No alerts
+================================================================================
+2025-12-02 15:44:04,331 - BGP-Sentry-Main - INFO - Simulation duration reached, stopping...
+2025-12-02 15:44:04,332 - BGP-Sentry-Main - INFO - Simulation completed successfully
+Experiment completed successfully!
+2025-12-02 15:44:04,332 - BGP-Sentry-Main - INFO - Shutting down BGP-Sentry experiment...
+2025-12-02 15:44:04,333 - BGP-Sentry-Main - INFO - Generating final experiment results...
+2025-12-02 15:44:04,337 - BGP-Sentry-Main - INFO - Results saved to results/bgp_sentry_results_20251202_154404.json
+
+================================================================================
+BGP-SENTRY EXPERIMENT COMPLETED
+================================================================================
+Experiment ID: exp_1764708129
+Duration: 115.0 seconds
+Status: completed
+
+Node Performance:
+  Total Nodes: 9
+  Active Nodes at End: 9
+
+Health Summary:
+  Running Nodes: 9
+  Responsive Nodes: 9
+  Nodes with Issues: 0
+
+Blockchain Status:
+  Nodes with Blockchain: 9
+  Average Block Count: 5.0
+================================================================================
+2025-12-02 15:44:04,337 - BGP-Sentry-Main - INFO - Experiment shutdown completed

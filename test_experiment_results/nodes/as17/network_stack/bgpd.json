@@ -1,0 +1,155 @@
+{
+  "metadata": {
+    "observer_asn": 17,
+    "generation_timestamp": "2025-08-04T12:56:11.774384",
+    "generator_version": "2.0",
+    "total_announcements": 10
+  },
+  "bgp_announcements": [
+    {
+      "sender_asn": 13,
+      "origin_asn": 13,
+      "announced_prefix": "172.16.4.0/25",
+      "prefix": "172.16.4.0/25",
+      "as_path": [
+        13
+      ],
+      "timestamp": "2025-08-04T12:10:11.774360Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.13.1",
+      "announcement_type": "sub_prefix_hijack",
+      "parent_prefix": "172.16.4.0/24",
+      "legitimate_owner": 4,
+      "attack_severity": "CRITICAL"
+    },
+    {
+      "sender_asn": 15,
+      "origin_asn": 7,
+      "announced_prefix": "10.7.0.0/16",
+      "prefix": "10.7.0.0/16",
+      "as_path": [
+        15,
+        7
+      ],
+      "timestamp": "2025-08-04T12:12:11.774272Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.15.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 13,
+      "origin_asn": 13,
+      "announced_prefix": "10.15.0.0/24",
+      "prefix": "10.15.0.0/24",
+      "as_path": [
+        13
+      ],
+      "timestamp": "2025-08-04T12:23:11.774331Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.13.1",
+      "announcement_type": "sub_prefix_hijack",
+      "parent_prefix": "10.15.0.0/16",
+      "legitimate_owner": 15,
+      "attack_severity": "CRITICAL"
+    },
+    {
+      "sender_asn": 9,
+      "origin_asn": 9,
+      "announced_prefix": "10.1.0.0/16",
+      "prefix": "10.1.0.0/16",
+      "as_path": [
+        9
+      ],
+      "timestamp": "2025-08-04T12:32:11.774340Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.9.1",
+      "announcement_type": "route_leak",
+      "legitimate_owner": 1,
+      "attack_severity": "MEDIUM",
+      "leak_type": "unauthorized_announcement"
+    },
+    {
+      "sender_asn": 13,
+      "origin_asn": 13,
+      "announced_prefix": "192.168.13.0/24",
+      "prefix": "192.168.13.0/24",
+      "as_path": [
+        13
+      ],
+      "timestamp": "2025-08-04T12:34:11.774244Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.13.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 15,
+      "origin_asn": 8,
+      "announced_prefix": "192.168.8.0/24",
+      "prefix": "192.168.8.0/24",
+      "as_path": [
+        15,
+        8
+      ],
+      "timestamp": "2025-08-04T12:35:11.774190Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.15.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 15,
+      "origin_asn": 16,
+      "announced_prefix": "192.168.16.0/24",
+      "prefix": "192.168.16.0/24",
+      "as_path": [
+        15,
+        16
+      ],
+      "timestamp": "2025-08-04T12:35:11.774314Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.15.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 13,
+      "origin_asn": 5,
+      "announced_prefix": "10.5.0.0/16",
+      "prefix": "10.5.0.0/16",
+      "as_path": [
+        13,
+        5
+      ],
+      "timestamp": "2025-08-04T12:36:11.774211Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.13.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 13,
+      "origin_asn": 9,
+      "announced_prefix": "192.168.9.0/24",
+      "prefix": "192.168.9.0/24",
+      "as_path": [
+        13,
+        9
+      ],
+      "timestamp": "2025-08-04T12:37:11.774287Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.13.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 15,
+      "origin_asn": 2,
+      "announced_prefix": "172.16.2.0/24",
+      "prefix": "172.16.2.0/24",
+      "as_path": [
+        15,
+        2
+      ],
+      "timestamp": "2025-08-04T12:39:11.774301Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.15.1",
+      "announcement_type": "legitimate"
+    }
+  ]
+}

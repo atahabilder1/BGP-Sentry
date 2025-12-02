@@ -1,0 +1,24 @@
+{
+  "version": "1.0",
+  "network": "BGP-Sentry",
+  "genesis_timestamp": "2025-10-21T20:10:51.155246",
+  "blocks": [
+    {
+      "block_number": 0,
+      "timestamp": "2025-10-21T20:10:51.155264",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "transactions": [],
+      "block_hash": "ae7159bcbc967f98386d226f71db601258d867f1e8bf97e52ec2d0dcbcfcf7d6",
+      "merkle_root": "",
+      "metadata": {
+        "block_type": "genesis",
+        "created_by": "BGP-Sentry Network"
+      }
+    }
+  ],
+  "metadata": {
+    "total_transactions": 0,
+    "total_blocks": 1,
+    "last_updated": "2025-10-21T20:10:51.155301"
+  }
+}

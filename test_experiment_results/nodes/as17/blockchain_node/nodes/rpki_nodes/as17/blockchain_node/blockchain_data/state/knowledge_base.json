@@ -1,0 +1,79 @@
+{
+  "as_number": 17,
+  "last_updated": "2025-10-21T21:04:12.859615",
+  "observation_count": 10,
+  "observations": [
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.594359",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:10:11.774360Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.595411",
+      "sender_asn": 15,
+      "timestamp": "2025-08-04T12:12:11.774272Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.599275",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:23:11.774331Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.601930",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:32:11.774340Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.604331",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:34:11.774244Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.605184",
+      "sender_asn": 15,
+      "timestamp": "2025-08-04T12:35:11.774190Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.607969",
+      "sender_asn": 15,
+      "timestamp": "2025-08-04T12:35:11.774314Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.609939",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:36:11.774211Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.611115",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:37:11.774287Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.613978",
+      "sender_asn": 15,
+      "timestamp": "2025-08-04T12:39:11.774301Z",
+      "trust_score": 50.0
+    }
+  ],
+  "version": "1.0",
+  "window_seconds": 300
+}

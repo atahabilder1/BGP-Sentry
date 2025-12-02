@@ -55,14 +55,30 @@ class P2PTransactionPool:
         # Knowledge base for time-windowed BGP observations
         # Each node maintains observations to validate incoming transactions
         self.knowledge_base = []  # List of observed BGP announcements
-        self.knowledge_window_seconds = 300  # Keep observations ±5 minutes (300 seconds)
+        self.knowledge_window_seconds = 480  # Keep observations ±8 minutes (480 seconds)
         self.cleanup_interval = 60  # Clean old observations every 60 seconds
+
+        # Transaction timeout configuration
+        self.REGULAR_TIMEOUT = 60       # 1 minute for regular announcements
+        self.ATTACK_TIMEOUT = 180       # 3 minutes for attack transactions
+
+        # Sampling configuration for regular announcements
+        self.SAMPLING_WINDOW_SECONDS = 3600  # 1 hour - ignore duplicates within this window
 
         # Persistent storage for knowledge base
         self.knowledge_base_file = self.blockchain.state_dir / "knowledge_base.json"
 
+        # Sampling cache: Track last seen time for each (ip_prefix, as_number)
+        # Format: {(ip_prefix, as_number): last_seen_timestamp}
+        # This allows O(1) lookup instead of scanning blockchain
+        self.last_seen_cache = {}
+        self.last_seen_cache_file = self.blockchain.state_dir / "last_seen_announcements.json"
+
         # Load existing knowledge base from disk
         self._load_knowledge_base()
+
+        # Load last_seen cache from disk
+        self._load_last_seen_cache()
 
         # Initialize BGPCOIN ledger for token rewards
         self.bgpcoin_ledger = BGPCoinLedger(ledger_path=self.blockchain.state_dir)
@@ -91,6 +107,14 @@ class P2PTransactionPool:
 
         save_thread = threading.Thread(target=self._periodic_save_knowledge_base, daemon=True)
         save_thread.start()
+
+        # Cleanup thread for last_seen cache
+        cache_cleanup_thread = threading.Thread(target=self._periodic_cleanup_last_seen_cache, daemon=True)
+        cache_cleanup_thread.start()
+
+        # Timeout cleanup thread for pending transactions
+        timeout_thread = threading.Thread(target=self._cleanup_timed_out_transactions, daemon=True)
+        timeout_thread.start()
     
     def start_p2p_server(self):
         """Start P2P server to listen for incoming messages"""
@@ -207,7 +231,14 @@ class P2PTransactionPool:
         self._send_vote_to_node(from_as, transaction["transaction_id"], vote)
     
     def _handle_vote_response(self, message):
-        """Handle incoming signature (vote) response from peer"""
+        """
+        Handle incoming signature (vote) response from peer.
+
+        SECURITY: Vote deduplication prevents replay attacks:
+        - Each AS can only vote once per transaction
+        - Total votes cannot exceed total nodes (9)
+        - Duplicate votes are rejected with warning
+        """
         tx_id = message["transaction_id"]
         vote = message["vote"]
         from_as = message["from_as"]
@@ -216,14 +247,35 @@ class P2PTransactionPool:
             self.logger.warning(f"Received vote for unknown transaction {tx_id}")
             return
 
-        # Thread-safe vote recording and consensus checking
+        # Variable to store commit decision (determined inside lock)
+        should_commit = False
+
+        # CRITICAL SECTION: Hold lock ONLY for data structure access
+        # DO NOT hold lock during I/O operations!
         with self.lock:
             # Check if already committed (prevent duplicates)
             if tx_id in self.committed_transactions:
                 self.logger.debug(f"Transaction {tx_id} already committed, skipping")
                 return
 
-            # Record signature/vote
+            # VOTE DEDUPLICATION: Check if this AS already voted
+            existing_voters = [v["from_as"] for v in self.pending_votes[tx_id]["votes"]]
+
+            if from_as in existing_voters:
+                self.logger.warning(
+                    f"🚨 REPLAY ATTACK DETECTED: AS{from_as} already voted on {tx_id}, rejecting duplicate vote"
+                )
+                return  # Reject duplicate vote
+
+            # SANITY CHECK: Ensure vote count doesn't exceed total nodes
+            if len(existing_voters) >= self.total_nodes:
+                self.logger.error(
+                    f"🚨 VOTE OVERFLOW: Transaction {tx_id} already has {len(existing_voters)} votes "
+                    f"(max={self.total_nodes}), rejecting vote from AS{from_as}"
+                )
+                return  # Reject overflow
+
+            # Record signature/vote (now guaranteed to be unique)
             self.pending_votes[tx_id]["votes"].append({
                 "from_as": from_as,
                 "vote": vote,
@@ -232,7 +284,7 @@ class P2PTransactionPool:
 
             self.logger.info(f"✅ Received signature from AS{from_as} for {tx_id}")
 
-            # Check if consensus reached (6/9 signatures)
+            # Check if consensus reached (3/9 signatures minimum)
             approve_votes = len([v for v in self.pending_votes[tx_id]["votes"] if v["vote"] == "approve"])
 
             self.logger.info(f"Signatures collected: {approve_votes}/{self.consensus_threshold} for {tx_id}")
@@ -241,8 +293,17 @@ class P2PTransactionPool:
                 # Mark as committed BEFORE writing to prevent race condition
                 self.committed_transactions.add(tx_id)
 
-                self.logger.info(f"🎉 CONSENSUS REACHED ({approve_votes}/{self.total_nodes}) - Writing to blockchain!")
-                self._commit_to_blockchain(tx_id)
+                # Set flag to commit (will happen OUTSIDE lock)
+                should_commit = True
+
+                self.logger.info(f"🎉 CONSENSUS REACHED ({approve_votes}/{self.total_nodes}) - Will write to blockchain!")
+
+        # LOCK RELEASED HERE - Other threads can now process votes concurrently!
+
+        # NON-CRITICAL SECTION: I/O operations (blockchain write, BGPCOIN, attack detection)
+        # This can take several seconds, but lock is FREE for other threads
+        if should_commit:
+            self._commit_to_blockchain(tx_id)
     
     def broadcast_transaction(self, transaction):
         """
@@ -250,6 +311,8 @@ class P2PTransactionPool:
 
         OPTIMIZATION: Uses neighbor cache to only query RPKI nodes that are
         likely to have observed this announcement (based on AS topology).
+
+        TIMEOUT: Tracks creation time for timeout handling (60s regular, 180s attack)
         """
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
@@ -257,7 +320,9 @@ class P2PTransactionPool:
         self.pending_votes[tx_id] = {
             "transaction": transaction,
             "votes": [],
-            "needed": self.consensus_threshold
+            "needed": self.consensus_threshold,
+            "created_at": datetime.now(),  # Track creation time for timeout
+            "is_attack": transaction.get("is_attack", False)  # Track type for timeout duration
         }
 
         # Get relevant neighbors from cache (optimized voting)
@@ -330,27 +395,352 @@ class P2PTransactionPool:
         except Exception as e:
             self.logger.warning(f"Failed to send vote to AS{target_as}: {e}")
     
-    def add_bgp_observation(self, ip_prefix, sender_asn, timestamp, trust_score):
+    def _check_recent_announcement_in_cache(self, ip_prefix, sender_asn):
+        """
+        Check if same announcement (prefix, AS) was recorded within last 1 hour.
+        Uses in-memory cache for O(1) lookup instead of scanning blockchain.
+
+        Args:
+            ip_prefix: IP prefix to check
+            sender_asn: AS number to check
+
+        Returns:
+            True if found in last hour (should skip), False otherwise (should record)
+        """
+        try:
+            cache_key = (ip_prefix, sender_asn)
+            current_time = datetime.now().timestamp()
+            cutoff_time = current_time - self.SAMPLING_WINDOW_SECONDS
+
+            # Check cache
+            if cache_key in self.last_seen_cache:
+                last_seen = self.last_seen_cache[cache_key]
+
+                if last_seen > cutoff_time:
+                    # Found within 1 hour window
+                    time_since = int(current_time - last_seen)
+                    self.logger.info(f"📊 Sampling: {ip_prefix} from AS{sender_asn} seen {time_since}s ago, skipping")
+                    return True  # Skip
+
+            return False  # Not found or too old, should record
+
+        except Exception as e:
+            self.logger.error(f"Error checking last seen cache: {e}")
+            return False  # On error, allow recording
+
+    def _update_last_seen_cache(self, ip_prefix, sender_asn):
+        """
+        Update last seen timestamp for this (prefix, AS) pair.
+        Called when transaction is successfully committed to blockchain.
+
+        Args:
+            ip_prefix: IP prefix
+            sender_asn: AS number
+        """
+        cache_key = (ip_prefix, sender_asn)
+        self.last_seen_cache[cache_key] = datetime.now().timestamp()
+
+        # Periodically save cache to disk (every 100 updates)
+        if len(self.last_seen_cache) % 100 == 0:
+            self._save_last_seen_cache()
+
+    def _save_last_seen_cache(self):
+        """
+        Save last_seen_cache to disk for persistence across restarts.
+        """
+        try:
+            # Convert tuple keys to strings for JSON serialization
+            serializable_cache = {
+                f"{ip_prefix}|{asn}": timestamp
+                for (ip_prefix, asn), timestamp in self.last_seen_cache.items()
+            }
+
+            data = {
+                "version": "1.0",
+                "last_updated": datetime.now().isoformat(),
+                "cache": serializable_cache
+            }
+
+            temp_file = self.last_seen_cache_file.with_suffix('.tmp')
+            with open(temp_file, 'w') as f:
+                json.dump(data, f, indent=2)
+
+            temp_file.replace(self.last_seen_cache_file)
+            self.logger.debug(f"💾 Saved last_seen cache ({len(serializable_cache)} entries)")
+
+        except Exception as e:
+            self.logger.error(f"Error saving last_seen cache: {e}")
+
+    def _load_last_seen_cache(self):
+        """
+        Load last_seen_cache from disk on startup.
+        """
+        try:
+            if self.last_seen_cache_file.exists():
+                with open(self.last_seen_cache_file, 'r') as f:
+                    data = json.load(f)
+
+                # Convert string keys back to tuples
+                serializable_cache = data.get('cache', {})
+                current_time = datetime.now().timestamp()
+                cutoff_time = current_time - self.SAMPLING_WINDOW_SECONDS
+
+                valid_entries = 0
+                for key_str, timestamp in serializable_cache.items():
+                    # Only load entries within sampling window (not expired)
+                    if timestamp > cutoff_time:
+                        ip_prefix, asn = key_str.split('|', 1)
+                        self.last_seen_cache[(ip_prefix, int(asn))] = timestamp
+                        valid_entries += 1
+
+                self.logger.info(f"📂 Loaded last_seen cache ({valid_entries} valid entries)")
+            else:
+                self.logger.info("📂 No last_seen cache found, starting fresh")
+
+        except Exception as e:
+            self.logger.error(f"Error loading last_seen cache: {e}")
+            self.last_seen_cache = {}
+
+    def _cleanup_last_seen_cache(self):
+        """
+        Remove expired entries from last_seen_cache (older than 1 hour).
+        Called periodically to prevent unbounded growth.
+        """
+        try:
+            current_time = datetime.now().timestamp()
+            cutoff_time = current_time - self.SAMPLING_WINDOW_SECONDS
+
+            initial_size = len(self.last_seen_cache)
+
+            # Remove expired entries
+            self.last_seen_cache = {
+                key: timestamp
+                for key, timestamp in self.last_seen_cache.items()
+                if timestamp > cutoff_time
+            }
+
+            removed = initial_size - len(self.last_seen_cache)
+            if removed > 0:
+                self.logger.debug(f"🧹 Cleaned {removed} expired entries from last_seen cache")
+
+        except Exception as e:
+            self.logger.error(f"Error cleaning last_seen cache: {e}")
+
+    def _periodic_cleanup_last_seen_cache(self):
+        """
+        Background thread that periodically cleans last_seen_cache.
+        Runs every hour to remove expired entries and save to disk.
+        """
+        import time
+
+        # Wait for server to start
+        time.sleep(10)
+
+        while self.running:
+            try:
+                time.sleep(3600)  # Clean every hour
+
+                # Cleanup expired entries
+                self._cleanup_last_seen_cache()
+
+                # Save to disk
+                self._save_last_seen_cache()
+
+            except Exception as e:
+                self.logger.error(f"Error in periodic last_seen cache cleanup: {e}")
+
+    def _cleanup_timed_out_transactions(self):
+        """
+        Background thread that checks for timed-out pending transactions.
+
+        TIMEOUT RULES:
+        - Regular announcements: 60 seconds timeout
+        - Attack transactions: 180 seconds timeout
+
+        CONSENSUS STATUS on timeout:
+        - 3+ approve votes: CONFIRMED (write normally)
+        - 1-2 approve votes: INSUFFICIENT_CONSENSUS
+        - 0 approve votes: SINGLE_WITNESS
+        """
+        import time
+
+        # Wait for server to start
+        time.sleep(10)
+
+        while self.running:
+            try:
+                time.sleep(30)  # Check every 30 seconds
+
+                current_time = datetime.now()
+                timed_out_transactions = []
+
+                # CRITICAL SECTION: Check for timeouts with lock
+                with self.lock:
+                    for tx_id, vote_data in list(self.pending_votes.items()):
+                        # Skip if already committed
+                        if tx_id in self.committed_transactions:
+                            continue
+
+                        created_at = vote_data.get("created_at")
+                        is_attack = vote_data.get("is_attack", False)
+
+                        if not created_at:
+                            continue
+
+                        # Determine timeout based on type
+                        timeout_duration = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
+                        elapsed = (current_time - created_at).total_seconds()
+
+                        # Check if timed out
+                        if elapsed >= timeout_duration:
+                            timed_out_transactions.append(tx_id)
+                            self.logger.warning(
+                                f"⏱️  Transaction {tx_id} timed out after {elapsed:.0f}s "
+                                f"({'ATTACK' if is_attack else 'REGULAR'}, timeout={timeout_duration}s)"
+                            )
+
+                # NON-CRITICAL SECTION: Process timeouts (lock released)
+                for tx_id in timed_out_transactions:
+                    self._handle_timed_out_transaction(tx_id)
+
+            except Exception as e:
+                self.logger.error(f"Error in timeout cleanup: {e}")
+
+    def _handle_timed_out_transaction(self, transaction_id):
+        """
+        Handle transaction that has timed out waiting for consensus.
+
+        Decision tree:
+        - 3+ approve: Write as CONFIRMED (reached consensus)
+        - 1-2 approve: Write as INSUFFICIENT_CONSENSUS
+        - 0 approve: Write as SINGLE_WITNESS
+
+        Args:
+            transaction_id: ID of timed-out transaction
+        """
+        try:
+            # Get vote data with lock
+            with self.lock:
+                if transaction_id not in self.pending_votes:
+                    return  # Already processed
+
+                if transaction_id in self.committed_transactions:
+                    return  # Already committed
+
+                vote_data = self.pending_votes.get(transaction_id)
+                if not vote_data:
+                    return
+
+                # Count approve votes
+                approve_votes = [v for v in vote_data["votes"] if v["vote"] == "approve"]
+                approve_count = len(approve_votes)
+
+                # Determine consensus status
+                if approve_count >= self.consensus_threshold:
+                    consensus_status = "CONFIRMED"
+                elif approve_count >= 1:
+                    consensus_status = "INSUFFICIENT_CONSENSUS"
+                else:
+                    consensus_status = "SINGLE_WITNESS"
+
+                # Mark as committed to prevent re-processing
+                self.committed_transactions.add(transaction_id)
+
+            # Commit with appropriate status
+            self._commit_unconfirmed_transaction(transaction_id, consensus_status, approve_count)
+
+        except Exception as e:
+            self.logger.error(f"Error handling timed-out transaction {transaction_id}: {e}")
+
+    def _commit_unconfirmed_transaction(self, transaction_id, consensus_status, approve_count):
+        """
+        Commit transaction with unconfirmed/partial consensus status.
+
+        Args:
+            transaction_id: Transaction ID
+            consensus_status: CONFIRMED, INSUFFICIENT_CONSENSUS, or SINGLE_WITNESS
+            approve_count: Number of approve votes received
+        """
+        try:
+            if transaction_id not in self.pending_votes:
+                return
+
+            vote_data = self.pending_votes[transaction_id]
+            transaction = vote_data["transaction"]
+
+            # Add consensus metadata
+            transaction["signatures"] = vote_data["votes"]
+            transaction["consensus_status"] = consensus_status
+            transaction["consensus_reached"] = (consensus_status == "CONFIRMED")
+            transaction["signature_count"] = len(vote_data["votes"])
+            transaction["approve_count"] = approve_count
+            transaction["timeout_commit"] = True
+
+            # Write to blockchain
+            success = self.blockchain.add_transaction_to_blockchain(transaction)
+
+            if success:
+                self.logger.info(
+                    f"⛓️  Transaction {transaction_id} committed with status={consensus_status} "
+                    f"({approve_count} approve votes, timeout)"
+                )
+
+                # Update last_seen cache for sampling (if regular announcement and has some approval)
+                if not transaction.get('is_attack', False) and approve_count > 0:
+                    self._update_last_seen_cache(
+                        transaction.get('ip_prefix'),
+                        transaction.get('sender_asn')
+                    )
+
+                # Award reduced BGPCOIN rewards for partial consensus
+                if approve_count > 0 and consensus_status in ["CONFIRMED", "INSUFFICIENT_CONSENSUS"]:
+                    self._award_bgpcoin_rewards(transaction_id, vote_data)
+
+                # Remove from pending votes
+                del self.pending_votes[transaction_id]
+            else:
+                self.logger.error(f"Failed to write timed-out transaction {transaction_id} to blockchain")
+
+        except Exception as e:
+            self.logger.error(f"Error committing unconfirmed transaction {transaction_id}: {e}")
+
+    def add_bgp_observation(self, ip_prefix, sender_asn, timestamp, trust_score, is_attack=False):
         """
         Add BGP observation to knowledge base.
         Called when this node observes a BGP announcement.
+
+        SAMPLING LOGIC:
+        - Attacks: Always record (bypass sampling)
+        - Regular: Only if not seen in last 1 hour (1-hour sampling window)
 
         Args:
             ip_prefix: IP prefix announced (e.g., "203.0.113.0/24")
             sender_asn: AS number that made the announcement
             timestamp: Timestamp of the announcement
             trust_score: Trust score for this announcement
+            is_attack: Whether this is an attack (bypasses sampling)
+
+        Returns:
+            bool: True if observation added, False if skipped (sampling)
         """
+        # SAMPLING: For regular announcements, check if recorded in last 1 hour
+        if not is_attack:
+            if self._check_recent_announcement_in_cache(ip_prefix, sender_asn):
+                # Already recorded within 1 hour, skip
+                return False
+
         with self.lock:
             observation = {
                 "ip_prefix": ip_prefix,
                 "sender_asn": sender_asn,
                 "timestamp": timestamp,
                 "trust_score": trust_score,
-                "observed_at": datetime.now().isoformat()
+                "observed_at": datetime.now().isoformat(),
+                "is_attack": is_attack
             }
             self.knowledge_base.append(observation)
-            self.logger.info(f"📚 Added to knowledge base: {ip_prefix} from AS{sender_asn} at {timestamp}")
+            self.logger.info(f"📚 Added to knowledge base: {ip_prefix} from AS{sender_asn} "
+                           f"({'ATTACK' if is_attack else 'REGULAR'})")
 
             # Record in neighbor cache: "I (RPKI node) observed this non-RPKI AS"
             # This builds the mapping for optimized voting
@@ -359,10 +749,17 @@ class P2PTransactionPool:
                 observed_by_rpki_as=self.as_number
             )
 
+            return True  # Observation added
+
     def _cleanup_old_observations(self):
         """
         Background thread that removes old observations outside time window.
         Keeps knowledge base size manageable.
+
+        Window: 8 minutes (480 seconds) - allows time for:
+        - BGP propagation delays (2-3 minutes)
+        - Fork resolution and transaction rescue (2-3 minutes)
+        - Vote collection and consensus (1-2 minutes)
         """
         import time
         from dateutil import parser
@@ -375,7 +772,7 @@ class P2PTransactionPool:
                     current_time = datetime.now()
                     initial_count = len(self.knowledge_base)
 
-                    # Remove observations older than the time window
+                    # Remove observations older than 8-minute window
                     self.knowledge_base = [
                         obs for obs in self.knowledge_base
                         if (current_time - parser.parse(obs["observed_at"])).total_seconds()
@@ -384,7 +781,8 @@ class P2PTransactionPool:
 
                     removed = initial_count - len(self.knowledge_base)
                     if removed > 0:
-                        self.logger.debug(f"🧹 Cleaned {removed} old observations from knowledge base")
+                        self.logger.debug(f"🧹 Cleaned {removed} old observations from knowledge base "
+                                        f"(window: {self.knowledge_window_seconds}s)")
 
             except Exception as e:
                 self.logger.error(f"Error cleaning knowledge base: {e}")
@@ -410,22 +808,26 @@ class P2PTransactionPool:
                 self.logger.warning("Transaction missing required fields for validation")
                 return False
 
-            # Parse transaction timestamp
+            # Parse transaction timestamp (outside lock - no shared data access)
             tx_time = parser.parse(tx_timestamp)
 
-            # Search knowledge base for matching observation
+            # CRITICAL SECTION: Copy knowledge base snapshot with lock
             with self.lock:
-                for obs in self.knowledge_base:
-                    # Check if IP prefix and sender ASN match
-                    if obs["ip_prefix"] == ip_prefix and obs["sender_asn"] == sender_asn:
-                        # Check if timestamp is within window
-                        obs_time = parser.parse(obs["timestamp"])
-                        time_diff = abs((tx_time - obs_time).total_seconds())
+                knowledge_snapshot = list(self.knowledge_base)  # Shallow copy
 
-                        if time_diff <= self.knowledge_window_seconds:
-                            self.logger.info(f"✅ Knowledge match: {ip_prefix} from AS{sender_asn} "
-                                           f"(time diff: {time_diff:.0f}s)")
-                            return True
+            # NON-CRITICAL SECTION: Search snapshot (lock released)
+            # This allows other threads to modify knowledge_base concurrently
+            for obs in knowledge_snapshot:
+                # Check if IP prefix and sender ASN match
+                if obs["ip_prefix"] == ip_prefix and obs["sender_asn"] == sender_asn:
+                    # Check if timestamp is within window
+                    obs_time = parser.parse(obs["timestamp"])
+                    time_diff = abs((tx_time - obs_time).total_seconds())
+
+                    if time_diff <= self.knowledge_window_seconds:
+                        self.logger.info(f"✅ Knowledge match: {ip_prefix} from AS{sender_asn} "
+                                       f"(time diff: {time_diff:.0f}s)")
+                        return True
 
             self.logger.warning(f"❌ No knowledge match: {ip_prefix} from AS{sender_asn} at {tx_timestamp}")
             return False
@@ -480,6 +882,13 @@ class P2PTransactionPool:
 
             if success:
                 self.logger.info(f"⛓️  Transaction {transaction_id} committed to blockchain with {len(vote_data['votes'])} signatures")
+
+                # Update last_seen cache for sampling (if regular announcement)
+                if not transaction.get('is_attack', False):
+                    self._update_last_seen_cache(
+                        transaction.get('ip_prefix'),
+                        transaction.get('sender_asn')
+                    )
 
                 # Award BGPCOIN rewards for block commit
                 self._award_bgpcoin_rewards(transaction_id, vote_data)
@@ -634,26 +1043,30 @@ class P2PTransactionPool:
         Uses temp file + rename to prevent corruption.
         """
         try:
+            # CRITICAL SECTION: Copy knowledge base with lock (fast)
+            with self.lock:
+                knowledge_snapshot = list(self.knowledge_base)  # Shallow copy
+
+            # NON-CRITICAL SECTION: File I/O (lock released, can take 100ms+)
             data = {
                 "version": "1.0",
                 "as_number": self.as_number,
                 "last_updated": datetime.now().isoformat(),
                 "window_seconds": self.knowledge_window_seconds,
-                "observation_count": len(self.knowledge_base),
-                "observations": self.knowledge_base
+                "observation_count": len(knowledge_snapshot),
+                "observations": knowledge_snapshot
             }
 
             # Atomic write: write to temp file then rename
             temp_file = self.knowledge_base_file.with_suffix('.tmp')
 
-            with self.lock:
-                with open(temp_file, 'w') as f:
-                    json.dump(data, f, indent=2, sort_keys=True)
+            with open(temp_file, 'w') as f:
+                json.dump(data, f, indent=2, sort_keys=True)
 
-                # Atomic rename
-                temp_file.replace(self.knowledge_base_file)
+            # Atomic rename (fast operation, no lock needed)
+            temp_file.replace(self.knowledge_base_file)
 
-            self.logger.debug(f"💾 Saved {len(self.knowledge_base)} observations to knowledge base")
+            self.logger.debug(f"💾 Saved {len(knowledge_snapshot)} observations to knowledge base")
 
         except Exception as e:
             self.logger.error(f"Error saving knowledge base: {e}")
@@ -683,14 +1096,19 @@ class P2PTransactionPool:
         Returns:
             List of transactions waiting for consensus
         """
+        # CRITICAL SECTION: Copy data with lock (fast)
         with self.lock:
-            pending = []
-            for tx_id, vote_data in self.pending_votes.items():
-                if tx_id not in self.committed_transactions:
-                    transaction = vote_data.get("transaction", {})
-                    if transaction:
-                        pending.append(transaction)
-            return pending
+            pending_snapshot = dict(self.pending_votes)  # Shallow copy
+            committed_snapshot = set(self.committed_transactions)  # Copy set
+
+        # NON-CRITICAL SECTION: Process snapshot (lock released)
+        pending = []
+        for tx_id, vote_data in pending_snapshot.items():
+            if tx_id not in committed_snapshot:
+                transaction = vote_data.get("transaction", {})
+                if transaction:
+                    pending.append(transaction)
+        return pending
 
     def get_transaction_by_id(self, transaction_id):
         """

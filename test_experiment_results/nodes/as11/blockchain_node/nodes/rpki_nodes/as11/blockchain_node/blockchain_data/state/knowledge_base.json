@@ -1,0 +1,79 @@
+{
+  "as_number": 11,
+  "last_updated": "2025-10-21T21:04:12.905609",
+  "observation_count": 10,
+  "observations": [
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.612312",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:07:11.772245Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.615374",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:07:11.772258Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.617593",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:11:11.772274Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.619018",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:13:11.772171Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.621055",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:23:11.772290Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.622867",
+      "sender_asn": 9,
+      "timestamp": "2025-08-04T12:27:11.772202Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.625015",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:30:11.772187Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.626118",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:33:11.772149Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.628378",
+      "sender_asn": 7,
+      "timestamp": "2025-08-04T12:40:11.772299Z",
+      "trust_score": 50.0
+    },
+    {
+      "ip_prefix": null,
+      "observed_at": "2025-10-21T20:58:07.629857",
+      "sender_asn": 13,
+      "timestamp": "2025-08-04T12:54:11.772216Z",
+      "trust_score": 50.0
+    }
+  ],
+  "version": "1.0",
+  "window_seconds": 300
+}

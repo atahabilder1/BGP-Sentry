@@ -1,0 +1,155 @@
+{
+  "metadata": {
+    "observer_asn": 7,
+    "generation_timestamp": "2025-08-04T12:56:11.770790",
+    "generator_version": "2.0",
+    "total_announcements": 10
+  },
+  "bgp_announcements": [
+    {
+      "sender_asn": 5,
+      "origin_asn": 15,
+      "announced_prefix": "192.168.15.0/24",
+      "prefix": "192.168.15.0/24",
+      "as_path": [
+        5,
+        15
+      ],
+      "timestamp": "2025-08-04T11:56:11.770688Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.5.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 9,
+      "origin_asn": 1,
+      "announced_prefix": "10.1.0.0/16",
+      "prefix": "10.1.0.0/16",
+      "as_path": [
+        9,
+        1
+      ],
+      "timestamp": "2025-08-04T11:57:11.770637Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.9.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 5,
+      "origin_asn": 5,
+      "announced_prefix": "172.16.18.0/25",
+      "prefix": "172.16.18.0/25",
+      "as_path": [
+        5
+      ],
+      "timestamp": "2025-08-04T12:03:11.770762Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.5.1",
+      "announcement_type": "sub_prefix_hijack",
+      "parent_prefix": "172.16.18.0/24",
+      "legitimate_owner": 18,
+      "attack_severity": "CRITICAL"
+    },
+    {
+      "sender_asn": 11,
+      "origin_asn": 11,
+      "announced_prefix": "10.11.0.0/16",
+      "prefix": "10.11.0.0/16",
+      "as_path": [
+        11
+      ],
+      "timestamp": "2025-08-04T12:07:11.770701Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.11.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 11,
+      "origin_asn": 14,
+      "announced_prefix": "192.168.14.0/24",
+      "prefix": "192.168.14.0/24",
+      "as_path": [
+        11,
+        14
+      ],
+      "timestamp": "2025-08-04T12:07:11.770716Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.11.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 5,
+      "origin_asn": 5,
+      "announced_prefix": "10.17.0.0/24",
+      "prefix": "10.17.0.0/24",
+      "as_path": [
+        5
+      ],
+      "timestamp": "2025-08-04T12:11:11.770746Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.5.1",
+      "announcement_type": "sub_prefix_hijack",
+      "parent_prefix": "10.17.0.0/16",
+      "legitimate_owner": 17,
+      "attack_severity": "CRITICAL"
+    },
+    {
+      "sender_asn": 11,
+      "origin_asn": 14,
+      "announced_prefix": "192.168.14.0/24",
+      "prefix": "192.168.14.0/24",
+      "as_path": [
+        11,
+        14
+      ],
+      "timestamp": "2025-08-04T12:19:11.770658Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.11.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 9,
+      "origin_asn": 9,
+      "announced_prefix": "198.51.100.0/25",
+      "prefix": "198.51.100.0/25",
+      "as_path": [
+        9
+      ],
+      "timestamp": "2025-08-04T12:26:11.770777Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.9.1",
+      "announcement_type": "sub_prefix_hijack",
+      "parent_prefix": "198.51.100.0/24",
+      "legitimate_owner": 6,
+      "attack_severity": "CRITICAL"
+    },
+    {
+      "sender_asn": 9,
+      "origin_asn": 17,
+      "announced_prefix": "192.168.17.0/24",
+      "prefix": "192.168.17.0/24",
+      "as_path": [
+        9,
+        17
+      ],
+      "timestamp": "2025-08-04T12:31:11.770673Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.9.1",
+      "announcement_type": "legitimate"
+    },
+    {
+      "sender_asn": 11,
+      "origin_asn": 12,
+      "announced_prefix": "172.16.12.0/24",
+      "prefix": "172.16.12.0/24",
+      "as_path": [
+        11,
+        12
+      ],
+      "timestamp": "2025-08-04T12:48:11.770729Z",
+      "message_type": "UPDATE",
+      "next_hop": "192.168.11.1",
+      "announcement_type": "legitimate"
+    }
+  ]
+}
