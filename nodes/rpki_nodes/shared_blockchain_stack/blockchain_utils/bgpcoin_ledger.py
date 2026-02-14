@@ -41,6 +41,7 @@ from typing import Dict, List, Optional
 
 # Import RPKI Node Registry
 from rpki_node_registry import RPKINodeRegistry
+from config import cfg
 
 class BGPCoinLedger:
     """
@@ -67,32 +68,32 @@ class BGPCoinLedger:
         # Token configuration
         self.token_name = "BGPCOIN"
         self.token_symbol = "BGPC"
-        self.total_supply = 10_000_000  # 10 million coins
+        self.total_supply = cfg.BGPCOIN_TOTAL_SUPPLY
 
         # Thread safety
         self.lock = threading.RLock()
 
-        # Reward configuration
+        # Reward configuration (from .env via config.py)
         self.rewards = {
-            "block_commit": 10,           # Base reward for committing block
-            "vote_approve": 1,            # Reward for voting approve
-            "first_commit_bonus": 5,      # Bonus for being first to commit
-            "attack_detection": 100,      # Large reward for detecting attack
-            "daily_monitoring": 10,       # Daily reward for active monitoring
+            "block_commit": cfg.BGPCOIN_REWARD_BLOCK_COMMIT,
+            "vote_approve": cfg.BGPCOIN_REWARD_VOTE_APPROVE,
+            "first_commit_bonus": cfg.BGPCOIN_REWARD_FIRST_COMMIT_BONUS,
+            "attack_detection": cfg.BGPCOIN_REWARD_ATTACK_DETECTION,
+            "daily_monitoring": cfg.BGPCOIN_REWARD_DAILY_MONITORING,
         }
 
-        # Multiplier ranges (from proposal)
+        # Multiplier ranges (from .env via config.py)
         self.multiplier_ranges = {
-            "accuracy": (0.5, 1.5),       # Historical accuracy
-            "participation": (0.8, 1.2),  # Participation consistency
-            "quality": (0.9, 1.3)         # Evidence quality
+            "accuracy": (cfg.BGPCOIN_MULTIPLIER_ACCURACY_MIN, cfg.BGPCOIN_MULTIPLIER_ACCURACY_MAX),
+            "participation": (cfg.BGPCOIN_MULTIPLIER_PARTICIPATION_MIN, cfg.BGPCOIN_MULTIPLIER_PARTICIPATION_MAX),
+            "quality": (cfg.BGPCOIN_MULTIPLIER_QUALITY_MIN, cfg.BGPCOIN_MULTIPLIER_QUALITY_MAX),
         }
 
-        # Penalty configuration
+        # Penalty configuration (from .env via config.py)
         self.penalties = {
-            "false_reject": -2,           # Penalty for incorrect rejection
-            "false_approve": -5,          # Penalty for approving fake announcement
-            "missed_participation": -1,   # Penalty for not participating
+            "false_reject": -cfg.BGPCOIN_PENALTY_FALSE_REJECT,
+            "false_approve": -cfg.BGPCOIN_PENALTY_FALSE_APPROVE,
+            "missed_participation": -cfg.BGPCOIN_PENALTY_MISSED_PARTICIPATION,
         }
 
         # Initialize ledger data

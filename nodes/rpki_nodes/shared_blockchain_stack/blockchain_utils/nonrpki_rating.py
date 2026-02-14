@@ -41,6 +41,8 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 
+from config import cfg
+
 class NonRPKIRatingSystem:
     """
     Manages trust scores for non-RPKI autonomous systems.
@@ -65,32 +67,35 @@ class NonRPKIRatingSystem:
         # Thread safety
         self.lock = threading.RLock()
 
-        # Rating configuration
-        self.initial_score = 50  # Neutral starting point
-        self.score_min = 0
-        self.score_max = 100
+        # Rating configuration (from .env via config.py)
+        self.initial_score = cfg.RATING_INITIAL_SCORE
+        self.score_min = cfg.RATING_MIN_SCORE
+        self.score_max = cfg.RATING_MAX_SCORE
 
-        # Score change amounts
+        # Score change amounts (covers all 4 attack types + escalation)
         self.penalties = {
-            "ip_prefix_hijacking": -20,
-            "route_leak": -15,
-            "repeated_attack": -30,      # Additional penalty for attack within 30 days
-            "persistent_attacker": -50    # 3+ total attacks
+            "PREFIX_HIJACK": cfg.RATING_PENALTY_PREFIX_HIJACK,
+            "SUBPREFIX_HIJACK": cfg.RATING_PENALTY_SUBPREFIX_HIJACK,
+            "BOGON_INJECTION": cfg.RATING_PENALTY_BOGON_INJECTION,
+            "ROUTE_FLAPPING": cfg.RATING_PENALTY_ROUTE_FLAPPING,
+            "ROUTE_LEAK": cfg.RATING_PENALTY_ROUTE_LEAK,
+            "repeated_attack": cfg.RATING_PENALTY_REPEATED_ATTACK,
+            "persistent_attacker": cfg.RATING_PENALTY_PERSISTENT_ATTACKER,
         }
 
         self.rewards = {
-            "monthly_good_behavior": 5,
-            "false_accusation_cleared": 2,
-            "legitimate_announcements_100": 1,
-            "highly_trusted_bonus": 10    # Bonus for 90+ score for 3 months
+            "monthly_good_behavior": cfg.RATING_REWARD_MONTHLY_GOOD_BEHAVIOR,
+            "false_accusation_cleared": cfg.RATING_REWARD_FALSE_ACCUSATION_CLEARED,
+            "legitimate_announcements_100": cfg.RATING_REWARD_PER_100_LEGITIMATE,
+            "highly_trusted_bonus": cfg.RATING_REWARD_HIGHLY_TRUSTED_BONUS,
         }
 
         # Score thresholds
         self.thresholds = {
-            "highly_trusted": 90,
-            "trusted": 70,
-            "neutral": 50,
-            "suspicious": 30,
+            "highly_trusted": cfg.RATING_THRESHOLD_HIGHLY_TRUSTED,
+            "trusted": cfg.RATING_THRESHOLD_TRUSTED,
+            "neutral": cfg.RATING_THRESHOLD_NEUTRAL,
+            "suspicious": cfg.RATING_THRESHOLD_SUSPICIOUS,
             "malicious": 0
         }
 
@@ -100,6 +105,14 @@ class NonRPKIRatingSystem:
             "last_updated": datetime.now().isoformat(),
             "as_ratings": {}  # as_number -> rating_info
         }
+
+        # Dedup: track seen attacks so multiple observers don't stack penalties
+        # Key: (origin_asn, prefix, attack_type) -> True
+        self._seen_attacks: Dict[tuple, bool] = {}
+
+        # Dedup: track legitimate announcement counts per origin AS (not per observer)
+        # Key: (origin_asn, prefix) -> True
+        self._seen_legitimate: Dict[tuple, bool] = {}
 
         # Load existing ratings
         self._load_ratings()
@@ -202,6 +215,10 @@ class NonRPKIRatingSystem:
         """
         Record confirmed attack and update rating.
 
+        Dedup: If multiple observers report the same attack (same origin AS +
+        prefix + attack type), the penalty is applied only once. Subsequent
+        reports from other observers are counted but don't stack penalties.
+
         Args:
             as_number: AS that committed attack
             attack_type: Type of attack (ip_prefix_hijacking, route_leak)
@@ -212,6 +229,14 @@ class NonRPKIRatingSystem:
         """
         try:
             with self.lock:
+                # Dedup: only apply penalty once per unique (origin_as, prefix, attack_type)
+                prefix = (attack_details or {}).get("prefix", "unknown")
+                dedup_key = (as_number, prefix, attack_type)
+                if dedup_key in self._seen_attacks:
+                    # Already penalized for this specific attack, skip
+                    return self.get_or_create_rating(as_number)
+                self._seen_attacks[dedup_key] = True
+
                 rating = self.get_or_create_rating(as_number)
                 old_score = rating["trust_score"]
 
@@ -223,13 +248,11 @@ class NonRPKIRatingSystem:
                     last_attack = datetime.fromisoformat(rating["last_attack_date"])
                     if (datetime.now() - last_attack).days <= 30:
                         penalty += self.penalties["repeated_attack"]
-                        print(f"⚠️  AS{as_number} repeated attack within 30 days - extra penalty!")
 
                 # Check for persistent attacker (3+ total attacks)
                 rating["attacks_detected"] += 1
                 if rating["attacks_detected"] >= 3:
                     penalty += self.penalties["persistent_attacker"]
-                    print(f"🚨 AS{as_number} is persistent attacker (3+ attacks) - severe penalty!")
 
                 # Apply penalty
                 new_score = max(self.score_min, old_score + penalty)
@@ -251,12 +274,6 @@ class NonRPKIRatingSystem:
                 # Save and log
                 self._save_ratings()
                 self._log_rating_change(as_number, old_score, new_score, f"attack_{attack_type}", attack_details)
-
-                print(f"📉 AS{as_number} rating updated:")
-                print(f"   Attack: {attack_type}")
-                print(f"   Score: {old_score:.1f} → {new_score:.1f} ({penalty:+.1f})")
-                print(f"   Level: {rating['rating_level']}")
-                print(f"   Total attacks: {rating['attacks_detected']}")
 
                 return rating
 
@@ -315,16 +332,27 @@ class NonRPKIRatingSystem:
             print(f"Error recording good behavior: {e}")
             return None
 
-    def increment_legitimate_announcements(self, as_number: int):
+    def increment_legitimate_announcements(self, as_number: int, prefix: str = "unknown"):
         """
         Increment legitimate announcement counter.
         Awards bonus every 100 announcements.
 
+        Dedup: Each unique (origin_as, prefix) pair is counted only once,
+        even if multiple non-RPKI observers report the same legitimate
+        announcement.
+
         Args:
             as_number: AS number
+            prefix: IP prefix (used for dedup)
         """
         try:
             with self.lock:
+                # Dedup: only count once per unique (origin_as, prefix)
+                dedup_key = (as_number, prefix)
+                if dedup_key in self._seen_legitimate:
+                    return
+                self._seen_legitimate[dedup_key] = True
+
                 rating = self.get_or_create_rating(as_number)
                 rating["legitimate_announcements"] += 1
 
@@ -351,6 +379,7 @@ class NonRPKIRatingSystem:
         """Get summary statistics"""
         ratings = self.ratings_data["as_ratings"]
 
+        scores = [r["trust_score"] for r in ratings.values()]
         summary = {
             "total_ases": len(ratings),
             "by_level": {
@@ -361,7 +390,9 @@ class NonRPKIRatingSystem:
                 "malicious": 0
             },
             "total_attacks": sum(r["attacks_detected"] for r in ratings.values()),
-            "average_score": sum(r["trust_score"] for r in ratings.values()) / len(ratings) if ratings else 0
+            "average_score": sum(scores) / len(scores) if scores else 0,
+            "min_score": min(scores) if scores else 0,
+            "max_score": max(scores) if scores else 0,
         }
 
         for rating in ratings.values():

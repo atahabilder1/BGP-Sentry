@@ -1,17 +1,54 @@
-
-# Ignore node_modules directory
-**/node_modules/
-
-# Python cache
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
 
 # Virtual environment
 venv/
+.venv/
 
-# Logs or temp files
-*.tmp
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# System files
+# OS
 .DS_Store
 Thumbs.db
+
+# Secrets and keys
+*.pem
+*.key
+
+# Logs and temp files
+*.log
+*.tmp
+*.pid
+experiment_pid.txt
+
+# Runtime data (regenerated each run)
+blockchain_data/
+nodes/rpki_nodes/as*/blockchain_node/blockchain_data/
+simulation_helpers/shared_data/*.json
+nodes/rpki_nodes/shared_blockchain_stack/shared_data/
+nodes/rpki_nodes/shared_blockchain_stack/blockchain_utils/test_data/
+nodes/rpki_nodes/shared_blockchain_stack/network_stack/relevant_neighbor_cache.json
+texput.log
+
+# StayRTR runtime
+stayrtr/cache/
+stayrtr/vrp_generated.json
+
+# Results (generated per run)
+results/
+
+# Legacy experiment outputs
+experiment_results/
+test_experiment_results/
+
+# Manuscript (private)
+menuscript/

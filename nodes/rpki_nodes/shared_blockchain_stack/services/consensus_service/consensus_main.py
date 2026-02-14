@@ -97,7 +97,13 @@ class ConsensusService:
         """
         self.as_number = as_number
         self.consensus_threshold = consensus_threshold
-        self.total_rpki_nodes = 9  # Total number of RPKI nodes in network
+
+        # Dynamic: load from registry instead of hardcoding 9
+        try:
+            from rpki_node_registry import RPKINodeRegistry
+            self.total_rpki_nodes = RPKINodeRegistry.get_node_count()
+        except Exception:
+            self.total_rpki_nodes = 9  # fallback
         self.min_consensus_votes = int(self.total_rpki_nodes * consensus_threshold)
         self.running = False
         

@@ -1,61 +1,52 @@
-from utils import load_verification_registry, convert_as_format
+import sys
+from pathlib import Path
+
+# Add blockchain_utils to path for RPKINodeRegistry
+_blockchain_utils = Path(__file__).resolve().parent.parent / "shared_blockchain_stack" / "blockchain_utils"
+sys.path.insert(0, str(_blockchain_utils))
+
+from rpki_node_registry import RPKINodeRegistry
+
 
 def is_as_verified(as_number, registry_path=None):
-    """Check if an AS is RPKI verified."""
+    """Check if an AS is RPKI verified using the RPKINodeRegistry."""
     try:
-        registry = load_verification_registry(registry_path)
-        
-        # Convert to registry format
-        if isinstance(as_number, int):
-            registry_key = f"as{as_number:02d}"
+        if isinstance(as_number, str):
+            # Handle "as01" format or plain number string
+            cleaned = as_number.lower().replace("as", "")
+            as_num = int(cleaned)
         else:
-            # Handle string input
-            as_str = str(as_number)
-            if as_str.isdigit():
-                registry_key = f"as{int(as_str):02d}"
-            else:
-                registry_key = as_str
-        
-        result = registry.get(registry_key, False)
-        print(f"🔍 Checking {registry_key}: {'✅ RPKI Valid' if result else '❌ RPKI Invalid'}")
+            as_num = int(as_number)
+
+        result = RPKINodeRegistry.is_rpki_node(as_num)
         return result
-        
+
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
         return False
 
+
 def get_all_verified_ases():
-    """Get all RPKI-verified ASes from registry"""
-    registry = load_verification_registry()
-    return [as_id for as_id, verified in registry.items() if verified]
+    """Get all RPKI-verified ASes from registry."""
+    return RPKINodeRegistry.get_all_rpki_nodes()
+
 
 def get_all_unverified_ases():
-    """Get all non-RPKI ASes (these need trust engine monitoring)"""
-    registry = load_verification_registry()
-    return [as_id for as_id, verified in registry.items() if not verified]
+    """Get all non-RPKI ASes (these need trust engine monitoring)."""
+    return RPKINodeRegistry.get_all_non_rpki_nodes()
+
 
 if __name__ == "__main__":
-    import sys
-    
     if len(sys.argv) == 1:
-        # No arguments - show summary
         print("=== RPKI Verification Registry Summary ===")
         verified = get_all_verified_ases()
         unverified = get_all_unverified_ases()
-        
-        print(f"✅ RPKI Verified ASes ({len(verified)}): {verified}")
-        print(f"❌ Non-RPKI ASes ({len(unverified)}): {unverified}")
-        print(f"\nNote: Non-RPKI ASes need trust engine monitoring")
-        
+        print(f"RPKI Verified ASes ({len(verified)}): {verified}")
+        print(f"Non-RPKI ASes ({len(unverified)}): {unverified}")
+
     elif len(sys.argv) == 2:
-        # Single AS check
         asn = sys.argv[1]
         if is_as_verified(asn):
-            print(f"{asn} ✅ is RPKI verified.")
+            print(f"{asn} is RPKI verified.")
         else:
-            print(f"{asn} ❌ is NOT RPKI verified (needs trust engine monitoring).")
-            
-    else:
-        print("Usage:")
-        print("  python verifier.py                    # Show summary")
-        print("  python verifier.py <as_number>        # Check specific AS")
+            print(f"{asn} is NOT RPKI verified (needs trust engine monitoring).")

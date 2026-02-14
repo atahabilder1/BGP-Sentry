@@ -1,7 +1,0 @@
-Metric,Count,Percentage
-Total Announcements,8,100%
-Attacks Detected,4,50.0%
-Trust Penalties Applied,4,50.0%
-Prefix Hijacking,3,37.5%
-Subprefix Hijacking,1,12.5%
-Legitimate,4,50.0%

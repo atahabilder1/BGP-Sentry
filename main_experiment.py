@@ -1,574 +1,680 @@
 #!/usr/bin/env python3
 """
-BGP-Sentry Main Experiment Orchestrator (Updated)
-==================================================
+BGP-Sentry Main Experiment Orchestrator
+========================================
 
-This is the main orchestrator for the BGP-Sentry distributed blockchain simulation.
-It uses the simulation helpers to manage timing, coordinate nodes, and monitor
-the distributed system.
+Runs the BGP-Sentry distributed blockchain simulation using CAIDA datasets.
+
+Usage:
+    python3 main_experiment.py --dataset caida_100
+    python3 main_experiment.py --dataset caida_100 --duration 300
 
 Author: Anik Tahabilder
-Date: 2025-01-01
 """
 
 import sys
+import os
 import time
+import platform
 import signal
 import json
 import logging
+import argparse
+import subprocess
 from pathlib import Path
 from datetime import datetime
 
+# Ensure project root is on path
+PROJECT_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, str(PROJECT_ROOT / "nodes" / "rpki_nodes" / "shared_blockchain_stack"))
+sys.path.insert(0, str(PROJECT_ROOT / "nodes" / "rpki_nodes" / "shared_blockchain_stack" / "blockchain_utils"))
+
 # Import simulation helpers
-from simulation_helpers import (
-    SharedClockManager,
-    SimulationOrchestrator, 
-    NodeHealthMonitor,
-    HealthDashboard,
-    create_default_experiment_config
-)
+from simulation_helpers import SharedClockManager, SimulationOrchestrator, create_default_experiment_config
+
+# Import data-driven components
+# IMPORTANT: Import via direct module name (not package path) so that the same
+# RPKINodeRegistry class is shared with bgpcoin_ledger.py, p2p_transaction_pool.py,
+# etc. which also use `from rpki_node_registry import RPKINodeRegistry`.
+# If imported via different paths, Python creates separate class objects and
+# initialize() only affects one copy.
+from rpki_node_registry import RPKINodeRegistry
+from data_loader import DatasetLoader
+from node_manager import NodeManager
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('main_experiment.log'),
         logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger('BGP-Sentry-Main')
 
+
+def get_system_info():
+    """Collect system/hardware information for performance benchmarking."""
+    info = {
+        "platform": platform.platform(),
+        "processor": platform.processor(),
+        "python_version": platform.python_version(),
+        "machine": platform.machine(),
+    }
+
+    # CPU info
+    try:
+        cpu_count = os.cpu_count()
+        info["cpu_count"] = cpu_count
+    except Exception:
+        pass
+
+    # Memory info (Linux)
+    try:
+        with open("/proc/meminfo", "r") as f:
+            for line in f:
+                if line.startswith("MemTotal:"):
+                    mem_kb = int(line.split()[1])
+                    info["memory_total_gb"] = round(mem_kb / 1024 / 1024, 1)
+                    break
+    except Exception:
+        pass
+
+    # CPU model (Linux)
+    try:
+        with open("/proc/cpuinfo", "r") as f:
+            for line in f:
+                if line.startswith("model name"):
+                    info["cpu_model"] = line.split(":", 1)[1].strip()
+                    break
+    except Exception:
+        pass
+
+    return info
+
+
+def resolve_dataset_path(dataset_name):
+    """Resolve dataset name to full path."""
+    dataset_dir = PROJECT_ROOT / "dataset" / dataset_name
+    if dataset_dir.exists():
+        return str(dataset_dir)
+
+    # Try as absolute/relative path
+    if Path(dataset_name).exists():
+        return str(Path(dataset_name).resolve())
+
+    raise FileNotFoundError(
+        f"Dataset '{dataset_name}' not found. "
+        f"Looked in: {PROJECT_ROOT / 'dataset' / dataset_name}"
+    )
+
+
 class BGPSentryExperiment:
     """
     Main experiment controller that orchestrates the entire BGP-Sentry simulation.
-    
-    This class coordinates:
-    - Shared timing across all nodes
-    - Node lifecycle management
-    - Health monitoring and alerting
-    - Experiment results collection
+
+    Startup sequence:
+      1. Resolve dataset path
+      2. RPKINodeRegistry.initialize(dataset_path)
+      3. DatasetLoader loads observations + ground truth
+      4. NodeManager creates virtual nodes
+      5. Orchestrator runs virtual nodes in-process
+      6. Results written to results/<dataset>/<timestamp>/
     """
-    
-    def __init__(self, config_file="simulation_helpers/shared_data/experiment_config.json"):
-        """
-        Initialize the BGP-Sentry experiment.
-        
-        Args:
-            config_file: Path to experiment configuration file
-        """
-        self.config_file = config_file
-        self.config = self._load_experiment_config()
-        
-        # Initialize core components
-        self.clock_manager = SharedClockManager()
-        self.orchestrator = SimulationOrchestrator()
-        self.health_monitor = None
-        self.dashboard = None
-        
+
+    def __init__(self, dataset_path, duration=300, clean=True):
+        self.dataset_path = dataset_path
+        self.duration = duration
+
+        # Clean blockchain state from previous runs
+        if clean:
+            self._reset_blockchain_state()
+
+        # Initialize registry from dataset
+        RPKINodeRegistry.initialize(dataset_path)
+
+        # Load dataset
+        self.data_loader = DatasetLoader(dataset_path)
+        logger.info(f"Dataset summary: {json.dumps(self.data_loader.summary(), indent=2)}")
+
+        # Create node manager with project root for blockchain data paths
+        self.node_manager = NodeManager(self.data_loader, project_root=str(PROJECT_ROOT))
+
+        # Create orchestrator with node manager
+        self.orchestrator = SimulationOrchestrator(node_manager=self.node_manager)
+
+        # Results directory
+        dataset_name = self.data_loader.dataset_name
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.results_dir = PROJECT_ROOT / "results" / dataset_name / timestamp
+        self.results_dir.mkdir(parents=True, exist_ok=True)
+
         # Experiment state
-        self.experiment_id = None
         self.experiment_start_time = None
-        self.experiment_status = "initialized"
-        
-        # Graceful shutdown handling
         self.shutdown_requested = False
-        self._setup_signal_handlers()
-        
-        logger.info("BGP-Sentry Experiment initialized")
-    
-    def _load_experiment_config(self):
-        """
-        Load experiment configuration from file.
-        
-        Returns:
-            dict: Experiment configuration
-        """
-        try:
-            if Path(self.config_file).exists():
-                with open(self.config_file, 'r') as f:
-                    config = json.load(f)
-                logger.info(f"Loaded configuration from {self.config_file}")
-                return config
-            else:
-                logger.warning(f"Config file {self.config_file} not found, using defaults")
-                return self._create_default_config()
-                
-        except Exception as e:
-            logger.error(f"Error loading config: {e}, using defaults")
-            return self._create_default_config()
-    
-    def _create_default_config(self):
-        """Create default configuration if file doesn't exist."""
-        default_config = create_default_experiment_config()
-        
-        # Add additional experiment-specific settings
-        experiment_config = {
-            "experiment_metadata": {
-                "name": "BGP-Sentry Distributed Simulation",
-                "description": "Distributed blockchain simulation for BGP security analysis"
-            },
-            "simulation_parameters": {
-                "time_scale": default_config["time_scale"],
-                "max_duration": default_config["max_duration"],
-                "expected_nodes": 9,
-                "processing_interval": 5.0
-            },
-            "monitoring": {
-                "health_check_interval": 10,
-                "enable_dashboard": True,
-                "alert_on_failures": True
-            }
-        }
-        
-        return experiment_config
-    
-    def _setup_signal_handlers(self):
-        """Set up signal handlers for graceful shutdown."""
-        def signal_handler(signum, frame):
-            logger.info(f"Received signal {signum}, initiating graceful shutdown...")
-            self.shutdown_requested = True
-            self.shutdown()
-        
-        signal.signal(signal.SIGINT, signal_handler)
-        signal.signal(signal.SIGTERM, signal_handler)
-    
-    def validate_prerequisites(self):
-        """
-        Validate that all prerequisites are met for running the experiment.
-        
-        Returns:
-            bool: True if prerequisites are met
-        """
-        logger.info("Validating experiment prerequisites...")
-        
-        try:
-            # Validate simulation helpers
-            self._validate_simulation_helpers()
-            
-            # Validate orchestrator prerequisites
-            self.orchestrator.validate_prerequisites()
-            
-            # Validate BGP data sources
-            self._validate_bgp_data_sources()
-            
-            # Validate output directories
-            self._validate_output_directories()
-            
-            logger.info("All prerequisites validated successfully")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Prerequisites validation failed: {e}")
-            return False
-    
-    def _validate_simulation_helpers(self):
-        """Validate simulation helper components."""
-        # Test shared clock initialization
-        test_config = create_default_experiment_config()
-        test_id = self.clock_manager.initialize_simulation_clock(test_config)
-        logger.info(f"Shared clock test successful: {test_id}")
-        
-        # Test orchestrator initialization
-        if not hasattr(self.orchestrator, 'rpki_node_configs'):
-            raise RuntimeError("Orchestrator not properly initialized")
-        
-        logger.info("Simulation helpers validation passed")
-    
-    def _validate_bgp_data_sources(self):
-        """Validate BGP data sources are available."""
-        bgp_data_path = "bgp_feed/mininet_logs/"
-        
-        if not Path(bgp_data_path).exists():
-            raise FileNotFoundError(f"BGP data source not found: {bgp_data_path}")
-        
-        # Check for data files
-        data_files = list(Path(bgp_data_path).glob("*.log")) + list(Path(bgp_data_path).glob("*.json"))
-        
-        if not data_files:
-            logger.warning(f"No BGP data files found in {bgp_data_path}")
-        else:
-            logger.info(f"Found {len(data_files)} BGP data files")
-    
-    def _validate_output_directories(self):
-        """Validate and create output directories."""
-        output_dirs = ["results", "simulation_helpers/shared_data"]
-        
-        for directory in output_dirs:
-            Path(directory).mkdir(parents=True, exist_ok=True)
-            logger.info(f"Output directory ready: {directory}")
-    
-    def initialize_experiment(self):
-        """
-        Initialize the experiment with shared timing and node coordination.
-        
-        Returns:
-            bool: True if initialization successful
-        """
-        logger.info("Initializing BGP-Sentry experiment...")
-        
-        try:
-            # Initialize shared clock
-            sim_config = self.config.get("simulation_parameters", create_default_experiment_config())
-            self.experiment_id = self.clock_manager.initialize_simulation_clock(sim_config)
-            
-            # Initialize health monitoring
-            node_configs = self.orchestrator.rpki_node_configs
-            monitoring_interval = self.config.get("monitoring", {}).get("health_check_interval", 10)
-            
-            self.health_monitor = NodeHealthMonitor(node_configs, monitoring_interval)
-            self.dashboard = HealthDashboard(self.health_monitor)
-            
-            # Mark experiment as initialized
-            self.experiment_status = "initialized"
-            self.experiment_start_time = time.time()
-            
-            logger.info(f"Experiment initialized successfully - ID: {self.experiment_id}")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Experiment initialization failed: {e}")
-            self.experiment_status = "initialization_failed"
-            return False
-    
-    def start_nodes(self):
-        """
-        Start all RPKI nodes and wait for network convergence.
-        
-        Returns:
-            bool: True if all nodes started successfully
-        """
-        logger.info("Starting RPKI node network...")
-        
-        try:
-            # Ensure health monitor is ready
-            if not self.health_monitor:
-                node_configs = self.orchestrator.rpki_node_configs
-                monitoring_interval = self.config.get("monitoring", {}).get("health_check_interval", 10)
-                self.health_monitor = NodeHealthMonitor(node_configs, monitoring_interval)
-            if not self.dashboard:
-                self.dashboard = HealthDashboard(self.health_monitor)
 
-            # Start health monitoring first
-            self.health_monitor.start_monitoring()
-            
-            # Start all nodes
-            experiment_config = self.config.get("simulation_parameters", {})
-            success = self.orchestrator.start_all_nodes(experiment_config)
-            
-            if not success:
-                logger.error("Failed to start all nodes")
-                return False
-            
-            # Wait for network convergence
-            convergence_timeout = experiment_config.get("convergence_timeout", 60)
-            converged = self.orchestrator.wait_for_node_convergence(convergence_timeout)
-            
-            if not converged:
-                logger.error("Network convergence timeout")
-                return False
-            
-            # Wait for nodes to register with shared clock
-            expected_nodes = experiment_config.get("expected_nodes", 9)
-            nodes_ready = self.clock_manager.wait_for_nodes(expected_nodes, timeout=60)
-            
-            if not nodes_ready:
-                logger.warning("Not all nodes registered with shared clock")
-            
-            logger.info("All nodes started and network converged")
-            self.experiment_status = "nodes_ready"
-            return True
-            
-        except Exception as e:
-            logger.error(f"Node startup failed: {e}")
-            self.experiment_status = "startup_failed"
-            return False
-    
-    def run_simulation(self):
-        """
-        Run the main simulation with BGP announcement processing.
-        
-        Returns:
-            bool: True if simulation completed successfully
-        """
-        logger.info("Starting BGP simulation...")
-        
-        try:
-            # Mark BGP data as loaded (simulation will load it)
-            self.clock_manager.mark_bgp_data_loaded()
-            
-            # Start the simulation clock
-            self.clock_manager.start_simulation()
-            self.experiment_status = "running"
-            
-            # Start orchestrator monitoring
-            self.orchestrator.start_monitoring()
-            
-            # Get simulation duration
-            max_duration = self.config.get("simulation_parameters", {}).get("max_duration", 3600)
-            processing_interval = self.config.get("simulation_parameters", {}).get("processing_interval", 30)
-            
-            logger.info(f"Simulation running - Duration: {max_duration}s, Monitoring interval: {processing_interval}s")
-            
-            # Main simulation loop
-            simulation_start = time.time()
-            last_status_time = simulation_start
-            
-            while not self.shutdown_requested:
-                current_time = time.time()
-                elapsed_time = current_time - simulation_start
-                
-                # Check if simulation should end
-                if elapsed_time >= max_duration:
-                    logger.info("Simulation duration reached, stopping...")
-                    break
-                
-                # Periodic status updates
-                if current_time - last_status_time >= processing_interval:
-                    self._print_simulation_status()
-                    last_status_time = current_time
-                
-                # Check node health
-                active_nodes = self.orchestrator.get_active_nodes()
-                if len(active_nodes) < len(self.orchestrator.rpki_node_configs) // 2:
-                    logger.warning("Less than half of nodes are active - stopping simulation")
-                    break
-                
-                # Sleep before next check
-                time.sleep(5)
-            
-            # Stop simulation clock
-            self.clock_manager.stop_simulation()
-            self.experiment_status = "completed"
-            
-            logger.info("Simulation completed successfully")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Simulation failed: {e}")
-            self.experiment_status = "simulation_failed"
-            return False
-    
-    def _print_simulation_status(self):
-        """Print current simulation status."""
-        try:
-            # Get simulation time
-            sim_time = self.clock_manager.get_simulation_time()
-            
-            # Get node status
-            active_nodes = self.orchestrator.get_active_nodes()
-            total_nodes = len(self.orchestrator.rpki_node_configs)
-            
-            if not self.health_monitor:
-                logger.info(
-                    "SIMULATION STATUS - Time: %.1fs | Nodes: %d/%d | Health monitor unavailable",
-                    sim_time,
-                    len(active_nodes),
-                    total_nodes,
-                )
-                return
+        # System info for benchmarking
+        self.system_info = get_system_info()
 
-            # Get health summary
-            health_summary = self.health_monitor.get_node_health_summary()
-            
-            # Print status
-            logger.info(f"SIMULATION STATUS - Time: {sim_time:.1f}s | "
-                       f"Nodes: {len(active_nodes)}/{total_nodes} | "
-                       f"Responsive: {health_summary['responsive_nodes']} | "
-                       f"Issues: {health_summary['nodes_with_issues']}")
-            
-            # Print dashboard if enabled
-            if (
-                self.dashboard
-                and self.config.get("monitoring", {}).get("enable_dashboard", False)
-            ):
-                print("\n" + "="*80)
-                self.dashboard.print_status_summary()
-                self.dashboard.print_recent_alerts(max_alerts=5)
-                print("="*80)
-        
-        except Exception as e:
-            logger.warning(f"Error printing status: {e}")
-    
-    def shutdown(self):
-        """Gracefully shutdown the experiment."""
-        logger.info("Shutting down BGP-Sentry experiment...")
-        
+        # Graceful shutdown
+        signal.signal(signal.SIGINT, self._signal_handler)
+        signal.signal(signal.SIGTERM, self._signal_handler)
+
+    def _reset_blockchain_state(self):
+        """Reset all blockchain data to start fresh for this experiment."""
+        import shutil
+        bc_dir = PROJECT_ROOT / "blockchain_data"
+        if bc_dir.exists():
+            shutil.rmtree(bc_dir)
+            logger.info("Cleaned blockchain state from previous runs")
+        bc_dir.mkdir(parents=True, exist_ok=True)
+
+    def _signal_handler(self, signum, frame):
+        logger.info(f"Received signal {signum}, shutting down...")
+        self.shutdown_requested = True
+
+    def run(self):
+        """Run the full experiment."""
+        logger.info("=" * 70)
+        logger.info("BGP-SENTRY EXPERIMENT STARTING")
+        logger.info("=" * 70)
+        logger.info(f"Dataset: {self.data_loader.dataset_name}")
+        logger.info(f"Nodes: {self.data_loader.total_ases} ({self.data_loader.rpki_count} RPKI, {self.data_loader.non_rpki_count} non-RPKI)")
+        logger.info(f"Duration limit: {self.duration}s")
+        logger.info(f"Results: {self.results_dir}")
+
+        self.experiment_start_time = time.time()
+
         try:
-            # Stop simulation clock
-            if self.experiment_status in ["running", "nodes_ready"]:
-                self.clock_manager.stop_simulation()
-            
-            # Stop all nodes
+            # Step 1: Generate VRP
+            self._generate_vrp()
+
+            # Step 2: Start nodes
+            logger.info("Starting all virtual nodes...")
+            self.orchestrator.start_all_nodes()
+
+            # Step 3: Wait for processing
+            logger.info("Processing observations...")
+            completed = self.node_manager.wait_for_completion(
+                timeout=self.duration,
+                poll_interval=5.0,
+            )
+
+            if not completed:
+                logger.warning("Processing did not complete within timeout")
+
+            # Step 4: Collect and write results
+            self._write_results()
+
+            elapsed = time.time() - self.experiment_start_time
+            logger.info("=" * 70)
+            logger.info(f"EXPERIMENT COMPLETED in {elapsed:.1f}s")
+            logger.info(f"Results written to: {self.results_dir}")
+            logger.info("=" * 70)
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Experiment failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+        finally:
             self.orchestrator.stop_all_nodes()
-            
-            # Stop health monitoring
-            if self.health_monitor:
-                self.health_monitor.stop_monitoring()
-            
-            # Generate final results
-            self._generate_final_results()
-            
-            self.experiment_status = "shutdown_complete"
-            logger.info("Experiment shutdown completed")
-            
-        except Exception as e:
-            logger.error(f"Error during shutdown: {e}")
-    
-    def _generate_final_results(self):
-        """Generate and save final experiment results."""
-        logger.info("Generating final experiment results...")
-        
+
+    def _generate_vrp(self):
+        """Generate VRP file from dataset."""
+        vrp_path = PROJECT_ROOT / "stayrtr" / "vrp_generated.json"
+        vrp_path.parent.mkdir(parents=True, exist_ok=True)
+
         try:
-            # Create results directory
-            results_dir = Path("results")
-            results_dir.mkdir(exist_ok=True)
-            
-            # Get final clock status
-            clock_status = self.clock_manager.get_clock_status()
-            
-            # Get orchestrator summary
-            simulation_summary = self.orchestrator.get_simulation_summary()
-            
-            # Get health report
-            if self.health_monitor:
-                health_summary = self.health_monitor.get_node_health_summary()
-                performance_metrics = self.health_monitor.get_performance_metrics()
-                blockchain_status = self.health_monitor.get_blockchain_sync_status()
-            else:
-                health_summary = {
-                    "total_nodes": len(self.orchestrator.rpki_node_configs),
-                    "running_nodes": 0,
-                    "responsive_nodes": 0,
-                    "nodes_with_issues": len(self.orchestrator.rpki_node_configs),
-                }
-                performance_metrics = {}
-                blockchain_status = {
-                    "nodes_with_blockchain": 0,
-                    "average_block_count": 0.0,
-                    "block_counts": [],
-                }
-            
-            # Compile final results
-            final_results = {
-                "experiment_metadata": {
-                    "experiment_id": self.experiment_id,
-                    "config_used": self.config,
-                    "start_time": self.experiment_start_time,
-                    "end_time": time.time(),
-                    "status": self.experiment_status
-                },
-                "timing_results": clock_status,
-                "simulation_summary": simulation_summary,
-                "health_summary": health_summary,
-                "performance_metrics": performance_metrics,
-                "blockchain_status": blockchain_status
-            }
-            
-            # Save results
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            results_file = results_dir / f"bgp_sentry_results_{timestamp}.json"
-            
-            with open(results_file, 'w') as f:
-                json.dump(final_results, f, indent=2, default=str)
-            
-            # Save health report
-            health_report_file = results_dir / f"health_report_{timestamp}.json"
-            if self.health_monitor:
-                self.health_monitor.export_health_report(str(health_report_file))
-            
-            # Save orchestrator results
-            self.orchestrator.save_simulation_results(str(results_dir))
-            
-            logger.info(f"Results saved to {results_file}")
-            
-            # Print summary
-            self._print_final_summary(final_results)
-            
+            generate_script = PROJECT_ROOT / "scripts" / "generate_vrp.py"
+            subprocess.run(
+                [sys.executable, str(generate_script), self.dataset_path, str(vrp_path)],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            logger.info(f"VRP generated: {vrp_path}")
         except Exception as e:
-            logger.error(f"Error generating results: {e}")
-    
-    def _print_final_summary(self, results):
-        """Print final experiment summary."""
-        print("\n" + "="*80)
-        print("BGP-SENTRY EXPERIMENT COMPLETED")
-        print("="*80)
-        
-        metadata = results["experiment_metadata"]
-        duration = metadata["end_time"] - metadata["start_time"]
-        
-        print(f"Experiment ID: {metadata['experiment_id']}")
-        print(f"Duration: {duration:.1f} seconds")
-        print(f"Status: {metadata['status']}")
-        
-        # Node statistics
-        sim_summary = results["simulation_summary"]
-        print(f"\nNode Performance:")
-        print(f"  Total Nodes: {sim_summary['total_nodes']}")
-        print(f"  Active Nodes at End: {sim_summary['active_nodes']}")
-        
-        # Health statistics
-        health_summary = results["health_summary"]
-        print(f"\nHealth Summary:")
-        print(f"  Running Nodes: {health_summary['running_nodes']}")
-        print(f"  Responsive Nodes: {health_summary['responsive_nodes']}")
-        print(f"  Nodes with Issues: {health_summary['nodes_with_issues']}")
-        
-        # Blockchain status
-        blockchain_status = results["blockchain_status"]
-        print(f"\nBlockchain Status:")
-        print(f"  Nodes with Blockchain: {blockchain_status['nodes_with_blockchain']}")
-        print(f"  Average Block Count: {blockchain_status['average_block_count']:.1f}")
-        
-        print("="*80)
+            logger.warning(f"VRP generation failed (non-fatal): {e}")
+
+    def _write_results(self):
+        """Write structured results to the results directory."""
+        elapsed = time.time() - self.experiment_start_time
+
+        def _safe_write(filename, data):
+            """Write JSON file, catching serialization errors."""
+            try:
+                with open(self.results_dir / filename, "w") as f:
+                    json.dump(data, f, indent=2, default=str)
+            except Exception as e:
+                logger.error(f"Failed to write {filename}: {e}")
+
+        # 1. Detection results
+        all_results = self.node_manager.get_all_detection_results()
+        _safe_write("detection_results.json", all_results)
+
+        # 2. Trust scores (per-node)
+        trust_scores = {}
+        for asn, node in self.node_manager.nodes.items():
+            trust_scores[str(asn)] = {
+                "asn": asn,
+                "is_rpki": node.is_rpki,
+                "role": node.rpki_role,
+                "trust_score": node.trust_score,
+                "observations_processed": node.processed_count,
+                "attacks_detected": len(node.attack_detections),
+                "stats": node.stats,
+            }
+        _safe_write("trust_scores.json", trust_scores)
+
+        # 3. Performance metrics (compare against ground truth)
+        performance = self._compute_performance_metrics()
+        _safe_write("performance_metrics.json", performance)
+
+        # 4. Summary
+        summary = {
+            "dataset": self.data_loader.summary(),
+            "node_summary": self.node_manager.get_summary(),
+            "performance": performance,
+            "elapsed_seconds": elapsed,
+            "timestamp": datetime.now().isoformat(),
+        }
+        _safe_write("summary.json", summary)
+
+        # 5. Run config (includes system info for benchmarking)
+        run_config = {
+            "dataset_path": self.dataset_path,
+            "dataset_name": self.data_loader.dataset_name,
+            "duration_limit": self.duration,
+            "actual_duration": elapsed,
+            "system_info": self.system_info,
+            "rpki_node_count": self.data_loader.rpki_count,
+            "non_rpki_node_count": self.data_loader.non_rpki_count,
+            "total_nodes": self.data_loader.total_ases,
+            "consensus_threshold": RPKINodeRegistry.get_consensus_threshold(),
+            "timestamp": datetime.now().isoformat(),
+        }
+        _safe_write("run_config.json", run_config)
+
+        # --- NEW: Blockchain infrastructure results ---
+
+        # 6. Blockchain stats (blocks written, transactions, integrity check)
+        blockchain_stats = self.node_manager.get_blockchain_stats()
+        _safe_write("blockchain_stats.json", blockchain_stats)
+
+        # 7. BGPCoin economy (treasury, distributed, burned, per-node balances)
+        bgpcoin_economy = self.node_manager.get_bgpcoin_summary()
+        _safe_write("bgpcoin_economy.json", bgpcoin_economy)
+
+        # 8. Non-RPKI ratings (rating for each non-RPKI AS + history)
+        nonrpki_ratings = {
+            "summary": self.node_manager.get_rating_summary(),
+            "ratings": self.node_manager.get_all_ratings(),
+        }
+        _safe_write("nonrpki_ratings.json", nonrpki_ratings)
+
+        # 9. Consensus log (confirmed, insufficient, single-witness)
+        consensus_log = self.node_manager.get_consensus_log()
+        _safe_write("consensus_log.json", consensus_log)
+
+        # 10. Attack verdicts (proposals, votes, verdicts, confidence)
+        attack_verdicts = self.node_manager.get_attack_verdicts()
+        _safe_write("attack_verdicts.json", attack_verdicts)
+
+        # 11. Dedup stats (how many observations were deduplicated/throttled)
+        dedup_stats = self.node_manager.get_dedup_stats()
+        _safe_write("dedup_stats.json", dedup_stats)
+
+        # 12. Message bus stats
+        bus_stats = self.node_manager.get_message_bus_stats()
+        _safe_write("message_bus_stats.json", bus_stats)
+
+        # 13. Cryptographic signing summary
+        crypto_summary = self.node_manager.get_crypto_summary()
+        _safe_write("crypto_summary.json", crypto_summary)
+
+        # 14. Save RSA keys to disk (per-node folders + public key registry)
+        try:
+            self.node_manager.save_keys_to_disk()
+        except Exception as e:
+            logger.warning(f"Failed to save keys to disk: {e}")
+
+        # 15. Human-readable README summary of this run
+        self._write_result_readme(summary, performance, blockchain_stats,
+                                  bgpcoin_economy, nonrpki_ratings,
+                                  consensus_log, dedup_stats, bus_stats,
+                                  attack_verdicts, run_config, crypto_summary)
+
+        # 16. Generate analysis notebook
+        try:
+            import sys, os
+            sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'scripts'))
+            from generate_analysis_notebook import generate_notebook
+            nb_path = generate_notebook(str(self.results_dir))
+            if nb_path:
+                logger.info(f"Analysis notebook: {nb_path}")
+        except Exception as e:
+            logger.warning(f"Failed to generate analysis notebook: {e}")
+
+        logger.info(f"Results written: {self.results_dir} (15 files + notebook + keys)")
+
+    # ------------------------------------------------------------------
+    def _write_result_readme(self, summary, performance, blockchain_stats,
+                             bgpcoin_economy, nonrpki_ratings, consensus_log,
+                             dedup_stats, bus_stats, attack_verdicts, run_config,
+                             crypto_summary=None):
+        """Generate a markdown README summarising this experiment run."""
+        ds = summary.get("dataset", {})
+        ns = summary.get("node_summary", {})
+        perf = performance or {}
+        bc = blockchain_stats or {}
+        bc_info = bc.get("blockchain_info", {})
+        integrity = bc.get("integrity", {})
+        eco = bgpcoin_economy or {}
+        cl = consensus_log or {}
+        dd = dedup_stats or {}
+        bus = bus_stats or {}
+        cfg_data = run_config or {}
+        ratings_summary = (nonrpki_ratings or {}).get("summary", {})
+        all_ratings = (nonrpki_ratings or {}).get("ratings", {})
+
+        # Rating distribution (from summary.by_level)
+        rating_dist = ratings_summary.get("by_level", {})
+        if not rating_dist:
+            # Fallback: count from individual ratings
+            for asn_str, info in all_ratings.items():
+                category = info.get("rating_level", "unknown")
+                rating_dist[category] = rating_dist.get(category, 0) + 1
+
+        # Attack verdict breakdown
+        verdict_types = {}
+        for v in (attack_verdicts or []):
+            atype = v.get("attack_type", "unknown")
+            verdict_types[atype] = verdict_types.get(atype, 0) + 1
+
+        elapsed = summary.get("elapsed_seconds", 0)
+        sysinfo = cfg_data.get("system_info", {})
+
+        lines = []
+        lines.append(f"# BGP-Sentry Experiment Results")
+        lines.append(f"")
+        lines.append(f"**Dataset:** `{ds.get('dataset_name', 'unknown')}` | "
+                      f"**Date:** {summary.get('timestamp', 'N/A')[:19]} | "
+                      f"**Duration:** {elapsed:.1f}s")
+        lines.append(f"")
+
+        # ── Dataset ──
+        lines.append(f"## Dataset")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Total ASes | {ds.get('total_ases', 0)} |")
+        lines.append(f"| RPKI Validators | {ds.get('rpki_count', 0)} |")
+        lines.append(f"| Non-RPKI Observers | {ds.get('non_rpki_count', 0)} |")
+        lines.append(f"| Total Observations | {ds.get('total_observations', 0):,} |")
+        lines.append(f"| Attack Observations | {ds.get('attack_observations', 0):,} ({100*ds.get('attack_observations',0)/max(ds.get('total_observations',1),1):.1f}%) |")
+        lines.append(f"| Legitimate Observations | {ds.get('legitimate_observations', 0):,} |")
+        lines.append(f"")
+
+        # ── Node Processing ──
+        lines.append(f"## Node Processing")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Nodes Completed (within time limit) | {ns.get('nodes_done', 0)} / {ns.get('total_nodes', 0)} |")
+        lines.append(f"| Total Observations Processed | {ns.get('total_observations_processed', 0):,} |")
+        lines.append(f"| Attacks Detected | {ns.get('attacks_detected', 0):,} |")
+        lines.append(f"| Legitimate Processed | {ns.get('legitimate_processed', 0):,} |")
+        lines.append(f"")
+
+        # ── Detection Performance ──
+        lines.append(f"## Detection Performance (vs Ground Truth)")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Ground Truth Attacks (unique) | {perf.get('ground_truth_attacks', 0)} |")
+        lines.append(f"| Total Detections (unique) | {perf.get('total_detections', 0)} |")
+        lines.append(f"| True Positives | {perf.get('true_positives', 0)} |")
+        lines.append(f"| False Positives | {perf.get('false_positives', 0)} |")
+        lines.append(f"| False Negatives | {perf.get('false_negatives', 0)} |")
+        lines.append(f"| **Precision** | **{perf.get('precision', 0):.4f}** |")
+        lines.append(f"| **Recall** | **{perf.get('recall', 0):.4f}** |")
+        lines.append(f"| **F1 Score** | **{perf.get('f1_score', 0):.4f}** |")
+        lines.append(f"")
+
+        # ── Blockchain ──
+        lines.append(f"## Blockchain")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Total Blocks | {bc_info.get('total_blocks', 0):,} |")
+        lines.append(f"| Total Transactions | {bc_info.get('total_transactions', 0):,} |")
+        latest = bc_info.get("latest_block", {})
+        lines.append(f"| Latest Block # | {latest.get('block_number', 'N/A')} |")
+        lines.append(f"| Integrity Valid | {'Yes' if integrity.get('valid') else 'No'} |")
+        if not integrity.get("valid"):
+            errors = integrity.get("errors", [])
+            lines.append(f"| Integrity Errors | {'; '.join(errors[:3])} |")
+
+        # Per-node blockchain replicas
+        replicas = bc.get("node_replicas", {})
+        if replicas:
+            lines.append(f"| Node Replicas | {replicas.get('total_nodes', 0)} |")
+            lines.append(f"| All Replicas Valid | {'Yes' if replicas.get('all_valid') else 'No'} |")
+            lines.append(f"| Valid Replicas | {replicas.get('valid_count', 0)}/{replicas.get('total_nodes', 0)} |")
+        lines.append(f"")
+
+        # ── Cryptographic Signing ──
+        crypto = crypto_summary or {}
+        if crypto:
+            lines.append(f"## Cryptographic Signing")
+            lines.append(f"")
+            lines.append(f"| Metric | Value |")
+            lines.append(f"|--------|-------|")
+            lines.append(f"| Key Algorithm | {crypto.get('key_algorithm', 'N/A')} |")
+            lines.append(f"| Signature Scheme | {crypto.get('signature_scheme', 'N/A')} |")
+            lines.append(f"| Total Key Pairs | {crypto.get('total_key_pairs', 0)} |")
+            lines.append(f"")
+
+        # ── Consensus ──
+        lines.append(f"## Consensus")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Consensus Threshold | {cfg_data.get('consensus_threshold', 'N/A')} signatures |")
+        lines.append(f"| Transactions Created | {cl.get('total_transactions_created', 0):,} |")
+        lines.append(f"| Committed (consensus reached) | {cl.get('total_committed', 0):,} |")
+        lines.append(f"| Pending (timed out / not enough votes) | {cl.get('total_pending', 0):,} |")
+        committed = cl.get('total_committed', 0)
+        created = cl.get('total_transactions_created', 1)
+        lines.append(f"| **Commit Rate** | **{100*committed/max(created,1):.1f}%** |")
+        lines.append(f"")
+
+        # ── BGPCoin Economy ──
+        lines.append(f"## BGPCoin Economy")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Total Supply | {eco.get('total_supply', 0):,} |")
+        lines.append(f"| Treasury Balance | {eco.get('treasury_balance', 0):,.0f} |")
+        lines.append(f"| Total Distributed | {eco.get('total_distributed', 0):,.0f} |")
+        lines.append(f"| Circulating Supply | {eco.get('circulating_supply', 0):,.0f} |")
+        lines.append(f"| Participating Nodes | {eco.get('nodes_count', 0)} |")
+        lines.append(f"")
+
+        # ── Non-RPKI Ratings ──
+        lines.append(f"## Non-RPKI Trust Ratings")
+        lines.append(f"")
+        if rating_dist:
+            cat_labels = [
+                ("highly_trusted", "Highly Trusted"),
+                ("trusted", "Trusted"),
+                ("neutral", "Neutral"),
+                ("suspicious", "Suspicious"),
+                ("malicious", "Malicious"),
+            ]
+            lines.append(f"| Category | Count |")
+            lines.append(f"|----------|-------|")
+            for key, label in cat_labels:
+                count = rating_dist.get(key, 0)
+                if count > 0:
+                    lines.append(f"| {label} | {count} |")
+            lines.append(f"")
+
+        lines.append(f"| Stat | Value |")
+        lines.append(f"|------|-------|")
+        avg = ratings_summary.get('average_score', 'N/A')
+        avg_str = f"{avg:.2f}" if isinstance(avg, (int, float)) else str(avg)
+        low = ratings_summary.get('lowest_score', ratings_summary.get('min_score', 'N/A'))
+        high = ratings_summary.get('highest_score', ratings_summary.get('max_score', 'N/A'))
+        lines.append(f"| Total Rated ASes | {ratings_summary.get('total_ases', ratings_summary.get('total_rated', len(all_ratings)))} |")
+        lines.append(f"| Average Score | {avg_str} |")
+        lines.append(f"| Lowest Score | {low} |")
+        lines.append(f"| Highest Score | {high} |")
+        lines.append(f"")
+
+        # ── Attack Verdicts ──
+        lines.append(f"## Attack Verdicts")
+        lines.append(f"")
+        if verdict_types:
+            lines.append(f"| Attack Type | Count |")
+            lines.append(f"|-------------|-------|")
+            for atype, count in sorted(verdict_types.items()):
+                lines.append(f"| {atype} | {count} |")
+            lines.append(f"")
+
+        # ── Deduplication ──
+        lines.append(f"## Deduplication")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| RPKI Deduped | {dd.get('rpki_deduped', 0):,} |")
+        lines.append(f"| Non-RPKI Throttled | {dd.get('nonrpki_throttled', 0):,} |")
+        lines.append(f"| Total Skipped | {dd.get('total_skipped', 0):,} |")
+        lines.append(f"")
+
+        # ── P2P Message Bus ──
+        lines.append(f"## P2P Message Bus")
+        lines.append(f"")
+        lines.append(f"| Metric | Value |")
+        lines.append(f"|--------|-------|")
+        lines.append(f"| Messages Sent | {bus.get('sent', 0):,} |")
+        lines.append(f"| Messages Delivered | {bus.get('delivered', 0):,} |")
+        lines.append(f"| Messages Dropped | {bus.get('dropped', 0):,} |")
+        lines.append(f"")
+
+        # ── System Info ──
+        if sysinfo:
+            lines.append(f"## System Info")
+            lines.append(f"")
+            lines.append(f"| Metric | Value |")
+            lines.append(f"|--------|-------|")
+            lines.append(f"| CPU | {sysinfo.get('cpu_model', sysinfo.get('processor', 'N/A'))} |")
+            lines.append(f"| Cores | {sysinfo.get('cpu_count', 'N/A')} |")
+            lines.append(f"| RAM | {sysinfo.get('memory_total_gb', 'N/A')} GB |")
+            lines.append(f"| Platform | {sysinfo.get('platform', 'N/A')} |")
+            lines.append(f"| Python | {sysinfo.get('python_version', 'N/A')} |")
+            lines.append(f"")
+
+        lines.append(f"---")
+        lines.append(f"*Generated by BGP-Sentry main_experiment.py*")
+
+        readme_path = self.results_dir / "README.md"
+        try:
+            with open(readme_path, "w") as f:
+                f.write("\n".join(lines))
+        except Exception as e:
+            logger.error(f"Failed to write README.md: {e}")
+
+    def _compute_performance_metrics(self):
+        """Compare detections against ground truth to compute precision/recall/F1."""
+        gt_attacks = self.data_loader.get_ground_truth_attacks()
+        detections = self.node_manager.get_all_attack_detections()
+
+        # Build ground truth set: (prefix, origin_asn, label)
+        gt_set = set()
+        for atk in gt_attacks:
+            key = (atk.get("prefix"), atk.get("origin_asn"), atk.get("label"))
+            gt_set.add(key)
+
+        # Build detection set
+        detected_set = set()
+        for det in detections:
+            key = (det.get("prefix"), det.get("origin_asn"), det.get("detection_type"))
+            detected_set.add(key)
+
+        # Compute metrics
+        true_positives = len(gt_set & detected_set)
+        false_positives = len(detected_set - gt_set)
+        false_negatives = len(gt_set - detected_set)
+
+        precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) > 0 else 0.0
+        recall = true_positives / (true_positives + false_negatives) if (true_positives + false_negatives) > 0 else 0.0
+        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+
+        return {
+            "ground_truth_attacks": len(gt_set),
+            "total_detections": len(detected_set),
+            "true_positives": true_positives,
+            "false_positives": false_positives,
+            "false_negatives": false_negatives,
+            "precision": round(precision, 4),
+            "recall": round(recall, 4),
+            "f1_score": round(f1, 4),
+        }
+
 
 def main():
-    """
-    Main function to run the BGP-Sentry experiment.
-    """
-    print("Starting BGP-Sentry Distributed Blockchain Simulation")
-    print("=" * 60)
-    
-    # Create experiment instance
-    experiment = BGPSentryExperiment()
-    
+    parser = argparse.ArgumentParser(
+        description='BGP-Sentry Distributed Blockchain Simulation',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  python3 main_experiment.py --dataset caida_100
+  python3 main_experiment.py --dataset caida_100 --duration 300
+  python3 main_experiment.py --dataset caida_1000 --duration 600
+        """
+    )
+    parser.add_argument(
+        '--dataset', required=True,
+        help='Dataset name (caida_100, caida_200, caida_500, caida_1000) or path'
+    )
+    parser.add_argument(
+        '--duration', type=int, default=300,
+        help='Maximum duration in seconds (default: 300)'
+    )
+    parser.add_argument(
+        '--clean', action='store_true', default=True,
+        help='Reset blockchain state before experiment (default: True)'
+    )
+    parser.add_argument(
+        '--no-clean', action='store_false', dest='clean',
+        help='Keep existing blockchain state from previous runs'
+    )
+
+    args = parser.parse_args()
+
+    # Resolve dataset
     try:
-        # Step 1: Validate prerequisites
-        print("Step 1: Validating prerequisites...")
-        if not experiment.validate_prerequisites():
-            print("Prerequisites validation failed. Exiting.")
-            return 1
-        
-        # Step 2: Initialize experiment
-        print("Step 2: Initializing experiment...")
-        if not experiment.initialize_experiment():
-            print("Experiment initialization failed. Exiting.")
-            return 1
-        
-        # Step 3: Start all nodes
-        print("Step 3: Starting RPKI nodes...")
-        if not experiment.start_nodes():
-            print("Node startup failed. Exiting.")
-            return 1
-        
-        # Step 4: Run simulation
-        print("Step 4: Running simulation...")
-        if not experiment.run_simulation():
-            print("Simulation failed.")
-            return 1
-        
-        print("Experiment completed successfully!")
-        return 0
-        
-    except KeyboardInterrupt:
-        print("\nExperiment interrupted by user")
+        dataset_path = resolve_dataset_path(args.dataset)
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
         return 1
-    except Exception as e:
-        logger.error(f"Experiment failed with exception: {e}")
-        return 1
-    finally:
-        # Always attempt cleanup
-        experiment.shutdown()
+
+    # Run experiment
+    experiment = BGPSentryExperiment(
+        dataset_path=dataset_path,
+        duration=args.duration,
+        clean=args.clean,
+    )
+
+    success = experiment.run()
+    return 0 if success else 1
+
 
 if __name__ == "__main__":
     sys.exit(main())

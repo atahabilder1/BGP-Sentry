@@ -22,9 +22,29 @@ Author: BGP-Sentry Team
 
 import json
 import ipaddress
+import threading
+from collections import defaultdict
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from datetime import datetime
+
+from config import cfg
+
+# Bogon prefix ranges (RFC 5737 / RFC 1918 / RFC 6598 etc.)
+BOGON_RANGES = [
+    ipaddress.ip_network("0.0.0.0/8"),
+    ipaddress.ip_network("10.0.0.0/8"),
+    ipaddress.ip_network("127.0.0.0/8"),
+    ipaddress.ip_network("169.254.0.0/16"),
+    ipaddress.ip_network("172.16.0.0/12"),
+    ipaddress.ip_network("192.0.2.0/24"),
+    ipaddress.ip_network("192.168.0.0/16"),
+    ipaddress.ip_network("198.51.100.0/24"),
+    ipaddress.ip_network("203.0.113.0/24"),
+    ipaddress.ip_network("224.0.0.0/4"),
+    ipaddress.ip_network("240.0.0.0/4"),
+]
+
 
 class AttackDetector:
     """
@@ -51,9 +71,14 @@ class AttackDetector:
         self.roa_database = self._load_roa_database()
         self.as_relationships = self._load_as_relationships()
 
-        print(f"🔍 Attack Detector initialized")
-        print(f"   ROA entries: {len(self.roa_database)}")
-        print(f"   AS relationships: {len(self.as_relationships)}")
+        # Route flapping tracking: (prefix, origin_asn) -> list of *unique event* timestamps
+        # We dedup observations arriving within FLAP_DEDUP_SECONDS of each other
+        # (since multiple nodes may process the same announcement nearly simultaneously)
+        self._flap_history: Dict[Tuple, List[float]] = defaultdict(list)
+        self._flap_lock = threading.Lock()
+        self.FLAP_WINDOW_SECONDS = cfg.FLAP_WINDOW_SECONDS
+        self.FLAP_THRESHOLD = cfg.FLAP_THRESHOLD
+        self.FLAP_DEDUP_SECONDS = cfg.FLAP_DEDUP_SECONDS
 
     def _load_roa_database(self) -> Dict:
         """
@@ -167,10 +192,25 @@ class AttackDetector:
         if hijacking:
             detected_attacks.append(hijacking)
 
+        # Check for sub-prefix hijacking
+        subprefix = self.detect_subprefix_hijack(announcement)
+        if subprefix:
+            detected_attacks.append(subprefix)
+
+        # Check for bogon injection
+        bogon = self.detect_bogon_injection(announcement)
+        if bogon:
+            detected_attacks.append(bogon)
+
         # Check for route leak
         route_leak = self.detect_route_leak(announcement)
         if route_leak:
             detected_attacks.append(route_leak)
+
+        # Check for route flapping
+        flapping = self.detect_route_flapping(announcement)
+        if flapping:
+            detected_attacks.append(flapping)
 
         return detected_attacks
 
@@ -209,7 +249,7 @@ class AttackDetector:
             if sender_asn != authorized_as:
                 # HIJACKING DETECTED!
                 attack = {
-                    "attack_type": "ip_prefix_hijacking",
+                    "attack_type": "PREFIX_HIJACK",
                     "severity": "HIGH",
                     "attacker_as": sender_asn,
                     "victim_prefix": ip_prefix,
@@ -282,7 +322,7 @@ class AttackDetector:
                 if (prev_is_provider or prev_is_peer) and (next_is_provider or next_is_peer):
                     # ROUTE LEAK DETECTED!
                     attack = {
-                        "attack_type": "route_leak",
+                        "attack_type": "ROUTE_LEAK",
                         "severity": "MEDIUM",
                         "leaker_as": int(current_as),
                         "as_path": as_path,
@@ -312,6 +352,177 @@ class AttackDetector:
 
         except Exception as e:
             print(f"Error detecting route leak: {e}")
+            return None
+
+    def detect_subprefix_hijack(self, announcement: Dict) -> Optional[Dict]:
+        """
+        Detect sub-prefix hijacking.
+
+        Occurs when an AS announces a more-specific prefix of an existing ROA
+        entry with a different origin AS.
+
+        Example: ROA has 1.2.0.0/16 -> AS6300, attacker announces 1.2.3.0/24 -> AS999
+        """
+        try:
+            sender_asn = announcement.get('sender_asn')
+            ip_prefix = announcement.get('ip_prefix')
+            if not sender_asn or not ip_prefix:
+                return None
+
+            try:
+                announced = ipaddress.ip_network(ip_prefix, strict=False)
+            except ValueError:
+                return None
+
+            # Check if announced prefix is a more-specific of any ROA prefix
+            for roa_prefix_str, roa_entry in self.roa_database.items():
+                try:
+                    roa_net = ipaddress.ip_network(roa_prefix_str, strict=False)
+                except ValueError:
+                    continue
+
+                # Skip exact match (handled by prefix hijack detector)
+                if announced == roa_net:
+                    continue
+
+                # Check if announced is a subnet of the ROA prefix
+                if announced.subnet_of(roa_net):
+                    authorized_as = roa_entry.get('authorized_as')
+                    max_length = roa_entry.get('max_length', roa_net.prefixlen)
+
+                    # If the origin doesn't match AND prefix length exceeds max_length
+                    if sender_asn != authorized_as:
+                        return {
+                            "attack_type": "SUBPREFIX_HIJACK",
+                            "severity": "HIGH",
+                            "attacker_as": sender_asn,
+                            "victim_prefix": roa_prefix_str,
+                            "hijacked_subprefix": ip_prefix,
+                            "legitimate_owner": authorized_as,
+                            "evidence": {
+                                "roa_prefix": roa_prefix_str,
+                                "roa_authorized_as": authorized_as,
+                                "roa_max_length": max_length,
+                                "announced_prefix": ip_prefix,
+                                "announced_length": announced.prefixlen,
+                                "announcing_as": sender_asn,
+                            },
+                            "description": (
+                                f"AS{sender_asn} announces {ip_prefix} (sub-prefix of "
+                                f"{roa_prefix_str} owned by AS{authorized_as})"
+                            ),
+                            "detected_at": datetime.now().isoformat(),
+                        }
+
+            return None
+        except Exception as e:
+            print(f"Error detecting sub-prefix hijack: {e}")
+            return None
+
+    def detect_bogon_injection(self, announcement: Dict) -> Optional[Dict]:
+        """
+        Detect bogon prefix injection.
+
+        Bogon prefixes are IP address ranges that should never appear in the
+        global routing table (RFC 5737 / RFC 1918 / RFC 6598 etc.).
+        """
+        try:
+            ip_prefix = announcement.get('ip_prefix')
+            sender_asn = announcement.get('sender_asn')
+            if not ip_prefix or not sender_asn:
+                return None
+
+            try:
+                announced = ipaddress.ip_network(ip_prefix, strict=False)
+            except ValueError:
+                return None
+
+            for bogon in BOGON_RANGES:
+                if announced.subnet_of(bogon) or announced == bogon:
+                    return {
+                        "attack_type": "BOGON_INJECTION",
+                        "severity": "CRITICAL",
+                        "attacker_as": sender_asn,
+                        "bogon_prefix": ip_prefix,
+                        "matching_bogon_range": str(bogon),
+                        "evidence": {
+                            "announced_prefix": ip_prefix,
+                            "bogon_range": str(bogon),
+                            "announcing_as": sender_asn,
+                        },
+                        "description": (
+                            f"AS{sender_asn} announces bogon prefix {ip_prefix} "
+                            f"(falls within {bogon})"
+                        ),
+                        "detected_at": datetime.now().isoformat(),
+                    }
+
+            return None
+        except Exception as e:
+            print(f"Error detecting bogon injection: {e}")
+            return None
+
+    def detect_route_flapping(self, announcement: Dict) -> Optional[Dict]:
+        """
+        Detect route flapping.
+
+        Occurs when the same (prefix, origin_asn) pair is withdrawn and
+        re-announced repeatedly (>FLAP_THRESHOLD times within FLAP_WINDOW_SECONDS).
+        """
+        try:
+            ip_prefix = announcement.get('ip_prefix')
+            sender_asn = announcement.get('sender_asn')
+            if not ip_prefix or not sender_asn:
+                return None
+
+            key = (ip_prefix, sender_asn)
+            now = datetime.now().timestamp()
+            cutoff = now - self.FLAP_WINDOW_SECONDS
+
+            with self._flap_lock:
+                # Dedup: only count if last recorded event for this key is
+                # older than FLAP_DEDUP_SECONDS (avoids counting multiple
+                # nodes processing the same announcement as separate flaps)
+                history = self._flap_history[key]
+                if history and (now - history[-1]) < self.FLAP_DEDUP_SECONDS:
+                    # Same event observed by another node — skip
+                    return None
+
+                # Record this unique event
+                history.append(now)
+
+                # Trim to window
+                self._flap_history[key] = [
+                    t for t in history if t > cutoff
+                ]
+
+                count = len(self._flap_history[key])
+
+            if count > self.FLAP_THRESHOLD:
+                return {
+                    "attack_type": "ROUTE_FLAPPING",
+                    "severity": "MEDIUM",
+                    "attacker_as": sender_asn,
+                    "flapping_prefix": ip_prefix,
+                    "flap_count": count,
+                    "window_seconds": self.FLAP_WINDOW_SECONDS,
+                    "evidence": {
+                        "prefix": ip_prefix,
+                        "origin_asn": sender_asn,
+                        "announcements_in_window": count,
+                        "threshold": self.FLAP_THRESHOLD,
+                    },
+                    "description": (
+                        f"AS{sender_asn} flapping prefix {ip_prefix} "
+                        f"({count} announcements in {self.FLAP_WINDOW_SECONDS}s, "
+                        f"threshold={self.FLAP_THRESHOLD})"
+                    ),
+                    "detected_at": datetime.now().isoformat(),
+                }
+
+            return None
+        except Exception as e:
+            print(f"Error detecting route flapping: {e}")
             return None
 
     def add_roa_entry(self, ip_prefix: str, authorized_as: int, max_length: int = None,

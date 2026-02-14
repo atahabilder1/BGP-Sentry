@@ -61,6 +61,7 @@ from typing import Dict, List, Optional, Tuple
 
 # Import RPKI node registry for AS type checking
 from rpki_node_registry import RPKINodeRegistry
+from config import cfg
 
 class AttackConsensus:
     """
@@ -71,7 +72,8 @@ class AttackConsensus:
     """
 
     def __init__(self, as_number, attack_detector, rating_system,
-                 bgpcoin_ledger, p2p_pool, blockchain_dir):
+                 bgpcoin_ledger, p2p_pool, blockchain_dir,
+                 use_memory_bus=False):
         """
         Initialize attack consensus system.
 
@@ -82,12 +84,14 @@ class AttackConsensus:
             bgpcoin_ledger: BGPCoinLedger instance
             p2p_pool: P2PTransactionPool instance
             blockchain_dir: Path to blockchain directory
+            use_memory_bus: If True, use InMemoryMessageBus instead of TCP
         """
         self.as_number = as_number
         self.attack_detector = attack_detector
         self.rating_system = rating_system
         self.ledger = bgpcoin_ledger
         self.p2p_pool = p2p_pool
+        self.use_memory_bus = use_memory_bus
 
         # Attack verdict storage
         self.blockchain_dir = Path(blockchain_dir)
@@ -97,14 +101,14 @@ class AttackConsensus:
         self.active_proposals = {}  # proposal_id -> proposal_data
         self.vote_tracking = {}     # proposal_id -> {votes, tallies}
 
-        # Consensus thresholds
-        self.min_votes = 3  # Same as transaction consensus
+        # Consensus thresholds (from .env)
+        self.min_votes = cfg.ATTACK_CONSENSUS_MIN_VOTES
 
-        # BGPCOIN rewards
+        # BGPCOIN rewards (from .env)
         self.rewards = {
-            "attack_detection": 10,      # Detector gets 10 BGPCOIN
-            "correct_vote": 2,           # Each correct voter gets 2 BGPCOIN
-            "false_accusation": -20      # Penalty for false detection
+            "attack_detection": cfg.ATTACK_CONSENSUS_REWARD_DETECTION,
+            "correct_vote": cfg.ATTACK_CONSENSUS_REWARD_CORRECT_VOTE,
+            "false_accusation": cfg.ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION,
         }
 
         # Thread safety
@@ -205,18 +209,28 @@ class AttackConsensus:
         try:
             proposal = self.active_proposals[proposal_id]
 
-            # Broadcast via P2P network
-            for peer_as, (host, port) in self.p2p_pool.peer_nodes.items():
-                self._send_attack_proposal_to_node(peer_as, host, port, proposal)
+            message = {
+                "type": "attack_proposal",
+                "from_as": self.as_number,
+                "proposal": proposal,
+                "timestamp": datetime.now().isoformat()
+            }
 
-            print(f"📡 Broadcasted attack proposal to {len(self.p2p_pool.peer_nodes)} nodes")
+            if self.use_memory_bus:
+                from message_bus import InMemoryMessageBus
+                bus = InMemoryMessageBus.get_instance()
+                bus.broadcast(self.as_number, message,
+                              targets=list(self.p2p_pool.peer_nodes.keys()))
+            else:
+                for peer_as, (host, port) in self.p2p_pool.peer_nodes.items():
+                    self._send_attack_proposal_to_node(peer_as, host, port, proposal)
 
         except Exception as e:
             print(f"Error broadcasting attack proposal: {e}")
 
     def _send_attack_proposal_to_node(self, peer_as: int, host: str, port: int,
                                      proposal: Dict):
-        """Send attack proposal to specific node"""
+        """Send attack proposal to specific node (TCP mode only)"""
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(5)
@@ -354,15 +368,29 @@ class AttackConsensus:
     def _broadcast_attack_vote(self, proposal_id: str, vote: str):
         """Broadcast attack vote to all peers"""
         try:
-            for peer_as, (host, port) in self.p2p_pool.peer_nodes.items():
-                self._send_attack_vote_to_node(peer_as, host, port, proposal_id, vote)
+            message = {
+                "type": "attack_vote",
+                "from_as": self.as_number,
+                "proposal_id": proposal_id,
+                "vote": vote,
+                "timestamp": datetime.now().isoformat()
+            }
+
+            if self.use_memory_bus:
+                from message_bus import InMemoryMessageBus
+                bus = InMemoryMessageBus.get_instance()
+                bus.broadcast(self.as_number, message,
+                              targets=list(self.p2p_pool.peer_nodes.keys()))
+            else:
+                for peer_as, (host, port) in self.p2p_pool.peer_nodes.items():
+                    self._send_attack_vote_to_node(peer_as, host, port, proposal_id, vote)
 
         except Exception as e:
             print(f"Error broadcasting attack vote: {e}")
 
     def _send_attack_vote_to_node(self, peer_as: int, host: str, port: int,
                                   proposal_id: str, vote: str):
-        """Send attack vote to specific node"""
+        """Send attack vote to specific node (TCP mode only)"""
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(5)

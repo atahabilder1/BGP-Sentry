@@ -50,35 +50,23 @@ class BlockchainInterface:
     enabling multiple services to read and write blockchain data concurrently.
     """
     
-    def __init__(self, blockchain_path="shared_data/chain"):
+    def __init__(self, blockchain_path="shared_data/chain", in_memory=False,
+                 genesis_block=None):
         """
         Initialize blockchain interface.
-        
-        Args:
-            blockchain_path: Path to blockchain data directory
-        """
-        self.blockchain_dir = Path(blockchain_path)
-        self.blockchain_file = self.blockchain_dir / "blockchain.json"
-        self.bgp_stream_file = self.blockchain_dir / "bgp_stream.jsonl"
-        self.trust_log_file = self.blockchain_dir / "trust_log.jsonl"
-        self.lock_file = self.blockchain_dir / "blockchain_lock.json"
 
-        # State folder for fast queries (IP prefix → ASN mappings)
-        self.state_dir = self.blockchain_dir.parent / "state"
-        self.ip_asn_mapping_file = self.state_dir / "ip_asn_mapping.json"
+        Args:
+            blockchain_path: Path to blockchain data directory (ignored when in_memory=True)
+            in_memory: If True, keep chain in RAM only (no disk I/O). Used for
+                       per-node replicas in the simulation.
+            genesis_block: Optional genesis block dict to copy from a primary chain.
+                           Ensures all replicas share the same genesis hash.
+        """
+        self.in_memory = in_memory
 
         # Thread safety - use RLock for reentrant locking (nested lock acquisition)
         self.lock = threading.RLock()
 
-        # Create directories if they don't exist
-        self.blockchain_dir.mkdir(parents=True, exist_ok=True)
-        self.state_dir.mkdir(parents=True, exist_ok=True)
-
-        # Initialize IP-ASN mapping if it doesn't exist
-        if not self.ip_asn_mapping_file.exists():
-            with open(self.ip_asn_mapping_file, 'w') as f:
-                json.dump({}, f, indent=2)
-        
         # Initialize blockchain structure
         self.blockchain_data = {
             "version": "1.0",
@@ -91,21 +79,73 @@ class BlockchainInterface:
                 "last_updated": datetime.now().isoformat()
             }
         }
-        
-        # Load existing blockchain
-        self._load_blockchain()
-        
+
+        if not in_memory:
+            self.blockchain_dir = Path(blockchain_path)
+            self.blockchain_file = self.blockchain_dir / "blockchain.json"
+            self.bgp_stream_file = self.blockchain_dir / "bgp_stream.jsonl"
+            self.trust_log_file = self.blockchain_dir / "trust_log.jsonl"
+            self.lock_file = self.blockchain_dir / "blockchain_lock.json"
+
+            # State folder for fast queries (IP prefix -> ASN mappings)
+            self.state_dir = self.blockchain_dir.parent / "state"
+            self.ip_asn_mapping_file = self.state_dir / "ip_asn_mapping.json"
+
+            # Create directories if they don't exist
+            self.blockchain_dir.mkdir(parents=True, exist_ok=True)
+            self.state_dir.mkdir(parents=True, exist_ok=True)
+
+            # Initialize IP-ASN mapping if it doesn't exist
+            if not self.ip_asn_mapping_file.exists():
+                with open(self.ip_asn_mapping_file, 'w') as f:
+                    json.dump({}, f, indent=2)
+
+            # Load existing blockchain
+            self._load_blockchain()
+        else:
+            # In-memory mode: no disk paths needed
+            self.blockchain_dir = None
+            self.blockchain_file = None
+            self.bgp_stream_file = None
+            self.trust_log_file = None
+            self.lock_file = None
+            self.state_dir = None
+            self.ip_asn_mapping_file = None
+
+        # Transaction dedup index: O(1) lookup for recently committed tx IDs
+        self._recent_tx_ids: set = set()
+        self._RECENT_TX_WINDOW = 500  # Number of recent blocks to index
+
         # Ensure genesis block exists
         if not self.blockchain_data["blocks"]:
-            self._create_genesis_block()
+            if genesis_block is not None:
+                # Use the same genesis block as the primary chain
+                self.blockchain_data["blocks"].append(genesis_block)
+            else:
+                self._create_genesis_block()
+
+        # Build initial dedup index from existing blocks
+        self._rebuild_tx_index()
     
+    def _rebuild_tx_index(self):
+        """Build dedup index from the last N blocks."""
+        self._recent_tx_ids.clear()
+        blocks = self.blockchain_data["blocks"][-self._RECENT_TX_WINDOW:]
+        for block in blocks:
+            for tx in block.get("transactions", []):
+                tx_id = tx.get("transaction_id")
+                if tx_id:
+                    self._recent_tx_ids.add(tx_id)
+
     def _load_blockchain(self):
         """Load blockchain data from file."""
+        if self.in_memory:
+            return  # Nothing to load
         try:
             if self.blockchain_file.exists():
                 with open(self.blockchain_file, 'r') as f:
                     loaded_data = json.load(f)
-                    
+
                 # Validate loaded data structure
                 if self._validate_blockchain_structure(loaded_data):
                     self.blockchain_data = loaded_data
@@ -114,7 +154,7 @@ class BlockchainInterface:
                     print("Warning: Invalid blockchain structure, initializing new blockchain")
             else:
                 print("No existing blockchain found, initializing new blockchain")
-                
+
         except Exception as e:
             print(f"Error loading blockchain: {e}")
     
@@ -137,23 +177,29 @@ class BlockchainInterface:
     
     def _save_blockchain(self):
         """Save blockchain data to file with atomic write."""
+        # Update in-memory metadata regardless of mode
+        self.blockchain_data["metadata"].update({
+            "total_blocks": len(self.blockchain_data["blocks"]),
+            "total_transactions": sum(
+                len(block.get("transactions", []))
+                for block in self.blockchain_data["blocks"]
+            ),
+            "last_updated": datetime.now().isoformat(),
+        })
+
+        if self.in_memory:
+            return  # Skip disk I/O
+
         try:
             with self.lock:
-                # Update metadata
-                self.blockchain_data["metadata"].update({
-                    "total_blocks": len(self.blockchain_data["blocks"]),
-                    "total_transactions": sum(len(block.get("transactions", [])) for block in self.blockchain_data["blocks"]),
-                    "last_updated": datetime.now().isoformat()
-                })
-                
                 # Atomic write: write to temp file then rename
                 temp_file = self.blockchain_file.with_suffix('.tmp')
                 with open(temp_file, 'w') as f:
                     json.dump(self.blockchain_data, f, indent=2)
-                
+
                 # Atomic rename
                 temp_file.replace(self.blockchain_file)
-                
+
         except Exception as e:
             print(f"Error saving blockchain: {e}")
     
@@ -172,7 +218,8 @@ class BlockchainInterface:
             }
         }
         
-        # Calculate block hash
+        # Calculate merkle root and block hash
+        genesis_block["merkle_root"] = self._calculate_merkle_root(genesis_block["transactions"])
         genesis_block["block_hash"] = self._calculate_block_hash(genesis_block)
         
         # Add to blockchain
@@ -235,10 +282,16 @@ class BlockchainInterface:
         """
         try:
             with self.lock:
+                # Blockchain-level dedup: reject if tx already on chain
+                tx_id = transaction.get("transaction_id")
+                if tx_id and tx_id in self._recent_tx_ids:
+                    print(f"⚠️ Duplicate transaction {tx_id} rejected (already on chain)")
+                    return False
+
                 # Get previous block
                 previous_block = self.blockchain_data["blocks"][-1] if self.blockchain_data["blocks"] else None
                 previous_hash = previous_block["block_hash"] if previous_block else "0" * 64
-                
+
                 # Create new block
                 new_block = {
                     "block_number": len(self.blockchain_data["blocks"]),
@@ -259,10 +312,17 @@ class BlockchainInterface:
                 
                 # Add block to blockchain
                 self.blockchain_data["blocks"].append(new_block)
-                
+
+                # Update dedup index
+                if tx_id:
+                    self._recent_tx_ids.add(tx_id)
+                # Trim index if it grows beyond 2x window (lazy cleanup)
+                if len(self._recent_tx_ids) > self._RECENT_TX_WINDOW * 2:
+                    self._rebuild_tx_index()
+
                 # Save blockchain
                 self._save_blockchain()
-                
+
                 # Log to BGP stream
                 self._log_to_bgp_stream(transaction)
 
@@ -332,6 +392,8 @@ class BlockchainInterface:
     
     def _log_to_bgp_stream(self, transaction: Dict):
         """Log transaction to BGP stream file for analysis."""
+        if self.in_memory:
+            return
         try:
             # Extract BGP data from transaction
             bgp_data = transaction.get('bgp_data', {})
@@ -355,11 +417,13 @@ class BlockchainInterface:
 
     def _update_state_mapping(self, transaction: Dict):
         """
-        Update state folder with IP prefix → ASN mapping for fast queries.
+        Update state folder with IP prefix -> ASN mapping for fast queries.
 
         Args:
             transaction: Transaction containing BGP announcement data
         """
+        if self.in_memory:
+            return
         try:
             # Extract IP prefix and sender ASN from transaction
             ip_prefix = transaction.get('ip_prefix')
@@ -441,6 +505,62 @@ class BlockchainInterface:
         except Exception as e:
             print(f"Error getting IP mappings: {e}")
             return {}
+
+    def get_last_block(self) -> Optional[Dict]:
+        """
+        Get the last block in the chain.
+
+        Returns:
+            Last block dict, or None if chain is empty.
+        """
+        with self.lock:
+            if self.blockchain_data["blocks"]:
+                return self.blockchain_data["blocks"][-1]
+            return None
+
+    def append_replicated_block(self, block: Dict) -> bool:
+        """
+        Append a replicated block received from a peer node.
+
+        Verifies the block hash and hash-chain linkage before appending.
+        Used by per-node blockchain replicas to stay in sync with the
+        primary (canonical) chain.
+
+        Args:
+            block: Complete block dict (as committed by the originating node)
+
+        Returns:
+            True if block was appended successfully
+        """
+        try:
+            with self.lock:
+                # Verify block hash
+                calculated_hash = self._calculate_block_hash(block)
+                if calculated_hash != block.get("block_hash"):
+                    print(f"WARNING: Replicated block #{block.get('block_number')} hash mismatch")
+                    return False
+
+                # Verify hash-chain linkage
+                if self.blockchain_data["blocks"]:
+                    last_block = self.blockchain_data["blocks"][-1]
+                    if block.get("previous_hash") != last_block.get("block_hash"):
+                        print(
+                            f"WARNING: Replicated block #{block.get('block_number')} "
+                            f"previous_hash mismatch"
+                        )
+                        return False
+
+                # Append the block
+                self.blockchain_data["blocks"].append(block)
+
+                if not self.in_memory:
+                    self._save_blockchain()
+
+                return True
+
+        except Exception as e:
+            print(f"Error appending replicated block: {e}")
+            return False
 
     def get_blockchain_info(self) -> Dict:
         """

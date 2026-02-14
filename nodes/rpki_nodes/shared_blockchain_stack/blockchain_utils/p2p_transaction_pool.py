@@ -16,6 +16,9 @@ from bgpcoin_ledger import BGPCoinLedger
 # Import RPKI Node Registry for AS type checking
 from rpki_node_registry import RPKINodeRegistry
 
+# Central configuration (reads .env)
+from config import cfg
+
 # Import Relevant Neighbor Cache for optimized voting
 sys.path.insert(0, str(Path(__file__).parent.parent / "network_stack"))
 from relevant_neighbor_cache import RelevantNeighborCache
@@ -24,21 +27,37 @@ class P2PTransactionPool:
     """
     Peer-to-peer transaction pool with direct node-to-node communication.
     Each node maintains its own pool and communicates directly with peers.
+
+    When use_memory_bus=True, uses InMemoryMessageBus instead of TCP sockets.
     """
-    
-    def __init__(self, as_number, base_port=8000):
+
+    def __init__(self, as_number, base_port=8000, use_memory_bus=False,
+                 blockchain_interface=None, bgpcoin_ledger=None,
+                 private_key=None, public_key_registry=None,
+                 node_blockchain=None):
         self.as_number = as_number
         self.my_port = base_port + as_number
+        self.use_memory_bus = use_memory_bus
+
+        # Per-node cryptographic keys (RSA-2048)
+        self.private_key = private_key              # RSA private key object
+        self.public_key_registry = public_key_registry or {}  # asn -> public_key object
+
+        # Per-node blockchain replica (in-memory)
+        self.node_blockchain = node_blockchain
 
         # Get peer RPKI nodes from registry (excludes self automatically)
         self.peer_nodes = RPKINodeRegistry.get_peer_nodes(self.as_number)
 
         # Initialize blockchain interface for writing to chain/ folder
-        # Each node writes to its own blockchain file:
-        # Path: nodes/rpki_nodes/as01/blockchain_node/blockchain_data/chain/
-        as_formatted = f"as{self.as_number:02d}"  # Format as as01, as03, etc.
-        blockchain_path = f"nodes/rpki_nodes/{as_formatted}/blockchain_node/blockchain_data/chain"
-        self.blockchain = BlockchainInterface(blockchain_path)
+        if blockchain_interface is not None:
+            self.blockchain = blockchain_interface
+        else:
+            # Each node writes to its own blockchain file:
+            # Path: nodes/rpki_nodes/as01/blockchain_node/blockchain_data/chain/
+            as_formatted = f"as{self.as_number:02d}"  # Format as as01, as03, etc.
+            blockchain_path = f"nodes/rpki_nodes/{as_formatted}/blockchain_node/blockchain_data/chain"
+            self.blockchain = BlockchainInterface(blockchain_path)
 
         # P2P communication
         self.server_socket = None
@@ -46,33 +65,33 @@ class P2PTransactionPool:
         self.lock = threading.Lock()
         self.logger = logging.getLogger(f"P2P-AS{self.as_number}")
 
-        # Transaction voting tracking (need 3/9 for consensus)
-        self.pending_votes = {}  # transaction_id -> {transaction: {}, votes: [], needed: 3}
-        self.committed_transactions = set()  # Track already committed transactions
+        # Transaction voting tracking (dynamic consensus threshold)
+        self.pending_votes = {}  # transaction_id -> {transaction: {}, votes: [], needed: N}
+        self.committed_transactions = {}  # tx_id -> commit_timestamp (for periodic cleanup)
         self.total_nodes = RPKINodeRegistry.get_node_count()
-        self.consensus_threshold = 3  # 3/9 = 33% consensus (minimum 3 votes)
+        self.consensus_threshold = RPKINodeRegistry.get_consensus_threshold()
 
         # Knowledge base for time-windowed BGP observations
         # Each node maintains observations to validate incoming transactions
         self.knowledge_base = []  # List of observed BGP announcements
-        self.knowledge_window_seconds = 480  # Keep observations ±8 minutes (480 seconds)
-        self.cleanup_interval = 60  # Clean old observations every 60 seconds
+        self.knowledge_window_seconds = cfg.KNOWLEDGE_WINDOW_SECONDS
+        self.cleanup_interval = cfg.KNOWLEDGE_CLEANUP_INTERVAL
 
-        # Transaction timeout configuration
-        self.REGULAR_TIMEOUT = 60       # 1 minute for regular announcements
-        self.ATTACK_TIMEOUT = 180       # 3 minutes for attack transactions
+        # Transaction timeout configuration (from .env)
+        self.REGULAR_TIMEOUT = cfg.P2P_REGULAR_TIMEOUT
+        self.ATTACK_TIMEOUT = cfg.P2P_ATTACK_TIMEOUT
 
-        # Sampling configuration for regular announcements
-        self.SAMPLING_WINDOW_SECONDS = 3600  # 1 hour - ignore duplicates within this window
+        # Sampling configuration for regular announcements (from .env)
+        self.SAMPLING_WINDOW_SECONDS = cfg.SAMPLING_WINDOW_SECONDS
 
-        # Persistent storage for knowledge base
-        self.knowledge_base_file = self.blockchain.state_dir / "knowledge_base.json"
+        # Persistent storage for knowledge base (per-node file to avoid races)
+        self.knowledge_base_file = self.blockchain.state_dir / f"knowledge_base_as{self.as_number}.json"
 
         # Sampling cache: Track last seen time for each (ip_prefix, as_number)
         # Format: {(ip_prefix, as_number): last_seen_timestamp}
         # This allows O(1) lookup instead of scanning blockchain
         self.last_seen_cache = {}
-        self.last_seen_cache_file = self.blockchain.state_dir / "last_seen_announcements.json"
+        self.last_seen_cache_file = self.blockchain.state_dir / f"last_seen_announcements_as{self.as_number}.json"
 
         # Load existing knowledge base from disk
         self._load_knowledge_base()
@@ -81,8 +100,11 @@ class P2PTransactionPool:
         self._load_last_seen_cache()
 
         # Initialize BGPCOIN ledger for token rewards
-        self.bgpcoin_ledger = BGPCoinLedger(ledger_path=self.blockchain.state_dir)
-        self.logger.info(f"💰 BGPCOIN ledger initialized")
+        if bgpcoin_ledger is not None:
+            self.bgpcoin_ledger = bgpcoin_ledger
+        else:
+            self.bgpcoin_ledger = BGPCoinLedger(ledger_path=self.blockchain.state_dir)
+        self.logger.info(f"BGPCOIN ledger initialized")
 
         # Track first commit for bonus rewards
         self.first_commit_tracker = {}  # transaction_id -> first_committer_as
@@ -115,17 +137,39 @@ class P2PTransactionPool:
         # Timeout cleanup thread for pending transactions
         timeout_thread = threading.Thread(target=self._cleanup_timed_out_transactions, daemon=True)
         timeout_thread.start()
+
+        # Committed-transactions cleanup thread (prevents unbounded growth)
+        committed_cleanup_thread = threading.Thread(
+            target=self._cleanup_old_committed_transactions, daemon=True
+        )
+        committed_cleanup_thread.start()
     
-    def start_p2p_server(self):
-        """Start P2P server to listen for incoming messages"""
+    def start_p2p_server(self, attack_detector=None, rating_system=None):
+        """Start P2P server to listen for incoming messages.
+
+        Args:
+            attack_detector: Optional pre-built AttackDetector instance
+            rating_system: Optional pre-built NonRPKIRatingSystem instance
+        """
         try:
-            self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-            self.server_socket.bind(("localhost", self.my_port))
-            self.server_socket.listen(5)
             self.running = True
 
-            self.logger.info(f"P2P server started on port {self.my_port}")
+            if self.use_memory_bus:
+                # Register with in-memory message bus instead of TCP
+                from message_bus import InMemoryMessageBus
+                bus = InMemoryMessageBus.get_instance()
+                bus.register(self.as_number, self._handle_bus_message)
+                self.logger.info(f"P2P server registered on message bus (AS{self.as_number})")
+            else:
+                self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                self.server_socket.bind(("localhost", self.my_port))
+                self.server_socket.listen(5)
+                self.logger.info(f"P2P server started on port {self.my_port}")
+
+                # Start TCP server thread
+                server_thread = threading.Thread(target=self._server_loop, daemon=True)
+                server_thread.start()
 
             # Initialize governance system now that P2P is ready
             from governance_system import GovernanceSystem
@@ -135,38 +179,59 @@ class P2PTransactionPool:
                 p2p_pool=self,
                 governance_path=self.blockchain.state_dir
             )
-            self.logger.info(f"📜 Governance system initialized")
 
             # Initialize attack consensus system
-            from attack_detector import AttackDetector
-            from nonrpki_rating import NonRPKIRatingSystem
+            if attack_detector is None:
+                from attack_detector import AttackDetector
+                attack_detector = AttackDetector(
+                    roa_database_path=str(self.blockchain.state_dir / "roa_database.json"),
+                    as_relationships_path=str(self.blockchain.state_dir / "as_relationships.json")
+                )
+
+            if rating_system is None:
+                from nonrpki_rating import NonRPKIRatingSystem
+                rating_system = NonRPKIRatingSystem(
+                    rating_path=str(self.blockchain.state_dir)
+                )
+
             from attack_consensus import AttackConsensus
-
-            attack_detector = AttackDetector(
-                roa_database_path=str(self.blockchain.state_dir / "roa_database.json"),
-                as_relationships_path=str(self.blockchain.state_dir / "as_relationships.json")
-            )
-
-            rating_system = NonRPKIRatingSystem(
-                rating_path=str(self.blockchain.state_dir)
-            )
-
             self.attack_consensus = AttackConsensus(
                 as_number=self.as_number,
                 attack_detector=attack_detector,
                 rating_system=rating_system,
                 bgpcoin_ledger=self.bgpcoin_ledger,
                 p2p_pool=self,
-                blockchain_dir=self.blockchain.blockchain_dir
+                blockchain_dir=self.blockchain.blockchain_dir,
+                use_memory_bus=self.use_memory_bus,
             )
-            self.logger.info(f"🛡️  Attack consensus system initialized")
-
-            # Start server thread
-            server_thread = threading.Thread(target=self._server_loop, daemon=True)
-            server_thread.start()
 
         except Exception as e:
             self.logger.error(f"Failed to start P2P server: {e}")
+
+    def _handle_bus_message(self, message):
+        """Handle incoming message from InMemoryMessageBus."""
+        try:
+            msg_type = message["type"]
+            if msg_type == "vote_request":
+                self._handle_vote_request(message)
+            elif msg_type == "vote_response":
+                self._handle_vote_response(message)
+            elif msg_type == "block_replicate":
+                self._handle_block_replicate(message)
+            elif msg_type == "governance_proposal":
+                if self.governance:
+                    self.governance.handle_proposal_message(message)
+            elif msg_type == "governance_vote":
+                if self.governance:
+                    self.governance.handle_vote_message(message)
+            elif msg_type == "attack_proposal":
+                if self.attack_consensus:
+                    self.attack_consensus.handle_attack_proposal(message)
+            elif msg_type == "attack_vote":
+                if self.attack_consensus:
+                    self.attack_consensus.handle_attack_vote(message)
+        except Exception as e:
+            self.logger.error(f"Error handling bus message: {e}")
     
     def _server_loop(self):
         """Listen for incoming P2P messages"""
@@ -221,9 +286,9 @@ class P2PTransactionPool:
         """Handle incoming vote request from another node"""
         transaction = message["transaction"]
         from_as = message["from_as"]
-        
-        self.logger.info(f"Received vote request for {transaction['transaction_id']} from AS{from_as}")
-        
+
+        self.logger.debug(f"Received vote request for {transaction['transaction_id']} from AS{from_as}")
+
         # Validate transaction (simplified)
         vote = self._validate_transaction(transaction)
         
@@ -282,16 +347,16 @@ class P2PTransactionPool:
                 "timestamp": message.get("timestamp")
             })
 
-            self.logger.info(f"✅ Received signature from AS{from_as} for {tx_id}")
+            self.logger.debug(f"Received signature from AS{from_as} for {tx_id}")
 
             # Check if consensus reached (3/9 signatures minimum)
             approve_votes = len([v for v in self.pending_votes[tx_id]["votes"] if v["vote"] == "approve"])
 
-            self.logger.info(f"Signatures collected: {approve_votes}/{self.consensus_threshold} for {tx_id}")
+            self.logger.debug(f"Signatures collected: {approve_votes}/{self.consensus_threshold} for {tx_id}")
 
             if approve_votes >= self.consensus_threshold:
                 # Mark as committed BEFORE writing to prevent race condition
-                self.committed_transactions.add(tx_id)
+                self.committed_transactions[tx_id] = datetime.now().timestamp()
 
                 # Set flag to commit (will happen OUTSIDE lock)
                 should_commit = True
@@ -305,24 +370,36 @@ class P2PTransactionPool:
         if should_commit:
             self._commit_to_blockchain(tx_id)
     
+    # Maximum peers to broadcast to (keeps simulation fast while still
+    # demonstrating consensus across multiple validators)
+    MAX_BROADCAST_PEERS = cfg.P2P_MAX_BROADCAST_PEERS
+
     def broadcast_transaction(self, transaction):
         """
-        Broadcast transaction to RELEVANT peer nodes for signature collection.
+        Broadcast transaction to peer nodes for signature collection.
 
-        OPTIMIZATION: Uses neighbor cache to only query RPKI nodes that are
-        likely to have observed this announcement (based on AS topology).
-
-        TIMEOUT: Tracks creation time for timeout handling (60s regular, 180s attack)
+        Sends to up to MAX_BROADCAST_PEERS peers to keep the simulation fast.
         """
+        import random
+
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
+
+        # Capacity check: if pending_votes is full, force-timeout oldest entry
+        if len(self.pending_votes) >= cfg.PENDING_VOTES_MAX_CAPACITY:
+            oldest_tx = min(self.pending_votes, key=lambda k: self.pending_votes[k]["created_at"])
+            self.logger.warning(
+                f"⚠️ pending_votes at capacity ({cfg.PENDING_VOTES_MAX_CAPACITY}), "
+                f"force-timing-out oldest: {oldest_tx}"
+            )
+            self._handle_timed_out_transaction(oldest_tx)
 
         self.pending_votes[tx_id] = {
             "transaction": transaction,
             "votes": [],
             "needed": self.consensus_threshold,
-            "created_at": datetime.now(),  # Track creation time for timeout
-            "is_attack": transaction.get("is_attack", False)  # Track type for timeout duration
+            "created_at": datetime.now(),
+            "is_attack": transaction.get("is_attack", False)
         }
 
         # Get relevant neighbors from cache (optimized voting)
@@ -335,66 +412,127 @@ class P2PTransactionPool:
             if peer_as in relevant_neighbors
         }
 
-        # Fallback: if no relevant neighbors, use all peers
+        # Fallback: if no relevant neighbors, use random subset of peers
         if not target_peers:
-            target_peers = self.peer_nodes
-            self.logger.warning(f"⚠️  No relevant neighbors cached for AS{sender_asn}, using all peers")
+            peer_items = list(self.peer_nodes.items())
+            sample_size = min(self.MAX_BROADCAST_PEERS, len(peer_items))
+            sampled = random.sample(peer_items, sample_size)
+            target_peers = dict(sampled)
 
-        # Send vote requests to relevant peers only
+        # Cap broadcast to MAX_BROADCAST_PEERS
+        if len(target_peers) > self.MAX_BROADCAST_PEERS:
+            peer_items = list(target_peers.items())
+            target_peers = dict(random.sample(peer_items, self.MAX_BROADCAST_PEERS))
+
+        # Send vote requests to selected peers
         for peer_as, (host, port) in target_peers.items():
             self._send_vote_request_to_node(peer_as, host, port, transaction)
 
-        self.logger.info(f"📡 Broadcast transaction {tx_id} to {len(target_peers)}/{len(self.peer_nodes)} "
-                        f"relevant peers (AS{sender_asn})")
+        self.logger.debug(f"Broadcast {tx_id} to {len(target_peers)} peers")
     
     def _send_vote_request_to_node(self, peer_as, host, port, transaction):
         """Send vote request to specific peer node"""
-        try:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(5)  # 5 second timeout
-            sock.connect((host, port))
-            
-            message = {
-                "type": "vote_request",
-                "from_as": self.as_number,
-                "transaction": transaction,
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            sock.send(json.dumps(message).encode('utf-8'))
-            sock.close()
-            
-        except Exception as e:
-            self.logger.warning(f"Failed to send vote request to AS{peer_as}: {e}")
-    
-    def _send_vote_to_node(self, target_as, transaction_id, vote):
-        """Send vote response to specific node"""
-        if target_as not in self.peer_nodes:
+        message = {
+            "type": "vote_request",
+            "from_as": self.as_number,
+            "transaction": transaction,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        if self.use_memory_bus:
+            from message_bus import InMemoryMessageBus
+            InMemoryMessageBus.get_instance().send(self.as_number, peer_as, message)
             return
-            
-        host, port = self.peer_nodes[target_as]
-        
+
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(5)
             sock.connect((host, port))
-            
-            message = {
-                "type": "vote_response", 
-                "from_as": self.as_number,
-                "transaction_id": transaction_id,
-                "vote": vote,
-                "timestamp": datetime.now().isoformat()
-            }
-            
             sock.send(json.dumps(message).encode('utf-8'))
             sock.close()
-            
+        except Exception as e:
+            self.logger.warning(f"Failed to send vote request to AS{peer_as}: {e}")
+    
+    def _send_vote_to_node(self, target_as, transaction_id, vote):
+        """Send vote response to specific node (includes RSA signature)."""
+        if target_as not in self.peer_nodes:
+            return
+
+        message = {
+            "type": "vote_response",
+            "from_as": self.as_number,
+            "transaction_id": transaction_id,
+            "vote": vote,
+            "timestamp": datetime.now().isoformat(),
+            "signature": self._sign_vote(transaction_id, vote),
+        }
+
+        if self.use_memory_bus:
+            from message_bus import InMemoryMessageBus
+            InMemoryMessageBus.get_instance().send(self.as_number, target_as, message)
+            self.logger.debug(f"Sent {vote} vote for {transaction_id} to AS{target_as}")
+            return
+
+        host, port = self.peer_nodes[target_as]
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(5)
+            sock.connect((host, port))
+            sock.send(json.dumps(message).encode('utf-8'))
+            sock.close()
             self.logger.info(f"Sent {vote} vote for {transaction_id} to AS{target_as}")
-            
         except Exception as e:
             self.logger.warning(f"Failed to send vote to AS{target_as}: {e}")
     
+    # ------------------------------------------------------------------
+    # Block replication (per-node blockchain)
+    # ------------------------------------------------------------------
+    def _handle_block_replicate(self, message):
+        """
+        Handle replicated block from a peer node.
+
+        After a node commits a block (via consensus), it broadcasts the block
+        to all peers. Each peer appends it to their local chain replica.
+        """
+        block = message.get("block")
+        if block is None:
+            return
+        if self.node_blockchain is not None:
+            self.node_blockchain.append_replicated_block(block)
+
+    def _replicate_block_to_peers(self, block):
+        """
+        Broadcast a committed block to all peers for chain replication.
+
+        Args:
+            block: The committed block dict
+        """
+        if not self.use_memory_bus or block is None:
+            return
+        from message_bus import InMemoryMessageBus
+        bus = InMemoryMessageBus.get_instance()
+        message = {
+            "type": "block_replicate",
+            "from_as": self.as_number,
+            "block": block,
+        }
+        bus.broadcast(self.as_number, message)
+
+    # ------------------------------------------------------------------
+    # Vote signing
+    # ------------------------------------------------------------------
+    def _sign_vote(self, transaction_id, vote):
+        """Sign a consensus vote with this node's RSA private key."""
+        if self.private_key is None:
+            return None
+        from signature_utils import SignatureUtils
+        payload = json.dumps({
+            "transaction_id": transaction_id,
+            "voter_as": self.as_number,
+            "vote": vote,
+        }, sort_keys=True, separators=(',', ':'))
+        return SignatureUtils.sign_with_key(payload, self.private_key)
+
     def _check_recent_announcement_in_cache(self, ip_prefix, sender_asn):
         """
         Check if same announcement (prefix, AS) was recorded within last 1 hour.
@@ -437,6 +575,18 @@ class P2PTransactionPool:
             ip_prefix: IP prefix
             sender_asn: AS number
         """
+        # Capacity check: evict oldest entries if cache is full
+        if len(self.last_seen_cache) >= cfg.LAST_SEEN_CACHE_MAX_SIZE:
+            # Sort by timestamp, remove oldest 10%
+            evict_count = max(1, cfg.LAST_SEEN_CACHE_MAX_SIZE // 10)
+            sorted_keys = sorted(self.last_seen_cache, key=self.last_seen_cache.get)
+            for k in sorted_keys[:evict_count]:
+                del self.last_seen_cache[k]
+            self.logger.warning(
+                f"⚠️ last_seen_cache at capacity ({cfg.LAST_SEEN_CACHE_MAX_SIZE}), "
+                f"evicted {evict_count} oldest entries"
+            )
+
         cache_key = (ip_prefix, sender_asn)
         self.last_seen_cache[cache_key] = datetime.now().timestamp()
 
@@ -549,6 +699,59 @@ class P2PTransactionPool:
             except Exception as e:
                 self.logger.error(f"Error in periodic last_seen cache cleanup: {e}")
 
+    def _cleanup_old_committed_transactions(self):
+        """
+        Background thread that periodically evicts old entries from
+        committed_transactions and first_commit_tracker to prevent
+        unbounded memory growth.
+
+        Runs every COMMITTED_TX_CLEANUP_INTERVAL seconds.
+        """
+        import time
+
+        time.sleep(15)  # Wait for server to start
+
+        while self.running:
+            try:
+                time.sleep(cfg.COMMITTED_TX_CLEANUP_INTERVAL)
+
+                current_time = datetime.now().timestamp()
+                cutoff = current_time - cfg.COMMITTED_TX_CLEANUP_INTERVAL
+
+                with self.lock:
+                    # Evict committed_transactions older than cleanup interval
+                    before = len(self.committed_transactions)
+                    self.committed_transactions = {
+                        tx_id: ts for tx_id, ts in self.committed_transactions.items()
+                        if ts > cutoff
+                    }
+                    removed = before - len(self.committed_transactions)
+
+                    # Hard cap: if still over max, evict oldest
+                    if len(self.committed_transactions) > cfg.COMMITTED_TX_MAX_SIZE:
+                        sorted_items = sorted(self.committed_transactions.items(), key=lambda x: x[1])
+                        keep = sorted_items[-cfg.COMMITTED_TX_MAX_SIZE:]
+                        self.committed_transactions = dict(keep)
+                        removed += len(sorted_items) - len(keep)
+
+                    # Also trim first_commit_tracker (keep in sync)
+                    fc_before = len(self.first_commit_tracker)
+                    active_tx_ids = set(self.committed_transactions.keys()) | set(self.pending_votes.keys())
+                    self.first_commit_tracker = {
+                        tx_id: v for tx_id, v in self.first_commit_tracker.items()
+                        if tx_id in active_tx_ids
+                    }
+                    fc_removed = fc_before - len(self.first_commit_tracker)
+
+                if removed > 0 or fc_removed > 0:
+                    self.logger.debug(
+                        f"🧹 Committed-tx cleanup: removed {removed} committed IDs, "
+                        f"{fc_removed} first-commit entries"
+                    )
+
+            except Exception as e:
+                self.logger.error(f"Error in committed-tx cleanup: {e}")
+
     def _cleanup_timed_out_transactions(self):
         """
         Background thread that checks for timed-out pending transactions.
@@ -569,7 +772,7 @@ class P2PTransactionPool:
 
         while self.running:
             try:
-                time.sleep(30)  # Check every 30 seconds
+                time.sleep(10)  # Check every 10 seconds
 
                 current_time = datetime.now()
                 timed_out_transactions = []
@@ -644,7 +847,7 @@ class P2PTransactionPool:
                     consensus_status = "SINGLE_WITNESS"
 
                 # Mark as committed to prevent re-processing
-                self.committed_transactions.add(transaction_id)
+                self.committed_transactions[transaction_id] = datetime.now().timestamp()
 
             # Commit with appropriate status
             self._commit_unconfirmed_transaction(transaction_id, consensus_status, approve_count)
@@ -684,6 +887,13 @@ class P2PTransactionPool:
                     f"⛓️  Transaction {transaction_id} committed with status={consensus_status} "
                     f"({approve_count} approve votes, timeout)"
                 )
+
+                # ── Block replication (per-node blockchain) ──
+                committed_block = self.blockchain.get_last_block()
+                if committed_block:
+                    if self.node_blockchain is not None:
+                        self.node_blockchain.append_replicated_block(committed_block)
+                    self._replicate_block_to_peers(committed_block)
 
                 # Update last_seen cache for sampling (if regular announcement and has some approval)
                 if not transaction.get('is_attack', False) and approve_count > 0:
@@ -730,6 +940,15 @@ class P2PTransactionPool:
                 return False
 
         with self.lock:
+            # Capacity check: trim oldest entries if knowledge base is full
+            if len(self.knowledge_base) >= cfg.KNOWLEDGE_BASE_MAX_SIZE:
+                trim_count = len(self.knowledge_base) - cfg.KNOWLEDGE_BASE_MAX_SIZE + 1
+                self.knowledge_base = self.knowledge_base[trim_count:]
+                self.logger.warning(
+                    f"⚠️ Knowledge base at capacity ({cfg.KNOWLEDGE_BASE_MAX_SIZE}), "
+                    f"trimmed {trim_count} oldest entries"
+                )
+
             observation = {
                 "ip_prefix": ip_prefix,
                 "sender_asn": sender_asn,
@@ -739,8 +958,7 @@ class P2PTransactionPool:
                 "is_attack": is_attack
             }
             self.knowledge_base.append(observation)
-            self.logger.info(f"📚 Added to knowledge base: {ip_prefix} from AS{sender_asn} "
-                           f"({'ATTACK' if is_attack else 'REGULAR'})")
+            self.logger.debug(f"Added to knowledge base: {ip_prefix} from AS{sender_asn}")
 
             # Record in neighbor cache: "I (RPKI node) observed this non-RPKI AS"
             # This builds the mapping for optimized voting
@@ -762,7 +980,6 @@ class P2PTransactionPool:
         - Vote collection and consensus (1-2 minutes)
         """
         import time
-        from dateutil import parser
 
         while self.running:
             try:
@@ -775,17 +992,30 @@ class P2PTransactionPool:
                     # Remove observations older than 8-minute window
                     self.knowledge_base = [
                         obs for obs in self.knowledge_base
-                        if (current_time - parser.parse(obs["observed_at"])).total_seconds()
+                        if (current_time - self._parse_timestamp(obs["observed_at"])).total_seconds()
                            <= self.knowledge_window_seconds
                     ]
 
                     removed = initial_count - len(self.knowledge_base)
                     if removed > 0:
-                        self.logger.debug(f"🧹 Cleaned {removed} old observations from knowledge base "
-                                        f"(window: {self.knowledge_window_seconds}s)")
+                        self.logger.debug(f"Cleaned {removed} old observations from knowledge base")
 
             except Exception as e:
                 self.logger.error(f"Error cleaning knowledge base: {e}")
+
+    @staticmethod
+    def _parse_timestamp(ts) -> datetime:
+        """Parse a timestamp that may be int (epoch), float, or ISO string."""
+        if isinstance(ts, (int, float)):
+            return datetime.fromtimestamp(ts)
+        if isinstance(ts, str):
+            # Try ISO format first (fast), then dateutil (slow)
+            try:
+                return datetime.fromisoformat(ts)
+            except ValueError:
+                from dateutil import parser
+                return parser.parse(ts)
+        return datetime.now()
 
     def _check_knowledge_base(self, transaction):
         """
@@ -798,38 +1028,31 @@ class P2PTransactionPool:
             True if matching observation found, False otherwise
         """
         try:
-            from dateutil import parser
-
             ip_prefix = transaction.get("ip_prefix")
             sender_asn = transaction.get("sender_asn")
             tx_timestamp = transaction.get("timestamp")
 
             if not all([ip_prefix, sender_asn, tx_timestamp]):
-                self.logger.warning("Transaction missing required fields for validation")
                 return False
 
-            # Parse transaction timestamp (outside lock - no shared data access)
-            tx_time = parser.parse(tx_timestamp)
+            # Parse transaction timestamp
+            tx_time = self._parse_timestamp(tx_timestamp)
 
             # CRITICAL SECTION: Copy knowledge base snapshot with lock
             with self.lock:
                 knowledge_snapshot = list(self.knowledge_base)  # Shallow copy
 
             # NON-CRITICAL SECTION: Search snapshot (lock released)
-            # This allows other threads to modify knowledge_base concurrently
             for obs in knowledge_snapshot:
                 # Check if IP prefix and sender ASN match
                 if obs["ip_prefix"] == ip_prefix and obs["sender_asn"] == sender_asn:
                     # Check if timestamp is within window
-                    obs_time = parser.parse(obs["timestamp"])
+                    obs_time = self._parse_timestamp(obs["timestamp"])
                     time_diff = abs((tx_time - obs_time).total_seconds())
 
                     if time_diff <= self.knowledge_window_seconds:
-                        self.logger.info(f"✅ Knowledge match: {ip_prefix} from AS{sender_asn} "
-                                       f"(time diff: {time_diff:.0f}s)")
                         return True
 
-            self.logger.warning(f"❌ No knowledge match: {ip_prefix} from AS{sender_asn} at {tx_timestamp}")
             return False
 
         except Exception as e:
@@ -845,10 +1068,10 @@ class P2PTransactionPool:
         try:
             # Check if transaction matches our knowledge base
             if self._check_knowledge_base(transaction):
-                self.logger.info(f"✅ APPROVE: Transaction matches my observations")
+                self.logger.debug(f"APPROVE: Transaction matches observations")
                 return "approve"
             else:
-                self.logger.warning(f"❌ REJECT: Transaction not in my knowledge base")
+                self.logger.debug(f"REJECT: Transaction not in knowledge base")
                 return "reject"
 
         except Exception as e:
@@ -882,6 +1105,15 @@ class P2PTransactionPool:
 
             if success:
                 self.logger.info(f"⛓️  Transaction {transaction_id} committed to blockchain with {len(vote_data['votes'])} signatures")
+
+                # ── Block replication (per-node blockchain) ──
+                committed_block = self.blockchain.get_last_block()
+                if committed_block:
+                    # Append to own local replica
+                    if self.node_blockchain is not None:
+                        self.node_blockchain.append_replicated_block(committed_block)
+                    # Broadcast to all peers for replication
+                    self._replicate_block_to_peers(committed_block)
 
                 # Update last_seen cache for sampling (if regular announcement)
                 if not transaction.get('is_attack', False):
@@ -1001,7 +1233,6 @@ class P2PTransactionPool:
                     data = json.load(f)
 
                 # Load observations and filter out expired ones
-                from dateutil import parser
                 current_time = datetime.now()
 
                 loaded = data.get('observations', [])
@@ -1009,7 +1240,7 @@ class P2PTransactionPool:
 
                 for obs in loaded:
                     try:
-                        observed_at = parser.parse(obs['observed_at'])
+                        observed_at = self._parse_timestamp(obs['observed_at'])
                         age_seconds = (current_time - observed_at).total_seconds()
 
                         if age_seconds <= self.knowledge_window_seconds:
@@ -1099,7 +1330,7 @@ class P2PTransactionPool:
         # CRITICAL SECTION: Copy data with lock (fast)
         with self.lock:
             pending_snapshot = dict(self.pending_votes)  # Shallow copy
-            committed_snapshot = set(self.committed_transactions)  # Copy set
+            committed_snapshot = set(self.committed_transactions.keys())  # Copy keys
 
         # NON-CRITICAL SECTION: Process snapshot (lock released)
         pending = []
@@ -1136,7 +1367,7 @@ class P2PTransactionPool:
         with self.lock:
             if transaction_id in self.pending_votes:
                 # Add to committed set
-                self.committed_transactions.add(transaction_id)
+                self.committed_transactions[transaction_id] = datetime.now().timestamp()
                 self.logger.debug(f"Marked transaction {transaction_id} as processed")
 
     def stop(self):
@@ -1144,8 +1375,11 @@ class P2PTransactionPool:
         self.running = False
 
         # Save knowledge base before shutdown
-        self.logger.info("💾 Saving knowledge base before shutdown...")
+        self.logger.info("Saving knowledge base before shutdown...")
         self._save_knowledge_base()
 
-        if self.server_socket:
+        if self.use_memory_bus:
+            from message_bus import InMemoryMessageBus
+            InMemoryMessageBus.get_instance().unregister(self.as_number)
+        elif self.server_socket:
             self.server_socket.close()
