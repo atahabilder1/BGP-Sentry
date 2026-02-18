@@ -1,0 +1,105 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{youtube2008hijack}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=93deefce09c63ac1d93d33bcf438c7a3}{%
+           family={{RIPE NCC}},
+           familyi={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{fullhash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{fullhashraw}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{bibnamehash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{authorbibnamehash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{authornamehash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{authorfullhash}{93deefce09c63ac1d93d33bcf438c7a3}
+      \strng{authorfullhashraw}{93deefce09c63ac1d93d33bcf438c7a3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{RIPE NCC}
+      \field{title}{{YouTube} Hijacking: A {RIPE NCC RIS} Case Study}
+      \field{year}{2008}
+      \verb{urlraw}
+      \verb https://www.ripe.net/publications/news/industry-developments/youtube-hijacking-a-ripe-ncc-ris-case-study
+      \endverb
+      \verb{url}
+      \verb https://www.ripe.net/publications/news/industry-developments/youtube-hijacking-a-ripe-ncc-ris-case-study
+      \endverb
+    \endentry
+    \entry{myetherwallet2018}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=3f07179a07b2a7661e37a3fd0e652a07}{%
+           family={{Cloudflare}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{fullhash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{fullhashraw}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{bibnamehash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{authorbibnamehash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{authornamehash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{authorfullhash}{3f07179a07b2a7661e37a3fd0e652a07}
+      \strng{authorfullhashraw}{3f07179a07b2a7661e37a3fd0e652a07}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Cloudflare Blog}
+      \field{note}{MyEtherWallet BGP hijack, \$150K+ stolen}
+      \field{title}{{BGP} leaks and cryptocurrencies}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://blog.cloudflare.com/bgp-leaks-and-crypto-currencies/
+      \endverb
+      \verb{url}
+      \verb https://blog.cloudflare.com/bgp-leaks-and-crypto-currencies/
+      \endverb
+    \endentry
+    \entry{amazonroute53_2018}{misc}{}{}
+      \name{author}{1}{}{%
+        {{hash=bb7c88866c703f7e9f86b48487adfd32}{%
+           family={{BGPStream / Oracle}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{fullhash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{fullhashraw}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{bibnamehash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{authorbibnamehash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{authornamehash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{authorfullhash}{bb7c88866c703f7e9f86b48487adfd32}
+      \strng{authorfullhashraw}{bb7c88866c703f7e9f86b48487adfd32}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{BGPStream}
+      \field{note}{Cryptocurrency theft via BGP hijack of AWS Route 53 DNS}
+      \field{title}{Amazon {Route 53} {BGP} Hijack}
+      \field{year}{2018}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
