@@ -77,7 +77,7 @@ class VirtualNode:
         self.rating_system = rating_system
         self.shared_blockchain = shared_blockchain
         self.bgpcoin_ledger = bgpcoin_ledger
-        self.private_key = private_key  # RSA-2048 private key (RPKI nodes only)
+        self.private_key = private_key  # Ed25519 private key (RPKI nodes only)
         self._clock = clock  # SimulationClock (optional)
 
         # Processing state
@@ -376,13 +376,8 @@ class VirtualNode:
             self.stats["attacks_detected"] += 1
             self.stats["attacks_written"] += 1
 
-            # Rating penalty (off-chain — non-RPKI nodes don't write to blockchain)
-            if self.rating_system is not None:
-                self.rating_system.record_attack(
-                    as_number=origin_asn,
-                    attack_type=attack_type,
-                    attack_details={"label": label, "prefix": prefix},
-                )
+            # Rating updates are handled exclusively by RPKI consensus to
+            # avoid duplicate penalties (non-RPKI nodes are passive observers).
 
             result["action"] = "attack_detected_offchain"
             self.detection_results.append(result)
@@ -392,9 +387,6 @@ class VirtualNode:
         self.last_seen[dedup_key] = time.time()
         self.legitimate_count += 1
         self.stats["legitimate_written"] += 1
-
-        if self.rating_system is not None:
-            self.rating_system.increment_legitimate_announcements(origin_asn, prefix=prefix)
 
         result["action"] = "legitimate_recorded_offchain"
         self.detection_results.append(result)

@@ -230,7 +230,14 @@ class NonRPKIRatingSystem:
         try:
             with self.lock:
                 # Dedup: only apply penalty once per unique (origin_as, prefix, attack_type)
-                prefix = (attack_details or {}).get("prefix", "unknown")
+                # Try multiple prefix key names used by different attack types
+                _details = attack_details or {}
+                prefix = (_details.get("prefix")
+                          or _details.get("victim_prefix")
+                          or _details.get("flapping_prefix")
+                          or _details.get("hijacked_subprefix")
+                          or _details.get("ip_prefix")
+                          or "unknown")
                 dedup_key = (as_number, prefix, attack_type)
                 if dedup_key in self._seen_attacks:
                     # Already penalized for this specific attack, skip

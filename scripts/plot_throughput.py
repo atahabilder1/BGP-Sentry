@@ -63,13 +63,13 @@ def plot_tps_vs_speed():
 
     # Reference lines for other blockchains
     ax.axhline(y=7, color='#FF9800', linestyle=':', alpha=0.7, linewidth=1.5)
-    ax.text(1.2, 7.8, 'Bitcoin (~7 TPS)', color='#FF9800', fontsize=9)
+    ax.text(1.2, 7.8, 'Bitcoin (~7 TPS, network-wide)', color='#FF9800', fontsize=9)
     ax.axhline(y=25, color='#9C27B0', linestyle=':', alpha=0.7, linewidth=1.5)
-    ax.text(1.2, 25.8, 'Ethereum PoS (~15-30 TPS)', color='#9C27B0', fontsize=9)
+    ax.text(1.2, 25.8, 'Ethereum PoS (~15-30 TPS, network-wide)', color='#9C27B0', fontsize=9)
 
     ax.set_xlabel('Speed Multiplier (x)')
-    ax.set_ylabel('Network TPS (transactions/second)')
-    ax.set_title('BGP-Sentry: Network Throughput vs Speed Multiplier\n(100 nodes, 58 RPKI validators, caida_100 dataset)')
+    ax.set_ylabel('Network TPS (transactions/second, all nodes combined)')
+    ax.set_title('BGP-Sentry: Network Throughput vs Speed Multiplier (network-wide)\n(100 nodes, 58 RPKI validators, caida_100 dataset)')
     ax.set_xticks(multipliers)
     ax.set_xticklabels([f'{m}x' for m in multipliers])
     ax.set_xlim(0.5, 10.5)
@@ -203,8 +203,8 @@ def plot_blockchain_comparison():
     bars[3].set_linewidth(3)
 
     ax.set_xscale('log')
-    ax.set_xlabel('Network TPS (log scale)')
-    ax.set_title('Blockchain TPS Comparison\n(BGP-Sentry vs Major Blockchains)')
+    ax.set_xlabel('Network TPS (log scale, all network-wide)')
+    ax.set_title('Blockchain TPS Comparison (network-wide)\n(BGP-Sentry vs Major Blockchains)')
     ax.set_xlim(1, 10000)
 
     fig.tight_layout()

@@ -207,7 +207,7 @@ class NodeManager:
                 p2p_pool=p2p_pool,
                 rpki_validator=self.rpki_validator if is_rpki else None,
                 attack_detector=self.attack_detector,
-                rating_system=self.rating_system if not is_rpki else None,
+                rating_system=None,  # Ratings handled exclusively via RPKI consensus
                 shared_blockchain=self.primary_blockchain if is_rpki else None,
                 bgpcoin_ledger=self.shared_ledger if is_rpki else None,
                 private_key=private_key,
@@ -363,7 +363,7 @@ class NodeManager:
         """Get cryptographic key and signing summary."""
         return {
             "key_algorithm": "Ed25519",
-            "signature_scheme": "RSA-PSS with SHA-256",
+            "signature_scheme": "Ed25519",
             "total_key_pairs": len(self.node_keys),
             "public_key_registry_size": len(self.public_key_registry),
             "nodes_with_keys": sorted(self.node_keys.keys()),
@@ -452,7 +452,7 @@ class NodeManager:
 
     def save_keys_to_disk(self):
         """
-        Persist RSA key pairs to disk for each RPKI node.
+        Persist Ed25519 key pairs to disk for each RPKI node.
 
         Writes:
           - blockchain_data/nodes/as{N}/keys/private_key.pem

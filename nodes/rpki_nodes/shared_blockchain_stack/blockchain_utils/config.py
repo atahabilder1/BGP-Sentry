@@ -32,7 +32,9 @@ except ImportError:
                 line = line.strip()
                 if line and not line.startswith("#") and "=" in line:
                     key, _, val = line.partition("=")
-                    os.environ.setdefault(key.strip(), val.strip())
+                    # Strip inline comments (e.g., "3  # comment")
+                    val = val.split("#")[0].strip()
+                    os.environ.setdefault(key.strip(), val)
 
 
 def _int(key: str, default: int) -> int:
@@ -125,6 +127,10 @@ class _Config:
     ATTACK_CONSENSUS_REWARD_DETECTION: float = _float("ATTACK_CONSENSUS_REWARD_DETECTION", 10)
     ATTACK_CONSENSUS_REWARD_CORRECT_VOTE: float = _float("ATTACK_CONSENSUS_REWARD_CORRECT_VOTE", 2)
     ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION: float = _float("ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION", -20)
+
+    # ── Transaction Batching ────────────────────────────────────────
+    BATCH_SIZE: int = _int("BATCH_SIZE", 1)
+    BATCH_TIMEOUT: float = _float("BATCH_TIMEOUT", 0.5)
 
     # ── Simulation Timing ─────────────────────────────────────────
     SIMULATION_SPEED_MULTIPLIER: float = _float("SIMULATION_SPEED_MULTIPLIER", 1.0)

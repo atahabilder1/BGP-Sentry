@@ -1,0 +1,411 @@
+\documentclass[aspectratio=169, 12pt]{beamer}
+
+\usetheme{default}
+\usecolortheme{default}
+
+% Simple black and white
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{item}{fg=black}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+\title{\textbf{BGP-Sentry}}
+\subtitle{Blockchain-Based Trust Expansion Beyond RPKI}
+\author{Anik}
+\institute{Wayne State University}
+\date{}
+
+\begin{document}
+
+% ==================================================
+% SLIDE 1: Title
+% ==================================================
+\begin{frame}[plain]
+\centering
+\vspace{2cm}
+{\small BLOCKCHAIN AS A DATABASE FOR STORING AND ANALYZING BGP ANNOUNCEMENTS}\\[0.5cm]
+{\Huge \textbf{BGP-Sentry}}\\[0.5cm]
+{\large Extending Trust Coverage Beyond RPKI}\\[0.3cm]
+{\large Through Behavioral Assessment}\\[1.5cm]
+{\small Wayne State University}
+\end{frame}
+
+% ==================================================
+% SLIDE 2: Introduction / The Problem
+% ==================================================
+\begin{frame}
+\frametitle{Introduction: The Problem}
+
+\textbf{BGP lacks mandatory, global authentication.}
+
+\vspace{0.3cm}
+
+\begin{itemize}
+    \item BGP route announcements are accepted without verification
+    \item RPKI is the most widely accepted authentication mechanism
+    \item However, only \textbf{37\%} of ASes have RPKI enabled
+    \item \textbf{63\%} of Internet routing remains unverifiable
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Real-World BGP Hijacking Attacks:}
+\begin{itemize}
+    \item YouTube (2008): Pakistan Telecom hijacked YouTube's prefix~\cite{youtube2008hijack}
+    \item MyEtherWallet (2018): \$150K+ stolen via BGP hijack~\cite{myetherwallet2018}
+    \item Amazon Route 53 (2018): Cryptocurrency theft via BGP hijack~\cite{amazonroute53_2018}
+\end{itemize}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 3: Motivation
+% ==================================================
+\begin{frame}
+\frametitle{Motivation: Why Existing Solutions Fail}
+
+\small
+\begin{columns}[T]
+\begin{column}{0.30\textwidth}
+\textbf{RPKI Limitations}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item Limited coverage
+    \item Policy barriers
+    \item No audit trail
+    \item Cannot assess non-RPKI
+\end{itemize}
+\end{column}
+
+\begin{column}{0.34\textwidth}
+\textbf{Prior Blockchain\\(Onboarding)}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item Trust-based onboarding
+    \item No identity verification
+    \item Dishonest nodes can join
+    \item Sybil vulnerability
+\end{itemize}
+\end{column}
+
+\begin{column}{0.34\textwidth}
+\textbf{Prior Blockchain\\(Consensus)}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item Asymmetric observations
+    \item Assumes symmetric views
+    \item No scalable consensus
+    \item No persistent intelligence
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.5cm}
+
+\centering
+\fbox{\parbox{12cm}{\centering \textbf{Key Insight:} RPKI will never achieve 100\% coverage.\\We need to extend trust to the 63\% outside RPKI.}}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 4: Three Challenges
+% ==================================================
+\begin{frame}
+\frametitle{Three Critical Challenges}
+
+\begin{enumerate}
+    \item \textbf{Challenge 1: Incomplete RPKI Adoption}
+    \begin{itemize}
+        \item Only 37\% of ASes enforce RPKI
+        \item Economic misalignment causes free-riding
+        \item 63\% of routing remains unverifiable
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \item \textbf{Challenge 2: No Authenticated Observers}
+    \begin{itemize}
+        \item Blockchain validators are randomly selected
+        \item May include malicious nodes
+        \item Circular trust problem
+    \end{itemize}
+
+    \vspace{0.3cm}
+
+    \item \textbf{Challenge 3: Limited Scalable Consensus}
+    \begin{itemize}
+        \item BGP observations are asymmetric across vantage points
+        \item Traditional consensus assumes symmetric views
+        \item No persistent security intelligence
+    \end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 5: How We Address Each Challenge
+% ==================================================
+\begin{frame}
+\frametitle{How We Address Each Challenge}
+
+\textbf{Challenge 1: Incomplete RPKI Adoption}\\
+$\rightarrow$ \textbf{Solution:} Expanding trust by monitoring non-RPKI ASes and assessing their behavior
+
+\vspace{0.5cm}
+
+\textbf{Challenge 2: No Authenticated Observers}\\
+$\rightarrow$ \textbf{Solution:} RPKI verification during onboarding secures the observer network
+
+\vspace{0.5cm}
+
+\textbf{Challenge 3: Limited Scalable Consensus}\\
+$\rightarrow$ \textbf{Solution:} Proof of Population consensus provides scalable agreement
+
+\end{frame}
+
+% ==================================================
+% SLIDE 6: Challenge-Solution-Contribution Table
+% ==================================================
+\begin{frame}
+\frametitle{Challenge $\rightarrow$ Solution $\rightarrow$ Contribution}
+
+\footnotesize
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|p{3.2cm}|p{3.8cm}|p{4.5cm}|}
+\hline
+\textbf{\#} & \textbf{Challenge} & \textbf{Solution} & \textbf{Contribution} \\
+\hline
+1 & Incomplete RPKI Adoption & Extended Coverage and Trust Propagation & Trust-based Routing for Non-RPKI ASes \\
+\hline
+2 & No Authenticated Routing Observers & RPKI-Verified Observers with Incentives & Behavioral Monitoring and Observer Accountability \\
+\hline
+3 & Limited Security Intelligence Consensus & Scalable PoP Consensus with Persistent Intelligence & Auditable Trust Rating via Post-Hoc Forensic Analysis \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 7: Our Solution Overview
+% ==================================================
+\begin{frame}
+\frametitle{Our Solution: BGP-Sentry}
+
+\centering
+\fbox{\parbox{13cm}{\centering A \textbf{permissioned consortium blockchain} that transforms \textbf{RPKI-enabled ASes} into distributed observers that monitor and rate \textbf{non-RPKI ASes}}}
+
+\vspace{0.4cm}
+
+\small
+\begin{columns}[T]
+\begin{column}{0.32\textwidth}
+\textbf{RPKI Observer Network}\\[0.2cm]
+Real-time detection \textit{and} long-term post-hoc forensic analysis
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\textbf{Secure Onboarding}\\[0.2cm]
+RPKI-verified identity. Token rewards incentivize honesty.
+\end{column}
+
+\begin{column}{0.34\textwidth}
+\textbf{Proof of Population}\\[0.2cm]
+Three-way voting: \texttt{approve} / \texttt{no\_knowledge} / \texttt{reject}. One RPKI node = one vote.
+\end{column}
+\end{columns}
+
+\vspace{0.4cm}
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Scalable} Nodes & \textbf{PoP} Consensus & \textbf{4} Attack Types & \textbf{P2P} Network \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 8: RPKI-Verified Onboarding
+% ==================================================
+\begin{frame}
+\frametitle{RPKI-Verified Onboarding}
+
+\small
+\textbf{How does an AS join the BGP-Sentry observer network?}
+
+\vspace{0.2cm}
+
+\centering
+\begin{tabular}{c}
+\fbox{\textbf{Regional Internet Registry (RIR)}} \\
+{\scriptsize ARIN $\cdot$ RIPE $\cdot$ APNIC $\cdot$ LACNIC $\cdot$ AFRINIC} \\[0.2cm]
+$\downarrow$ \quad {\scriptsize Issues RPKI certificate binding AS $\leftrightarrow$ IP resources} \\[0.2cm]
+\fbox{\textbf{AS publishes Route Origin Authorizations (ROAs)}} \\
+{\scriptsize prefix $\rightarrow$ authorized origin AS, stored in RPKI repository} \\[0.2cm]
+$\downarrow$ \quad {\scriptsize rov-collector crawls all 5 RIR repositories} \\[0.2cm]
+\fbox{\textbf{rov-collector Classification}} \\
+{\scriptsize Measures real-world RPKI deployment per AS} \\[0.2cm]
+$\downarrow$ \quad {\scriptsize Produces \texttt{as\_classification.json}} \\[0.2cm]
+\fbox{\textbf{RPKINodeRegistry}} $\rightarrow$ \fbox{RPKI Validator} \quad \fbox{Non-RPKI (Monitored)} \\
+{\scriptsize Onboarded as blockchain voter} \hspace{0.5cm} {\scriptsize Tracked via trust ratings} \\
+\end{tabular}
+
+\vspace{0.2cm}
+
+\flushleft
+\footnotesize
+\textbf{Sybil resistance:} Creating a fake validator requires a real RPKI certificate from a RIR, which requires owning real IP address space --- economically infeasible.
+
+\end{frame}
+
+% ==================================================
+% SLIDE 9: System Architecture
+% ==================================================
+\begin{frame}
+\frametitle{System Architecture}
+
+\centering
+\small
+\begin{tabular}{c}
+\fbox{\textbf{BGP Announcements (CAIDA dataset)}} \\[0.3cm]
+$\downarrow$ \\[0.3cm]
+\fbox{\textbf{Attack Detection}} \\
+{\scriptsize Prefix Hijack $\cdot$ Subprefix Hijack $\cdot$ Bogon Injection $\cdot$ Route Flapping} \\[0.3cm]
+$\downarrow$ \\[0.3cm]
+\fbox{\textbf{RPKI Observer Network (PoP Consensus)}} \\[0.3cm]
+$\downarrow$ \\[0.3cm]
+\fbox{Trust Scoring} \hspace{0.5cm} $\rightarrow$ \hspace{0.5cm} \fbox{Blockchain Storage} \\
+{\scriptsize Non-RPKI behavioral ratings} \hspace{1.2cm} {\scriptsize BGP blocks + verdict blocks} \\[0.3cm]
+$\downarrow$ \\[0.3cm]
+\fbox{\textbf{Post-Hoc Forensic Analysis}} \\
+{\scriptsize Attacker profiling $\cdot$ prefix history $\cdot$ escalation detection} \\
+\end{tabular}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 10: Post-Hoc Forensic Analysis
+% ==================================================
+\begin{frame}
+\frametitle{Post-Hoc Forensic Analysis}
+
+\textbf{Why:} Real-time detection catches attacks as they happen.\\
+Post-hoc analysis \textit{reconstructs the full history} from immutable blockchain records.
+
+\vspace{0.3cm}
+
+\small
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+\textbf{Who runs it}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item Network operators (NOC teams)
+    \item Security researchers / CERT teams
+    \item Automated scheduled jobs (cron)
+    \item Regulatory auditors
+\end{itemize}
+
+\vspace{0.2cm}
+
+\textbf{How it runs}
+\begin{itemize}\setlength{\itemsep}{2pt}
+    \item Queries the blockchain offline
+    \item No live network access needed
+    \item Reproducible from any chain replica
+\end{itemize}
+\end{column}
+
+\begin{column}{0.50\textwidth}
+\textbf{Three analysis modules:}
+
+\vspace{0.1cm}
+
+\textbf{1. Blockchain Forensics}\\
+{\footnotesize Attacker profiling, prefix history, observer cross-reference, audit trail generation}
+
+\vspace{0.2cm}
+
+\textbf{2. Targeted Attack Analyzer}\\
+{\footnotesize Single-witness patterns, consensus escalation detection, temporal clustering}
+
+\vspace{0.2cm}
+
+\textbf{3. Longitudinal Behavior Analysis}\\
+{\footnotesize Trust score trajectories, rating drift, repeat offenders, BGPCoin economy health}
+\end{column}
+\end{columns}
+
+\end{frame}
+
+% ==================================================
+% SLIDE 11: Post-Hoc Analysis Output
+% ==================================================
+\begin{frame}
+\frametitle{Post-Hoc Analysis: Output}
+
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{3.5cm}|p{4.5cm}|p{4.5cm}|}
+\hline
+\textbf{Output} & \textbf{Contents} & \textbf{Security Use Case} \\
+\hline
+Forensic Audit Report & Attacker profiles, affected prefixes, observer coverage & Incident response evidence package \\
+\hline
+Escalation Detection & Chronological vote-count patterns per (prefix, AS) & Identify learning attackers before they succeed \\
+\hline
+Trust Trajectories & Per-AS rating history over time & Flag ASes drifting toward malicious behavior \\
+\hline
+Cross-Observer Correlation & Which observers detected the same attack independently & Measure detection coverage and consensus quality \\
+\hline
+\end{tabular}
+
+\vspace{0.3cm}
+
+\textbf{Key property:} All outputs are \textit{reproducible} from blockchain data alone.\\
+Any party with a chain replica can independently verify every conclusion.
+
+\end{frame}
+
+% ==================================================
+% SLIDE 12: Summary and Contributions
+% ==================================================
+\begin{frame}
+\frametitle{Summary and Contributions}
+
+\textbf{Key Contributions:}
+
+\begin{enumerate}
+    \item \textbf{Trust Expansion} --- Extend RPKI trust to 63\% non-participating ASes
+
+    \item \textbf{Authenticated Observers} --- RPKI-verified onboarding eliminates Sybil attacks
+
+    \item \textbf{Proof of Population} --- Novel consensus where each RPKI node = one vote
+
+    \item \textbf{Post-Hoc Forensic Audit} --- Immutable blockchain enables offline attacker profiling, escalation detection, and reproducible audit trails
+
+    \item \textbf{Economic Incentives} --- BGPCoin token rewards create accountability
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\centering
+\Large \textbf{Thank You --- Questions?}
+
+\vspace{0.2cm}
+\normalsize
+Wayne State University
+
+\end{frame}
+
+% ==================================================
+% SLIDE 13: References
+% ==================================================
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\printbibliography[heading=none]
+\end{frame}
+
+\end{document}

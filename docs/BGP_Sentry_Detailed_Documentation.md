@@ -34,8 +34,8 @@
 
 BGP-Sentry is a **blockchain-based distributed BGP security framework** that detects BGP hijack attacks using RPKI-validated consensus among autonomous systems. It uses real CAIDA AS-level Internet topology data and rov-collector RPKI classification data to simulate a distributed network where:
 
-- **RPKI-enabled ASes** act as blockchain validators (signers/mergers)
-- **Non-RPKI ASes** act as observers with trust ratings
+- **RPKI-enabled ASes** act as blockchain validators (signers/mergers) — they observe, vote, and commit blocks
+- **Non-RPKI ASes** are monitored subjects — their routing behavior is tracked and rated by RPKI validators
 
 Every BGP announcement is processed through a full blockchain pipeline: validation, transaction creation, peer-to-peer broadcast, Proof of Population (PoP) consensus voting, block commitment, attack detection, and token reward distribution.
 
@@ -44,7 +44,7 @@ Every BGP announcement is processed through a full blockchain pipeline: validati
 1. **Real-time BGP security** using blockchain consensus (36.8 TPS peak)
 2. **Proof of Population (PoP) consensus** -- one node, one vote; RPKI onboarding prevents Sybil attacks
 3. **Knowledge-based voting** where validators approve/reject based on their own independent observations
-4. **Dual-role architecture**: RPKI validators do full consensus; non-RPKI ASes do detection + rating
+4. **Asymmetric architecture**: RPKI validators do full consensus; non-RPKI ASes are monitored subjects with trust ratings
 5. **Token economy** (BGPCoin) that incentivizes honest participation
 6. **Trust rating system** that tracks non-RPKI AS behavior longitudinally
 7. **15 performance optimizations** achieving zero-lag real-time processing
@@ -73,20 +73,20 @@ The system follows a layered architecture with clear separation between data loa
 
 ```
 Dataset (CAIDA)  -->  DatasetLoader  -->  RPKINodeRegistry
-                           |
-                           v
-                      NodeManager
-                      (shared infrastructure)
+                           |                  |
+                           v                  v
+                      NodeManager        RPKI-verified onboarding
+                      (shared infrastructure)  (RIR certificates + ROAs)
                            |
             +--------------+--------------+
             |                             |
    RPKI VirtualNode              Non-RPKI VirtualNode
-   (blockchain validator)        (observer)
+   (blockchain validator)        (monitored subject)
             |                             |
    +--------+--------+           +-------+-------+
    |        |        |           |       |       |
-  P2P    RPKI     Attack      Attack  Rating  Blockchain
-  Pool  Validator Detector   Detector System   (write)
+  P2P    RPKI     Attack      Attack  Rating  Detection
+  Pool  Validator Detector   Detector System   Log
    |                |
    v                v
 InMemoryMessageBus  AttackConsensus
@@ -109,6 +109,37 @@ BlockchainInterface  BGPCoinLedger
 6. **Orchestrator Start**: All nodes start processing in parallel threads
 7. **Real-Time Clock**: `SharedClock` paces observation replay to match BGP timestamps
 8. **Results Collection**: 13 structured JSON files + human-readable README per run
+
+### RPKI-Verified Onboarding
+
+Before any AS can participate as a blockchain validator, it must pass RPKI-verified onboarding:
+
+```
+Step 1: RIR Certificate Issuance
+  A Regional Internet Registry (ARIN, RIPE, APNIC, LACNIC, AFRINIC)
+  issues an RPKI certificate binding the AS number to its IP resources.
+
+Step 2: ROA Publication
+  The AS publishes Route Origin Authorizations (ROAs) in the RPKI
+  repository, declaring which prefixes it is authorized to originate.
+
+Step 3: rov-collector Measurement
+  The rov-collector system crawls all 5 RIR RPKI repositories and
+  classifies each AS based on real-world RPKI deployment status.
+
+Step 4: Classification
+  rov-collector produces as_classification.json with:
+  - rpki_asns: ASes with valid RPKI certificates and published ROAs
+  - non_rpki_asns: ASes without RPKI deployment
+
+Step 5: Registry Initialization
+  RPKINodeRegistry.initialize(dataset_path) reads as_classification.json
+  and populates:
+  - RPKI_NODES → become blockchain validators (can vote, commit blocks)
+  - NON_RPKI_NODES → become monitored subjects (tracked via trust ratings)
+```
+
+**Why this prevents Sybil attacks:** Creating a fake validator requires a real RPKI certificate from a RIR, which requires owning real IP address space. The cost of acquiring IP resources from an RIR makes Sybil attacks economically infeasible — unlike Proof of Work (buy hardware) or Proof of Stake (buy tokens).
 
 ### RPKI Validator Pipeline (Merger/Signer Model)
 
@@ -154,12 +185,15 @@ Receive vote request from peer
 Check knowledge base: "Did I also observe this announcement?"
   |
   v
-YES -> Sign "approve" vote with Ed25519 private key
-NO  -> Sign "reject" vote
+Same prefix+AS observed  -> Sign "approve" vote with Ed25519 private key
+Never saw this prefix    -> Sign "no_knowledge" vote (abstain -- no data)
+Saw prefix from diff. AS -> Sign "reject" vote (conflicting origin)
   |
   v
 Send vote response back to merger
 ```
+
+Only `approve` votes count toward the consensus threshold. `no_knowledge` is neutral (the signer has no data to confirm or deny). `reject` signals a suspicious conflicting origin that may indicate a hijack.
 
 **Consensus Resolution:**
 
@@ -183,9 +217,9 @@ Attack detection on committed transaction (background thread)
 BGPCoin rewards distributed to merger + voters
 ```
 
-### Non-RPKI Observer Pipeline
+### Non-RPKI AS Pipeline (Monitored Subjects)
 
-Non-RPKI nodes do not participate in blockchain consensus. They observe and report.
+Non-RPKI ASes do not participate in blockchain consensus or voting. They are the **subjects being monitored** — their routing behavior is tracked by the system and used to compute trust ratings. RPKI validators are the actual observers.
 
 ```
 Step 0: DEDUP CHECK
@@ -339,15 +373,28 @@ Signer (AS 7018): Checks knowledge base...
   "Yes, I also observed AS15169 announcing 8.8.8.0/24" -> APPROVE
   |
 Signer (AS 3356): Checks knowledge base...
-  "I never saw this announcement from my vantage point" -> REJECT
+  "I never saw any announcement for 8.8.8.0/24"       -> NO_KNOWLEDGE (abstain)
   |
 Signer (AS 1299): Checks knowledge base...
-  "Yes, I observed it too" -> APPROVE
+  "Yes, I observed it too"                              -> APPROVE
+  |
+Signer (AS 2914): Checks knowledge base...
+  "I saw 8.8.8.0/24 announced by AS99999, not AS15169" -> REJECT (conflicting origin)
 ```
+
+**Three vote outcomes:**
+
+| Vote | Meaning | Counts toward threshold? |
+|------|---------|------------------------|
+| **APPROVE** | Signer independently observed the same prefix+AS | Yes |
+| **NO_KNOWLEDGE** | Signer has no data about this prefix (abstain) | No (neutral) |
+| **REJECT** | Signer observed the prefix from a *different* AS | No (signals conflict) |
 
 This means:
 - **Legitimate announcements** seen by many ASes get approved quickly (widespread propagation)
-- **Hijacked routes** seen by only the attacker get rejected (other ASes don't have matching observations)
+- **Hijacked routes** get rejected -- other ASes either have no data or see the prefix from the legitimate origin
+- **`no_knowledge`** prevents nodes from casting uninformed reject votes that would penalize legitimate but localized announcements
+- **`reject`** is a strong signal: the signer has *contradicting* evidence, suggesting a possible hijack
 - **The knowledge base acts as a distributed witness system** -- consensus reflects what the Internet actually observed
 
 ### Consensus Parameters
@@ -510,6 +557,25 @@ Node detects attack -> Propose attack vote to all peers
 | Detecting a confirmed attack | +10 |
 | Correct vote on attack | +2 |
 | False accusation | -20 |
+
+### Attack Verdicts on the Blockchain
+
+Attack verdicts are stored on the **real blockchain** as hash-chained, immutable blocks -- the same way BGP transaction blocks are stored. Each verdict block has `block_type: "attack_verdict"` in its metadata, distinguishing it from regular `"transaction"` blocks.
+
+**What gets stored on-chain:**
+
+- `verdict_id` (used as the block's `transaction_id` for deduplication)
+- `record_type: "attack_verdict"` (tags the record so the BGP stream logger skips it)
+- Full vote breakdown (yes/no counts, per-voter details)
+- Attack type, attacker AS, confidence score
+
+**Why on-chain?**
+
+Verdicts are the most security-critical records in the system. Storing them in a flat JSONL file would make them trivially editable -- an attacker could delete evidence of their hijack being confirmed. On the blockchain, verdicts are protected by SHA-256 hash chaining, Merkle roots, and cross-node replication, just like BGP transactions.
+
+**Secondary index:** The `attack_verdicts.jsonl` file is still written as a best-effort secondary index for quick queries, but the blockchain is the source of truth.
+
+**Integrity:** `verify_blockchain_integrity()` validates the hash chain across all block types (genesis, transaction, batch, and attack_verdict) uniformly.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -814,9 +880,23 @@ BGP-Sentry's 36.8 TPS is:
 
 ### Why 36.8 TPS is Sufficient
 
-Global BGP generates ~800,000 announcements/day = ~9.3/second. BGP-Sentry at 36.8 TPS handles **4x the global rate**.
+A single BGP router observed **722,489 IPv4 updates + 270,380 IPv6 updates = ~993,000 total updates** in a 24-hour period, averaging ~11.4 updates/second [[Huston 2025a]](#ref-huston-day-in-life). An earlier measurement from a single vantage point in AS131072 showed ~200,000 IPv4 updates/day (~2.3/second) [[Huston 2025b]](#ref-huston-bgpupd2024). BGP-Sentry at 36.8 TPS handles **3-16x** the rate observed at a single peer.
 
-Each node sees only a fraction of global announcements (based on AS topology position), and deduplication eliminates 60-80% of duplicates. In practice, even 4.2 TPS (1x real-time) is more than enough.
+Each node sees only a fraction of global announcements (based on AS topology position). Research has shown that ~13% of BGP updates are duplicates on average, rising to as high as 86% during peak instability periods [[Park & Jen, PAM 2010]](#ref-park-duplicates). BGP-Sentry's time-window deduplication (configurable via `RPKI_DEDUP_WINDOW` and `NONRPKI_DEDUP_WINDOW` in `.env`) further eliminates redundant observations within the same (prefix, origin) pair. In practice, even 4.2 TPS (1x real-time) is more than enough.
+
+**References for this section:**
+
+<a id="ref-huston-day-in-life"></a>
+- **[Huston 2025a]** G. Huston, "A Day in the Life of BGP," APNIC Blog, June 2025.
+  https://blog.apnic.net/2025/06/09/a-day-in-the-life-of-bgp/
+
+<a id="ref-huston-bgpupd2024"></a>
+- **[Huston 2025b]** G. Huston, "BGP Updates in 2024," APNIC Blog, January 2025.
+  https://blog.apnic.net/2025/01/07/bgp-updates-in-2024/
+
+<a id="ref-park-duplicates"></a>
+- **[Park & Jen, PAM 2010]** J. H. Park and D. Jen, "Investigating Occurrence of Duplicate Updates in BGP Announcements," *Proc. Passive and Active Measurement (PAM)*, Springer LNCS 6032, pp. 11-20, 2010.
+  https://link.springer.com/chapter/10.1007/978-3-642-12334-4_2
 
 ### Bottleneck Analysis
 
@@ -846,12 +926,151 @@ The bottleneck is **vote collection**: the merger must wait for at least 3 of 5 
 
 ### Future Scaling Strategies
 
-| Strategy | Expected Gain | Trade-off |
-|----------|--------------|-----------|
-| Transaction batching | 3-5x TPS | Conflates independent security decisions |
-| Sharded consensus | 2-4x TPS | Complex validator partitioning |
-| asyncio coroutines | 2-3x TPS | Full rewrite of threading model |
-| Physical distribution | Parallelism | Real network latency |
+#### Strategy 1: Transaction Batching (IMPLEMENTED)
+
+**Status:** Implemented and configurable via `.env`
+
+**How it works:** Instead of writing each consensus-approved transaction as its own block (one `_save_blockchain()` call per transaction), the system accumulates multiple transactions in a queue and flushes them as a single multi-transaction batch block.
+
+**Configuration:**
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `BATCH_SIZE` | 1 | Transactions per batch block. 1 = no batching (original). 10 = up to 10 tx per block. |
+| `BATCH_TIMEOUT` | 0.5s | Maximum wait before flushing a partial batch. Prevents stale transactions. |
+
+**Mechanism:**
+
+```
+BATCH_SIZE=1 (default, no batching):
+  Tx1 approved → write block → replicate → Tx2 approved → write block → replicate
+  4 blocks = 4 × _save_blockchain() = 4 × disk I/O
+
+BATCH_SIZE=4:
+  Tx1 approved → queue → Tx2 approved → queue → Tx3 approved → queue →
+  Tx4 approved → queue full → flush → write ONE batch block → replicate once
+  1 block = 1 × _save_blockchain() = 1 × disk I/O (4x reduction)
+```
+
+**Expected gain:** 3-5x TPS at `BATCH_SIZE=10`. The gain comes from:
+- Fewer `_save_blockchain()` calls (main I/O bottleneck)
+- Fewer block replication messages (one batch block vs N individual blocks)
+- Merkle root computed once over N transactions instead of N times over 1
+
+**Trade-off:** Batching adds up to `BATCH_TIMEOUT` seconds of latency before a transaction appears on the blockchain. For BGP security monitoring (not real-time trading), 0.5 seconds is acceptable. Attack verdicts still go through `add_transaction_to_blockchain()` individually (not batched) for immediate recording.
+
+**Code references:**
+- `p2p_transaction_pool.py`: `_batch_flush_loop()`, `_flush_batch()`
+- `blockchain_interface.py`: `add_multiple_transactions()`
+- `.env`: `BATCH_SIZE`, `BATCH_TIMEOUT`
+
+---
+
+#### Strategy 2: Sharded Consensus
+
+**Status:** Future work (not yet implemented)
+
+**How it works:** Partition RPKI validators into consensus shards based on the IP prefix space they are responsible for. Each shard handles consensus for a subset of prefixes independently.
+
+**Design:**
+
+```
+Current (single consensus domain):
+  All 206 RPKI nodes vote on ALL transactions
+  58 nodes × 5 vote requests = 290 concurrent messages
+
+Sharded (4 shards by prefix range):
+  Shard A (0.0.0.0/2):    ~52 nodes vote on prefixes 0.x-63.x
+  Shard B (64.0.0.0/2):   ~52 nodes vote on prefixes 64.x-127.x
+  Shard C (128.0.0.0/2):  ~52 nodes vote on prefixes 128.x-191.x
+  Shard D (192.0.0.0/2):  ~50 nodes vote on prefixes 192.x-255.x
+
+  Each shard processes consensus independently → 4x parallelism
+```
+
+**Expected gain:** 2-4x TPS. Each shard has fewer nodes competing for the same lock, so contention drops proportionally.
+
+**Trade-off:** Cross-shard attacks (hijacker in shard A targeting prefix in shard B) require inter-shard communication. Shard assignment based on prefix space must be deterministic so all nodes agree on which shard handles which prefix. Rebalancing when nodes join/leave adds complexity.
+
+**Implementation notes:**
+- Hash prefix to shard ID: `shard = hash(prefix) % num_shards`
+- Each shard maintains its own blockchain (or sub-chain)
+- Cross-shard references use Merkle proofs
+
+---
+
+#### Strategy 3: Asyncio Coroutines
+
+**Status:** Future work (not yet implemented)
+
+**How it works:** Replace the threading model (`threading.Thread` + `ThreadPoolExecutor`) with Python `asyncio` coroutines. This eliminates GIL contention and context-switch overhead.
+
+**Current threading model:**
+
+```
+58 RPKI nodes × 1 processing thread each = 58 threads
+Message bus: 48-thread pool for delivery
+Vote collection: blocking Event.wait() in each thread
+Total: ~110+ threads competing for GIL
+```
+
+**Asyncio model:**
+
+```
+Single event loop (or one per CPU core via uvloop)
+58 RPKI nodes as coroutines
+Message delivery as async function calls (zero-copy)
+Vote collection: asyncio.wait_for() with cooperative scheduling
+Total: 1 event loop, zero GIL contention
+```
+
+**Expected gain:** 2-3x TPS. The GIL is the hidden bottleneck — 110 threads all competing for the same Python GIL means most time is spent in context switches, not useful work.
+
+**Trade-off:** Requires rewriting all thread-based code to async/await. The `InMemoryMessageBus`, `P2PTransactionPool`, `VirtualNode`, and `BlockchainInterface` all need async versions. This is a substantial refactoring effort.
+
+---
+
+#### Strategy 4: Physical Distribution
+
+**Status:** Architecture supports it (TCP sockets implemented but not used in simulation)
+
+**How it works:** Deploy each RPKI validator on a separate physical machine (or VM/container), communicating via real TCP sockets instead of the `InMemoryMessageBus`.
+
+**Current simulation model:**
+
+```
+Single machine: All 500 nodes share 1 CPU, 1 Python process
+InMemoryMessageBus: ~0.01ms latency, 100% delivery
+Bottleneck: GIL + thread pool contention
+```
+
+**Physical deployment model:**
+
+```
+500 machines: Each node gets dedicated CPU + memory
+TCP sockets: ~1-10ms latency, real network reliability
+Bottleneck: Network latency for vote collection
+```
+
+**Expected gain:** True parallelism — each node runs independently without GIL contention. The 48-thread bottleneck disappears because each machine runs its own thread pool.
+
+**Trade-off:** Real network latency replaces zero-latency in-memory calls. Vote collection takes 1-10ms instead of 0.01ms. However, the total throughput is much higher because nodes genuinely process in parallel instead of competing for one GIL.
+
+**Implementation notes:**
+- Set `use_memory_bus=False` in `NodeManager`
+- Configure `P2P_BASE_PORT` and deploy one node per machine
+- The existing TCP socket code in `P2PTransactionPool` handles this case
+
+---
+
+#### Summary
+
+| Strategy | Status | Expected Gain | Implementation Effort |
+|----------|--------|--------------|----------------------|
+| **Transaction batching** | **Implemented** | **3-5x TPS** | Low (configurable via `.env`) |
+| Sharded consensus | Future | 2-4x TPS | Medium (prefix-based partitioning) |
+| asyncio coroutines | Future | 2-3x TPS | High (full async rewrite) |
+| Physical distribution | Ready | True parallelism | Low (existing TCP code) |
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -1005,7 +1224,14 @@ All 40+ hyperparameters are in `.env` at the project root.
 | `RATING_THRESHOLD_HIGHLY_TRUSTED` | 90 | points | Highly trusted cutoff |
 | `RATING_THRESHOLD_SUSPICIOUS` | 30 | points | Suspicious cutoff |
 
-### Group H: Simulation Timing
+### Group H: Transaction Batching
+
+| Parameter | Default | Unit | Description |
+|-----------|---------|------|-------------|
+| `BATCH_SIZE` | 1 | count | Transactions per batch block (1 = no batching) |
+| `BATCH_TIMEOUT` | 0.5 | seconds | Max wait before flushing partial batch |
+
+### Group I: Simulation Timing
 
 | Parameter | Default | Unit | Description |
 |-----------|---------|------|-------------|
@@ -1083,6 +1309,41 @@ Edit `.env`:
 SIMULATION_SPEED_MULTIPLIER=5.0   # 5x faster than real-time
 ```
 
+### Blockchain Explorer
+
+Browse blocks, inspect attack verdicts, and verify chain integrity:
+
+```bash
+# Interactive mode
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json
+
+# Non-interactive commands
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --verify
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --verdicts
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --search-prefix "8.8.8.0/24"
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --search-as 15169
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --types
+```
+
+**Interactive commands:** `list [N]`, `block <N>`, `verdicts`, `verdict <ID>`, `search prefix <P>`, `search as <ASN>`, `types`, `verify`, `export <file>`, `help`, `quit`.
+
+### Post-Hoc Forensic Analysis
+
+Three standalone analysis modules query the blockchain offline:
+
+```bash
+# Blockchain forensics: attacker profiling, prefix history, audit trails
+python3 analysis/blockchain_forensics.py results/caida_100/*/
+
+# Targeted attack analysis: escalation detection, single-witness patterns
+python3 analysis/targeted_attack_analyzer.py results/caida_100/*/
+
+# Longitudinal analysis: trust trajectories, economy health
+python3 analysis/posthoc_analysis.py results/caida_100/*/
+```
+
+All outputs are reproducible from blockchain data alone.
+
 [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -1099,7 +1360,7 @@ SIMULATION_SPEED_MULTIPLIER=5.0   # 5x faster than real-time
 | **VRP** | Validated ROA Payload -- the set of validated ROAs used for route checking |
 | **TPS** | Transactions Per Second -- standard blockchain throughput metric |
 | **Merger** | RPKI node that creates a transaction and collects votes |
-| **Signer** | RPKI node that votes (approve/reject) on another node's transaction |
+| **Signer** | RPKI node that votes (approve/no_knowledge/reject) on another node's transaction |
 | **Knowledge Base** | Per-node memory of recently observed BGP announcements |
 | **Dedup** | Deduplication -- skipping duplicate legitimate announcements |
 | **Ed25519** | Elliptic curve signature algorithm (fast, small keys) |

@@ -1,0 +1,132 @@
+% =============================================================================
+% BGP-Sentry References
+% =============================================================================
+%
+% Usage in LaTeX:
+%   \bibliography{references}
+%   \bibliographystyle{IEEEtran}
+%
+% Usage in Markdown documentation:
+%   Inline links provided in docs/BGP_Sentry_Detailed_Documentation.md
+% =============================================================================
+
+% ── BGP Update Rates & Global Statistics ──
+
+@misc{huston2025dayinlife,
+  author       = {Geoff Huston},
+  title        = {A Day in the Life of {BGP}},
+  howpublished = {APNIC Blog},
+  month        = jun,
+  year         = {2025},
+  url          = {https://blog.apnic.net/2025/06/09/a-day-in-the-life-of-bgp/},
+  note         = {Measured 722,489 IPv4 + 270,380 IPv6 = ~993,000 BGP updates
+                  in a single 24-hour period from one router; avg 11.4 updates/sec}
+}
+
+@misc{huston2025bgpupdates,
+  author       = {Geoff Huston},
+  title        = {{BGP} Updates in 2024},
+  howpublished = {APNIC Blog},
+  month        = jan,
+  year         = {2025},
+  url          = {https://blog.apnic.net/2025/01/07/bgp-updates-in-2024/},
+  note         = {~200,000 IPv4 updates/day from AS131072 vantage point in 2024;
+                  ~2.3 updates/sec average}
+}
+
+@misc{huston2025bgpin2024,
+  author       = {Geoff Huston},
+  title        = {{BGP} in 2024},
+  howpublished = {APNIC Blog},
+  month        = jan,
+  year         = {2025},
+  url          = {https://blog.apnic.net/2025/01/06/bgp-in-2024/},
+  note         = {IPv4 routing table grew by 53,000 entries (6\%);
+                  ~75,000 ASes globally; ~1M announced prefixes}
+}
+
+% ── BGP Duplicate Updates ──
+
+@inproceedings{park2010duplicates,
+  author    = {Jong Han Park and Dan Jen and Mohit Lad and Shane Amante
+               and Danny McPherson and Lixia Zhang},
+  title     = {Investigating Occurrence of Duplicate Updates in {BGP}
+               Announcements},
+  booktitle = {Proc. Passive and Active Measurement (PAM)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {6032},
+  pages     = {11--20},
+  publisher = {Springer},
+  year      = {2010},
+  doi       = {10.1007/978-3-642-12334-4_2},
+  url       = {https://link.springer.com/chapter/10.1007/978-3-642-12334-4_2},
+  note      = {Found ~13\% of BGP updates are duplicates on average,
+               up to 86.42\% during peak instability}
+}
+
+% ── RPKI Adoption & Coverage ──
+
+@misc{nist2024rpki,
+  author       = {{NIST}},
+  title        = {{RPKI} Monitor},
+  howpublished = {NIST RPKI Deployment Monitor},
+  year         = {2024},
+  url          = {https://rpki-monitor.antd.nist.gov/},
+  note         = {Tracks global RPKI ROV deployment and ROA coverage}
+}
+
+% ── RIPE RIS Infrastructure ──
+
+@misc{riperis,
+  author       = {{RIPE NCC}},
+  title        = {Routing Information Service ({RIS})},
+  howpublished = {RIPE NCC},
+  url          = {https://www.ripe.net/analyse/internet-measurements/routing-information-service-ris/},
+  note         = {27 route collectors, 777 BGP sessions;
+                  only 1.1\% of 75,000 ASes export routes to RIS/RouteViews}
+}
+
+% ── Blockchain TPS Comparisons ──
+
+@misc{bitcoin_tps,
+  author       = {{Bitcoin Wiki}},
+  title        = {Scalability -- Maximum Transaction Rate},
+  howpublished = {Bitcoin Wiki},
+  url          = {https://en.bitcoin.it/wiki/Scalability},
+  note         = {Bitcoin: ~7 TPS (1 MB blocks, ~10 min interval)}
+}
+
+@misc{ethereum_tps,
+  author       = {{Ethereum Foundation}},
+  title        = {Ethereum Proof-of-Stake},
+  howpublished = {ethereum.org},
+  url          = {https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/},
+  note         = {Ethereum PoS: ~15--30 TPS (12-second slots)}
+}
+
+% ── BGP Hijacking Incidents (used in presentation slides) ──
+
+@misc{youtube2008hijack,
+  author       = {{RIPE NCC}},
+  title        = {{YouTube} Hijacking: A {RIPE NCC RIS} Case Study},
+  howpublished = {RIPE NCC},
+  year         = {2008},
+  url          = {https://www.ripe.net/publications/news/industry-developments/youtube-hijacking-a-ripe-ncc-ris-case-study}
+}
+
+@misc{myetherwallet2018,
+  author       = {{Cloudflare}},
+  title        = {{BGP} leaks and cryptocurrencies},
+  howpublished = {Cloudflare Blog},
+  year         = {2018},
+  url          = {https://blog.cloudflare.com/bgp-leaks-and-crypto-currencies/},
+  note         = {MyEtherWallet BGP hijack, \$150K+ stolen}
+}
+
+@misc{amazonroute53_2018,
+  author       = {{BGPStream / Oracle}},
+  title        = {Amazon {Route 53} {BGP} Hijack},
+  howpublished = {BGPStream},
+  year         = {2018},
+  note         = {Cryptocurrency theft via BGP hijack of AWS Route 53 DNS}
+}

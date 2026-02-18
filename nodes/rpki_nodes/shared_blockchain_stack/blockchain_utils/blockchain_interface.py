@@ -276,16 +276,20 @@ class BlockchainInterface:
             print(f"Error calculating Merkle root: {e}")
             return "error_merkle"
     
-    def add_transaction_to_blockchain(self, transaction: Dict) -> bool:
+    def add_transaction_to_blockchain(self, transaction: Dict,
+                                       block_type: str = "transaction") -> bool:
         """
         Add a transaction to the blockchain by creating a new block.
 
-        The lock is held ONLY for in-memory data-structure updates (fast).
-        File I/O (_save_blockchain, _log_to_bgp_stream, _update_state_mapping)
-        runs OUTSIDE the lock so other nodes are not blocked during disk writes.
+        The lock is held for in-memory data-structure updates AND _save_blockchain
+        to prevent concurrent modifications during file write.
+        Other file I/O (_log_to_bgp_stream, _update_state_mapping) runs OUTSIDE
+        the lock as they operate on separate files.
 
         Args:
             transaction: Transaction data to add
+            block_type: Block metadata type (default "transaction",
+                        also "attack_verdict" for verdict blocks)
 
         Returns:
             bool: True if transaction added successfully
@@ -312,7 +316,7 @@ class BlockchainInterface:
                     "block_hash": "",
                     "merkle_root": "",
                     "metadata": {
-                        "block_type": "transaction",
+                        "block_type": block_type,
                         "transaction_count": 1
                     }
                 }
@@ -331,9 +335,9 @@ class BlockchainInterface:
                 if len(self._recent_tx_ids) > self._RECENT_TX_WINDOW * 2:
                     self._rebuild_tx_index()
 
-            # ── NON-CRITICAL SECTION: file I/O (lock released) ──
-            # Save blockchain
-            self._save_blockchain()
+                # Save blockchain while still holding the lock to prevent
+                # concurrent modifications during file write
+                self._save_blockchain()
 
             # Log to BGP stream
             self._log_to_bgp_stream(transaction)
@@ -350,54 +354,76 @@ class BlockchainInterface:
     
     def add_multiple_transactions(self, transactions: List[Dict]) -> bool:
         """
-        Add multiple transactions to a single block.
-        
+        Add multiple transactions to a single batch block.
+
+        Used by the transaction batching system (BATCH_SIZE > 1) to reduce
+        disk I/O and block replication overhead.
+
         Args:
             transactions: List of transactions to add
-            
+
         Returns:
-            bool: True if all transactions added successfully
+            bool: True if batch added successfully
         """
         try:
             if not transactions:
                 return True
-            
+
             with self.lock:
+                # Filter out duplicates already on chain
+                unique_txs = []
+                for tx in transactions:
+                    tx_id = tx.get("transaction_id")
+                    if tx_id and tx_id in self._recent_tx_ids:
+                        print(f"⚠️ Duplicate transaction {tx_id} rejected in batch")
+                        continue
+                    unique_txs.append(tx)
+
+                if not unique_txs:
+                    return True
+
                 # Get previous block
                 previous_block = self.blockchain_data["blocks"][-1] if self.blockchain_data["blocks"] else None
                 previous_hash = previous_block["block_hash"] if previous_block else "0" * 64
-                
+
                 # Create new block with multiple transactions
                 new_block = {
                     "block_number": len(self.blockchain_data["blocks"]),
                     "timestamp": datetime.now().isoformat(),
                     "previous_hash": previous_hash,
-                    "transactions": transactions,
+                    "transactions": unique_txs,
                     "block_hash": "",
                     "merkle_root": "",
                     "metadata": {
                         "block_type": "batch",
-                        "transaction_count": len(transactions)
+                        "transaction_count": len(unique_txs)
                     }
                 }
-                
+
                 # Calculate Merkle root and block hash
                 new_block["merkle_root"] = self._calculate_merkle_root(new_block["transactions"])
                 new_block["block_hash"] = self._calculate_block_hash(new_block)
-                
+
                 # Add block to blockchain
                 self.blockchain_data["blocks"].append(new_block)
-                
-                # Save blockchain
+
+                # Update dedup index
+                for tx in unique_txs:
+                    tx_id = tx.get("transaction_id")
+                    if tx_id:
+                        self._recent_tx_ids.add(tx_id)
+
+                # Save blockchain while holding lock
                 self._save_blockchain()
-                
-                # Log all transactions to BGP stream
-                for transaction in transactions:
-                    self._log_to_bgp_stream(transaction)
-                
-                print(f"✅ {len(transactions)} transactions added to blockchain: Block {new_block['block_number']}")
-                return True
-                
+
+            # Log to BGP stream and update state mapping (outside lock)
+            for transaction in unique_txs:
+                self._log_to_bgp_stream(transaction)
+                self._update_state_mapping(transaction)
+
+            print(f"✅ {len(unique_txs)} transactions added to blockchain: Block {new_block['block_number']}")
+            return True
+
         except Exception as e:
             print(f"Error adding multiple transactions to blockchain: {e}")
             return False
@@ -405,6 +431,9 @@ class BlockchainInterface:
     def _log_to_bgp_stream(self, transaction: Dict):
         """Log transaction to BGP stream file for analysis."""
         if self.in_memory:
+            return
+        # Skip non-BGP records (e.g., attack verdicts)
+        if transaction.get('record_type') == 'attack_verdict':
             return
         try:
             # Extract BGP data from transaction

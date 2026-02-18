@@ -4,26 +4,26 @@ A blockchain-based distributed BGP security framework that detects BGP hijack at
 
 ## Overview
 
-BGP-Sentry simulates a distributed blockchain network where RPKI-enabled ASes act as blockchain validators and non-RPKI ASes act as observers. Each AS processes BGP announcements from its vantage point, and validators participate in consensus voting to confirm or flag suspicious routes.
+BGP-Sentry simulates a distributed blockchain network where **RPKI-enabled ASes** act as blockchain validators (voters, block committers) and **non-RPKI ASes** are monitored subjects whose routing behavior is tracked and rated. RPKI validators process BGP announcements from their vantage points, participate in Proof of Population (PoP) consensus voting, and collectively build trust ratings for non-RPKI ASes that lack cryptographic route authorization.
 
 ### Architecture
 
 ```
 Dataset (CAIDA)  -->  DatasetLoader  -->  RPKINodeRegistry
-                           |
-                           v
-                      NodeManager
-                      (shared infrastructure)
+                           |                  |
+                           v                  v
+                      NodeManager        RPKI-verified onboarding
+                      (shared infrastructure)  (RIR certificates + ROAs)
                            |
             +--------------+--------------+
             |                             |
    RPKI VirtualNode              Non-RPKI VirtualNode
-   (blockchain validator)        (observer)
+   (blockchain validator)        (monitored subject)
             |                             |
    +--------+--------+           +-------+-------+
    |        |        |           |       |       |
-  P2P    RPKI     Attack      Attack  Rating  Blockchain
-  Pool  Validator Detector   Detector System   (write)
+  P2P    RPKI     Attack      Attack  Rating  Detection
+  Pool  Validator Detector   Detector System   Log
    |                |
    v                v
 InMemoryMessageBus  AttackConsensus
@@ -34,14 +34,14 @@ BlockchainInterface  BGPCoinLedger
 (write blocks)       (token rewards)
    |
    v
-Results (13 output files)  -->  PosthocAnalyzer
+Results (13 output files)  -->  PosthocAnalyzer / BlockchainExplorer
 ```
 
 ### How It Works
 
 1. **Dataset observations** are loaded per-AS and assigned to VirtualNodes
-2. **RPKI nodes** (validators): receive an observation, validate it via StayRTR VRP, add to knowledge base, create a blockchain transaction, broadcast to peers via the in-memory message bus, peers vote approve/reject, on Proof of Population (PoP) consensus the block is written to the blockchain, attack detection runs on committed transactions, attack proposals go through majority voting, BGPCoin rewards are distributed
-3. **Non-RPKI nodes** (observers): receive an observation, run attack detection (4 types), if attack detected it's written to blockchain immediately with a rating penalty, if legitimate it's throttled (10s dedup) and recorded, ratings are tracked longitudinally (start at 50, penalties for attacks, rewards for good behavior)
+2. **RPKI nodes** (validators): receive an observation, validate it via StayRTR VRP, add to knowledge base, create a blockchain transaction, broadcast to peers via the in-memory message bus, peers vote approve/no_knowledge/reject (three-way), on Proof of Population (PoP) consensus the block is written to the blockchain, attack detection runs on committed transactions, attack verdicts are stored on-chain as immutable blocks, BGPCoin rewards are distributed
+3. **Non-RPKI nodes** (monitored subjects): their routing behavior is observed and rated by RPKI validators. Non-RPKI ASes do not participate in blockchain consensus or voting — they are the subjects being monitored. Trust ratings (0-100) are assigned based on observed behavior: penalties for attacks, rewards for legitimate routing
 4. **All P2P messaging** uses `InMemoryMessageBus` (replaces TCP sockets) so the system scales to 1000+ nodes without OS socket overhead
 5. **Real-time monitoring** via Flask dashboard at `http://localhost:5555` — shows per-node TPS, BGP timestamp progress, lag detection, and attack stats live during runs
 
@@ -50,7 +50,7 @@ Results (13 output files)  -->  PosthocAnalyzer
 - **RPKINodeRegistry** - Data-driven registry loaded from `as_classification.json` (no hardcoded AS lists)
 - **DatasetLoader** - Reads CAIDA datasets (observations, ground truth, classification)
 - **NodeManager** - Creates shared blockchain infrastructure and wires it into each VirtualNode
-- **VirtualNode** - Full blockchain participant: RPKI nodes do consensus, non-RPKI nodes do detection + rating
+- **VirtualNode** - Per-AS processing unit: RPKI nodes do full consensus + voting, non-RPKI nodes are monitored subjects with trust ratings
 - **InMemoryMessageBus** - Singleton message router replacing TCP sockets for P2P communication
 - **P2PTransactionPool** - Per-RPKI-node transaction pool with knowledge-based voting
 - **AttackDetector** - Detects 4 attack types: PREFIX_HIJACK, SUBPREFIX_HIJACK, BOGON_INJECTION, ROUTE_FLAPPING
@@ -193,7 +193,7 @@ rm -rf results/
 
 Located in `dataset/`. Each dataset is a BFS subgraph of the real CAIDA AS-level Internet topology with real RPKI classification from rov-collector.
 
-| Dataset | ASes | RPKI Validators | Non-RPKI Observers | Announcements | Attack % |
+| Dataset | ASes | RPKI Validators | Non-RPKI ASes | Announcements | Attack % |
 |---------|------|----------------|--------------------|---------------|----------|
 | caida_100 | 100 | 58 | 42 | ~7,000 | ~4.7% |
 | caida_200 | 200 | 101 | 99 | ~15,000 | ~3.2% |
@@ -243,7 +243,7 @@ Tested on three CAIDA-derived datasets with 300-second simulation duration.
 |--------|-----------|-----------|-----------|
 | Total ASes | 100 | 200 | 500 |
 | RPKI Validators | 58 | 101 | 206 |
-| Non-RPKI Observers | 42 | 99 | 294 |
+| Non-RPKI ASes | 42 | 99 | 294 |
 | Total Observations | 7,069 | 15,038 | 38,499 |
 | Attack Observations | 333 (4.7%) | 476 (3.2%) | 2,364 (6.1%) |
 | Unique Attack Patterns | 4 | 4 | 4 |
@@ -368,6 +368,7 @@ BGP-Sentry/
     posthoc_analysis.py               # Accuracy, economy, blockchain growth analysis
     blockchain_forensics.py           # Forensic queries against blockchain records
     targeted_attack_analyzer.py       # Targeted attack & unconfirmed tx analysis
+    blockchain_explorer.py            # Interactive CLI for browsing blocks and verifying chain
 
   nodes/rpki_nodes/
     shared_blockchain_stack/          # Core blockchain infrastructure
@@ -538,6 +539,13 @@ Multiplier ranges (applied to base rewards based on node history):
 | `ATTACK_CONSENSUS_REWARD_CORRECT_VOTE` | 2 | BGPCOIN reward for correct vote |
 | `ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION` | -20 | BGPCOIN penalty for false detection |
 
+### Transaction Batching
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `BATCH_SIZE` | 1 | Transactions per batch block (1 = no batching, 10 = 3-5x TPS) |
+| `BATCH_TIMEOUT` | 0.5s | Max wait before flushing a partial batch |
+
 ## Documentation
 
 Detailed technical documentation is in the `docs/` directory:
@@ -553,6 +561,37 @@ BGP-Sentry uses [StayRTR](https://github.com/bgp/stayrtr) for RPKI route validat
 2. Outputs StayRTR-compatible JSON with ROA entries
 3. `StayRTRClient` validates routes against this VRP table
 4. Results: "valid" (ROA matches), "invalid" (wrong origin), "not_found" (no ROA)
+
+## Blockchain Explorer
+
+An interactive CLI tool for browsing blockchain blocks, inspecting attack verdicts, and verifying chain integrity.
+
+```bash
+# Interactive mode
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json
+
+# Verify chain integrity
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --verify
+
+# List all attack verdicts
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --verdicts
+
+# Search by prefix or AS
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --search-prefix "8.8.8.0/24"
+python3 analysis/blockchain_explorer.py results/caida_100/*/blockchain.json --search-as 15169
+```
+
+**Interactive commands:** `list`, `block <N>`, `verdicts`, `verdict <ID>`, `search prefix <P>`, `search as <ASN>`, `types`, `verify`, `export <file>`.
+
+## Post-Hoc Forensic Analysis
+
+Three standalone analysis modules query the blockchain offline for security intelligence:
+
+1. **Blockchain Forensics** (`analysis/blockchain_forensics.py`) — Attacker profiling, prefix ownership history, observer cross-reference, audit trail generation
+2. **Targeted Attack Analyzer** (`analysis/targeted_attack_analyzer.py`) — Single-witness patterns, consensus escalation detection, temporal clustering
+3. **Longitudinal Behavior Analysis** (`analysis/posthoc_analysis.py`) — Trust score trajectories, rating drift, repeat offenders, BGPCoin economy health
+
+All outputs are reproducible from blockchain data alone. Any party with a chain replica can independently verify every conclusion.
 
 ## License
 

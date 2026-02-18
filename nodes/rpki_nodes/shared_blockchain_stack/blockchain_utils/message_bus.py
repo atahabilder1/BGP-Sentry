@@ -67,21 +67,25 @@ class InMemoryMessageBus:
 
     def send(self, from_as: int, to_as: int, message: dict):
         """Send message to a specific node asynchronously via thread pool."""
-        self.stats["sent"] += 1
-        handler = self.handlers.get(to_as)
+        with self.lock:
+            self.stats["sent"] += 1
+            handler = self.handlers.get(to_as)
         if handler is not None:
             self._executor.submit(self._dispatch, handler, to_as, message)
         else:
-            self.stats["dropped"] += 1
+            with self.lock:
+                self.stats["dropped"] += 1
 
     def _dispatch(self, handler: Callable, to_as: int, message: dict):
         """Execute handler in thread pool worker."""
         try:
             handler(message)
-            self.stats["delivered"] += 1
+            with self.lock:
+                self.stats["delivered"] += 1
         except Exception as e:
             logger.warning(f"MessageBus: handler error AS{to_as}: {e}")
-            self.stats["dropped"] += 1
+            with self.lock:
+                self.stats["dropped"] += 1
 
     def broadcast(self, from_as: int, message: dict, targets: Optional[List[int]] = None):
         """Broadcast to multiple nodes (replaces loop of socket sends)."""

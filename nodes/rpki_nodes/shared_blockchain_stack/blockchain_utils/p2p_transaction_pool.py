@@ -28,6 +28,13 @@ class P2PTransactionPool:
     Peer-to-peer transaction pool with direct node-to-node communication.
     Each node maintains its own pool and communicates directly with peers.
 
+    Three-way voting model:
+    - "approve"       — signer saw the same prefix from the same AS (confirms)
+    - "no_knowledge"  — signer never saw this prefix (abstain)
+    - "reject"        — signer saw this prefix from a DIFFERENT AS (conflict)
+
+    Only "approve" votes count toward the consensus threshold.
+
     When use_memory_bus=True, uses InMemoryMessageBus instead of TCP sockets.
     """
 
@@ -39,8 +46,8 @@ class P2PTransactionPool:
         self.my_port = base_port + as_number
         self.use_memory_bus = use_memory_bus
 
-        # Per-node cryptographic keys (RSA-2048)
-        self.private_key = private_key              # RSA private key object
+        # Per-node cryptographic keys (Ed25519)
+        self.private_key = private_key              # Ed25519 private key object
         self.public_key_registry = public_key_registry or {}  # asn -> public_key object
 
         # Per-node blockchain replica (in-memory)
@@ -63,6 +70,9 @@ class P2PTransactionPool:
         self.server_socket = None
         self.running = False
         self.lock = threading.Lock()
+        # Per-instance events (NOT class-level) so nodes don't interfere
+        self._shutdown_event = threading.Event()
+        self._new_tx_event = threading.Event()
         self.logger = logging.getLogger(f"P2P-AS{self.as_number}")
 
         # Transaction voting tracking (dynamic consensus threshold)
@@ -123,6 +133,16 @@ class P2PTransactionPool:
         )
         self.logger.info(f"📡 Neighbor cache initialized")
 
+        # ── Transaction Batching ──────────────────────────────────────
+        # When BATCH_SIZE > 1, consensus-approved transactions are queued
+        # and flushed as a single multi-transaction block. This reduces
+        # disk I/O and block replication messages.
+        self.batch_size = cfg.BATCH_SIZE
+        self.batch_timeout = cfg.BATCH_TIMEOUT
+        self._batch_queue = []       # List of (transaction, vote_data) tuples
+        self._batch_lock = threading.Lock()
+        self._batch_event = threading.Event()  # Signals new item or shutdown
+
         # Start background threads
         cleanup_thread = threading.Thread(target=self._cleanup_old_observations, daemon=True)
         cleanup_thread.start()
@@ -143,7 +163,13 @@ class P2PTransactionPool:
             target=self._cleanup_old_committed_transactions, daemon=True
         )
         committed_cleanup_thread.start()
-    
+
+        # Batch flush thread (only active when BATCH_SIZE > 1)
+        if self.batch_size > 1:
+            batch_thread = threading.Thread(target=self._batch_flush_loop, daemon=True)
+            batch_thread.start()
+            self.logger.info(f"Transaction batching enabled: size={self.batch_size}, timeout={self.batch_timeout}s")
+
     def start_p2p_server(self, attack_detector=None, rating_system=None):
         """Start P2P server to listen for incoming messages.
 
@@ -283,7 +309,12 @@ class P2PTransactionPool:
             client_socket.close()
     
     def _handle_vote_request(self, message):
-        """Handle incoming vote request from another node"""
+        """Handle incoming vote request from another node.
+
+        Validates the transaction against the local knowledge base and
+        responds with one of three votes: "approve", "no_knowledge", or
+        "reject".
+        """
         transaction = message["transaction"]
         from_as = message["from_as"]
 
@@ -350,9 +381,16 @@ class P2PTransactionPool:
             self.logger.debug(f"Received signature from AS{from_as} for {tx_id}")
 
             # Check if consensus reached (3/9 signatures minimum)
-            approve_votes = len([v for v in self.pending_votes[tx_id]["votes"] if v["vote"] == "approve"])
+            votes = self.pending_votes[tx_id]["votes"]
+            approve_votes = len([v for v in votes if v["vote"] == "approve"])
+            reject_votes = len([v for v in votes if v["vote"] == "reject"])
+            no_knowledge_votes = len([v for v in votes if v["vote"] == "no_knowledge"])
 
-            self.logger.debug(f"Signatures collected: {approve_votes}/{self.consensus_threshold} for {tx_id}")
+            self.logger.debug(
+                f"Votes for {tx_id}: {approve_votes} approve, "
+                f"{reject_votes} reject, {no_knowledge_votes} no_knowledge "
+                f"(need {self.consensus_threshold})"
+            )
 
             if approve_votes >= self.consensus_threshold:
                 # Mark as committed BEFORE writing to prevent race condition
@@ -696,8 +734,7 @@ class P2PTransactionPool:
         except Exception as e:
             self.logger.error(f"Error cleaning last_seen cache: {e}")
 
-    # Shutdown event for clean, interruptible sleep in background threads
-    _shutdown_event = threading.Event()
+    # (Moved to __init__ — each node needs its own Event instance)
 
     def _periodic_cleanup_last_seen_cache(self):
         """
@@ -771,9 +808,7 @@ class P2PTransactionPool:
             except Exception as e:
                 self.logger.error(f"Error in committed-tx cleanup: {e}")
 
-    # Event signaled by broadcast_transaction() to wake the timeout thread
-    # immediately instead of sleeping for a fixed interval.
-    _new_tx_event = threading.Event()
+    # (Moved to __init__ — each node needs its own Event instance)
 
     def _cleanup_timed_out_transactions(self):
         """
@@ -881,9 +916,16 @@ class P2PTransactionPool:
                 if not vote_data:
                     return
 
-                # Count approve votes
-                approve_votes = [v for v in vote_data["votes"] if v["vote"] == "approve"]
-                approve_count = len(approve_votes)
+                # Count votes by type
+                all_votes = vote_data["votes"]
+                approve_count = len([v for v in all_votes if v["vote"] == "approve"])
+                reject_count = len([v for v in all_votes if v["vote"] == "reject"])
+                no_knowledge_count = len([v for v in all_votes if v["vote"] == "no_knowledge"])
+
+                self.logger.debug(
+                    f"Timeout votes for {transaction_id}: {approve_count} approve, "
+                    f"{reject_count} reject, {no_knowledge_count} no_knowledge"
+                )
 
                 # Determine consensus status
                 if approve_count >= self.consensus_threshold:
@@ -1064,72 +1106,69 @@ class P2PTransactionPool:
                 return parser.parse(ts)
         return datetime.now()
 
-    def _check_knowledge_base(self, transaction):
+    def _check_knowledge_base(self, transaction) -> str:
         """
-        Check if transaction matches any observation in knowledge base.
-
-        Args:
-            transaction: Transaction to validate
+        Check knowledge base and return vote decision.
 
         Returns:
-            True if matching observation found, False otherwise
+            "approve"       — same prefix + same AS found (within time window)
+            "reject"        — same prefix found but from a DIFFERENT AS
+            "no_knowledge"  — prefix not seen at all
         """
-        try:
-            ip_prefix = transaction.get("ip_prefix")
-            sender_asn = transaction.get("sender_asn")
-            tx_timestamp = transaction.get("timestamp")
+        ip_prefix = transaction.get("ip_prefix")
+        sender_asn = transaction.get("sender_asn")
+        tx_timestamp = transaction.get("timestamp")
 
-            if not all([ip_prefix, sender_asn, tx_timestamp]):
-                return False
+        if not all([ip_prefix, sender_asn, tx_timestamp]):
+            return "no_knowledge"
 
-            # Parse transaction timestamp
-            tx_time = self._parse_timestamp(tx_timestamp)
+        tx_time = self._parse_timestamp(tx_timestamp)
 
-            # CRITICAL SECTION: Copy knowledge base snapshot with lock
-            with self.lock:
-                knowledge_snapshot = list(self.knowledge_base)  # Shallow copy
+        with self.lock:
+            knowledge_snapshot = list(self.knowledge_base)
 
-            # NON-CRITICAL SECTION: Search snapshot (lock released)
-            for obs in knowledge_snapshot:
-                # Check if IP prefix and sender ASN match
-                if obs["ip_prefix"] == ip_prefix and obs["sender_asn"] == sender_asn:
-                    # Check if timestamp is within window
-                    obs_time = self._parse_timestamp(obs["timestamp"])
-                    time_diff = abs((tx_time - obs_time).total_seconds())
+        prefix_seen = False
+        for obs in knowledge_snapshot:
+            if obs["ip_prefix"] != ip_prefix:
+                continue
 
-                    if time_diff <= self.knowledge_window_seconds:
-                        return True
+            obs_time = self._parse_timestamp(obs["timestamp"])
+            time_diff = abs((tx_time - obs_time).total_seconds())
+            if time_diff > self.knowledge_window_seconds:
+                continue
 
-            return False
+            prefix_seen = True
 
-        except Exception as e:
-            self.logger.error(f"Error checking knowledge base: {e}")
-            return False
+            if obs["sender_asn"] == sender_asn:
+                return "approve"  # Same prefix, same AS — confirmed
+
+        if prefix_seen:
+            return "reject"   # Saw prefix from different AS — conflicting origin
+
+        return "no_knowledge"  # Never saw this prefix
 
     def _validate_transaction(self, transaction):
         """
         Validate incoming transaction based on knowledge base.
-        Node votes 'approve' if it also observed this BGP announcement.
-        Node votes 'reject' if it has no record of seeing this announcement.
+
+        Returns: "approve", "no_knowledge", or "reject"
         """
         try:
-            # Check if transaction matches our knowledge base
-            if self._check_knowledge_base(transaction):
-                self.logger.debug(f"APPROVE: Transaction matches observations")
-                return "approve"
-            else:
-                self.logger.debug(f"REJECT: Transaction not in knowledge base")
-                return "reject"
-
+            vote = self._check_knowledge_base(transaction)
+            self.logger.debug(f"{vote.upper()}: knowledge base result for "
+                              f"{transaction.get('ip_prefix')}")
+            return vote
         except Exception as e:
             self.logger.error(f"Validation error: {e}")
-            return "reject"  # Reject on errors for safety
+            return "no_knowledge"  # Abstain on error (safer than reject)
     
     def _commit_to_blockchain(self, transaction_id):
-        """Commit approved transaction with signatures to blockchain"""
-        try:
-            self.logger.info(f"🔍 DEBUG: _commit_to_blockchain called for {transaction_id}")
+        """Commit approved transaction with signatures to blockchain.
 
+        When BATCH_SIZE > 1, the transaction is queued and flushed as part of
+        a multi-transaction batch block. Otherwise it is written immediately.
+        """
+        try:
             if transaction_id not in self.pending_votes:
                 self.logger.error(f"Transaction {transaction_id} not found in pending votes")
                 return
@@ -1142,53 +1181,132 @@ class P2PTransactionPool:
             transaction["consensus_reached"] = True
             transaction["signature_count"] = len(vote_data["votes"])
 
-            self.logger.info(f"🔍 DEBUG: About to call add_transaction_to_blockchain for {transaction_id}")
+            if self.batch_size > 1:
+                # ── Batched mode: queue and let flush thread handle writing ──
+                with self._batch_lock:
+                    self._batch_queue.append((transaction, vote_data, transaction_id))
+                    queue_len = len(self._batch_queue)
 
-            # Write to blockchain using BlockchainInterface
-            # This writes to: blockchain_data/chain/blockchain.json
-            success = self.blockchain.add_transaction_to_blockchain(transaction)
+                # Signal flush thread (wakes if waiting on timeout)
+                self._batch_event.set()
 
-            self.logger.info(f"🔍 DEBUG: add_transaction_to_blockchain returned: {success}")
+                if queue_len >= self.batch_size:
+                    self.logger.debug(f"Batch queue full ({queue_len}/{self.batch_size}), flush imminent")
 
-            if success:
-                self.logger.info(f"⛓️  Transaction {transaction_id} committed to blockchain with {len(vote_data['votes'])} signatures")
+                # Remove from pending votes (transaction data is in batch queue now)
+                del self.pending_votes[transaction_id]
+                return
 
-                # ── Block replication (per-node blockchain) ──
-                committed_block = self.blockchain.get_last_block()
-                if committed_block:
-                    # Append to own local replica
-                    if self.node_blockchain is not None:
-                        self.node_blockchain.append_replicated_block(committed_block)
-                    # Broadcast to all peers for replication
-                    self._replicate_block_to_peers(committed_block)
+            # ── Immediate mode (BATCH_SIZE=1, default): write single block ──
+            self._write_single_transaction(transaction, vote_data, transaction_id)
 
-                # Update last_seen cache for sampling (if regular announcement)
+        except Exception as e:
+            self.logger.error(f"Error committing transaction to blockchain: {e}")
+            import traceback
+            self.logger.error(f"Traceback: {traceback.format_exc()}")
+
+    def _write_single_transaction(self, transaction, vote_data, transaction_id):
+        """Write a single transaction as its own block (original behavior)."""
+        success = self.blockchain.add_transaction_to_blockchain(transaction)
+
+        if success:
+            self.logger.info(f"⛓️  Transaction {transaction_id} committed to blockchain with {len(vote_data['votes'])} signatures")
+
+            # ── Block replication (per-node blockchain) ──
+            committed_block = self.blockchain.get_last_block()
+            if committed_block:
+                if self.node_blockchain is not None:
+                    self.node_blockchain.append_replicated_block(committed_block)
+                self._replicate_block_to_peers(committed_block)
+
+            # Update last_seen cache for sampling (if regular announcement)
+            if not transaction.get('is_attack', False):
+                self._update_last_seen_cache(
+                    transaction.get('ip_prefix'),
+                    transaction.get('sender_asn')
+                )
+
+            # Award BGPCOIN rewards for block commit
+            self._award_bgpcoin_rewards(transaction_id, vote_data)
+
+            # Trigger attack detection asynchronously (don't block commit path)
+            threading.Thread(
+                target=self._trigger_attack_detection,
+                args=(transaction, transaction_id),
+                daemon=True,
+            ).start()
+
+            # Remove from pending votes
+            if transaction_id in self.pending_votes:
+                del self.pending_votes[transaction_id]
+        else:
+            self.logger.error(f"Failed to write transaction {transaction_id} to blockchain")
+
+    # ------------------------------------------------------------------
+    # Transaction Batching
+    # ------------------------------------------------------------------
+    def _batch_flush_loop(self):
+        """Background thread that flushes the batch queue periodically."""
+        while self.running or self._batch_queue:
+            # Wait for either: new item arrives, or timeout expires
+            self._batch_event.wait(timeout=self.batch_timeout)
+            self._batch_event.clear()
+
+            # Flush if batch is full or timeout expired with pending items
+            with self._batch_lock:
+                if not self._batch_queue:
+                    continue
+                batch = list(self._batch_queue)
+                self._batch_queue.clear()
+
+            self._flush_batch(batch)
+
+    def _flush_batch(self, batch):
+        """Write a batch of transactions as a single multi-transaction block.
+
+        Args:
+            batch: List of (transaction, vote_data, transaction_id) tuples
+        """
+        if not batch:
+            return
+
+        transactions = [item[0] for item in batch]
+
+        # Write all transactions as a single block
+        success = self.blockchain.add_multiple_transactions(transactions)
+
+        if success:
+            self.logger.info(
+                f"⛓️  Batch committed: {len(transactions)} transactions in one block"
+            )
+
+            # ── Block replication ──
+            committed_block = self.blockchain.get_last_block()
+            if committed_block:
+                if self.node_blockchain is not None:
+                    self.node_blockchain.append_replicated_block(committed_block)
+                self._replicate_block_to_peers(committed_block)
+
+            # Post-commit processing for each transaction in the batch
+            for transaction, vote_data, transaction_id in batch:
+                # Update last_seen cache
                 if not transaction.get('is_attack', False):
                     self._update_last_seen_cache(
                         transaction.get('ip_prefix'),
                         transaction.get('sender_asn')
                     )
 
-                # Award BGPCOIN rewards for block commit
+                # Award BGPCOIN rewards
                 self._award_bgpcoin_rewards(transaction_id, vote_data)
 
-                # Trigger attack detection asynchronously (don't block commit path)
-                import threading
+                # Trigger attack detection asynchronously
                 threading.Thread(
                     target=self._trigger_attack_detection,
                     args=(transaction, transaction_id),
                     daemon=True,
                 ).start()
-
-                # Remove from pending votes
-                del self.pending_votes[transaction_id]
-            else:
-                self.logger.error(f"Failed to write transaction {transaction_id} to blockchain")
-
-        except Exception as e:
-            self.logger.error(f"Error committing transaction to blockchain: {e}")
-            import traceback
-            self.logger.error(f"Traceback: {traceback.format_exc()}")
+        else:
+            self.logger.error(f"Failed to write batch of {len(transactions)} transactions")
     
     def _award_bgpcoin_rewards(self, transaction_id: str, vote_data: dict):
         """

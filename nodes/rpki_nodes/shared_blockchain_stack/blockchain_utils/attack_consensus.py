@@ -454,37 +454,44 @@ class AttackConsensus:
             proposal_id: Proposal to check
         """
         try:
-            tracking = self.vote_tracking[proposal_id]
-            proposal = self.active_proposals[proposal_id]
+            with self.lock:
+                tracking = self.vote_tracking[proposal_id]
+                proposal = self.active_proposals[proposal_id]
 
-            # Need minimum votes (same as transaction consensus)
-            if tracking["total_votes"] < self.min_votes:
-                return  # Not enough votes yet
+                # Need minimum votes (same as transaction consensus)
+                if tracking["total_votes"] < self.min_votes:
+                    return  # Not enough votes yet
 
-            # Majority voting
-            yes_votes = tracking["yes_count"]
-            no_votes = tracking["no_count"]
-            total = tracking["total_votes"]
+                # Prevent double-execution: check status under lock
+                if proposal["status"] != "voting":
+                    return
 
-            # Calculate confidence score (0-1)
-            if yes_votes > no_votes:
-                verdict = "ATTACK_CONFIRMED"
-                confidence = yes_votes / total
-            elif no_votes > yes_votes:
-                verdict = "NOT_ATTACK"
-                confidence = no_votes / total
-            else:
-                verdict = "DISPUTED"
-                confidence = 0.5
+                # Majority voting
+                yes_votes = tracking["yes_count"]
+                no_votes = tracking["no_count"]
+                total = tracking["total_votes"]
+
+                # Calculate confidence score (0-1)
+                if yes_votes > no_votes:
+                    verdict = "ATTACK_CONFIRMED"
+                    confidence = yes_votes / total
+                elif no_votes > yes_votes:
+                    verdict = "NOT_ATTACK"
+                    confidence = no_votes / total
+                else:
+                    verdict = "DISPUTED"
+                    confidence = 0.5
+
+                # Mark as executing under lock to prevent re-entry
+                proposal["status"] = "executing"
 
             print(f"📊 Attack Consensus Check:")
             print(f"   Votes: {yes_votes} YES, {no_votes} NO ({total} total)")
             print(f"   Verdict: {verdict}")
             print(f"   Confidence: {confidence:.2f}")
 
-            # Execute verdict
-            if proposal["status"] == "voting":
-                self._execute_attack_verdict(proposal_id, verdict, confidence)
+            # Execute verdict (outside lock — may do I/O)
+            self._execute_attack_verdict(proposal_id, verdict, confidence)
 
         except Exception as e:
             print(f"Error checking attack consensus: {e}")
@@ -549,17 +556,41 @@ class AttackConsensus:
 
     def _save_verdict_to_blockchain(self, verdict_record: Dict):
         """
-        Save attack verdict to blockchain file.
+        Save attack verdict to the real blockchain (hash-chained, immutable).
+        Also appends to attack_verdicts.jsonl as a secondary index.
 
         Args:
             verdict_record: Verdict details
         """
         try:
-            # Append to attack_verdicts.jsonl
-            with open(self.attack_verdicts_file, 'a') as f:
-                f.write(json.dumps(verdict_record) + '\n')
+            # Prepare verdict as blockchain transaction
+            blockchain_tx = dict(verdict_record)
+            blockchain_tx["transaction_id"] = verdict_record["verdict_id"]
+            blockchain_tx["record_type"] = "attack_verdict"
 
-            print(f"💾 Verdict saved to blockchain: {verdict_record['verdict_id']}")
+            # Write to blockchain (hash-chained, immutable)
+            success = self.p2p_pool.blockchain.add_transaction_to_blockchain(
+                blockchain_tx, block_type="attack_verdict"
+            )
+
+            if success:
+                print(f"Verdict committed to blockchain: {verdict_record['verdict_id']}")
+
+                # Replicate verdict block to peers
+                committed_block = self.p2p_pool.blockchain.get_last_block()
+                if committed_block is not None:
+                    if self.p2p_pool.node_blockchain is not None:
+                        self.p2p_pool.node_blockchain.append_replicated_block(committed_block)
+                    self.p2p_pool._replicate_block_to_peers(committed_block)
+            else:
+                print(f"Verdict blockchain write failed: {verdict_record['verdict_id']}")
+
+            # Secondary index (best-effort, blockchain is source of truth)
+            try:
+                with open(self.attack_verdicts_file, 'a') as f:
+                    f.write(json.dumps(verdict_record) + '\n')
+            except Exception:
+                pass
 
         except Exception as e:
             print(f"Error saving verdict to blockchain: {e}")
