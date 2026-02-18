@@ -44,7 +44,7 @@ stayrtr/cache/
 stayrtr/vrp_generated.json
 
 # Results (generated per run)
-results/
+results/overnight_20260218_012658/overnight_log.txt
 
 # Legacy experiment outputs
 experiment_results/

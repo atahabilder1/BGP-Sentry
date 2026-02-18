@@ -1,0 +1,70 @@
+{
+  "blockchain_info": {
+    "version": "1.0",
+    "network": "BGP-Sentry",
+    "total_blocks": 2862,
+    "total_transactions": 2861,
+    "genesis_timestamp": "2026-02-18T05:26:19.663402",
+    "latest_block": {
+      "block_number": 2861,
+      "timestamp": "2026-02-18T05:31:14.716937",
+      "hash": "d84c0ad7846b270ceaad277bf244c131e1225d064cc363cb01a496f1025de30a",
+      "transaction_count": 1
+    },
+    "file_path": "/home/anik/code/BGP-Sentry/blockchain_data/chain/blockchain.json"
+  },
+  "integrity": {
+    "valid": false,
+    "total_blocks": 2862,
+    "errors": [
+      "Block 2755: Hash mismatch",
+      "Block 2755: Merkle root mismatch",
+      "Block 2761: Hash mismatch",
+      "Block 2761: Merkle root mismatch",
+      "Block 2763: Hash mismatch",
+      "Block 2763: Merkle root mismatch",
+      "Block 2764: Hash mismatch",
+      "Block 2764: Merkle root mismatch",
+      "Block 2765: Hash mismatch",
+      "Block 2765: Merkle root mismatch",
+      "Block 2766: Hash mismatch",
+      "Block 2766: Merkle root mismatch",
+      "Block 2810: Hash mismatch",
+      "Block 2810: Merkle root mismatch",
+      "Block 2811: Hash mismatch",
+      "Block 2811: Merkle root mismatch",
+      "Block 2812: Hash mismatch",
+      "Block 2812: Merkle root mismatch",
+      "Block 2814: Hash mismatch",
+      "Block 2814: Merkle root mismatch",
+      "Block 2815: Hash mismatch",
+      "Block 2815: Merkle root mismatch",
+      "Block 2816: Hash mismatch",
+      "Block 2816: Merkle root mismatch",
+      "Block 2817: Hash mismatch",
+      "Block 2817: Merkle root mismatch",
+      "Block 2818: Hash mismatch",
+      "Block 2818: Merkle root mismatch",
+      "Block 2819: Hash mismatch",
+      "Block 2819: Merkle root mismatch",
+      "Block 2820: Hash mismatch",
+      "Block 2820: Merkle root mismatch",
+      "Block 2821: Hash mismatch",
+      "Block 2821: Merkle root mismatch",
+      "Block 2822: Hash mismatch",
+      "Block 2822: Merkle root mismatch",
+      "Block 2823: Hash mismatch",
+      "Block 2823: Merkle root mismatch",
+      "Block 2824: Hash mismatch",
+      "Block 2824: Merkle root mismatch",
+      "Block 2827: Hash mismatch",
+      "Block 2827: Merkle root mismatch"
+    ],
+    "message": "42 integrity errors found"
+  },
+  "node_replicas": {
+    "total_nodes": 58,
+    "all_valid": true,
+    "valid_count": 58
+  }
+}

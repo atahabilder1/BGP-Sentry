@@ -1,0 +1,14 @@
+Forensic audit report written to: results/caida_1000/20260218_030308/forensic_audit_report.json
+
+Blockchain: 6558 blocks, 6557 TX
+Chain integrity: True
+
+Observations: 80665 total (3704 attacks, 76961 legitimate)
+Unique observers: 0
+Affected prefixes: 3
+
+--- Attacker Profiles ---
+  AS26914: 1234 BOGON_INJECTION attacks, score=N/A, level=N/A
+  AS13641: 1234 PREFIX_HIJACK attacks, score=N/A, level=N/A
+  AS14140: 1234 SUBPREFIX_HIJACK attacks, score=N/A, level=N/A
+  AS36193: 2 ROUTE_FLAPPING attacks, score=N/A, level=N/A

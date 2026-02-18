@@ -1,0 +1,6 @@
+Post-hoc analysis report written to: results/caida_1000/20260218_030308/posthoc_report.json
+
+Performance: P=1.0000 R=1.0000 F1=1.0000
+Blockchain: 6558 blocks, 6557 transactions
+BGPCoin: 8505.0 distributed, 99.91% treasury remaining
+Non-RPKI ratings: avg=0.0, degraded=0

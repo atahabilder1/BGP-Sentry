@@ -1,0 +1,11 @@
+[*] Initializing analyzer for: results/caida_200/20260218_014516
+
+================================================================================
+TARGETED ATTACK & UNCONFIRMED TRANSACTION ANALYZER
+================================================================================
+Experiment Directory: results/caida_200/20260218_014516
+Analysis Time: 2026-02-18 05:46:21
+[!] Error: Nodes directory not found: results/caida_200/20260218_014516/nodes
+
+[!] ERROR: No blockchain data found
+    Make sure you're pointing to a valid experiment results directory

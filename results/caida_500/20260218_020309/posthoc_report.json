@@ -1,0 +1,75 @@
+{
+  "experiment_info": {
+    "dataset": "caida_500",
+    "duration": 903.5182993412018,
+    "total_nodes": 500,
+    "rpki_nodes": 206,
+    "non_rpki_nodes": 294
+  },
+  "longitudinal_nonrpki": {
+    "total_nonrpki_ases": 0,
+    "per_as": {}
+  },
+  "attack_accuracy": {
+    "overall": {
+      "ground_truth_attacks": 4,
+      "total_detections": 1,
+      "true_positives": 1,
+      "false_positives": 0,
+      "false_negatives": 3,
+      "precision": 1.0,
+      "recall": 0.25,
+      "f1_score": 0.4
+    },
+    "per_attack_type": {
+      "BOGON_INJECTION": {
+        "ground_truth_count": 1,
+        "detected_count": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      }
+    }
+  },
+  "consensus_efficiency": {
+    "total_proposals": 0,
+    "consensus_log": {
+      "total_transactions_created": 11980,
+      "total_committed": 1248,
+      "total_pending": 6176
+    }
+  },
+  "bgpcoin_distribution": {
+    "total_supply": 10000000,
+    "treasury_balance": 9989751.0,
+    "total_distributed": 10249.0,
+    "total_burned": 0,
+    "total_recycled": 0,
+    "circulating_supply": 10249.0,
+    "distribution_rate": 0.1025,
+    "treasury_remaining_pct": 99.9
+  },
+  "blockchain_growth": {
+    "total_blocks": 5960,
+    "total_transactions": 5959,
+    "blocks_per_second": 6.5964,
+    "transactions_per_block": 1.0,
+    "attack_observations": 591,
+    "legitimate_observations": 36135,
+    "attack_ratio": 0.0161,
+    "integrity_check": {
+      "valid": true,
+      "total_blocks": 5960,
+      "errors": [],
+      "message": "Blockchain valid"
+    },
+    "dedup_stats": {
+      "rpki_deduped": 2861,
+      "nonrpki_throttled": 4774,
+      "total_skipped": 7635
+    }
+  }
+}

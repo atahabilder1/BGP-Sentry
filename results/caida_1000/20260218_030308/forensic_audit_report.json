@@ -1,0 +1,74 @@
+{
+  "blockchain_summary": {
+    "total_blocks": 6558,
+    "total_transactions": 6557,
+    "chain_integrity": true
+  },
+  "observation_summary": {
+    "total_records": 80665,
+    "attack_observations": 3704,
+    "legitimate_observations": 76961,
+    "attack_ratio": 4.6
+  },
+  "attacker_profile": {
+    "unique_attackers": 4,
+    "attackers": [
+      {
+        "as_number": 26914,
+        "total_attacks": 1234,
+        "total_legitimate": 0,
+        "attack_types": {
+          "BOGON_INJECTION": 1234
+        },
+        "primary_attack": "BOGON_INJECTION",
+        "trust_score": "N/A",
+        "rating_level": "N/A"
+      },
+      {
+        "as_number": 13641,
+        "total_attacks": 1234,
+        "total_legitimate": 0,
+        "attack_types": {
+          "PREFIX_HIJACK": 1234
+        },
+        "primary_attack": "PREFIX_HIJACK",
+        "trust_score": "N/A",
+        "rating_level": "N/A"
+      },
+      {
+        "as_number": 14140,
+        "total_attacks": 1234,
+        "total_legitimate": 0,
+        "attack_types": {
+          "SUBPREFIX_HIJACK": 1234
+        },
+        "primary_attack": "SUBPREFIX_HIJACK",
+        "trust_score": "N/A",
+        "rating_level": "N/A"
+      },
+      {
+        "as_number": 36193,
+        "total_attacks": 2,
+        "total_legitimate": 0,
+        "attack_types": {
+          "ROUTE_FLAPPING": 2
+        },
+        "primary_attack": "ROUTE_FLAPPING",
+        "trust_score": "N/A",
+        "rating_level": "N/A"
+      }
+    ]
+  },
+  "attack_breakdown": {
+    "BOGON_INJECTION": 1234,
+    "PREFIX_HIJACK": 1234,
+    "SUBPREFIX_HIJACK": 1234,
+    "ROUTE_FLAPPING": 2
+  },
+  "affected_prefixes": 3,
+  "observer_coverage": {
+    "unique_observers": 0,
+    "observer_list": []
+  },
+  "dataset": "caida_1000"
+}

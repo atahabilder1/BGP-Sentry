@@ -1,0 +1,20 @@
+{
+  "dataset_path": "/home/anik/code/BGP-Sentry/dataset/caida_200",
+  "dataset_name": "caida_200",
+  "duration_limit": 600,
+  "actual_duration": 602.8947594165802,
+  "system_info": {
+    "platform": "Linux-6.17.0-14-generic-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python_version": "3.10.19",
+    "machine": "x86_64",
+    "cpu_count": 8,
+    "memory_total_gb": 62.6,
+    "cpu_model": "Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz"
+  },
+  "rpki_node_count": 101,
+  "non_rpki_node_count": 99,
+  "total_nodes": 200,
+  "consensus_threshold": 5,
+  "timestamp": "2026-02-18T01:55:19.677367"
+}

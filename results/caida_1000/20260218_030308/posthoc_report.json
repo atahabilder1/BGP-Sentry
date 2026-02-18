@@ -1,0 +1,105 @@
+{
+  "experiment_info": {
+    "dataset": "caida_1000",
+    "duration": 1035.5868804454803,
+    "total_nodes": 1000,
+    "rpki_nodes": 366,
+    "non_rpki_nodes": 634
+  },
+  "longitudinal_nonrpki": {
+    "total_nonrpki_ases": 0,
+    "per_as": {}
+  },
+  "attack_accuracy": {
+    "overall": {
+      "ground_truth_attacks": 4,
+      "total_detections": 4,
+      "true_positives": 4,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "per_attack_type": {
+      "PREFIX_HIJACK": {
+        "ground_truth_count": 1,
+        "detected_count": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "ROUTE_FLAPPING": {
+        "ground_truth_count": 1,
+        "detected_count": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "BOGON_INJECTION": {
+        "ground_truth_count": 1,
+        "detected_count": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "SUBPREFIX_HIJACK": {
+        "ground_truth_count": 1,
+        "detected_count": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      }
+    }
+  },
+  "consensus_efficiency": {
+    "total_proposals": 0,
+    "consensus_log": {
+      "total_transactions_created": 24054,
+      "total_committed": 1698,
+      "total_pending": 17691
+    }
+  },
+  "bgpcoin_distribution": {
+    "total_supply": 10000000,
+    "treasury_balance": 9991495.0,
+    "total_distributed": 8505.0,
+    "total_burned": 0,
+    "total_recycled": 0,
+    "circulating_supply": 8505.0,
+    "distribution_rate": 0.0851,
+    "treasury_remaining_pct": 99.91
+  },
+  "blockchain_growth": {
+    "total_blocks": 6558,
+    "total_transactions": 6557,
+    "blocks_per_second": 6.3326,
+    "transactions_per_block": 1.0,
+    "attack_observations": 3704,
+    "legitimate_observations": 76961,
+    "attack_ratio": 0.0459,
+    "integrity_check": {
+      "valid": true,
+      "total_blocks": 6558,
+      "errors": [],
+      "message": "Blockchain valid"
+    },
+    "dedup_stats": {
+      "rpki_deduped": 5658,
+      "nonrpki_throttled": 9301,
+      "total_skipped": 14959
+    }
+  }
+}

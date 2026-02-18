@@ -1,0 +1,24 @@
+{
+  "blockchain_summary": {
+    "total_blocks": 4523,
+    "total_transactions": 4522,
+    "chain_integrity": false
+  },
+  "observation_summary": {
+    "total_records": 14562,
+    "attack_observations": 0,
+    "legitimate_observations": 14562,
+    "attack_ratio": 0.0
+  },
+  "attacker_profile": {
+    "unique_attackers": 0,
+    "attackers": []
+  },
+  "attack_breakdown": {},
+  "affected_prefixes": 0,
+  "observer_coverage": {
+    "unique_observers": 0,
+    "observer_list": []
+  },
+  "dataset": "caida_200"
+}

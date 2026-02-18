@@ -1,0 +1,30 @@
+{
+  "blockchain_info": {
+    "version": "1.0",
+    "network": "BGP-Sentry",
+    "total_blocks": 4523,
+    "total_transactions": 4522,
+    "genesis_timestamp": "2026-02-18T01:45:16.467626",
+    "latest_block": {
+      "block_number": 4522,
+      "timestamp": "2026-02-18T01:55:41.634072",
+      "hash": "662d64ea13361acfd682c53dc30f63d64b01aeb77b90783ceab1bcc9f985d83d",
+      "transaction_count": 1
+    },
+    "file_path": "/home/anik/code/BGP-Sentry/blockchain_data/chain/blockchain.json"
+  },
+  "integrity": {
+    "valid": false,
+    "total_blocks": 4523,
+    "errors": [
+      "Block 1314: Hash mismatch",
+      "Block 1314: Merkle root mismatch"
+    ],
+    "message": "2 integrity errors found"
+  },
+  "node_replicas": {
+    "total_nodes": 101,
+    "all_valid": true,
+    "valid_count": 101
+  }
+}
