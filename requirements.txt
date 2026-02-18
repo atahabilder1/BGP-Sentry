@@ -10,5 +10,8 @@ matplotlib>=3.8
 # Timestamp parsing (used in P2P transaction pool)
 python-dateutil>=2.9
 
+# Real-time monitoring dashboard
+flask>=3.0
+
 # Testing
 pytest>=8.0

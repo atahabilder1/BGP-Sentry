@@ -126,6 +126,10 @@ class _Config:
     ATTACK_CONSENSUS_REWARD_CORRECT_VOTE: float = _float("ATTACK_CONSENSUS_REWARD_CORRECT_VOTE", 2)
     ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION: float = _float("ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION", -20)
 
+    # ── Simulation Timing ─────────────────────────────────────────
+    SIMULATION_SPEED_MULTIPLIER: float = _float("SIMULATION_SPEED_MULTIPLIER", 1.0)
+    INGESTION_BUFFER_MAX_SIZE: int = _int("INGESTION_BUFFER_MAX_SIZE", 1000)
+
 
 # Module-level singleton
 cfg = _Config()

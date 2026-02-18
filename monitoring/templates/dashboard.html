@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGP-Sentry Simulation Monitor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e0e0e0;
+    --muted: #888;
+    --accent: #4fc3f7;
+    --green: #66bb6a;
+    --red: #ef5350;
+    --orange: #ffa726;
+    --yellow: #ffee58;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 16px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 24px;
+    margin-bottom: 12px;
+  }
+  .header h1 { font-size: 1.2rem; color: var(--accent); }
+  .header-stats { display: flex; gap: 28px; }
+  .stat-box { text-align: center; }
+  .stat-box .value { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .stat-box .label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ── Timestamp Bars Section ── */
+  .ts-bars {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 24px 12px;
+    margin-bottom: 12px;
+  }
+  .ts-bars-title {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .ts-range-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.68rem;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  /* Individual slim bar row */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-row-label {
+    width: 110px;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bar-row-track {
+    flex: 1;
+    height: 14px;
+    background: #12141c;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-row-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+    min-width: 1px;
+  }
+  .bar-fill-clock { background: linear-gradient(90deg, #1565c0, #4fc3f7); }
+  .bar-fill-avg   { background: linear-gradient(90deg, #e65100, #ffa726); }
+  .bar-fill-slow  { background: linear-gradient(90deg, #b71c1c, #ef5350); }
+  .bar-row-info {
+    width: 200px;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .bar-row-pct {
+    width: 52px;
+    flex-shrink: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .color-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 2px;
+  }
+  .dot-clock { background: #4fc3f7; }
+  .dot-avg   { background: #ffa726; }
+  .dot-slow  { background: #ef5350; }
+
+  /* Lag indicator */
+  .lag-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .lag-ok   { background: rgba(102,187,106,0.12); color: var(--green); }
+  .lag-warn { background: rgba(255,167,38,0.12); color: var(--orange); }
+  .lag-bad  { background: rgba(239,83,80,0.15); color: var(--red); }
+
+  /* ── RPKI Health Vertical Bars ── */
+  .rpki-health {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .rpki-health h2 {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .rpki-health-sub {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .vbar-container {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    height: 140px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .vbar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 28px;
+    max-width: 48px;
+    height: 100%;
+  }
+  .vbar-value {
+    font-size: 0.6rem;
+    color: var(--muted);
+    margin-bottom: 2px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .vbar-track {
+    width: 100%;
+    flex: 1;
+    background: #12141c;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .vbar-fill {
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    transition: height 0.6s ease;
+  }
+  .vbar-fill-ok   { background: linear-gradient(0deg, #1b5e20, #66bb6a); }
+  .vbar-fill-warn { background: linear-gradient(0deg, #e65100, #ffa726); }
+  .vbar-fill-bad  { background: linear-gradient(0deg, #b71c1c, #ef5350); }
+  .vbar-label {
+    font-size: 0.58rem;
+    color: var(--muted);
+    margin-top: 3px;
+    writing-mode: horizontal-tb;
+    white-space: nowrap;
+  }
+
+  /* Buffer queue bars row */
+  .buf-section { margin-top: 16px; }
+  .buf-section h3 {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .vbar-fill-buf { background: linear-gradient(0deg, #4a148c, #ba68c8); }
+  .vbar-fill-buf-warn { background: linear-gradient(0deg, #e65100, #ffa726); }
+  .vbar-fill-buf-crit { background: linear-gradient(0deg, #b71c1c, #ef5350); }
+
+  /* ── Grid layout ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .card h2 {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+  }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th {
+    text-align: left; color: var(--muted); font-weight: 600;
+    padding: 6px 8px; border-bottom: 1px solid var(--border);
+    font-size: 0.75rem; text-transform: uppercase;
+  }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+
+  .progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .progress-bar .fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width 0.5s ease; }
+
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+  .badge-rpki { background: rgba(79,195,247,0.2); color: var(--accent); }
+  .badge-nonrpki { background: rgba(255,167,38,0.2); color: var(--orange); }
+  .badge-done { background: rgba(102,187,106,0.2); color: var(--green); }
+  .badge-running { background: rgba(79,195,247,0.15); color: var(--accent); }
+
+  .clock-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .clock-item { text-align: center; }
+  .clock-item .value { font-size: 1.1rem; font-weight: 600; }
+  .clock-item .label { font-size: 0.7rem; color: var(--muted); }
+
+  .chart-container { position: relative; height: 220px; }
+
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; }
+  .dot-green { background: var(--green); }
+  .dot-red { background: var(--red); }
+
+  /* ── Countdown Timer ── */
+  .timer-strip {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    margin-bottom: 12px;
+  }
+  .timer-clock {
+    font-family: 'Courier New', monospace;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 2px;
+    min-width: 160px;
+  }
+  .timer-of {
+    font-size: 1rem;
+    color: var(--muted);
+  }
+  .timer-total {
+    font-family: 'Courier New', monospace;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .timer-remaining {
+    margin-left: auto;
+    text-align: right;
+  }
+  .timer-remaining .value {
+    font-family: 'Courier New', monospace;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  .timer-remaining .label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .timer-progress {
+    flex: 1;
+    height: 8px;
+    background: #12141c;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    min-width: 100px;
+  }
+  .timer-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #1565c0, #4fc3f7);
+    border-radius: 4px;
+    transition: width 1s linear;
+  }
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+    .header { flex-direction: column; gap: 10px; }
+    .header-stats { flex-wrap: wrap; justify-content: center; }
+    .bar-row-info { width: 140px; }
+    .timer-strip { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <h1>BGP-Sentry Simulation Monitor</h1>
+  <div class="header-stats">
+    <div class="stat-box">
+      <div class="value" id="h-nodes-done">--</div>
+      <div class="label">Nodes Done</div>
+    </div>
+    <div class="stat-box">
+      <div class="value" id="h-processed">--</div>
+      <div class="label">Processed</div>
+    </div>
+    <div class="stat-box">
+      <div class="value" id="h-attacks">--</div>
+      <div class="label">Attacks</div>
+    </div>
+    <div class="stat-box">
+      <div class="value" id="h-wall-time">--</div>
+      <div class="label">Wall Time</div>
+    </div>
+    <div class="stat-box">
+      <div class="value" id="h-tps" style="color:var(--green)">--</div>
+      <div class="label">Avg TPS</div>
+    </div>
+    <div class="stat-box">
+      <div class="value" id="h-speed">--</div>
+      <div class="label">Speed</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SYSTEM INFO ═══ -->
+<div style="display:flex;gap:16px;font-size:0.7rem;color:var(--muted);padding:0 4px;margin-bottom:8px;" id="sysinfo-bar"></div>
+
+<!-- ═══ COUNTDOWN TIMER ═══ -->
+<div class="timer-strip">
+  <div>
+    <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Elapsed</div>
+    <div class="timer-clock" id="timer-elapsed">00:00</div>
+  </div>
+  <div class="timer-of">/</div>
+  <div>
+    <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;">Total Dataset Span</div>
+    <div class="timer-total" id="timer-total">--:--</div>
+  </div>
+  <div class="timer-progress">
+    <div class="timer-progress-fill" id="timer-fill" style="width:0%"></div>
+  </div>
+  <div class="timer-remaining">
+    <div class="value" id="timer-remaining" style="color:var(--green)">--:--</div>
+    <div class="label">Remaining</div>
+  </div>
+</div>
+
+<!-- ═══ TIMESTAMP PROGRESS BARS ═══ -->
+<div class="ts-bars">
+  <div class="ts-bars-title">Timestamp Progress — Real-Time Clock vs BGP Processing</div>
+
+  <div class="ts-range-labels">
+    <span id="ts-start">--</span>
+    <span id="ts-end">--</span>
+  </div>
+
+  <!-- Bar 1: Simulation Clock -->
+  <div class="bar-row">
+    <div class="bar-row-label"><span class="color-dot dot-clock"></span> Sim Clock</div>
+    <div class="bar-row-track">
+      <div class="bar-row-fill bar-fill-clock" id="bar-clock" style="width:0%"></div>
+    </div>
+    <div class="bar-row-pct" id="bar-clock-pct">0%</div>
+    <div class="bar-row-info" id="bar-clock-ts" style="color:var(--accent)">--</div>
+  </div>
+
+  <!-- Bar 2: Average Node Timestamp -->
+  <div class="bar-row">
+    <div class="bar-row-label"><span class="color-dot dot-avg"></span> Avg Node</div>
+    <div class="bar-row-track">
+      <div class="bar-row-fill bar-fill-avg" id="bar-avg" style="width:0%"></div>
+    </div>
+    <div class="bar-row-pct" id="bar-avg-pct">0%</div>
+    <div class="bar-row-info" id="bar-avg-ts" style="color:var(--orange)">--</div>
+  </div>
+
+  <!-- Bar 3: Slowest Node Timestamp -->
+  <div class="bar-row">
+    <div class="bar-row-label"><span class="color-dot dot-slow"></span> Slowest Node</div>
+    <div class="bar-row-track">
+      <div class="bar-row-fill bar-fill-slow" id="bar-slow" style="width:0%"></div>
+    </div>
+    <div class="bar-row-pct" id="bar-slow-pct">0%</div>
+    <div class="bar-row-info" id="bar-slow-ts" style="color:var(--red)">--</div>
+  </div>
+
+  <!-- Lag indicator -->
+  <div class="lag-banner lag-ok" id="lag-banner">
+    <span id="lag-text">No lag detected</span>
+  </div>
+</div>
+
+<!-- ═══ RPKI NODE HEALTH ═══ -->
+<div class="rpki-health">
+  <h2>RPKI Node Health — Lag from Real-Time Clock</h2>
+  <div class="rpki-health-sub">Each bar = one RPKI node. Height = lag (seconds behind clock). If bars grow tall, blockchain can't keep up.</div>
+  <div class="vbar-container" id="lag-bars"></div>
+
+
+</div>
+
+<div class="grid">
+  <!-- Clock sync -->
+  <div class="card grid-full">
+    <h2>Clock Synchronization</h2>
+    <div class="clock-grid" style="grid-template-columns:repeat(5,1fr);">
+      <div class="clock-item">
+        <div class="value" id="c-dataset-span">--</div>
+        <div class="label">Dataset Span</div>
+      </div>
+      <div class="clock-item">
+        <div class="value" id="c-wall-time">--</div>
+        <div class="label">Wall Elapsed</div>
+      </div>
+      <div class="clock-item">
+        <div class="value" id="c-bgp-ts">--</div>
+        <div class="label">Current BGP Timestamp</div>
+      </div>
+      <div class="clock-item">
+        <div class="value" id="c-lag">--</div>
+        <div class="label">Avg Lag</div>
+      </div>
+      <div class="clock-item">
+        <div class="value" id="c-status">--</div>
+        <div class="label">Clock Status</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TPS chart -->
+  <div class="card">
+    <h2>Throughput (Avg TPS over time)</h2>
+    <div class="chart-container">
+      <canvas id="tpsChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Lag over time chart -->
+  <div class="card">
+    <h2>Avg Node Lag over Time (seconds behind clock)</h2>
+    <div class="chart-container">
+      <canvas id="lagChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Node table -->
+  <div class="card grid-full">
+    <h2>Per-Node Status <span id="node-count-label" style="color:var(--muted);font-size:0.75rem;"></span></h2>
+    <div style="max-height:400px;overflow-y:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>ASN</th>
+            <th>Processed / Total</th>
+            <th>Progress</th>
+            <th>TPS</th>
+            <th>Attacks</th>
+            <th>Buffer Queue</th>
+            <th>Last BGP TS</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="node-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Charts ──
+const tpsCtx = document.getElementById('tpsChart').getContext('2d');
+const tpsChart = new Chart(tpsCtx, {
+  type: 'line',
+  data: { labels: [], datasets: [{
+    label: 'Avg TPS', data: [],
+    borderColor: '#4fc3f7', backgroundColor: 'rgba(79,195,247,0.1)',
+    fill: true, tension: 0.3, pointRadius: 0,
+  }]},
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Wall time (s)', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#2a2d3a' } },
+      y: { title: { display: true, text: 'TPS', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#2a2d3a' }, beginAtZero: true },
+    },
+    plugins: { legend: { display: false } },
+    animation: { duration: 0 },
+  }
+});
+
+const lagCtx = document.getElementById('lagChart').getContext('2d');
+const lagChart = new Chart(lagCtx, {
+  type: 'line',
+  data: { labels: [], datasets: [{
+    label: 'Avg Lag (s)', data: [],
+    borderColor: '#ef5350', backgroundColor: 'rgba(239,83,80,0.1)',
+    fill: true, tension: 0.3, pointRadius: 0,
+  }]},
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Wall time (s)', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#2a2d3a' } },
+      y: { title: { display: true, text: 'Lag (seconds)', color: '#888' }, ticks: { color: '#888' }, grid: { color: '#2a2d3a' }, beginAtZero: true },
+    },
+    plugins: { legend: { display: false } },
+    animation: { duration: 0 },
+  }
+});
+
+// ── Helpers ──
+function fmt(n) {
+  if (n === null || n === undefined) return '--';
+  if (typeof n === 'number') return n.toLocaleString();
+  return n;
+}
+function fmtTime(s) {
+  if (s === null || s === undefined) return '--';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m > 0 ? `${m}m ${sec}s` : `${sec}s`;
+}
+function fmtMMSS(s) {
+  if (s === null || s === undefined || s < 0) return '--:--';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+}
+function fmtTsShort(ts) {
+  if (!ts) return '--';
+  try {
+    const d = new Date(ts * 1000);
+    return d.toISOString().slice(5, 19).replace('T', ' ');
+  } catch { return String(ts); }
+}
+
+// ── Polling ──
+const POLL_MS = 2000;
+
+async function fetchJSON(url) {
+  const r = await fetch(url);
+  return r.json();
+}
+
+async function poll() {
+  try {
+    const [overview, nodes, clock, tpsHistory, rpkiHealth] = await Promise.all([
+      fetchJSON('/api/overview'),
+      fetchJSON('/api/nodes'),
+      fetchJSON('/api/clock'),
+      fetchJSON('/api/tps_history'),
+      fetchJSON('/api/rpki_health'),
+    ]);
+
+    // ── Header stats ──
+    document.getElementById('h-nodes-done').textContent = `${overview.nodes_done}/${overview.total_nodes}`;
+    document.getElementById('h-processed').textContent = fmt(overview.total_processed);
+    document.getElementById('h-attacks').textContent = fmt(overview.attacks_detected);
+    document.getElementById('h-wall-time').textContent = fmtTime(overview.wall_time);
+    document.getElementById('h-speed').textContent = `${overview.speed_multiplier}x`;
+
+    // Avg TPS from latest tps history
+    const latestTps = tpsHistory.length > 0 ? tpsHistory[tpsHistory.length - 1].tps : 0;
+    document.getElementById('h-tps').textContent = latestTps.toFixed(1);
+
+    // ── Countdown Timer ──
+    const datasetSpan = (clock.bgp_ts_max && clock.bgp_ts_min)
+      ? clock.bgp_ts_max - clock.bgp_ts_min : 0;
+    const wallElapsed = clock.wall_time || 0;
+    const remaining = Math.max(0, datasetSpan - wallElapsed);
+    const timerPct = datasetSpan > 0 ? Math.min(100, wallElapsed / datasetSpan * 100) : 0;
+
+    document.getElementById('timer-elapsed').textContent = fmtMMSS(wallElapsed);
+    document.getElementById('timer-total').textContent = fmtMMSS(datasetSpan);
+    document.getElementById('timer-remaining').textContent = fmtMMSS(remaining);
+    document.getElementById('timer-fill').style.width = timerPct + '%';
+
+    // Color remaining: green > 50%, orange 10-50%, red < 10%
+    const remEl = document.getElementById('timer-remaining');
+    if (remaining <= 0) {
+      remEl.style.color = 'var(--green)';
+      remEl.textContent = 'DONE';
+    } else if (timerPct > 90) {
+      remEl.style.color = 'var(--orange)';
+    } else {
+      remEl.style.color = 'var(--green)';
+    }
+
+    // ── Timestamp progress bars ──
+    const clockPct = clock.clock_progress_pct || 0;
+    const avgPct   = clock.avg_progress_pct || 0;
+    const slowPct  = clock.slowest_progress_pct || 0;
+
+    document.getElementById('ts-start').textContent = fmtTsShort(clock.bgp_ts_min);
+    document.getElementById('ts-end').textContent = fmtTsShort(clock.bgp_ts_max);
+
+    // Bar 1: Clock
+    document.getElementById('bar-clock').style.width = clockPct + '%';
+    document.getElementById('bar-clock-pct').textContent = clockPct.toFixed(1) + '%';
+    document.getElementById('bar-clock-ts').textContent = fmtTsShort(clock.current_bgp_ts);
+
+    // Bar 2: Average node
+    document.getElementById('bar-avg').style.width = avgPct + '%';
+    document.getElementById('bar-avg-pct').textContent = avgPct.toFixed(1) + '%';
+    document.getElementById('bar-avg-ts').textContent = fmtTsShort(clock.avg_node_ts);
+
+    // Bar 3: Slowest node
+    document.getElementById('bar-slow').style.width = slowPct + '%';
+    document.getElementById('bar-slow-pct').textContent = slowPct.toFixed(1) + '%';
+    document.getElementById('bar-slow-ts').textContent = fmtTsShort(clock.slowest_node_ts);
+
+    // Lag indicator
+    const lag = clock.lag_seconds || 0;
+    const lagEl = document.getElementById('lag-banner');
+    const lagText = document.getElementById('lag-text');
+    if (lag <= 5) {
+      lagEl.className = 'lag-banner lag-ok';
+      lagText.textContent = `Lag: ${lag.toFixed(1)}s — nodes keeping up with clock`;
+    } else if (lag <= 30) {
+      lagEl.className = 'lag-banner lag-warn';
+      lagText.textContent = `Lag: ${lag.toFixed(1)}s — nodes slightly behind clock`;
+    } else {
+      lagEl.className = 'lag-banner lag-bad';
+      lagText.textContent = `Lag: ${lag.toFixed(1)}s — nodes falling behind clock`;
+    }
+
+    // ── Clock sync panel ──
+    document.getElementById('c-dataset-span').textContent = fmtTime(datasetSpan);
+    document.getElementById('c-wall-time').textContent = fmtTime(clock.wall_time);
+    document.getElementById('c-bgp-ts').textContent = fmtTsShort(clock.current_bgp_ts);
+    document.getElementById('c-lag').textContent = (clock.lag_seconds || 0).toFixed(1) + 's';
+    document.getElementById('c-lag').style.color =
+      clock.lag_seconds <= 5 ? 'var(--green)' : clock.lag_seconds <= 30 ? 'var(--orange)' : 'var(--red)';
+    document.getElementById('c-status').innerHTML = clock.started
+      ? '<span class="dot dot-green"></span>Running'
+      : '<span class="dot dot-red"></span>Waiting';
+
+    // ── TPS chart ──
+    tpsChart.data.labels = tpsHistory.map(p => p.t);
+    tpsChart.data.datasets[0].data = tpsHistory.map(p => p.tps);
+    tpsChart.update();
+
+    // ── Lag chart ──
+    const lagHistory = await fetchJSON('/api/lag_history');
+    lagChart.data.labels = lagHistory.map(p => p.t);
+    lagChart.data.datasets[0].data = lagHistory.map(p => p.lag);
+    lagChart.update();
+
+    // ── Node table ── (RPKI nodes only — they do blockchain)
+    const rpkiNodes = nodes.filter(n => n.is_rpki);
+
+    document.getElementById('node-count-label').textContent =
+      `(${rpkiNodes.length} RPKI blockchain nodes)`;
+
+    const tbody = document.getElementById('node-tbody');
+    tbody.innerHTML = rpkiNodes.map(n => `
+      <tr>
+        <td><strong>AS${n.asn}</strong></td>
+        <td>${fmt(n.processed)} / ${fmt(n.total_observations)}</td>
+        <td>
+          <div class="progress-bar"><div class="fill" style="width:${n.progress_pct}%"></div></div>
+          <span style="font-size:0.75rem;color:var(--muted)">${n.progress_pct}%</span>
+        </td>
+        <td>${n.tps}</td>
+        <td>${n.attacks_detected}</td>
+        <td>${n.buffer_queued}/${n.buffer_max}</td>
+        <td style="font-size:0.78rem">${fmtTsShort(n.last_bgp_timestamp)}</td>
+        <td>${n.running
+          ? '<span class="badge badge-running">Running</span>'
+          : '<span class="badge badge-done">Done</span>'}</td>
+      </tr>
+    `).join('');
+
+    // ── RPKI Health Vertical Bars ──
+    if (rpkiHealth && rpkiHealth.length > 0) {
+      // Find max lag for scaling (min 10s so bars aren't always full)
+      const maxLag = Math.max(10, ...rpkiHealth.map(n => n.lag_seconds));
+
+      // Lag bars
+      document.getElementById('lag-bars').innerHTML = rpkiHealth.map(n => {
+        const pct = Math.min(100, (n.lag_seconds / maxLag) * 100);
+        const cls = n.lag_seconds <= 5 ? 'vbar-fill-ok'
+                  : n.lag_seconds <= 30 ? 'vbar-fill-warn'
+                  : 'vbar-fill-bad';
+        return `<div class="vbar-col">
+          <div class="vbar-value">${n.lag_seconds.toFixed(0)}s</div>
+          <div class="vbar-track">
+            <div class="vbar-fill ${cls}" style="height:${pct}%"></div>
+          </div>
+          <div class="vbar-label">${n.asn}</div>
+        </div>`;
+      }).join('');
+
+    }
+
+  } catch (err) {
+    console.error('Poll error:', err);
+  }
+}
+
+// Load system info once
+fetchJSON('/api/system_info').then(info => {
+  const parts = [];
+  if (info.cpu_model) parts.push('CPU: ' + info.cpu_model);
+  else if (info.processor) parts.push('CPU: ' + info.processor);
+  if (info.cpu_count) parts.push('Cores: ' + info.cpu_count);
+  if (info.memory_total_gb) parts.push('RAM: ' + info.memory_total_gb + ' GB');
+  if (info.python_version) parts.push('Python ' + info.python_version);
+  if (info.platform) parts.push(info.platform);
+  document.getElementById('sysinfo-bar').textContent = parts.join('  |  ');
+}).catch(() => {});
+
+poll();
+setInterval(poll, POLL_MS);
+</script>
+
+</body>
+</html>

@@ -43,6 +43,7 @@ Results (13 output files)  -->  PosthocAnalyzer
 2. **RPKI nodes** (validators): receive an observation, validate it via StayRTR VRP, add to knowledge base, create a blockchain transaction, broadcast to peers via the in-memory message bus, peers vote approve/reject, on BFT consensus the block is written to the blockchain, attack detection runs on committed transactions, attack proposals go through majority voting, BGPCoin rewards are distributed
 3. **Non-RPKI nodes** (observers): receive an observation, run attack detection (4 types), if attack detected it's written to blockchain immediately with a rating penalty, if legitimate it's throttled (10s dedup) and recorded, ratings are tracked longitudinally (start at 50, penalties for attacks, rewards for good behavior)
 4. **All P2P messaging** uses `InMemoryMessageBus` (replaces TCP sockets) so the system scales to 1000+ nodes without OS socket overhead
+5. **Real-time monitoring** via Flask dashboard at `http://localhost:5555` — shows per-node TPS, BGP timestamp progress, lag detection, and attack stats live during runs
 
 ### Key Components
 
@@ -160,7 +161,7 @@ Each run produces 13 structured output files in `results/<dataset>/<timestamp>/`
 | `attack_verdicts.json` | Attack proposals, votes, verdicts, confidence scores |
 | `dedup_stats.json` | Observations deduplicated/throttled (RPKI + non-RPKI) |
 | `message_bus_stats.json` | P2P message bus: sent, delivered, dropped counts |
-| `README.md` | Human-readable summary with all metrics in tables |
+| `README.md` | Human-readable summary with throughput (TPS), detection accuracy, blockchain stats, and all metrics |
 
 The `run_config.json` includes system hardware information (CPU model, core count, RAM) so you can compare performance across different machines and report whether better hardware configurations yield better results.
 
@@ -232,6 +233,37 @@ Tested on three CAIDA-derived datasets with 300-second simulation duration.
 | Messages Dropped | 0 | 0 | 0 |
 | Delivery Rate | 100% | ~100% | ~100% |
 
+### Throughput Benchmark (caida_100, 100 nodes)
+
+Tested by increasing the `SIMULATION_SPEED_MULTIPLIER` to push BGP data through the blockchain consensus pipeline faster than real-time. This measures the maximum throughput the network can sustain before nodes fall behind the clock.
+
+The system maintains **perfect detection accuracy (Precision 1.0, Recall 1.0, F1 1.0) at all tested speeds** from 1x to 10x real-time.
+
+| Speed | Wall Time | Network TPS | Precision | Recall | F1 |
+|-------|-----------|-------------|-----------|--------|------|
+| 1x (real-time) | ~1,700s | 4.2 | 1.000 | 1.000 | 1.000 |
+| 2x | 869s | 8.1 | 1.000 | 1.000 | 1.000 |
+| 3x | 580s | 12.2 | 1.000 | 1.000 | 1.000 |
+| 4x | 439s | 16.1 | 1.000 | 1.000 | 1.000 |
+| 5x | 350s | 20.2 | 1.000 | 1.000 | 1.000 |
+| 6x | 298s | 23.7 | 1.000 | 1.000 | 1.000 |
+| 7x | 254s | 27.8 | 1.000 | 1.000 | 1.000 |
+| 8x | 228s | 31.0 | 1.000 | 1.000 | 1.000 |
+| 9x | 199s | 35.5 | 1.000 | 1.000 | 1.000 |
+| **10x** | **192s** | **36.8** | **1.000** | **1.000** | **1.000** |
+
+**Peak throughput: 36.8 transactions per second** (network-wide) at 10x speed with 100 nodes (58 RPKI validators).
+
+**Interpretation:**
+- At 1x speed, the system processes 28 minutes of BGP activity in real-time with zero lag
+- At 10x speed, the same data completes in ~3.2 minutes with no accuracy loss
+- Network TPS scales linearly with speed multiplier up to ~6x, then diminishes as consensus round-trip overhead becomes the bottleneck
+- Detection accuracy remains perfect (F1 = 1.0) at all speeds — the deduplication and consensus mechanisms do not drop attack observations regardless of throughput pressure
+
+**What limits throughput beyond 10x:** Each BGP announcement triggers a separate consensus round: broadcast vote request to 5 peers, each peer performs knowledge base lookup + Ed25519 signing + vote response, merger collects 3+ signatures, then commits the block. At high speeds, the 16-thread P2P message bus saturates as 58 RPKI nodes simultaneously broadcast. Transaction batching (grouping multiple announcements per consensus round) would push this limit higher.
+
+To reproduce: `python3 scripts/benchmark_throughput.py --dataset caida_100`
+
 ### Key Observations
 
 1. **High recall (75-100%):** The system successfully detects all injected attack patterns. With 200+ nodes, recall reaches 100%.
@@ -241,6 +273,7 @@ Tested on three CAIDA-derived datasets with 300-second simulation duration.
 5. **Blockchain integrity verified:** SHA-256 hash chains and Merkle roots pass full verification for every block in every run.
 6. **Trust ratings reflect behavior:** Non-RPKI ASes originating attacks see scores drop from 50 (neutral) to suspicious (30-49), while clean ASes maintain neutral or higher.
 7. **Token economy functions correctly:** BGPCOIN rewards are distributed proportionally to participation.
+8. **Real-time processing achieved:** With 9 optimizations (see `docs/OPTIMIZATIONS.md`), the system processes BGP announcements in real-time with zero lag. Peak throughput: 36.8 network TPS at 10x speed on commodity hardware.
 
 ## Project Structure
 
@@ -283,7 +316,7 @@ BGP-Sentry/
         blockchain_interface.py       # File-based blockchain: blocks, Merkle roots
         bgpcoin_ledger.py             # Token economy: rewards, burn, treasury
         nonrpki_rating.py             # Trust scores for non-RPKI ASes (0-100)
-        signature_utils.py            # RSA-2048 signing for transactions
+        signature_utils.py            # Ed25519 signing for transactions
         integrated_trust_manager.py   # Trust scoring engine
         governance_system.py          # On-chain governance proposals
         behavioral_analysis.py        # Behavioral pattern analysis for governance
@@ -320,7 +353,16 @@ BGP-Sentry/
     timing/
       shared_clock.py                 # Shared simulation clock
 
+  monitoring/                          # Real-time simulation dashboard
+    dashboard_server.py               # Flask app with JSON API + stat collector
+    templates/dashboard.html          # Self-contained HTML dashboard (Chart.js)
+
   docs/                               # Architecture documentation
+    README.md                         # Documentation index (start here)
+    OPTIMIZATIONS.md                  # 9 performance optimizations for real-time processing
+    THROUGHPUT_ANALYSIS.md            # TPS benchmark, blockchain comparison, bottleneck analysis
+    SYSTEM_ARCHITECTURE.md            # Full system architecture and data flow
+    CONSENSUS_ESCALATION_EXPLAINED.md # Detecting learning attackers via vote escalation
   stayrtr/                            # StayRTR runtime (gitignored)
   results/                            # Experiment results (gitignored, 15 files per run)
 ```
@@ -342,18 +384,18 @@ Formula: `max(MIN, min(N/3+1, CAP))` where N = RPKI node count.
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `P2P_REGULAR_TIMEOUT` | 30s | Timeout waiting for consensus votes on regular BGP updates |
-| `P2P_ATTACK_TIMEOUT` | 60s | Timeout for attack-related transactions (higher priority) |
-| `P2P_MAX_BROADCAST_PEERS` | 10 | Max peers to broadcast to (caps O(N^2) message volume) |
+| `P2P_REGULAR_TIMEOUT` | 3s | Timeout waiting for consensus votes on regular BGP updates |
+| `P2P_ATTACK_TIMEOUT` | 5s | Timeout for attack-related transactions (higher priority) |
+| `P2P_MAX_BROADCAST_PEERS` | 5 | Max peers to broadcast to (caps O(N^2) message volume) |
 | `P2P_BASE_PORT` | 8000 | Base port for TCP sockets (only when `use_memory_bus=False`) |
 
-### Deduplication & Sampling
+### Deduplication & Skip Windows
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `RPKI_DEDUP_WINDOW` | 3600s | RPKI nodes skip writing same (prefix, origin) within this window |
-| `NONRPKI_DEDUP_WINDOW` | 10s | Non-RPKI nodes throttle duplicate observations within this window |
-| `SAMPLING_WINDOW_SECONDS` | 3600s | P2P pool sampling window (should match `RPKI_DEDUP_WINDOW`) |
+| `RPKI_DEDUP_WINDOW` | 300s (5 min) | RPKI nodes skip same (prefix, origin) within this window. Attacks always bypass. |
+| `NONRPKI_DEDUP_WINDOW` | 120s (2 min) | Non-RPKI nodes skip same (prefix, origin) within this window. Attacks always bypass. |
+| `SAMPLING_WINDOW_SECONDS` | 300s (5 min) | P2P pool sampling window (matches `RPKI_DEDUP_WINDOW`) |
 
 ### Knowledge Base
 
@@ -432,6 +474,16 @@ Multiplier ranges (applied to base rewards based on node history):
 | `ATTACK_CONSENSUS_REWARD_DETECTION` | 10 | BGPCOIN reward for detecting attack |
 | `ATTACK_CONSENSUS_REWARD_CORRECT_VOTE` | 2 | BGPCOIN reward for correct vote |
 | `ATTACK_CONSENSUS_PENALTY_FALSE_ACCUSATION` | -20 | BGPCOIN penalty for false detection |
+
+## Documentation
+
+Detailed technical documentation is in the `docs/` directory:
+
+- **[docs/README.md](docs/README.md)** — Documentation index (start here)
+- **[docs/THROUGHPUT_ANALYSIS.md](docs/THROUGHPUT_ANALYSIS.md)** — TPS benchmark results, comparison with Bitcoin/Ethereum/Solana/Hyperledger, bottleneck analysis, and scaling strategies
+- **[docs/OPTIMIZATIONS.md](docs/OPTIMIZATIONS.md)** — All 9 performance optimizations: consensus tuning, async message bus, Ed25519 signatures, early-skip dedup, buffer sampling. Before/after measurements
+- **[docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md)** — Full system architecture, data flow, class reference, consensus model
+- **[docs/CONSENSUS_ESCALATION_EXPLAINED.md](docs/CONSENSUS_ESCALATION_EXPLAINED.md)** — How the system detects "learning attackers" who improve their attacks over time
 
 ## StayRTR Integration
 

@@ -29,6 +29,8 @@ except ImportError:
     from data_loader import DatasetLoader
     from virtual_node import VirtualNode
 
+from simulation_helpers.timing.shared_clock import SimulationClock
+
 
 class NodeManager:
     """
@@ -64,6 +66,24 @@ class NodeManager:
 
         self._init_infrastructure()
         self._generate_node_keys()
+
+        # Create shared simulation clock
+        from config import cfg as _cfg
+        self.simulation_clock = SimulationClock(
+            speed_multiplier=_cfg.SIMULATION_SPEED_MULTIPLIER
+        )
+        # Find earliest and latest BGP timestamps across all observations
+        all_obs = data_loader.get_all_observations()
+        all_timestamps = [
+            obs.get("timestamp", 0)
+            for obs_list in all_obs.values()
+            for obs in obs_list
+            if obs.get("timestamp")
+        ]
+        self.bgp_ts_min = min(all_timestamps, default=0.0)
+        self.bgp_ts_max = max(all_timestamps, default=0.0)
+        self.simulation_clock.set_epoch(self.bgp_ts_min)
+
         self._create_nodes()
 
     def _init_infrastructure(self):
@@ -128,7 +148,7 @@ class NodeManager:
         )
 
     def _generate_node_keys(self):
-        """Generate RSA-2048 key pairs for all RPKI validator nodes."""
+        """Generate Ed25519 key pairs for all RPKI validator nodes."""
         from signature_utils import SignatureUtils
         from blockchain_interface import BlockchainInterface
 
@@ -138,7 +158,7 @@ class NodeManager:
         genesis_block = self.primary_blockchain.blockchain_data["blocks"][0]
 
         for asn in rpki_asns:
-            # Generate RSA-2048 key pair
+            # Generate Ed25519 key pair
             private_key, public_key, public_pem = SignatureUtils.generate_key_pair()
             self.node_keys[asn] = (private_key, public_key)
             self.public_key_registry[asn] = public_key
@@ -149,7 +169,7 @@ class NodeManager:
             self.node_blockchains[asn] = node_chain
 
         logger.info(
-            f"Generated RSA-2048 key pairs for {len(rpki_asns)} RPKI nodes, "
+            f"Generated Ed25519 key pairs for {len(rpki_asns)} RPKI nodes, "
             f"created {len(self.node_blockchains)} per-node blockchain replicas"
         )
 
@@ -191,6 +211,7 @@ class NodeManager:
                 shared_blockchain=self.primary_blockchain if is_rpki else None,
                 bgpcoin_ledger=self.shared_ledger if is_rpki else None,
                 private_key=private_key,
+                clock=self.simulation_clock,
             )
             self.nodes[asn] = node
 
@@ -225,6 +246,12 @@ class NodeManager:
         logger.info(f"Starting {len(self.nodes)} virtual nodes...")
         for node in self.nodes.values():
             node.start(callback=self._observation_callback)
+
+        # Phase 3: Start simulation clock (unblocks all node threads)
+        self.simulation_clock.start()
+        logger.info(
+            f"Simulation clock started (speed={self.simulation_clock.speed_multiplier}x)"
+        )
 
     def stop_all(self):
         """Stop all virtual nodes and P2P pools."""
@@ -335,7 +362,7 @@ class NodeManager:
     def get_crypto_summary(self) -> dict:
         """Get cryptographic key and signing summary."""
         return {
-            "key_algorithm": "RSA-2048",
+            "key_algorithm": "Ed25519",
             "signature_scheme": "RSA-PSS with SHA-256",
             "total_key_pairs": len(self.node_keys),
             "public_key_registry_size": len(self.public_key_registry),

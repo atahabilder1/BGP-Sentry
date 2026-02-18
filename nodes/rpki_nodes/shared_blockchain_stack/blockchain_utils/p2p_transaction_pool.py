@@ -503,20 +503,32 @@ class P2PTransactionPool:
     def _replicate_block_to_peers(self, block):
         """
         Broadcast a committed block to all peers for chain replication.
+        Runs asynchronously so the commit path is not blocked.
 
         Args:
             block: The committed block dict
         """
         if not self.use_memory_bus or block is None:
             return
-        from message_bus import InMemoryMessageBus
-        bus = InMemoryMessageBus.get_instance()
-        message = {
-            "type": "block_replicate",
-            "from_as": self.as_number,
-            "block": block,
-        }
-        bus.broadcast(self.as_number, message)
+        threading.Thread(
+            target=self._do_replicate_block,
+            args=(block,),
+            daemon=True,
+        ).start()
+
+    def _do_replicate_block(self, block):
+        """Background worker for block replication broadcast."""
+        try:
+            from message_bus import InMemoryMessageBus
+            bus = InMemoryMessageBus.get_instance()
+            message = {
+                "type": "block_replicate",
+                "from_as": self.as_number,
+                "block": block,
+            }
+            bus.broadcast(self.as_number, message)
+        except Exception as e:
+            self.logger.error(f"Block replication error: {e}")
 
     # ------------------------------------------------------------------
     # Vote signing
@@ -768,11 +780,11 @@ class P2PTransactionPool:
         import time
 
         # Wait for server to start
-        time.sleep(10)
+        time.sleep(1)
 
         while self.running:
             try:
-                time.sleep(10)  # Check every 10 seconds
+                time.sleep(0.5)  # Check frequently for real-time processing
 
                 current_time = datetime.now()
                 timed_out_transactions = []
@@ -1125,8 +1137,13 @@ class P2PTransactionPool:
                 # Award BGPCOIN rewards for block commit
                 self._award_bgpcoin_rewards(transaction_id, vote_data)
 
-                # Trigger attack detection for this transaction
-                self._trigger_attack_detection(transaction, transaction_id)
+                # Trigger attack detection asynchronously (don't block commit path)
+                import threading
+                threading.Thread(
+                    target=self._trigger_attack_detection,
+                    args=(transaction, transaction_id),
+                    daemon=True,
+                ).start()
 
                 # Remove from pending votes
                 del self.pending_votes[transaction_id]

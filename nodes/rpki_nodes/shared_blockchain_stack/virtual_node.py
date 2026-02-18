@@ -2,24 +2,28 @@
 """
 VirtualNode - Full blockchain participant for each AS.
 
-RPKI Validator nodes:
-  1. Validate via StayRTR (ROA check)
-  2. Add observation to knowledge base
-  3. Dedup check (skip duplicates within sampling window)
+RPKI Validator nodes (merger + signer model):
+  1. Check if announcement is skippable (same prefix/origin seen recently)
+     - Attack: NEVER skip, always process
+     - Legitimate duplicate within RPKI_DEDUP_WINDOW: skip entirely
+  2. Validate via StayRTR (ROA check)
+  3. Add observation to knowledge base
   4. Create transaction -> broadcast to peers for consensus
-  5. Peers vote approve/reject based on their own knowledge base
-  6. On consensus (BFT threshold): write block to blockchain
+  5. Peers (signers) vote approve/reject based on their own knowledge base
+  6. Merger collects signatures; on BFT threshold (3+): write block to blockchain
   7. Run attack detection (4 types) on committed transaction
   8. If attack detected -> propose attack vote -> majority decides
   9. Award BGPCoin to committer + voters
 
 Non-RPKI Observer nodes:
-  1. Run attack detection (4 types)
-  2. If attack: record immediately, apply rating penalty
-  3. If legitimate: throttle duplicates (10s window), record
-  4. Rating tracked longitudinally (start 50)
+  1. Check if announcement is skippable (within NONRPKI_DEDUP_WINDOW)
+     - Attack: NEVER skip
+  2. Run attack detection (4 types)
+  3. If attack: record immediately, apply rating penalty
+  4. If legitimate: record, track rating
 """
 
+import collections
 import json
 import logging
 import time
@@ -41,7 +45,7 @@ class VirtualNode:
     Observers (non-RPKI nodes): attack detection + rating tracking.
     """
 
-    # Dedup windows (from .env)
+    # Dedup / skip windows (from .env) [seconds]
     RPKI_DEDUP_WINDOW = cfg.RPKI_DEDUP_WINDOW
     NONRPKI_DEDUP_WINDOW = cfg.NONRPKI_DEDUP_WINDOW
 
@@ -59,6 +63,7 @@ class VirtualNode:
         shared_blockchain=None,
         bgpcoin_ledger=None,
         private_key=None,
+        clock=None,
     ):
         self.asn = asn
         self.is_rpki = is_rpki
@@ -73,6 +78,7 @@ class VirtualNode:
         self.shared_blockchain = shared_blockchain
         self.bgpcoin_ledger = bgpcoin_ledger
         self.private_key = private_key  # RSA-2048 private key (RPKI nodes only)
+        self._clock = clock  # SimulationClock (optional)
 
         # Processing state
         self.processed_count = 0
@@ -81,13 +87,19 @@ class VirtualNode:
         self.running = False
         self._thread: Optional[threading.Thread] = None
 
-        # Dedup / throttle state
-        self.dedup_state: Dict[tuple, float] = {}  # (prefix, origin) -> last_write_ts
-        self.last_seen: Dict[tuple, float] = {}     # non-RPKI throttle cache
+        # Dedup / skip state — tracks last-processed time per (prefix, origin)
+        # If same (prefix, origin) arrives within skip window and is NOT an
+        # attack, the node skips it entirely (no validation, no consensus,
+        # no blockchain write).  Attacks always bypass this check.
+        self.dedup_state: Dict[tuple, float] = {}  # RPKI: (prefix, origin) -> last_ts
+        self.last_seen: Dict[tuple, float] = {}     # non-RPKI: (prefix, origin) -> last_ts
 
         # Results tracking
         self.detection_results = []
         self.trust_score = 100.0 if is_rpki else 50.0
+
+        # Live buffer reference (set during processing, read by dashboard)
+        self._buffer: Optional['_PriorityBuffer'] = None
 
         # Stats for results output
         self.stats = {
@@ -97,6 +109,7 @@ class VirtualNode:
             "attacks_written": 0,
             "legitimate_written": 0,
             "consensus_votes_cast": 0,
+            "buffer_sampled": 0,
         }
 
     def start(self, callback=None):
@@ -111,35 +124,79 @@ class VirtualNode:
         self._thread.start()
 
     def _process_observations(self, callback=None):
-        """Process all observations sequentially."""
-        for obs in self.observations:
+        """Process observations in real-time according to BGP timestamps."""
+        # Sort by timestamp to ensure correct replay order
+        sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
+
+        # Build ingestion buffer — drains at clock pace
+        buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
+        self._buffer = buffer  # expose for dashboard monitoring
+
+        for obs in sorted_obs:
             if not self.running:
                 break
 
-            try:
-                if self.is_rpki:
-                    result = self._process_observation_rpki(obs)
-                else:
-                    result = self._process_observation_nonrpki(obs)
-            except Exception as e:
-                logger.error(f"AS{self.asn} processing error: {e}")
-                result = self._make_base_result(obs, action="error")
+            # Wait for real time to catch up to this observation's timestamp
+            bgp_ts = obs.get("timestamp", 0)
+            if self._clock is not None:
+                self._clock.wait_until(bgp_ts)
 
-            if callback:
-                try:
-                    callback(self, obs, result)
-                except Exception as e:
-                    logger.error(f"AS{self.asn} callback error: {e}")
+            is_attack = obs.get("is_attack", False)
 
-            self.processed_count += 1
+            if is_attack:
+                # ATTACKS: always process immediately, bypass buffer
+                self._process_single(obs, callback)
+            else:
+                # NORMAL: add to buffer
+                if not buffer.try_add(obs):
+                    # Buffer full — sample: drop this observation
+                    self.stats["buffer_sampled"] += 1
+                    self.processed_count += 1
+                    continue
+                # Drain buffer: process all buffered observations
+                while not buffer.empty():
+                    buffered_obs = buffer.pop()
+                    self._process_single(buffered_obs, callback)
+
+        # Drain any remaining buffered observations
+        while not buffer.empty():
+            self._process_single(buffer.pop(), callback)
 
         self.running = False
 
+    def _process_single(self, obs, callback=None):
+        """Process a single observation through the appropriate pipeline."""
+        self._last_bgp_ts = obs.get("timestamp", 0)
+        try:
+            if self.is_rpki:
+                result = self._process_observation_rpki(obs)
+            else:
+                result = self._process_observation_nonrpki(obs)
+        except Exception as e:
+            logger.error(f"AS{self.asn} processing error: {e}")
+            result = self._make_base_result(obs, action="error")
+
+        if callback:
+            try:
+                callback(self, obs, result)
+            except Exception as e:
+                logger.error(f"AS{self.asn} callback error: {e}")
+
+        self.processed_count += 1
+
     # ------------------------------------------------------------------
-    # RPKI Validator processing
+    # RPKI Validator processing (merger + signer model)
     # ------------------------------------------------------------------
     def _process_observation_rpki(self, obs: dict) -> dict:
-        """Full RPKI validator pipeline for a single observation."""
+        """
+        Full RPKI validator pipeline for a single observation.
+
+        SKIP-EARLY: If this (prefix, origin) was processed within the last
+        RPKI_DEDUP_WINDOW seconds AND is not an attack, skip the entire
+        pipeline (no validation, no knowledge base, no consensus, no
+        blockchain write).  This avoids wasting consensus round-trips on
+        duplicate legitimate announcements.
+        """
         prefix = obs.get("prefix", "")
         origin_asn = obs.get("origin_asn", 0)
         is_attack = obs.get("is_attack", False)
@@ -148,7 +205,21 @@ class VirtualNode:
 
         result = self._make_base_result(obs)
 
-        # 1. Add to P2P pool knowledge base (so this node can vote on others' txns)
+        # ── STEP 0: Early skip for non-attack duplicates ──
+        # Attacks ALWAYS proceed.  Legitimate duplicates within the skip
+        # window are dropped before any expensive work happens.
+        dedup_key = (prefix, origin_asn)
+        if not is_attack and dedup_key in self.dedup_state:
+            elapsed = time.time() - self.dedup_state[dedup_key]
+            if elapsed < self.RPKI_DEDUP_WINDOW:
+                result["action"] = "skipped_dedup"
+                self.stats["transactions_deduped"] += 1
+                self.detection_results.append(result)
+                return result
+
+        # ── STEP 1: Add to P2P pool knowledge base ──
+        # So this node can vote on other nodes' transactions about the
+        # same prefix.
         if self.p2p_pool is not None:
             self.p2p_pool.add_bgp_observation(
                 ip_prefix=prefix,
@@ -158,14 +229,14 @@ class VirtualNode:
                 is_attack=is_attack,
             )
 
-        # 2. RPKI validation via StayRTR
+        # ── STEP 2: RPKI validation via StayRTR ──
         validation = {"valid": True, "status": "not_checked"}
         if self.rpki_validator is not None:
             validation = self.rpki_validator.validate(obs)
 
         result["rpki_validation"] = validation.get("status", "unknown")
 
-        # 3. Run attack detection (all 4 types)
+        # ── STEP 3: Attack detection (all 4 types) ──
         detected_attacks = []
         if self.attack_detector is not None:
             detected_attacks = self.attack_detector.detect_attacks({
@@ -187,16 +258,10 @@ class VirtualNode:
             self.attack_detections.append(result)
             self.stats["attacks_detected"] += 1
 
-        # 4. Dedup check: skip if same (prefix, origin) written recently
-        dedup_key = (prefix, origin_asn)
-        if not is_attack and dedup_key in self.dedup_state:
-            if time.time() - self.dedup_state[dedup_key] < self.RPKI_DEDUP_WINDOW:
-                result["action"] = "skipped_dedup"
-                self.stats["transactions_deduped"] += 1
-                self.detection_results.append(result)
-                return result
-
-        # 5. Create transaction and broadcast for consensus
+        # ── STEP 4: Create transaction and broadcast for consensus ──
+        # This node acts as MERGER: collects signatures from SIGNER peers.
+        # Signers vote approve/reject based on their knowledge base.
+        # On 3+ approve signatures → block is committed to blockchain.
         if self.p2p_pool is not None:
             transaction = self._create_transaction(obs, validation, detected_attacks)
             self.p2p_pool.broadcast_transaction(transaction)
@@ -206,7 +271,7 @@ class VirtualNode:
         else:
             result["action"] = "no_p2p_pool"
 
-        # 6. Update dedup state
+        # ── STEP 5: Update dedup state ──
         self.dedup_state[dedup_key] = time.time()
 
         if not is_attack:
@@ -251,7 +316,13 @@ class VirtualNode:
     # Non-RPKI Observer processing
     # ------------------------------------------------------------------
     def _process_observation_nonrpki(self, obs: dict) -> dict:
-        """Non-RPKI observer pipeline: detect attacks + track rating."""
+        """
+        Non-RPKI observer pipeline: detect attacks + track rating.
+
+        SKIP-EARLY: If this (prefix, origin) was seen within the last
+        NONRPKI_DEDUP_WINDOW seconds AND is not an attack, skip entirely.
+        Attacks always proceed to detection and rating.
+        """
         prefix = obs.get("prefix", "")
         origin_asn = obs.get("origin_asn", 0)
         is_attack = obs.get("is_attack", False)
@@ -259,7 +330,17 @@ class VirtualNode:
 
         result = self._make_base_result(obs)
 
-        # 1. Run attack detection (all 4 types)
+        # ── STEP 0: Early skip for non-attack duplicates ──
+        dedup_key = (prefix, origin_asn)
+        if not is_attack and dedup_key in self.last_seen:
+            elapsed = time.time() - self.last_seen[dedup_key]
+            if elapsed < self.NONRPKI_DEDUP_WINDOW:
+                result["action"] = "skipped_throttle"
+                self.stats["transactions_deduped"] += 1
+                self.detection_results.append(result)
+                return result
+
+        # ── STEP 1: Attack detection (all 4 types) ──
         detected_attacks = []
         if self.attack_detector is not None:
             detected_attacks = self.attack_detector.detect_attacks({
@@ -298,20 +379,11 @@ class VirtualNode:
             self.detection_results.append(result)
             return result
 
-        # 2. Not attack: throttle duplicates
-        dedup_key = (prefix, origin_asn)
-        if dedup_key in self.last_seen:
-            if time.time() - self.last_seen[dedup_key] < self.NONRPKI_DEDUP_WINDOW:
-                result["action"] = "skipped_throttle"
-                self.stats["transactions_deduped"] += 1
-                self.detection_results.append(result)
-                return result
-
+        # ── STEP 2: Record legitimate announcement ──
         self.last_seen[dedup_key] = time.time()
         self.legitimate_count += 1
         self.stats["legitimate_written"] += 1
 
-        # 3. Increment legitimate count for rating (off-chain)
         if self.rating_system is not None:
             self.rating_system.increment_legitimate_announcements(origin_asn, prefix=prefix)
 
@@ -347,6 +419,9 @@ class VirtualNode:
 
     def get_status(self) -> dict:
         """Get current node status."""
+        buf = self._buffer
+        buf_queued = len(buf._queue) if buf is not None else 0
+        buf_max = buf.max_size if buf is not None else 0
         return {
             "asn": self.asn,
             "is_rpki": self.is_rpki,
@@ -359,4 +434,54 @@ class VirtualNode:
             "done": self.is_done(),
             "trust_score": self.trust_score,
             "stats": dict(self.stats),
+            "last_bgp_timestamp": getattr(self, "_last_bgp_ts", None),
+            "buffer_queued": buf_queued,
+            "buffer_max": buf_max,
         }
+
+
+class _PriorityBuffer:
+    """Fixed-size buffer for normal BGP announcements.
+
+    Attacks bypass this buffer entirely.
+
+    Sampling strategy:
+      - Below 60% capacity: accept all non-attack observations.
+      - 60-100% capacity: probabilistic sampling — the closer to full,
+        the higher the drop probability.  At 60% the drop chance is 0%,
+        ramping linearly to 100% at max_size.
+      - At 100%: always drop (hard cap).
+
+    This keeps the buffer from ever completely filling while ensuring
+    attack observations are never dropped (they bypass the buffer).
+    """
+
+    SAMPLE_THRESHOLD = 0.6  # start sampling at 60% full
+
+    def __init__(self, max_size: int):
+        self.max_size = max_size
+        self._queue: collections.deque = collections.deque()
+        self._rng = __import__('random').Random()
+
+    def try_add(self, obs) -> bool:
+        """Add observation to buffer. Returns False if sampled out."""
+        fill = len(self._queue) / self.max_size if self.max_size > 0 else 1.0
+
+        if fill >= 1.0:
+            # Hard cap — buffer full
+            return False
+
+        if fill >= self.SAMPLE_THRESHOLD:
+            # Linear ramp: 0% drop at threshold, 100% drop at max_size
+            drop_prob = (fill - self.SAMPLE_THRESHOLD) / (1.0 - self.SAMPLE_THRESHOLD)
+            if self._rng.random() < drop_prob:
+                return False
+
+        self._queue.append(obs)
+        return True
+
+    def pop(self):
+        return self._queue.popleft()
+
+    def empty(self) -> bool:
+        return len(self._queue) == 0

@@ -1,66 +1,48 @@
 import time
-import json
-from pathlib import Path
-from typing import List
+import threading
 
-class SharedClockManager:
-    def __init__(self):
-        self.start_time = None
-        self.experiment_id = None
-        self.registered_nodes: List[str] = []
-        self.clock_file = "simulation_helpers/shared_data/simulation_clock.json"
-    
-    def initialize_simulation_clock(self, config):
-        self.experiment_id = f"exp_{int(time.time())}"
-        self._save_clock_state()
-        return self.experiment_id
-    
-    def register_node(self, node_id: str):
-        """Register a node with the shared clock"""
-        if node_id not in self.registered_nodes:
-            self.registered_nodes.append(node_id)
-            self._save_clock_state()
-    
-    def start_simulation(self):
-        self.start_time = time.time()
-        self._save_clock_state()
-    
-    def get_simulation_time(self):
-        if self.start_time:
-            return time.time() - self.start_time
-        return 0
-    
-    def stop_simulation(self):
-        self._save_clock_state()
-    
-    def mark_bgp_data_loaded(self):
-        self._save_clock_state()
-    
-    def wait_for_nodes(self, expected, timeout=60):
-        start_time = time.time()
-        while len(self.registered_nodes) < expected:
-            if time.time() - start_time > timeout:
-                return False
-            time.sleep(1)
-        return True
-    
-    def get_clock_status(self):
-        return {
-            "experiment_id": self.experiment_id, 
-            "running": self.start_time is not None,
-            "registered_nodes": self.registered_nodes,
-            "simulation_time": self.get_simulation_time()
-        }
-    
-    def _save_clock_state(self):
-        """Save current clock state to shared file"""
-        state = {
-            "experiment_id": self.experiment_id,
-            "registered_nodes": self.registered_nodes,
-            "simulation_time": self.get_simulation_time(),
-            "status": "running" if self.start_time else "initialized"
-        }
-        
-        Path(self.clock_file).parent.mkdir(exist_ok=True)
-        with open(self.clock_file, 'w') as f:
-            json.dump(state, f, indent=2)
+
+class SimulationClock:
+    """Shared clock that replays BGP timestamps in real time.
+
+    Anchors the earliest BGP timestamp to wall-clock ``start_time``.
+    Each node calls ``wait_until(bgp_timestamp)`` before processing an
+    observation, which sleeps until real time catches up.
+
+    A ``speed_multiplier`` allows faster-than-real-time runs for testing
+    (e.g. 10.0 = 10x faster).
+    """
+
+    def __init__(self, speed_multiplier: float = 1.0):
+        self.speed_multiplier = speed_multiplier  # 1.0 = real-time
+        self._anchor_bgp_ts: float | None = None  # earliest BGP timestamp (Unix epoch)
+        self._anchor_wall_ts: float | None = None  # wall-clock time when simulation started
+        self._started = threading.Event()
+
+    def set_epoch(self, earliest_bgp_timestamp: float):
+        """Called once before start — sets the BGP time origin."""
+        self._anchor_bgp_ts = earliest_bgp_timestamp
+
+    def start(self):
+        """Anchors BGP epoch to current wall-clock and unblocks all waiting nodes."""
+        self._anchor_wall_ts = time.time()
+        self._started.set()
+
+    def wait_until(self, bgp_timestamp: float):
+        """Block until real time catches up to this BGP timestamp."""
+        self._started.wait()  # block until clock started
+        bgp_offset = bgp_timestamp - self._anchor_bgp_ts
+        wall_target = self._anchor_wall_ts + (bgp_offset / self.speed_multiplier)
+        sleep_needed = wall_target - time.time()
+        if sleep_needed > 0:
+            time.sleep(sleep_needed)
+
+    def sim_time(self) -> float:
+        """Current simulation time in seconds since epoch."""
+        if self._anchor_wall_ts is None:
+            return 0.0
+        return (time.time() - self._anchor_wall_ts) * self.speed_multiplier
+
+
+# Backward-compatible alias so existing imports still work.
+SharedClockManager = SimulationClock

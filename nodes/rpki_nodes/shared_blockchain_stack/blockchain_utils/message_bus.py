@@ -5,10 +5,14 @@ InMemoryMessageBus - Replaces TCP socket P2P with in-memory message passing.
 Instead of each node binding a TCP socket and connecting to peers via
 socket.connect(), all messages are routed through this shared singleton.
 This scales to 100-1000 nodes without wasting OS sockets or network I/O.
+
+Messages are dispatched asynchronously via a thread pool so the sender
+is never blocked by the receiver's handler execution time.
 """
 
 import logging
 import threading
+from concurrent.futures import ThreadPoolExecutor
 from typing import Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -24,6 +28,8 @@ class InMemoryMessageBus:
         self.handlers: Dict[int, Callable] = {}  # as_number -> callback
         self.lock = threading.Lock()
         self.stats = {"sent": 0, "delivered": 0, "dropped": 0}
+        # Thread pool for async message dispatch — keeps sender non-blocking
+        self._executor = ThreadPoolExecutor(max_workers=16, thread_name_prefix="MsgBus")
 
     @classmethod
     def get_instance(cls) -> "InMemoryMessageBus":
@@ -38,6 +44,7 @@ class InMemoryMessageBus:
         """Reset the singleton (for test isolation or between experiments)."""
         with cls._lock:
             if cls._instance is not None:
+                cls._instance._executor.shutdown(wait=False)
                 cls._instance.handlers.clear()
                 cls._instance.stats = {"sent": 0, "delivered": 0, "dropped": 0}
             cls._instance = None
@@ -54,17 +61,21 @@ class InMemoryMessageBus:
             self.handlers.pop(as_number, None)
 
     def send(self, from_as: int, to_as: int, message: dict):
-        """Send message to a specific node (replaces socket.connect + send)."""
+        """Send message to a specific node asynchronously via thread pool."""
         self.stats["sent"] += 1
         handler = self.handlers.get(to_as)
         if handler is not None:
-            try:
-                handler(message)
-                self.stats["delivered"] += 1
-            except Exception as e:
-                logger.warning(f"MessageBus: handler error AS{to_as}: {e}")
-                self.stats["dropped"] += 1
+            self._executor.submit(self._dispatch, handler, to_as, message)
         else:
+            self.stats["dropped"] += 1
+
+    def _dispatch(self, handler: Callable, to_as: int, message: dict):
+        """Execute handler in thread pool worker."""
+        try:
+            handler(message)
+            self.stats["delivered"] += 1
+        except Exception as e:
+            logger.warning(f"MessageBus: handler error AS{to_as}: {e}")
             self.stats["dropped"] += 1
 
     def broadcast(self, from_as: int, message: dict, targets: Optional[List[int]] = None):

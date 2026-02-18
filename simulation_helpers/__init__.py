@@ -1,4 +1,4 @@
-from .timing.shared_clock import SharedClockManager
+from .timing.shared_clock import SharedClockManager, SimulationClock
 from .coordination.orchestrator import SimulationOrchestrator
 from .coordination.health_monitor import NodeHealthMonitor, HealthDashboard
 

@@ -48,7 +48,7 @@ Each RPKI node processes a BGP announcement through these steps:
 
 1. Validate BGP announcement via StayRTR (ROA check)
 2. Add observation to per-node knowledge base
-3. Deduplication check (skip if same prefix+origin written within sampling window)
+3. Early-skip deduplication (Step 0: if same prefix+origin seen within 5 min, skip — attacks always bypass)
 4. Create blockchain transaction and broadcast to peers via InMemoryMessageBus
 5. Peers vote approve/reject based on their own knowledge base
 6. On BFT consensus (threshold signatures reached): write block to blockchain
@@ -63,7 +63,7 @@ Each non-RPKI node processes a BGP announcement through these steps:
 
 1. Run attack detection (4 types) on each observation
 2. If attack detected: record to blockchain immediately, apply trust rating penalty
-3. If legitimate: throttle duplicates (10-second dedup window), record to blockchain
+3. If legitimate: throttle duplicates (2-minute dedup window), record to blockchain
 4. Trust rating tracked longitudinally (start at 50/100)
 
 ## Key Classes
@@ -172,7 +172,7 @@ BFT-style threshold consensus with configurable parameters:
 - Formula: `max(CONSENSUS_MIN, min(N/3 + 1, CONSENSUS_CAP))` where N = number of RPKI validators
 - Default: MIN=3, CAP=5
 - Effective threshold: 5 signatures for all tested network sizes (58-206 RPKI nodes)
-- Transaction types: regular (30s timeout), attack (60s timeout)
+- Transaction types: regular (3s timeout), attack (5s timeout)
 - On timeout: transaction committed with "insufficient consensus" or "single witness" status
 
 ## Results Format
