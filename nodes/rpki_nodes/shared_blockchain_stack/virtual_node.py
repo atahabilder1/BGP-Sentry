@@ -10,7 +10,7 @@ RPKI Validator nodes (merger + signer model):
   3. Add observation to knowledge base
   4. Create transaction -> broadcast to peers for consensus
   5. Peers (signers) vote approve/reject based on their own knowledge base
-  6. Merger collects signatures; on BFT threshold (3+): write block to blockchain
+  6. Merger collects signatures; on PoP threshold (3+): write block to blockchain
   7. Run attack detection (4 types) on committed transaction
   8. If attack detected -> propose attack vote -> majority decides
   9. Award BGPCoin to committer + voters
@@ -262,9 +262,18 @@ class VirtualNode:
         # This node acts as MERGER: collects signatures from SIGNER peers.
         # Signers vote approve/reject based on their knowledge base.
         # On 3+ approve signatures → block is committed to blockchain.
+        #
+        # PIPELINED: broadcast runs in a background thread so this node
+        # can immediately proceed to the next observation.  Consensus
+        # votes arrive asynchronously and the commit happens whenever
+        # the threshold is reached (or timeout fires).
         if self.p2p_pool is not None:
             transaction = self._create_transaction(obs, validation, detected_attacks)
-            self.p2p_pool.broadcast_transaction(transaction)
+            threading.Thread(
+                target=self.p2p_pool.broadcast_transaction,
+                args=(transaction,),
+                daemon=True,
+            ).start()
             self.stats["transactions_created"] += 1
             result["action"] = "transaction_broadcast"
             result["transaction_id"] = transaction["transaction_id"]

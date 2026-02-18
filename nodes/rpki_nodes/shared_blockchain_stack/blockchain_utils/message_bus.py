@@ -28,8 +28,13 @@ class InMemoryMessageBus:
         self.handlers: Dict[int, Callable] = {}  # as_number -> callback
         self.lock = threading.Lock()
         self.stats = {"sent": 0, "delivered": 0, "dropped": 0}
-        # Thread pool for async message dispatch — keeps sender non-blocking
-        self._executor = ThreadPoolExecutor(max_workers=16, thread_name_prefix="MsgBus")
+        # Thread pool for async message dispatch — keeps sender non-blocking.
+        # Sized to 2x CPU core count: with 58 RPKI nodes each broadcasting
+        # vote requests to 5 peers, that's ~290 concurrent messages.
+        # 48 workers on a 24-core CPU ensures full core utilisation.
+        import os
+        _pool_size = max(48, (os.cpu_count() or 8) * 2)
+        self._executor = ThreadPoolExecutor(max_workers=_pool_size, thread_name_prefix="MsgBus")
 
     @classmethod
     def get_instance(cls) -> "InMemoryMessageBus":

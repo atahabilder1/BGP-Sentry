@@ -9,7 +9,7 @@ The simulation is built on top of **bgpy**, a peer-reviewed BGP security simulat
 **Key constraint from BGPSentry's design:**
 - **RPKI-enabled ASes** are the **blockchain validators** (they can vote in Proof of Population consensus)
 - **Non-RPKI ASes** are **observers** (they submit BGP data but cannot vote)
-- **All nodes** in the topology must participate -- no sampling allowed, because every validator's vote matters for BFT consensus integrity
+- **All nodes** in the topology must participate -- no sampling allowed, because every validator's vote matters for Proof of Population (PoP) consensus integrity
 - RPKI classification must be **real** (from actual measurement data), not synthetic, because it determines who gets validator authority on the blockchain
 
 ---

@@ -40,7 +40,7 @@ Results (13 output files)  -->  PosthocAnalyzer
 ### How It Works
 
 1. **Dataset observations** are loaded per-AS and assigned to VirtualNodes
-2. **RPKI nodes** (validators): receive an observation, validate it via StayRTR VRP, add to knowledge base, create a blockchain transaction, broadcast to peers via the in-memory message bus, peers vote approve/reject, on BFT consensus the block is written to the blockchain, attack detection runs on committed transactions, attack proposals go through majority voting, BGPCoin rewards are distributed
+2. **RPKI nodes** (validators): receive an observation, validate it via StayRTR VRP, add to knowledge base, create a blockchain transaction, broadcast to peers via the in-memory message bus, peers vote approve/reject, on Proof of Population (PoP) consensus the block is written to the blockchain, attack detection runs on committed transactions, attack proposals go through majority voting, BGPCoin rewards are distributed
 3. **Non-RPKI nodes** (observers): receive an observation, run attack detection (4 types), if attack detected it's written to blockchain immediately with a rating penalty, if legitimate it's throttled (10s dedup) and recorded, ratings are tracked longitudinally (start at 50, penalties for attacks, rewards for good behavior)
 4. **All P2P messaging** uses `InMemoryMessageBus` (replaces TCP sockets) so the system scales to 1000+ nodes without OS socket overhead
 5. **Real-time monitoring** via Flask dashboard at `http://localhost:5555` — shows per-node TPS, BGP timestamp progress, lag detection, and attack stats live during runs
@@ -59,7 +59,7 @@ Results (13 output files)  -->  PosthocAnalyzer
 - **BGPCoinLedger** - Token economy with rewards for block commits, voting, and attack detection
 - **NonRPKIRatingSystem** - Trust scores for non-RPKI ASes (0-100, longitudinal tracking)
 - **StayRTR Client** - RPKI route validation using VRP (Validated ROA Payload) data
-- **Consensus** - BFT-style threshold: `max(3, N/3 + 1)` where N = number of RPKI validators
+- **Consensus** - Proof of Population (PoP): `max(3, N/3 + 1)` where N = number of RPKI validators. One node = one vote; RPKI onboarding prevents Sybil attacks
 - **PosthocAnalyzer** - Post-experiment analysis: accuracy by attack type, consensus efficiency, BGPCoin distribution, blockchain growth
 
 ## Quick Start
@@ -82,6 +82,72 @@ python3 main_experiment.py --dataset caida_1000 --duration 600
 ```
 
 Results are written to `results/<dataset_name>/<YYYYMMDD_HHMMSS>/`.
+
+## Real-Time Monitoring Dashboard
+
+When an experiment is running, a live dashboard is available at `http://localhost:5555` showing per-node TPS, BGP timestamp progress, buffer usage, and attack detection stats.
+
+### How It Works
+
+The dashboard runs **on the server** as part of the experiment process. When you connect via SSH with port forwarding, the server's port 5555 is tunneled to your local PC so you can open it in your local browser.
+
+**Workflow:**
+
+```
+Your PC (browser)  ---SSH tunnel--->  Remote Server (experiment + dashboard)
+http://localhost:5555                  Flask dashboard on port 5555
+```
+
+**Step-by-step:**
+
+```bash
+# Step 1: Connect to the server with port forwarding
+ssh -L 5555:localhost:5555 user@your-server-ip
+
+# Step 2: On the server, run the experiment (dashboard starts automatically)
+cd ~/code/BGP-Sentry
+python3 main_experiment.py --dataset caida_100 --duration 600
+
+# Step 3: On your local PC, open your browser
+#         Go to http://localhost:5555
+#         The live dashboard appears -- updates every 2 seconds
+```
+
+The dashboard starts automatically when the experiment starts and stops when the experiment ends. No extra setup needed on the server side.
+
+### SSH Variations
+
+```bash
+# With SSH key
+ssh -i ~/.ssh/mykey -L 5555:localhost:5555 user@server
+
+# Custom SSH port
+ssh -p 2222 -L 5555:localhost:5555 user@server
+
+# Tunnel only (no interactive shell, useful as a second terminal)
+ssh -N -L 5555:localhost:5555 user@server
+```
+
+**VS Code Remote SSH** auto-detects forwarded ports -- check the "Ports" tab or add port 5555 manually.
+
+### Automatic Port Forwarding (No Extra Flags)
+
+To avoid typing `-L 5555:localhost:5555` every time, add this to `~/.ssh/config` **on your local PC**:
+
+```
+Host bgp-sentry-server
+    HostName your-server-ip
+    User your-username
+    IdentityFile ~/.ssh/mykey
+    LocalForward 5555 localhost:5555
+```
+
+Then just connect normally -- the dashboard port forwards automatically:
+
+```bash
+ssh bgp-sentry-server
+# Port 5555 is already forwarded, open http://localhost:5555 in your browser
+```
 
 ## Commands Reference
 
@@ -268,7 +334,7 @@ To reproduce: `python3 scripts/benchmark_throughput.py --dataset caida_100`
 
 1. **High recall (75-100%):** The system successfully detects all injected attack patterns. With 200+ nodes, recall reaches 100%.
 2. **Low precision (~7-10%):** The route flapping detector generates false positives on legitimate prefixes announced frequently. Tunable via `FLAP_THRESHOLD` in `.env`.
-3. **Consensus scales with expected trade-offs:** Commit rate decreases with network size (86.6% at 100 nodes to 33.0% at 500 nodes) due to BFT consensus contention. Tunable via `CONSENSUS_CAP_SIGNATURES` and `P2P_REGULAR_TIMEOUT`.
+3. **Consensus scales with expected trade-offs:** Commit rate decreases with network size (86.6% at 100 nodes to 33.0% at 500 nodes) due to PoP consensus contention. Tunable via `CONSENSUS_CAP_SIGNATURES` and `P2P_REGULAR_TIMEOUT`.
 4. **Zero message loss:** The in-memory message bus achieves 100% delivery across all experiments.
 5. **Blockchain integrity verified:** SHA-256 hash chains and Merkle roots pass full verification for every block in every run.
 6. **Trust ratings reflect behavior:** Non-RPKI ASes originating attacks see scores drop from 50 (neutral) to suspicious (30-49), while clean ASes maintain neutral or higher.
@@ -310,7 +376,7 @@ BGP-Sentry/
         message_bus.py                # In-memory P2P message bus (replaces TCP)
         rpki_node_registry.py         # Data-driven RPKI node registry from dataset
         stayrtr_client.py             # RPKI route validation via StayRTR VRP
-        p2p_transaction_pool.py       # Per-node tx pool + BFT consensus voting
+        p2p_transaction_pool.py       # Per-node tx pool + PoP consensus voting
         attack_consensus.py           # Majority voting for confirming attacks
         attack_detector.py            # Detects 4 attack types
         blockchain_interface.py       # File-based blockchain: blocks, Merkle roots
@@ -357,12 +423,9 @@ BGP-Sentry/
     dashboard_server.py               # Flask app with JSON API + stat collector
     templates/dashboard.html          # Self-contained HTML dashboard (Chart.js)
 
-  docs/                               # Architecture documentation
-    README.md                         # Documentation index (start here)
-    OPTIMIZATIONS.md                  # 9 performance optimizations for real-time processing
-    THROUGHPUT_ANALYSIS.md            # TPS benchmark, blockchain comparison, bottleneck analysis
-    SYSTEM_ARCHITECTURE.md            # Full system architecture and data flow
-    CONSENSUS_ESCALATION_EXPLAINED.md # Detecting learning attackers via vote escalation
+  docs/                               # Complete technical documentation
+    BGP_Sentry_Detailed_Documentation.md  # Full reference book (14 chapters, clickable TOC)
+    BGP_Sentry_Detailed_Documentation.pdf # PDF version of the above
   stayrtr/                            # StayRTR runtime (gitignored)
   results/                            # Experiment results (gitignored, 15 files per run)
 ```
@@ -375,7 +438,7 @@ All tunable parameters are centralized in the `.env` file at the project root. E
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `CONSENSUS_MIN_SIGNATURES` | 3 | BFT minimum signatures to commit a block |
+| `CONSENSUS_MIN_SIGNATURES` | 3 | PoP minimum signatures to commit a block |
 | `CONSENSUS_CAP_SIGNATURES` | 5 | Upper cap on required signatures (keeps large networks practical) |
 
 Formula: `max(MIN, min(N/3+1, CAP))` where N = RPKI node count.
@@ -479,11 +542,8 @@ Multiplier ranges (applied to base rewards based on node history):
 
 Detailed technical documentation is in the `docs/` directory:
 
-- **[docs/README.md](docs/README.md)** — Documentation index (start here)
-- **[docs/THROUGHPUT_ANALYSIS.md](docs/THROUGHPUT_ANALYSIS.md)** — TPS benchmark results, comparison with Bitcoin/Ethereum/Solana/Hyperledger, bottleneck analysis, and scaling strategies
-- **[docs/OPTIMIZATIONS.md](docs/OPTIMIZATIONS.md)** — All 9 performance optimizations: consensus tuning, async message bus, Ed25519 signatures, early-skip dedup, buffer sampling. Before/after measurements
-- **[docs/SYSTEM_ARCHITECTURE.md](docs/SYSTEM_ARCHITECTURE.md)** — Full system architecture, data flow, class reference, consensus model
-- **[docs/CONSENSUS_ESCALATION_EXPLAINED.md](docs/CONSENSUS_ESCALATION_EXPLAINED.md)** — How the system detects "learning attackers" who improve their attacks over time
+- **[docs/BGP_Sentry_Detailed_Documentation.md](docs/BGP_Sentry_Detailed_Documentation.md)** — Complete technical reference book (14 chapters): architecture, PoP consensus, attack detection, consensus escalation, optimizations, throughput analysis, experimental results, configuration, and more
+- **[docs/BGP_Sentry_Detailed_Documentation.pdf](docs/BGP_Sentry_Detailed_Documentation.pdf)** — PDF version (print-ready)
 
 ## StayRTR Integration
 

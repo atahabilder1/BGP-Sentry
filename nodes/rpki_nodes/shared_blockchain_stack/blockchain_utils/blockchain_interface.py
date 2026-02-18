@@ -176,7 +176,14 @@ class BlockchainInterface:
             return False
     
     def _save_blockchain(self):
-        """Save blockchain data to file with atomic write."""
+        """Save blockchain data to file with atomic write.
+
+        NOTE: Caller must ensure thread-safety.  When called from
+        add_transaction_to_blockchain() the in-memory mutation has
+        already happened under the lock; the file write here does NOT
+        need the lock because it is the only writer for this node's
+        blockchain file (one file per node).
+        """
         # Update in-memory metadata regardless of mode
         self.blockchain_data["metadata"].update({
             "total_blocks": len(self.blockchain_data["blocks"]),
@@ -191,14 +198,13 @@ class BlockchainInterface:
             return  # Skip disk I/O
 
         try:
-            with self.lock:
-                # Atomic write: write to temp file then rename
-                temp_file = self.blockchain_file.with_suffix('.tmp')
-                with open(temp_file, 'w') as f:
-                    json.dump(self.blockchain_data, f, indent=2)
+            # Atomic write: write to temp file then rename
+            temp_file = self.blockchain_file.with_suffix('.tmp')
+            with open(temp_file, 'w') as f:
+                json.dump(self.blockchain_data, f, indent=2)
 
-                # Atomic rename
-                temp_file.replace(self.blockchain_file)
+            # Atomic rename
+            temp_file.replace(self.blockchain_file)
 
         except Exception as e:
             print(f"Error saving blockchain: {e}")
@@ -273,14 +279,19 @@ class BlockchainInterface:
     def add_transaction_to_blockchain(self, transaction: Dict) -> bool:
         """
         Add a transaction to the blockchain by creating a new block.
-        
+
+        The lock is held ONLY for in-memory data-structure updates (fast).
+        File I/O (_save_blockchain, _log_to_bgp_stream, _update_state_mapping)
+        runs OUTSIDE the lock so other nodes are not blocked during disk writes.
+
         Args:
             transaction: Transaction data to add
-            
+
         Returns:
             bool: True if transaction added successfully
         """
         try:
+            # ── CRITICAL SECTION: in-memory updates only (fast, <1 ms) ──
             with self.lock:
                 # Blockchain-level dedup: reject if tx already on chain
                 tx_id = transaction.get("transaction_id")
@@ -305,11 +316,11 @@ class BlockchainInterface:
                         "transaction_count": 1
                     }
                 }
-                
+
                 # Calculate Merkle root and block hash
                 new_block["merkle_root"] = self._calculate_merkle_root(new_block["transactions"])
                 new_block["block_hash"] = self._calculate_block_hash(new_block)
-                
+
                 # Add block to blockchain
                 self.blockchain_data["blocks"].append(new_block)
 
@@ -320,18 +331,19 @@ class BlockchainInterface:
                 if len(self._recent_tx_ids) > self._RECENT_TX_WINDOW * 2:
                     self._rebuild_tx_index()
 
-                # Save blockchain
-                self._save_blockchain()
+            # ── NON-CRITICAL SECTION: file I/O (lock released) ──
+            # Save blockchain
+            self._save_blockchain()
 
-                # Log to BGP stream
-                self._log_to_bgp_stream(transaction)
+            # Log to BGP stream
+            self._log_to_bgp_stream(transaction)
 
-                # Update state folder with IP prefix → ASN mapping
-                self._update_state_mapping(transaction)
+            # Update state folder with IP prefix → ASN mapping
+            self._update_state_mapping(transaction)
 
-                print(f"✅ Transaction added to blockchain: Block {new_block['block_number']}")
-                return True
-                
+            print(f"✅ Transaction added to blockchain: Block {new_block['block_number']}")
+            return True
+
         except Exception as e:
             print(f"Error adding transaction to blockchain: {e}")
             return False
@@ -415,9 +427,18 @@ class BlockchainInterface:
         except Exception as e:
             print(f"Error logging to BGP stream: {e}")
 
+    # ── Batched state mapping ──
+    # Instead of read-modify-write the entire JSON file on every single
+    # transaction, updates are accumulated in an in-memory dict and
+    # flushed to disk periodically (every _STATE_FLUSH_INTERVAL updates).
+    _STATE_FLUSH_INTERVAL = 50  # flush every N updates
+
     def _update_state_mapping(self, transaction: Dict):
         """
         Update state folder with IP prefix -> ASN mapping for fast queries.
+
+        Batched: accumulates updates in self._pending_state_updates and
+        flushes to disk every _STATE_FLUSH_INTERVAL calls.
 
         Args:
             transaction: Transaction containing BGP announcement data
@@ -436,34 +457,48 @@ class BlockchainInterface:
                 sender_asn = bgp_data.get('sender_asn')
 
             if not ip_prefix or not sender_asn:
-                # No IP prefix or ASN data in this transaction
                 return
 
-            # Load current IP-ASN mapping
+            # Accumulate in memory
+            if not hasattr(self, '_pending_state_updates'):
+                self._pending_state_updates = {}
+                self._state_update_count = 0
+
+            self._pending_state_updates[str(ip_prefix)] = int(sender_asn)
+            self._state_update_count += 1
+
+            # Flush to disk every N updates
+            if self._state_update_count >= self._STATE_FLUSH_INTERVAL:
+                self._flush_state_mapping()
+
+        except Exception as e:
+            print(f"Error updating state mapping: {e}")
+
+    def _flush_state_mapping(self):
+        """Flush pending state mapping updates to disk."""
+        if not hasattr(self, '_pending_state_updates') or not self._pending_state_updates:
+            return
+        try:
             mapping = {}
             if self.ip_asn_mapping_file.exists():
                 try:
                     with open(self.ip_asn_mapping_file, 'r') as f:
                         mapping = json.load(f)
                 except json.JSONDecodeError:
-                    # File is corrupted, start fresh
                     mapping = {}
 
-            # Update mapping with new IP prefix → ASN
-            mapping[str(ip_prefix)] = int(sender_asn)
+            mapping.update(self._pending_state_updates)
 
-            # Atomic write to state file
             temp_file = self.ip_asn_mapping_file.with_suffix('.tmp')
             with open(temp_file, 'w') as f:
                 json.dump(mapping, f, indent=2, sort_keys=True)
-
-            # Atomic rename
             temp_file.replace(self.ip_asn_mapping_file)
 
-            print(f"📍 Updated state: {ip_prefix} → AS{sender_asn}")
+            self._pending_state_updates.clear()
+            self._state_update_count = 0
 
         except Exception as e:
-            print(f"Error updating state mapping: {e}")
+            print(f"Error flushing state mapping: {e}")
 
     def query_ip_prefix(self, ip_prefix: str) -> Optional[int]:
         """

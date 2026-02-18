@@ -361,6 +361,11 @@ class P2PTransactionPool:
                 # Set flag to commit (will happen OUTSIDE lock)
                 should_commit = True
 
+                # Signal the consensus event so the timeout poller wakes immediately
+                evt = self.pending_votes[tx_id].get("consensus_event")
+                if evt is not None:
+                    evt.set()
+
                 self.logger.info(f"🎉 CONSENSUS REACHED ({approve_votes}/{self.total_nodes}) - Will write to blockchain!")
 
         # LOCK RELEASED HERE - Other threads can now process votes concurrently!
@@ -399,7 +404,8 @@ class P2PTransactionPool:
             "votes": [],
             "needed": self.consensus_threshold,
             "created_at": datetime.now(),
-            "is_attack": transaction.get("is_attack", False)
+            "is_attack": transaction.get("is_attack", False),
+            "consensus_event": threading.Event(),  # Fires when threshold reached
         }
 
         # Get relevant neighbors from cache (optimized voting)
@@ -429,6 +435,8 @@ class P2PTransactionPool:
             self._send_vote_request_to_node(peer_as, host, port, transaction)
 
         self.logger.debug(f"Broadcast {tx_id} to {len(target_peers)} peers")
+        # Wake the timeout thread so it can schedule for this tx
+        self._new_tx_event.set()
     
     def _send_vote_request_to_node(self, peer_as, host, port, transaction):
         """Send vote request to specific peer node"""
@@ -688,19 +696,20 @@ class P2PTransactionPool:
         except Exception as e:
             self.logger.error(f"Error cleaning last_seen cache: {e}")
 
+    # Shutdown event for clean, interruptible sleep in background threads
+    _shutdown_event = threading.Event()
+
     def _periodic_cleanup_last_seen_cache(self):
         """
         Background thread that periodically cleans last_seen_cache.
-        Runs every hour to remove expired entries and save to disk.
+        Uses interruptible Event.wait() instead of time.sleep() so the
+        thread exits promptly on shutdown.
         """
-        import time
+        self._shutdown_event.wait(timeout=10)  # Wait for server to start
 
-        # Wait for server to start
-        time.sleep(10)
-
-        while self.running:
+        while self.running and not self._shutdown_event.is_set():
             try:
-                time.sleep(3600)  # Clean every hour
+                self._shutdown_event.wait(timeout=3600)  # Interruptible 1-hour sleep
 
                 # Cleanup expired entries
                 self._cleanup_last_seen_cache()
@@ -717,15 +726,13 @@ class P2PTransactionPool:
         committed_transactions and first_commit_tracker to prevent
         unbounded memory growth.
 
-        Runs every COMMITTED_TX_CLEANUP_INTERVAL seconds.
+        Uses interruptible Event.wait() instead of time.sleep().
         """
-        import time
+        self._shutdown_event.wait(timeout=15)  # Wait for server to start
 
-        time.sleep(15)  # Wait for server to start
-
-        while self.running:
+        while self.running and not self._shutdown_event.is_set():
             try:
-                time.sleep(cfg.COMMITTED_TX_CLEANUP_INTERVAL)
+                self._shutdown_event.wait(timeout=cfg.COMMITTED_TX_CLEANUP_INTERVAL)
 
                 current_time = datetime.now().timestamp()
                 cutoff = current_time - cfg.COMMITTED_TX_CLEANUP_INTERVAL
@@ -764,13 +771,18 @@ class P2PTransactionPool:
             except Exception as e:
                 self.logger.error(f"Error in committed-tx cleanup: {e}")
 
+    # Event signaled by broadcast_transaction() to wake the timeout thread
+    # immediately instead of sleeping for a fixed interval.
+    _new_tx_event = threading.Event()
+
     def _cleanup_timed_out_transactions(self):
         """
         Background thread that checks for timed-out pending transactions.
 
-        TIMEOUT RULES:
-        - Regular announcements: 60 seconds timeout
-        - Attack transactions: 180 seconds timeout
+        Uses EVENT-BASED scheduling instead of fixed 0.5 s polling:
+        - Sleeps until the *soonest* pending transaction is due to time out.
+        - Wakes early if a new transaction is submitted (via _new_tx_event).
+        - Zero wasted wakeups when the pending queue is empty.
 
         CONSENSUS STATUS on timeout:
         - 3+ approve votes: CONFIRMED (write normally)
@@ -784,7 +796,30 @@ class P2PTransactionPool:
 
         while self.running:
             try:
-                time.sleep(0.5)  # Check frequently for real-time processing
+                # ── Compute how long to sleep until the soonest timeout ──
+                sleep_secs = 2.0  # Default: check every 2 s if queue non-empty
+                with self.lock:
+                    if self.pending_votes:
+                        now = datetime.now()
+                        soonest = None
+                        for vote_data in self.pending_votes.values():
+                            created_at = vote_data.get("created_at")
+                            if not created_at:
+                                continue
+                            is_attack = vote_data.get("is_attack", False)
+                            timeout_dur = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
+                            remaining = timeout_dur - (now - created_at).total_seconds()
+                            if soonest is None or remaining < soonest:
+                                soonest = remaining
+                        if soonest is not None:
+                            # Wake up right when the first tx is due, +50 ms margin
+                            sleep_secs = max(0.05, soonest + 0.05)
+                    else:
+                        sleep_secs = 5.0  # Nothing pending – long sleep
+
+                # Wait for either the timeout or a new-tx signal
+                self._new_tx_event.wait(timeout=sleep_secs)
+                self._new_tx_event.clear()
 
                 current_time = datetime.now()
                 timed_out_transactions = []
@@ -1323,15 +1358,14 @@ class P2PTransactionPool:
         """
         Background thread that periodically saves knowledge base to disk.
         Provides crash recovery with minimal data loss (≤60 seconds).
+
+        Uses interruptible Event.wait() instead of time.sleep().
         """
-        import time
+        self._shutdown_event.wait(timeout=5)  # Wait for server to start
 
-        # Wait for server to start before saving
-        time.sleep(5)
-
-        while self.running:
+        while self.running and not self._shutdown_event.is_set():
             try:
-                time.sleep(60)  # Save every 60 seconds
+                self._shutdown_event.wait(timeout=60)  # Interruptible 60-second sleep
                 self._save_knowledge_base()
 
             except Exception as e:
@@ -1390,6 +1424,7 @@ class P2PTransactionPool:
     def stop(self):
         """Stop P2P communication and save knowledge base"""
         self.running = False
+        self._shutdown_event.set()  # Wake all sleeping background threads
 
         # Save knowledge base before shutdown
         self.logger.info("Saving knowledge base before shutdown...")

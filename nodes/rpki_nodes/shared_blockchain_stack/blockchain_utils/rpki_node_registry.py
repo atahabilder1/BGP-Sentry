@@ -222,7 +222,7 @@ class RPKINodeRegistry:
         """
         Calculate dynamic consensus threshold.
 
-        BFT minimum is 3 signatures. For large networks we cap at 5 to keep
+        PoP minimum is 3 signatures. For large networks we cap at 5 to keep
         the simulation practical while still demonstrating consensus.
         Formula: max(3, min(N // 3 + 1, 5))
 

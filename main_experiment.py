@@ -382,7 +382,7 @@ class BGPSentryExperiment:
                              bgpcoin_economy, nonrpki_ratings, consensus_log,
                              dedup_stats, bus_stats, attack_verdicts, run_config,
                              crypto_summary=None):
-        """Generate a markdown README summarising this experiment run."""
+        """Generate a comprehensive markdown report for this experiment run."""
         ds = summary.get("dataset", {})
         ns = summary.get("node_summary", {})
         perf = performance or {}
@@ -400,7 +400,6 @@ class BGPSentryExperiment:
         # Rating distribution (from summary.by_level)
         rating_dist = ratings_summary.get("by_level", {})
         if not rating_dist:
-            # Fallback: count from individual ratings
             for asn_str, info in all_ratings.items():
                 category = info.get("rating_level", "unknown")
                 rating_dist[category] = rating_dist.get(category, 0) + 1
@@ -418,19 +417,40 @@ class BGPSentryExperiment:
         total_processed = ns.get("total_observations_processed", 0)
         total_nodes = ds.get("total_ases", 100)
         rpki_count = ds.get("rpki_count", 0)
+        nonrpki_count = ds.get("non_rpki_count", 0)
         network_tps = round(total_processed / elapsed, 1) if elapsed > 0 else 0
         per_node_tps = round(network_tps / max(total_nodes, 1), 3) if network_tps > 0 else 0
 
-        # Read speed multiplier from .env
+        # Read config values
         speed_mult = 1.0
         try:
-            from config import cfg
-            speed_mult = float(cfg.SIMULATION_SPEED_MULTIPLIER)
+            from config import cfg as _cfg
+            speed_mult = float(_cfg.SIMULATION_SPEED_MULTIPLIER)
         except Exception:
-            pass
+            _cfg = None
+
+        # Derived metrics
+        committed = cl.get('total_committed', 0)
+        created = cl.get('total_transactions_created', 1)
+        commit_rate = 100 * committed / max(created, 1)
+        f1 = perf.get('f1_score', 0)
+        precision = perf.get('precision', 0)
+        recall = perf.get('recall', 0)
+        fp = perf.get('false_positives', 0)
+        fn = perf.get('false_negatives', 0)
+        nodes_done = ns.get('nodes_done', 0)
+        total_node_count = ns.get('total_nodes', total_nodes)
+        msg_sent = bus.get('sent', 0)
+        msg_delivered = bus.get('delivered', 0)
+        msg_dropped = bus.get('dropped', 0)
+        delivery_rate = 100 * msg_delivered / max(msg_sent, 1)
 
         lines = []
-        lines.append(f"# BGP-Sentry Experiment Results")
+
+        # ================================================================
+        # HEADER
+        # ================================================================
+        lines.append(f"# BGP-Sentry Experiment Report")
         lines.append(f"")
         lines.append(f"**Dataset:** `{ds.get('dataset_name', 'unknown')}` | "
                       f"**Date:** {summary.get('timestamp', 'N/A')[:19]} | "
@@ -438,20 +458,89 @@ class BGPSentryExperiment:
                       f"**Speed:** {speed_mult}x")
         lines.append(f"")
 
-        # ── Dataset ──
+        # ================================================================
+        # EXECUTIVE SUMMARY (quick verdict)
+        # ================================================================
+        lines.append(f"## Executive Summary")
+        lines.append(f"")
+        # Build quick status indicators
+        integrity_ok = integrity.get('valid', False)
+        all_nodes_done = (nodes_done == total_node_count)
+        zero_drops = (msg_dropped == 0)
+        lines.append(f"| Metric | Result | Status |")
+        lines.append(f"|--------|--------|--------|")
+        lines.append(f"| Detection F1 Score | {f1:.4f} | {'PASS' if f1 >= 0.9 else 'REVIEW' if f1 >= 0.5 else 'LOW'} |")
+        lines.append(f"| Precision | {precision:.4f} | {'PASS' if precision >= 0.9 else 'LOW -- false positives: ' + str(fp)} |")
+        lines.append(f"| Recall | {recall:.4f} | {'PASS' if recall >= 0.9 else 'MISSED ' + str(fn) + ' attacks'} |")
+        lines.append(f"| Network TPS | {network_tps} | {'GOOD' if network_tps >= 4.0 else 'SLOW'} |")
+        lines.append(f"| Consensus Commit Rate | {commit_rate:.1f}% | {'GOOD' if commit_rate >= 80 else 'LOW -- increase timeout or reduce threshold'} |")
+        lines.append(f"| Blockchain Integrity | {'Valid' if integrity_ok else 'INVALID'} | {'PASS' if integrity_ok else 'FAIL'} |")
+        lines.append(f"| Message Delivery | {delivery_rate:.1f}% | {'PASS' if zero_drops else str(msg_dropped) + ' DROPPED'} |")
+        lines.append(f"| Nodes Completed | {nodes_done}/{total_node_count} | {'PASS' if all_nodes_done else 'INCOMPLETE -- increase duration'} |")
+        lines.append(f"")
+
+        # ================================================================
+        # CONFIGURATION USED (critical for reproducibility & tuning)
+        # ================================================================
+        lines.append(f"## Configuration Used")
+        lines.append(f"")
+        lines.append(f"These are the `.env` parameters that were active for this run. "
+                      f"Change these in `.env` and re-run to tune results.")
+        lines.append(f"")
+        if _cfg is not None:
+            lines.append(f"### Consensus & P2P")
+            lines.append(f"")
+            lines.append(f"| Parameter | Value | Description |")
+            lines.append(f"|-----------|-------|-------------|")
+            lines.append(f"| `CONSENSUS_MIN_SIGNATURES` | {_cfg.CONSENSUS_MIN_SIGNATURES} | Min votes to commit a block |")
+            lines.append(f"| `CONSENSUS_CAP_SIGNATURES` | {_cfg.CONSENSUS_CAP_SIGNATURES} | Upper cap on required votes |")
+            lines.append(f"| Effective Threshold | {cfg_data.get('consensus_threshold', 'N/A')} | max(MIN, min(N/3+1, CAP)) |")
+            lines.append(f"| `P2P_REGULAR_TIMEOUT` | {_cfg.P2P_REGULAR_TIMEOUT}s | Timeout for regular consensus |")
+            lines.append(f"| `P2P_ATTACK_TIMEOUT` | {_cfg.P2P_ATTACK_TIMEOUT}s | Timeout for attack consensus |")
+            lines.append(f"| `P2P_MAX_BROADCAST_PEERS` | {_cfg.P2P_MAX_BROADCAST_PEERS} | Peers per vote broadcast |")
+            lines.append(f"")
+            lines.append(f"### Deduplication & Knowledge")
+            lines.append(f"")
+            lines.append(f"| Parameter | Value | Description |")
+            lines.append(f"|-----------|-------|-------------|")
+            lines.append(f"| `RPKI_DEDUP_WINDOW` | {_cfg.RPKI_DEDUP_WINDOW}s | RPKI skip window (attacks bypass) |")
+            lines.append(f"| `NONRPKI_DEDUP_WINDOW` | {_cfg.NONRPKI_DEDUP_WINDOW}s | Non-RPKI skip window (attacks bypass) |")
+            lines.append(f"| `KNOWLEDGE_WINDOW_SECONDS` | {_cfg.KNOWLEDGE_WINDOW_SECONDS}s | How long nodes remember observations |")
+            lines.append(f"")
+            lines.append(f"### Attack Detection")
+            lines.append(f"")
+            lines.append(f"| Parameter | Value | Description |")
+            lines.append(f"|-----------|-------|-------------|")
+            lines.append(f"| `FLAP_WINDOW_SECONDS` | {_cfg.FLAP_WINDOW_SECONDS}s | Sliding window for route flapping |")
+            lines.append(f"| `FLAP_THRESHOLD` | {_cfg.FLAP_THRESHOLD} | State changes to trigger flapping alert |")
+            lines.append(f"| `ATTACK_CONSENSUS_MIN_VOTES` | {_cfg.ATTACK_CONSENSUS_MIN_VOTES} | Min votes for attack verdict |")
+            lines.append(f"")
+            lines.append(f"### Simulation")
+            lines.append(f"")
+            lines.append(f"| Parameter | Value | Description |")
+            lines.append(f"|-----------|-------|-------------|")
+            lines.append(f"| `SIMULATION_SPEED_MULTIPLIER` | {_cfg.SIMULATION_SPEED_MULTIPLIER}x | 1.0 = real-time |")
+            lines.append(f"| `INGESTION_BUFFER_MAX_SIZE` | {_cfg.INGESTION_BUFFER_MAX_SIZE} | Per-node buffer cap |")
+            lines.append(f"")
+
+        # ================================================================
+        # DATASET
+        # ================================================================
         lines.append(f"## Dataset")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
-        lines.append(f"| Total ASes | {ds.get('total_ases', 0)} |")
-        lines.append(f"| RPKI Validators | {ds.get('rpki_count', 0)} |")
-        lines.append(f"| Non-RPKI Observers | {ds.get('non_rpki_count', 0)} |")
+        lines.append(f"| Total ASes | {total_nodes} |")
+        lines.append(f"| RPKI Validators | {rpki_count} |")
+        lines.append(f"| Non-RPKI Observers | {nonrpki_count} |")
         lines.append(f"| Total Observations | {ds.get('total_observations', 0):,} |")
         lines.append(f"| Attack Observations | {ds.get('attack_observations', 0):,} ({100*ds.get('attack_observations',0)/max(ds.get('total_observations',1),1):.1f}%) |")
         lines.append(f"| Legitimate Observations | {ds.get('legitimate_observations', 0):,} |")
         lines.append(f"")
 
-        # ── Throughput ──
+        # ================================================================
+        # THROUGHPUT
+        # ================================================================
         lines.append(f"## Throughput")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
@@ -461,26 +550,32 @@ class BGPSentryExperiment:
         lines.append(f"| Total Observations Processed | {total_processed:,} |")
         lines.append(f"| **Network TPS** | **{network_tps}** |")
         lines.append(f"| Per-Node TPS | {per_node_tps} |")
-        lines.append(f"| RPKI Validators | {rpki_count} |")
+        lines.append(f"| RPKI Validators (consensus participants) | {rpki_count} |")
         lines.append(f"")
         lines.append(f"> **Network TPS** = total observations processed / wall-clock seconds. "
-                      f"This is the standard blockchain throughput metric (same as Bitcoin ~7 TPS, "
-                      f"Ethereum ~15-30 TPS). For comparison, BGP-Sentry achieves up to 36.8 TPS "
-                      f"at 10x speed with 100 nodes.")
+                      f"Standard blockchain metric: Bitcoin ~7, Ethereum ~15-30, BGP-Sentry peak 36.8.")
         lines.append(f"")
 
-        # ── Node Processing ──
+        # ================================================================
+        # NODE PROCESSING
+        # ================================================================
         lines.append(f"## Node Processing")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
-        lines.append(f"| Nodes Completed (within time limit) | {ns.get('nodes_done', 0)} / {ns.get('total_nodes', 0)} |")
+        lines.append(f"| Nodes Completed | {nodes_done} / {total_node_count} |")
         lines.append(f"| Total Observations Processed | {ns.get('total_observations_processed', 0):,} |")
         lines.append(f"| Attacks Detected | {ns.get('attacks_detected', 0):,} |")
         lines.append(f"| Legitimate Processed | {ns.get('legitimate_processed', 0):,} |")
         lines.append(f"")
+        if not all_nodes_done:
+            lines.append(f"> **WARNING:** {total_node_count - nodes_done} nodes did not finish. "
+                          f"Increase `--duration` or reduce `SIMULATION_SPEED_MULTIPLIER`.")
+            lines.append(f"")
 
-        # ── Detection Performance ──
+        # ================================================================
+        # DETECTION PERFORMANCE
+        # ================================================================
         lines.append(f"## Detection Performance (vs Ground Truth)")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
@@ -488,14 +583,25 @@ class BGPSentryExperiment:
         lines.append(f"| Ground Truth Attacks (unique) | {perf.get('ground_truth_attacks', 0)} |")
         lines.append(f"| Total Detections (unique) | {perf.get('total_detections', 0)} |")
         lines.append(f"| True Positives | {perf.get('true_positives', 0)} |")
-        lines.append(f"| False Positives | {perf.get('false_positives', 0)} |")
-        lines.append(f"| False Negatives | {perf.get('false_negatives', 0)} |")
-        lines.append(f"| **Precision** | **{perf.get('precision', 0):.4f}** |")
-        lines.append(f"| **Recall** | **{perf.get('recall', 0):.4f}** |")
-        lines.append(f"| **F1 Score** | **{perf.get('f1_score', 0):.4f}** |")
+        lines.append(f"| False Positives | {fp} |")
+        lines.append(f"| False Negatives | {fn} |")
+        lines.append(f"| **Precision** | **{precision:.4f}** |")
+        lines.append(f"| **Recall** | **{recall:.4f}** |")
+        lines.append(f"| **F1 Score** | **{f1:.4f}** |")
         lines.append(f"")
+        if fp > 0:
+            lines.append(f"> **{fp} false positives detected.** Most are from route flapping. "
+                          f"To reduce: increase `FLAP_THRESHOLD` (currently {_cfg.FLAP_THRESHOLD if _cfg else '?'}) "
+                          f"or increase `FLAP_WINDOW_SECONDS`.")
+            lines.append(f"")
+        if fn > 0:
+            lines.append(f"> **{fn} attacks missed (false negatives).** Check if nodes had enough "
+                          f"time to process all observations. Try increasing `--duration`.")
+            lines.append(f"")
 
-        # ── Blockchain ──
+        # ================================================================
+        # BLOCKCHAIN
+        # ================================================================
         lines.append(f"## Blockchain")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
@@ -504,12 +610,10 @@ class BGPSentryExperiment:
         lines.append(f"| Total Transactions | {bc_info.get('total_transactions', 0):,} |")
         latest = bc_info.get("latest_block", {})
         lines.append(f"| Latest Block # | {latest.get('block_number', 'N/A')} |")
-        lines.append(f"| Integrity Valid | {'Yes' if integrity.get('valid') else 'No'} |")
-        if not integrity.get("valid"):
+        lines.append(f"| Integrity Valid | {'Yes' if integrity_ok else 'No'} |")
+        if not integrity_ok:
             errors = integrity.get("errors", [])
             lines.append(f"| Integrity Errors | {'; '.join(errors[:3])} |")
-
-        # Per-node blockchain replicas
         replicas = bc.get("node_replicas", {})
         if replicas:
             lines.append(f"| Node Replicas | {replicas.get('total_nodes', 0)} |")
@@ -529,21 +633,29 @@ class BGPSentryExperiment:
             lines.append(f"| Total Key Pairs | {crypto.get('total_key_pairs', 0)} |")
             lines.append(f"")
 
-        # ── Consensus ──
-        lines.append(f"## Consensus")
+        # ================================================================
+        # CONSENSUS
+        # ================================================================
+        lines.append(f"## Consensus (Proof of Population)")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
         lines.append(f"| Consensus Threshold | {cfg_data.get('consensus_threshold', 'N/A')} signatures |")
         lines.append(f"| Transactions Created | {cl.get('total_transactions_created', 0):,} |")
-        lines.append(f"| Committed (consensus reached) | {cl.get('total_committed', 0):,} |")
+        lines.append(f"| Committed (consensus reached) | {committed:,} |")
         lines.append(f"| Pending (timed out / not enough votes) | {cl.get('total_pending', 0):,} |")
-        committed = cl.get('total_committed', 0)
-        created = cl.get('total_transactions_created', 1)
-        lines.append(f"| **Commit Rate** | **{100*committed/max(created,1):.1f}%** |")
+        lines.append(f"| **Commit Rate** | **{commit_rate:.1f}%** |")
         lines.append(f"")
+        if commit_rate < 50:
+            lines.append(f"> **Low commit rate ({commit_rate:.1f}%).** Consider: "
+                          f"increase `P2P_REGULAR_TIMEOUT` (currently {_cfg.P2P_REGULAR_TIMEOUT if _cfg else '?'}s), "
+                          f"increase `P2P_MAX_BROADCAST_PEERS` (currently {_cfg.P2P_MAX_BROADCAST_PEERS if _cfg else '?'}), "
+                          f"or lower `CONSENSUS_CAP_SIGNATURES` (currently {_cfg.CONSENSUS_CAP_SIGNATURES if _cfg else '?'}).")
+            lines.append(f"")
 
-        # ── BGPCoin Economy ──
+        # ================================================================
+        # BGPCOIN ECONOMY
+        # ================================================================
         lines.append(f"## BGPCoin Economy")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
@@ -553,18 +665,23 @@ class BGPSentryExperiment:
         lines.append(f"| Total Distributed | {eco.get('total_distributed', 0):,.0f} |")
         lines.append(f"| Circulating Supply | {eco.get('circulating_supply', 0):,.0f} |")
         lines.append(f"| Participating Nodes | {eco.get('nodes_count', 0)} |")
+        distributed = eco.get('total_distributed', 0)
+        supply = eco.get('total_supply', 10_000_000)
+        lines.append(f"| Distribution Rate | {100*distributed/max(supply,1):.2f}% of supply |")
         lines.append(f"")
 
-        # ── Non-RPKI Ratings ──
+        # ================================================================
+        # NON-RPKI TRUST RATINGS
+        # ================================================================
         lines.append(f"## Non-RPKI Trust Ratings")
         lines.append(f"")
         if rating_dist:
             cat_labels = [
-                ("highly_trusted", "Highly Trusted"),
-                ("trusted", "Trusted"),
-                ("neutral", "Neutral"),
-                ("suspicious", "Suspicious"),
-                ("malicious", "Malicious"),
+                ("highly_trusted", "Highly Trusted (90-100)"),
+                ("trusted", "Trusted (70-89)"),
+                ("neutral", "Neutral (50-69)"),
+                ("suspicious", "Suspicious (30-49)"),
+                ("malicious", "Malicious (0-29)"),
             ]
             lines.append(f"| Category | Count |")
             lines.append(f"|----------|-------|")
@@ -573,20 +690,21 @@ class BGPSentryExperiment:
                 if count > 0:
                     lines.append(f"| {label} | {count} |")
             lines.append(f"")
-
-        lines.append(f"| Stat | Value |")
-        lines.append(f"|------|-------|")
         avg = ratings_summary.get('average_score', 'N/A')
         avg_str = f"{avg:.2f}" if isinstance(avg, (int, float)) else str(avg)
         low = ratings_summary.get('lowest_score', ratings_summary.get('min_score', 'N/A'))
         high = ratings_summary.get('highest_score', ratings_summary.get('max_score', 'N/A'))
+        lines.append(f"| Stat | Value |")
+        lines.append(f"|------|-------|")
         lines.append(f"| Total Rated ASes | {ratings_summary.get('total_ases', ratings_summary.get('total_rated', len(all_ratings)))} |")
         lines.append(f"| Average Score | {avg_str} |")
         lines.append(f"| Lowest Score | {low} |")
         lines.append(f"| Highest Score | {high} |")
         lines.append(f"")
 
-        # ── Attack Verdicts ──
+        # ================================================================
+        # ATTACK VERDICTS
+        # ================================================================
         lines.append(f"## Attack Verdicts")
         lines.append(f"")
         if verdict_types:
@@ -595,28 +713,42 @@ class BGPSentryExperiment:
             for atype, count in sorted(verdict_types.items()):
                 lines.append(f"| {atype} | {count} |")
             lines.append(f"")
+        else:
+            lines.append(f"No attack verdicts recorded in this run.")
+            lines.append(f"")
 
-        # ── Deduplication ──
+        # ================================================================
+        # DEDUPLICATION
+        # ================================================================
+        rpki_deduped = dd.get('rpki_deduped', 0)
+        nonrpki_throttled = dd.get('nonrpki_throttled', 0)
+        total_skipped = dd.get('total_skipped', 0)
+        total_obs = ds.get('total_observations', 1)
         lines.append(f"## Deduplication")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
-        lines.append(f"| RPKI Deduped | {dd.get('rpki_deduped', 0):,} |")
-        lines.append(f"| Non-RPKI Throttled | {dd.get('nonrpki_throttled', 0):,} |")
-        lines.append(f"| Total Skipped | {dd.get('total_skipped', 0):,} |")
+        lines.append(f"| RPKI Deduped | {rpki_deduped:,} |")
+        lines.append(f"| Non-RPKI Throttled | {nonrpki_throttled:,} |")
+        lines.append(f"| Total Skipped | {total_skipped:,} ({100*total_skipped/max(total_obs,1):.1f}% of observations) |")
         lines.append(f"")
 
-        # ── P2P Message Bus ──
+        # ================================================================
+        # P2P MESSAGE BUS
+        # ================================================================
         lines.append(f"## P2P Message Bus")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
-        lines.append(f"| Messages Sent | {bus.get('sent', 0):,} |")
-        lines.append(f"| Messages Delivered | {bus.get('delivered', 0):,} |")
-        lines.append(f"| Messages Dropped | {bus.get('dropped', 0):,} |")
+        lines.append(f"| Messages Sent | {msg_sent:,} |")
+        lines.append(f"| Messages Delivered | {msg_delivered:,} |")
+        lines.append(f"| Messages Dropped | {msg_dropped:,} |")
+        lines.append(f"| Delivery Rate | {delivery_rate:.2f}% |")
         lines.append(f"")
 
-        # ── System Info ──
+        # ================================================================
+        # SYSTEM INFO
+        # ================================================================
         if sysinfo:
             lines.append(f"## System Info")
             lines.append(f"")
@@ -628,6 +760,78 @@ class BGPSentryExperiment:
             lines.append(f"| Platform | {sysinfo.get('platform', 'N/A')} |")
             lines.append(f"| Python | {sysinfo.get('python_version', 'N/A')} |")
             lines.append(f"")
+
+        # ================================================================
+        # TUNING RECOMMENDATIONS
+        # ================================================================
+        lines.append(f"## Tuning Recommendations")
+        lines.append(f"")
+        recommendations = []
+        if fp > 5:
+            recommendations.append(
+                f"- **Reduce false positives ({fp})**: Increase `FLAP_THRESHOLD` "
+                f"(currently {_cfg.FLAP_THRESHOLD if _cfg else '?'}). "
+                f"Try 8 or 10 to reduce route flapping false alarms.")
+        if fn > 0:
+            recommendations.append(
+                f"- **Missed {fn} attacks**: Ensure `--duration` is long enough for all "
+                f"nodes to process their observations. Also check `KNOWLEDGE_WINDOW_SECONDS` "
+                f"(currently {_cfg.KNOWLEDGE_WINDOW_SECONDS if _cfg else '?'}s).")
+        if commit_rate < 80:
+            recommendations.append(
+                f"- **Low commit rate ({commit_rate:.1f}%)**: Increase `P2P_REGULAR_TIMEOUT` "
+                f"(currently {_cfg.P2P_REGULAR_TIMEOUT if _cfg else '?'}s) to give voters more "
+                f"time, or increase `P2P_MAX_BROADCAST_PEERS` "
+                f"(currently {_cfg.P2P_MAX_BROADCAST_PEERS if _cfg else '?'}) to query more voters.")
+        if not all_nodes_done:
+            recommendations.append(
+                f"- **{total_node_count - nodes_done} nodes incomplete**: Increase "
+                f"`--duration` or reduce `SIMULATION_SPEED_MULTIPLIER` "
+                f"(currently {speed_mult}x).")
+        if network_tps < 4.0 and speed_mult >= 1.0:
+            recommendations.append(
+                f"- **Low TPS ({network_tps})**: System may be overloaded. "
+                f"Reduce `SIMULATION_SPEED_MULTIPLIER` or check CPU load.")
+        if not integrity_ok:
+            recommendations.append(
+                f"- **Blockchain integrity FAILED**: This is a critical error. "
+                f"Check `blockchain_stats.json` for details.")
+        if msg_dropped > 0:
+            recommendations.append(
+                f"- **{msg_dropped} messages dropped**: P2P bus may be overloaded. "
+                f"Reduce speed or check thread pool size.")
+        if not recommendations:
+            recommendations.append(
+                f"- All metrics look good. No changes needed for this configuration.")
+            if speed_mult < 10:
+                recommendations.append(
+                    f"- **Try increasing speed**: Set `SIMULATION_SPEED_MULTIPLIER={speed_mult + 1.0}` "
+                    f"to test higher throughput.")
+        for r in recommendations:
+            lines.append(r)
+        lines.append(f"")
+
+        # ================================================================
+        # OUTPUT FILES REFERENCE
+        # ================================================================
+        lines.append(f"## Output Files in This Folder")
+        lines.append(f"")
+        lines.append(f"| File | What to Look For |")
+        lines.append(f"|------|-----------------|")
+        lines.append(f"| `README.md` | This report -- start here |")
+        lines.append(f"| `summary.json` | Overall run summary (dataset, nodes, timing) |")
+        lines.append(f"| `performance_metrics.json` | Precision, recall, F1 -- compare across runs |")
+        lines.append(f"| `detection_results.json` | Every detection decision by every node |")
+        lines.append(f"| `blockchain_stats.json` | Block count, integrity check, per-node replicas |")
+        lines.append(f"| `consensus_log.json` | Committed vs pending -- shows consensus health |")
+        lines.append(f"| `attack_verdicts.json` | Which attacks were confirmed/rejected by vote |")
+        lines.append(f"| `bgpcoin_economy.json` | Token distribution -- who earned what |")
+        lines.append(f"| `nonrpki_ratings.json` | Per-AS trust scores -- identify bad actors |")
+        lines.append(f"| `dedup_stats.json` | How many observations were skipped (efficiency) |")
+        lines.append(f"| `message_bus_stats.json` | P2P health -- any dropped messages? |")
+        lines.append(f"| `run_config.json` | Full config + hardware info for reproducibility |")
+        lines.append(f"| `crypto_summary.json` | Key algorithm and signature scheme used |")
+        lines.append(f"")
 
         lines.append(f"---")
         lines.append(f"*Generated by BGP-Sentry main_experiment.py*")
