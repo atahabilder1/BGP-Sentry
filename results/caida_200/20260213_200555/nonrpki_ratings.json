@@ -1,0 +1,1350 @@
+{
+  "summary": {
+    "total_ases": 57,
+    "by_level": {
+      "highly_trusted": 0,
+      "trusted": 0,
+      "neutral": 6,
+      "suspicious": 49,
+      "malicious": 2
+    },
+    "total_attacks": 53,
+    "average_score": 39.473684210526315,
+    "min_score": 0,
+    "max_score": 50
+  },
+  "ratings": {
+    "2484": {
+      "as_number": 2484,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:05:55.422003",
+      "last_updated": "2026-02-13T20:05:55.422006",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "11300": {
+      "as_number": 11300,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:08.870414",
+      "created_at": "2026-02-13T20:05:55.422491",
+      "last_updated": "2026-02-13T20:06:08.870416",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:08.870424",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7642": {
+      "as_number": 7642,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:05:55.519647",
+      "last_updated": "2026-02-13T20:05:55.519650",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "1610": {
+      "as_number": 1610,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:05:55.537038",
+      "last_updated": "2026-02-13T20:05:55.537042",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "6140": {
+      "as_number": 6140,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:05:55.618221",
+      "last_updated": "2026-02-13T20:05:55.618228",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "8330": {
+      "as_number": 8330,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:05:56.099305",
+      "last_updated": "2026-02-13T20:05:56.099316",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "11399": {
+      "as_number": 11399,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:05.699322",
+      "created_at": "2026-02-13T20:05:56.204445",
+      "last_updated": "2026-02-13T20:06:05.699324",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:05.699326",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4538": {
+      "as_number": 4538,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:06.484194",
+      "created_at": "2026-02-13T20:05:56.487478",
+      "last_updated": "2026-02-13T20:06:06.484196",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:06.484199",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "8657": {
+      "as_number": 8657,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:05.704472",
+      "created_at": "2026-02-13T20:05:56.778144",
+      "last_updated": "2026-02-13T20:06:05.704472",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:05.704474",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "9083": {
+      "as_number": 9083,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:05.837810",
+      "created_at": "2026-02-13T20:05:57.020381",
+      "last_updated": "2026-02-13T20:06:05.837811",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:05.837813",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "8059": {
+      "as_number": 8059,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:05.948807",
+      "created_at": "2026-02-13T20:05:57.388629",
+      "last_updated": "2026-02-13T20:06:05.948811",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:05.948818",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "3770": {
+      "as_number": 3770,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:05.767921",
+      "created_at": "2026-02-13T20:05:57.565717",
+      "last_updated": "2026-02-13T20:06:05.767922",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:05.767924",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "9119": {
+      "as_number": 9119,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:09.864366",
+      "created_at": "2026-02-13T20:05:57.799911",
+      "last_updated": "2026-02-13T20:06:09.864368",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:09.864371",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7595": {
+      "as_number": 7595,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:06.467600",
+      "created_at": "2026-02-13T20:05:58.172057",
+      "last_updated": "2026-02-13T20:06:06.467608",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:06.467612",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "9241": {
+      "as_number": 9241,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:06.752439",
+      "created_at": "2026-02-13T20:05:58.565450",
+      "last_updated": "2026-02-13T20:06:06.752442",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:06.752446",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7941": {
+      "as_number": 7941,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:07.036105",
+      "created_at": "2026-02-13T20:05:58.745393",
+      "last_updated": "2026-02-13T20:06:07.036107",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:07.036110",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4965": {
+      "as_number": 4965,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:07.435494",
+      "created_at": "2026-02-13T20:05:59.071927",
+      "last_updated": "2026-02-13T20:06:07.435498",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:07.435503",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "6653": {
+      "as_number": 6653,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:06.087974",
+      "created_at": "2026-02-13T20:05:59.358850",
+      "last_updated": "2026-02-13T20:06:06.087975",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:06.087977",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11525": {
+      "as_number": 11525,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:07.914862",
+      "created_at": "2026-02-13T20:05:59.647699",
+      "last_updated": "2026-02-13T20:06:07.914866",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:07.914871",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "1640": {
+      "as_number": 1640,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:10.576157",
+      "created_at": "2026-02-13T20:05:59.923355",
+      "last_updated": "2026-02-13T20:06:10.576161",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.576166",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7001": {
+      "as_number": 7001,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:10.610883",
+      "created_at": "2026-02-13T20:06:00.105752",
+      "last_updated": "2026-02-13T20:06:10.610887",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.610894",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7106": {
+      "as_number": 7106,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:08.484474",
+      "created_at": "2026-02-13T20:06:00.356229",
+      "last_updated": "2026-02-13T20:06:08.484475",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:08.484476",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "5723": {
+      "as_number": 5723,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:08.534794",
+      "created_at": "2026-02-13T20:06:00.451601",
+      "last_updated": "2026-02-13T20:06:08.534795",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:08.534798",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10971": {
+      "as_number": 10971,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:09.336998",
+      "created_at": "2026-02-13T20:06:01.255908",
+      "last_updated": "2026-02-13T20:06:09.337001",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:09.337006",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11492": {
+      "as_number": 11492,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:09.945024",
+      "created_at": "2026-02-13T20:06:01.534347",
+      "last_updated": "2026-02-13T20:06:09.945027",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:09.945032",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7034": {
+      "as_number": 7034,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:10.273668",
+      "created_at": "2026-02-13T20:06:01.778354",
+      "last_updated": "2026-02-13T20:06:10.273671",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.273676",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "1261": {
+      "as_number": 1261,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:10.209188",
+      "created_at": "2026-02-13T20:06:02.059037",
+      "last_updated": "2026-02-13T20:06:10.209190",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.209193",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4213": {
+      "as_number": 4213,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:12.627839",
+      "created_at": "2026-02-13T20:06:02.170793",
+      "last_updated": "2026-02-13T20:06:12.627842",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:12.627847",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "3700": {
+      "as_number": 3700,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:10.697777",
+      "created_at": "2026-02-13T20:06:02.588830",
+      "last_updated": "2026-02-13T20:06:10.697778",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.697780",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "6360": {
+      "as_number": 6360,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:13.314285",
+      "created_at": "2026-02-13T20:06:03.013489",
+      "last_updated": "2026-02-13T20:06:13.314290",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:13.314297",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "5078": {
+      "as_number": 5078,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:13.469759",
+      "created_at": "2026-02-13T20:06:03.150582",
+      "last_updated": "2026-02-13T20:06:13.469762",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:13.469767",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4764": {
+      "as_number": 4764,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:13.687300",
+      "created_at": "2026-02-13T20:06:03.378605",
+      "last_updated": "2026-02-13T20:06:13.687302",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:13.687305",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "5760": {
+      "as_number": 5760,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:13.961091",
+      "created_at": "2026-02-13T20:06:03.683358",
+      "last_updated": "2026-02-13T20:06:13.961094",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:13.961100",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10990": {
+      "as_number": 10990,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:16.213024",
+      "created_at": "2026-02-13T20:06:04.037094",
+      "last_updated": "2026-02-13T20:06:16.213026",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:16.213030",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10352": {
+      "as_number": 10352,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:14.836399",
+      "created_at": "2026-02-13T20:06:04.329142",
+      "last_updated": "2026-02-13T20:06:14.836401",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:14.836403",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7775": {
+      "as_number": 7775,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:17.844381",
+      "created_at": "2026-02-13T20:06:04.558163",
+      "last_updated": "2026-02-13T20:06:17.844384",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:17.844390",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4581": {
+      "as_number": 4581,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:15.738058",
+      "created_at": "2026-02-13T20:06:05.014593",
+      "last_updated": "2026-02-13T20:06:15.738059",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:15.738062",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11203": {
+      "as_number": 11203,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:16.318130",
+      "created_at": "2026-02-13T20:06:05.198898",
+      "last_updated": "2026-02-13T20:06:16.318133",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:16.318136",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4474": {
+      "as_number": 4474,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:20.315014",
+      "created_at": "2026-02-13T20:06:05.684854",
+      "last_updated": "2026-02-13T20:06:20.315015",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:20.315018",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4224": {
+      "as_number": 4224,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:21.146167",
+      "created_at": "2026-02-13T20:06:06.419747",
+      "last_updated": "2026-02-13T20:06:21.146170",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:21.146174",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "293": {
+      "as_number": 293,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:22.098052",
+      "created_at": "2026-02-13T20:06:06.657847",
+      "last_updated": "2026-02-13T20:06:22.098054",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:22.098056",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11170": {
+      "as_number": 11170,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:21.357505",
+      "created_at": "2026-02-13T20:06:06.781716",
+      "last_updated": "2026-02-13T20:06:21.357507",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:21.357532",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7753": {
+      "as_number": 7753,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:13.474062",
+      "created_at": "2026-02-13T20:06:07.368742",
+      "last_updated": "2026-02-13T20:06:13.474065",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:13.474071",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "8158": {
+      "as_number": 8158,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:23.847167",
+      "created_at": "2026-02-13T20:06:07.548039",
+      "last_updated": "2026-02-13T20:06:23.847170",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:23.847176",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10745": {
+      "as_number": 10745,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:24.213531",
+      "created_at": "2026-02-13T20:06:07.842253",
+      "last_updated": "2026-02-13T20:06:24.213534",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:24.213540",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11475": {
+      "as_number": 11475,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:27.236074",
+      "created_at": "2026-02-13T20:06:08.263176",
+      "last_updated": "2026-02-13T20:06:27.236076",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:27.236079",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10947": {
+      "as_number": 10947,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:23.109721",
+      "created_at": "2026-02-13T20:06:08.458631",
+      "last_updated": "2026-02-13T20:06:23.109722",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:23.109724",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4809": {
+      "as_number": 4809,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:23.911089",
+      "created_at": "2026-02-13T20:06:08.663775",
+      "last_updated": "2026-02-13T20:06:23.911092",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:23.911097",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "7604": {
+      "as_number": 7604,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:17.131882",
+      "created_at": "2026-02-13T20:06:08.819504",
+      "last_updated": "2026-02-13T20:06:17.131883",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:17.131885",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "557": {
+      "as_number": 557,
+      "trust_score": 50,
+      "initial_score": 50,
+      "attacks_detected": 0,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": null,
+      "created_at": "2026-02-13T20:06:09.197858",
+      "last_updated": "2026-02-13T20:06:09.197864",
+      "rating_level": "neutral",
+      "history": []
+    },
+    "2044": {
+      "as_number": 2044,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:24.066076",
+      "created_at": "2026-02-13T20:06:09.631798",
+      "last_updated": "2026-02-13T20:06:24.066077",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:24.066080",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "4651": {
+      "as_number": 4651,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T20:06:18.577064",
+      "created_at": "2026-02-13T20:06:09.909965",
+      "last_updated": "2026-02-13T20:06:18.577065",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:09.912591",
+          "event": "SUBPREFIX_HIJACK",
+          "score_change": -18,
+          "new_score": 32,
+          "details": {
+            "label": "SUBPREFIX_HIJACK",
+            "prefix": "1.2.3.0/24"
+          }
+        },
+        {
+          "date": "2026-02-13T20:06:18.577067",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "SUBPREFIX_HIJACK",
+            "prefix": "1.2.3.0/24"
+          }
+        }
+      ]
+    },
+    "4658": {
+      "as_number": 4658,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:18.815933",
+      "created_at": "2026-02-13T20:06:10.190630",
+      "last_updated": "2026-02-13T20:06:18.815933",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:18.815935",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10980": {
+      "as_number": 10980,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T20:06:23.934456",
+      "created_at": "2026-02-13T20:06:10.562079",
+      "last_updated": "2026-02-13T20:06:23.934462",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:10.565635",
+          "event": "BOGON_INJECTION",
+          "score_change": -25,
+          "new_score": 25,
+          "details": {
+            "label": "BOGON_INJECTION",
+            "prefix": "10.0.0.0/8"
+          }
+        },
+        {
+          "date": "2026-02-13T20:06:23.934469",
+          "event": "BOGON_INJECTION",
+          "score_change": -55,
+          "new_score": 0,
+          "details": {
+            "attack_type": "BOGON_INJECTION",
+            "severity": "CRITICAL",
+            "attacker_as": 10980,
+            "bogon_prefix": "10.0.0.0/8",
+            "matching_bogon_range": "10.0.0.0/8",
+            "evidence": {
+              "announced_prefix": "10.0.0.0/8",
+              "bogon_range": "10.0.0.0/8",
+              "announcing_as": 10980
+            },
+            "description": "AS10980 announces bogon prefix 10.0.0.0/8 (falls within 10.0.0.0/8)",
+            "detected_at": "2026-02-13T20:06:23.496293"
+          }
+        }
+      ]
+    },
+    "6379": {
+      "as_number": 6379,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T20:06:19.274845",
+      "created_at": "2026-02-13T20:06:10.827899",
+      "last_updated": "2026-02-13T20:06:19.274847",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:19.274853",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10423": {
+      "as_number": 10423,
+      "trust_score": 30,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T20:06:11.974813",
+      "created_at": "2026-02-13T20:06:11.969715",
+      "last_updated": "2026-02-13T20:06:11.974816",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:11.974818",
+          "event": "PREFIX_HIJACK",
+          "score_change": -20,
+          "new_score": 30,
+          "details": {
+            "label": "PREFIX_HIJACK",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "10946": {
+      "as_number": 10946,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T20:06:14.251007",
+      "created_at": "2026-02-13T20:06:14.247727",
+      "last_updated": "2026-02-13T20:06:14.251017",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T20:06:14.251022",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "ROUTE_FLAPPING",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1376 @@
+{
+  "summary": {
+    "total_ases": 36,
+    "by_level": {
+      "highly_trusted": 0,
+      "trusted": 0,
+      "neutral": 0,
+      "suspicious": 27,
+      "malicious": 9
+    },
+    "total_attacks": 45,
+    "average_score": 30.0
+  },
+  "ratings": {
+    "14205": {
+      "as_number": 14205,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T17:13:57.467884",
+      "created_at": "2026-02-13T17:13:56.101767",
+      "last_updated": "2026-02-13T17:13:57.467886",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:13:56.234028",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        },
+        {
+          "date": "2026-02-13T17:13:57.467888",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 14205,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 524,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 14205,
+              "announcements_in_window": 524,
+              "threshold": 3
+            },
+            "description": "AS14205 flapping prefix 1.2.0.0/16 (524 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:13:57.445732"
+          }
+        }
+      ]
+    },
+    "293": {
+      "as_number": 293,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T17:13:56.576005",
+      "created_at": "2026-02-13T17:13:56.566982",
+      "last_updated": "2026-02-13T17:13:56.576013",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:13:56.576019",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "19242": {
+      "as_number": 19242,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 1,
+      "last_attack_date": "2026-02-13T17:14:07.579580",
+      "created_at": "2026-02-13T17:13:59.780909",
+      "last_updated": "2026-02-13T17:14:07.579582",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:13:59.792148",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 19242,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 88,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 19242,
+              "announcements_in_window": 88,
+              "threshold": 3
+            },
+            "description": "AS19242 flapping prefix 1.2.0.0/16 (88 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:13:59.700327"
+          }
+        },
+        {
+          "date": "2026-02-13T17:14:07.579584",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "18351": {
+      "as_number": 18351,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:25.550057",
+      "created_at": "2026-02-13T17:14:28.807981",
+      "last_updated": "2026-02-13T17:16:25.550059",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:14:28.810320",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 18351,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 66,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 18351,
+              "announcements_in_window": 66,
+              "threshold": 3
+            },
+            "description": "AS18351 flapping prefix 1.2.0.0/16 (66 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:14:28.805054"
+          }
+        },
+        {
+          "date": "2026-02-13T17:16:25.550062",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "77": {
+      "as_number": 77,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:14:29.010552",
+      "created_at": "2026-02-13T17:14:29.008209",
+      "last_updated": "2026-02-13T17:14:29.010554",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:14:29.010555",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "11468": {
+      "as_number": 11468,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:14:51.604443",
+      "created_at": "2026-02-13T17:14:29.625156",
+      "last_updated": "2026-02-13T17:14:51.604445",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:14:29.628622",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 11468,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 84,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 11468,
+              "announcements_in_window": 84,
+              "threshold": 3
+            },
+            "description": "AS11468 flapping prefix 1.2.0.0/16 (84 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:14:29.622798"
+          }
+        },
+        {
+          "date": "2026-02-13T17:14:51.604447",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "9208": {
+      "as_number": 9208,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:14.782805",
+      "created_at": "2026-02-13T17:14:36.582684",
+      "last_updated": "2026-02-13T17:17:14.782807",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:14:36.585838",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 9208,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 63,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 9208,
+              "announcements_in_window": 63,
+              "threshold": 3
+            },
+            "description": "AS9208 flapping prefix 1.2.0.0/16 (63 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:14:36.579790"
+          }
+        },
+        {
+          "date": "2026-02-13T17:17:14.782808",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "15994": {
+      "as_number": 15994,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:15:08.933506",
+      "created_at": "2026-02-13T17:15:08.931434",
+      "last_updated": "2026-02-13T17:15:08.933518",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:15:08.933521",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15994,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 4,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15994,
+              "announcements_in_window": 4,
+              "threshold": 3
+            },
+            "description": "AS15994 flapping prefix 1.2.0.0/16 (4 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:15:08.927005"
+          }
+        }
+      ]
+    },
+    "12931": {
+      "as_number": 12931,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:18:15.493048",
+      "created_at": "2026-02-13T17:15:10.640870",
+      "last_updated": "2026-02-13T17:18:15.493049",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:15:10.646332",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 12931,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 4,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 12931,
+              "announcements_in_window": 4,
+              "threshold": 3
+            },
+            "description": "AS12931 flapping prefix 1.2.0.0/16 (4 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:15:10.635483"
+          }
+        },
+        {
+          "date": "2026-02-13T17:18:15.493051",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "21233": {
+      "as_number": 21233,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:19:23.389262",
+      "created_at": "2026-02-13T17:15:11.574592",
+      "last_updated": "2026-02-13T17:19:23.389263",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:15:11.578023",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 21233,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 4,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 21233,
+              "announcements_in_window": 4,
+              "threshold": 3
+            },
+            "description": "AS21233 flapping prefix 1.2.0.0/16 (4 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:15:11.571845"
+          }
+        },
+        {
+          "date": "2026-02-13T17:19:23.389265",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "15096": {
+      "as_number": 15096,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:15:36.444584",
+      "created_at": "2026-02-13T17:15:20.677155",
+      "last_updated": "2026-02-13T17:15:36.444586",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:15:20.680531",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        },
+        {
+          "date": "2026-02-13T17:15:36.444588",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15096,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 78,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15096,
+              "announcements_in_window": 78,
+              "threshold": 3
+            },
+            "description": "AS15096 flapping prefix 1.2.0.0/16 (78 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:15:36.442631"
+          }
+        }
+      ]
+    },
+    "14106": {
+      "as_number": 14106,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:15:46.636663",
+      "created_at": "2026-02-13T17:15:46.635710",
+      "last_updated": "2026-02-13T17:15:46.636665",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:15:46.636666",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "label": "LEGITIMATE",
+            "prefix": "1.2.0.0/16"
+          }
+        }
+      ]
+    },
+    "18865": {
+      "as_number": 18865,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:03.961188",
+      "created_at": "2026-02-13T17:16:03.959832",
+      "last_updated": "2026-02-13T17:16:03.961191",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:03.961193",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 18865,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 25,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 18865,
+              "announcements_in_window": 25,
+              "threshold": 3
+            },
+            "description": "AS18865 flapping prefix 1.2.0.0/16 (25 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:03.958486"
+          }
+        }
+      ]
+    },
+    "16559": {
+      "as_number": 16559,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:09.398573",
+      "created_at": "2026-02-13T17:16:09.397437",
+      "last_updated": "2026-02-13T17:16:09.398576",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:09.398577",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 16559,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 13,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 16559,
+              "announcements_in_window": 13,
+              "threshold": 3
+            },
+            "description": "AS16559 flapping prefix 1.2.0.0/16 (13 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:09.396371"
+          }
+        }
+      ]
+    },
+    "16298": {
+      "as_number": 16298,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:14.923876",
+      "created_at": "2026-02-13T17:16:14.922619",
+      "last_updated": "2026-02-13T17:16:14.923878",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:14.923879",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 16298,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 28,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 16298,
+              "announcements_in_window": 28,
+              "threshold": 3
+            },
+            "description": "AS16298 flapping prefix 1.2.0.0/16 (28 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:14.921743"
+          }
+        }
+      ]
+    },
+    "15092": {
+      "as_number": 15092,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:15.071928",
+      "created_at": "2026-02-13T17:16:15.070199",
+      "last_updated": "2026-02-13T17:16:15.071929",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:15.071931",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15092,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 23,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15092,
+              "announcements_in_window": 23,
+              "threshold": 3
+            },
+            "description": "AS15092 flapping prefix 1.2.0.0/16 (23 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:15.068830"
+          }
+        }
+      ]
+    },
+    "14633": {
+      "as_number": 14633,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:19.328495",
+      "created_at": "2026-02-13T17:16:19.326878",
+      "last_updated": "2026-02-13T17:16:19.328497",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:19.328498",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 14633,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 22,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 14633,
+              "announcements_in_window": 22,
+              "threshold": 3
+            },
+            "description": "AS14633 flapping prefix 1.2.0.0/16 (22 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:19.325728"
+          }
+        }
+      ]
+    },
+    "549": {
+      "as_number": 549,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:19.832089",
+      "created_at": "2026-02-13T17:16:19.830862",
+      "last_updated": "2026-02-13T17:16:19.832091",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:19.832092",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 549,
+            "flapping_prefix": "1.2.3.0/24",
+            "flap_count": 15,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.3.0/24",
+              "origin_asn": 549,
+              "announcements_in_window": 15,
+              "threshold": 3
+            },
+            "description": "AS549 flapping prefix 1.2.3.0/24 (15 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:19.829699"
+          }
+        }
+      ]
+    },
+    "3855": {
+      "as_number": 3855,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:21.393094",
+      "created_at": "2026-02-13T17:16:21.391739",
+      "last_updated": "2026-02-13T17:16:21.393096",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:21.393097",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 3855,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 33,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 3855,
+              "announcements_in_window": 33,
+              "threshold": 3
+            },
+            "description": "AS3855 flapping prefix 1.2.0.0/16 (33 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:21.390744"
+          }
+        }
+      ]
+    },
+    "2698": {
+      "as_number": 2698,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:23.372241",
+      "created_at": "2026-02-13T17:16:23.370671",
+      "last_updated": "2026-02-13T17:16:23.372243",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:23.372244",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 2698,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 32,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 2698,
+              "announcements_in_window": 32,
+              "threshold": 3
+            },
+            "description": "AS2698 flapping prefix 1.2.0.0/16 (32 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:23.369693"
+          }
+        }
+      ]
+    },
+    "4531": {
+      "as_number": 4531,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:23.997192",
+      "created_at": "2026-02-13T17:16:23.995924",
+      "last_updated": "2026-02-13T17:16:23.997194",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:23.997195",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 4531,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 30,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 4531,
+              "announcements_in_window": 30,
+              "threshold": 3
+            },
+            "description": "AS4531 flapping prefix 1.2.0.0/16 (30 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:23.995108"
+          }
+        }
+      ]
+    },
+    "15738": {
+      "as_number": 15738,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:24.366342",
+      "created_at": "2026-02-13T17:16:24.364882",
+      "last_updated": "2026-02-13T17:16:24.366344",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:24.366345",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15738,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 33,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15738,
+              "announcements_in_window": 33,
+              "threshold": 3
+            },
+            "description": "AS15738 flapping prefix 1.2.0.0/16 (33 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:24.363715"
+          }
+        }
+      ]
+    },
+    "8902": {
+      "as_number": 8902,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:48.605699",
+      "created_at": "2026-02-13T17:16:48.603280",
+      "last_updated": "2026-02-13T17:16:48.605701",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:48.605702",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 8902,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 13,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 8902,
+              "announcements_in_window": 13,
+              "threshold": 3
+            },
+            "description": "AS8902 flapping prefix 1.2.0.0/16 (13 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:48.602435"
+          }
+        }
+      ]
+    },
+    "19054": {
+      "as_number": 19054,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:16:54.998188",
+      "created_at": "2026-02-13T17:16:54.996655",
+      "last_updated": "2026-02-13T17:16:54.998191",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:16:54.998193",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 19054,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 12,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 19054,
+              "announcements_in_window": 12,
+              "threshold": 3
+            },
+            "description": "AS19054 flapping prefix 1.2.0.0/16 (12 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:16:54.995890"
+          }
+        }
+      ]
+    },
+    "19984": {
+      "as_number": 19984,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:04.168231",
+      "created_at": "2026-02-13T17:17:04.166470",
+      "last_updated": "2026-02-13T17:17:04.168232",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:04.168233",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 19984,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 11,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 19984,
+              "announcements_in_window": 11,
+              "threshold": 3
+            },
+            "description": "AS19984 flapping prefix 1.2.0.0/16 (11 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:04.165432"
+          }
+        }
+      ]
+    },
+    "15456": {
+      "as_number": 15456,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:04.538007",
+      "created_at": "2026-02-13T17:17:04.536010",
+      "last_updated": "2026-02-13T17:17:04.538010",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:04.538011",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15456,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 15,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15456,
+              "announcements_in_window": 15,
+              "threshold": 3
+            },
+            "description": "AS15456 flapping prefix 1.2.0.0/16 (15 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:04.534679"
+          }
+        }
+      ]
+    },
+    "12748": {
+      "as_number": 12748,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:06.683122",
+      "created_at": "2026-02-13T17:17:06.681058",
+      "last_updated": "2026-02-13T17:17:06.683124",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:06.683126",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 12748,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 5,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 12748,
+              "announcements_in_window": 5,
+              "threshold": 3
+            },
+            "description": "AS12748 flapping prefix 1.2.0.0/16 (5 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:06.679928"
+          }
+        }
+      ]
+    },
+    "16679": {
+      "as_number": 16679,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:06.906141",
+      "created_at": "2026-02-13T17:17:06.904147",
+      "last_updated": "2026-02-13T17:17:06.906143",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:06.906144",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 16679,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 26,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 16679,
+              "announcements_in_window": 26,
+              "threshold": 3
+            },
+            "description": "AS16679 flapping prefix 1.2.0.0/16 (26 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:06.902898"
+          }
+        }
+      ]
+    },
+    "15267": {
+      "as_number": 15267,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:10.370732",
+      "created_at": "2026-02-13T17:17:10.368773",
+      "last_updated": "2026-02-13T17:17:10.370736",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:10.370738",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 15267,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 9,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 15267,
+              "announcements_in_window": 9,
+              "threshold": 3
+            },
+            "description": "AS15267 flapping prefix 1.2.0.0/16 (9 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:10.367764"
+          }
+        }
+      ]
+    },
+    "12727": {
+      "as_number": 12727,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:12.181199",
+      "created_at": "2026-02-13T17:17:12.179280",
+      "last_updated": "2026-02-13T17:17:12.181201",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:12.181202",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 12727,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 13,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 12727,
+              "announcements_in_window": 13,
+              "threshold": 3
+            },
+            "description": "AS12727 flapping prefix 1.2.0.0/16 (13 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:12.178154"
+          }
+        }
+      ]
+    },
+    "21260": {
+      "as_number": 21260,
+      "trust_score": 0,
+      "initial_score": 50,
+      "attacks_detected": 2,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:12.558503",
+      "created_at": "2026-02-13T17:17:12.468952",
+      "last_updated": "2026-02-13T17:17:12.558505",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:12.471188",
+          "event": "BOGON_INJECTION",
+          "score_change": -25,
+          "new_score": 25,
+          "details": {
+            "attack_type": "BOGON_INJECTION",
+            "severity": "CRITICAL",
+            "attacker_as": 21260,
+            "bogon_prefix": "10.0.0.0/8",
+            "matching_bogon_range": "10.0.0.0/8",
+            "evidence": {
+              "announced_prefix": "10.0.0.0/8",
+              "bogon_range": "10.0.0.0/8",
+              "announcing_as": 21260
+            },
+            "description": "AS21260 announces bogon prefix 10.0.0.0/8 (falls within 10.0.0.0/8)",
+            "detected_at": "2026-02-13T17:17:12.467962"
+          }
+        },
+        {
+          "date": "2026-02-13T17:17:12.558506",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -40,
+          "new_score": 0,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 21260,
+            "flapping_prefix": "10.0.0.0/8",
+            "flap_count": 6,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "10.0.0.0/8",
+              "origin_asn": 21260,
+              "announcements_in_window": 6,
+              "threshold": 3
+            },
+            "description": "AS21260 flapping prefix 10.0.0.0/8 (6 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:12.467977"
+          }
+        }
+      ]
+    },
+    "10946": {
+      "as_number": 10946,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:12.702490",
+      "created_at": "2026-02-13T17:17:12.700325",
+      "last_updated": "2026-02-13T17:17:12.702493",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:12.702495",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 10946,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 16,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 10946,
+              "announcements_in_window": 16,
+              "threshold": 3
+            },
+            "description": "AS10946 flapping prefix 1.2.0.0/16 (16 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:12.699411"
+          }
+        }
+      ]
+    },
+    "4594": {
+      "as_number": 4594,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:12.861551",
+      "created_at": "2026-02-13T17:17:12.859189",
+      "last_updated": "2026-02-13T17:17:12.861553",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:12.861554",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 4594,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 6,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 4594,
+              "announcements_in_window": 6,
+              "threshold": 3
+            },
+            "description": "AS4594 flapping prefix 1.2.0.0/16 (6 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:12.857886"
+          }
+        }
+      ]
+    },
+    "1351": {
+      "as_number": 1351,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:17:13.262015",
+      "created_at": "2026-02-13T17:17:13.259634",
+      "last_updated": "2026-02-13T17:17:13.262017",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:17:13.262019",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 1351,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 6,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 1351,
+              "announcements_in_window": 6,
+              "threshold": 3
+            },
+            "description": "AS1351 flapping prefix 1.2.0.0/16 (6 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:17:13.258585"
+          }
+        }
+      ]
+    },
+    "11374": {
+      "as_number": 11374,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:18:06.514807",
+      "created_at": "2026-02-13T17:18:06.512599",
+      "last_updated": "2026-02-13T17:18:06.514810",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:18:06.514811",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 11374,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 4,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 11374,
+              "announcements_in_window": 4,
+              "threshold": 3
+            },
+            "description": "AS11374 flapping prefix 1.2.0.0/16 (4 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:18:06.511463"
+          }
+        }
+      ]
+    },
+    "16830": {
+      "as_number": 16830,
+      "trust_score": 40,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-02-13T17:19:05.665974",
+      "created_at": "2026-02-13T17:19:05.663639",
+      "last_updated": "2026-02-13T17:19:05.665976",
+      "rating_level": "suspicious",
+      "history": [
+        {
+          "date": "2026-02-13T17:19:05.665977",
+          "event": "ROUTE_FLAPPING",
+          "score_change": -10,
+          "new_score": 40,
+          "details": {
+            "attack_type": "ROUTE_FLAPPING",
+            "severity": "MEDIUM",
+            "attacker_as": 16830,
+            "flapping_prefix": "1.2.0.0/16",
+            "flap_count": 9,
+            "window_seconds": 60,
+            "evidence": {
+              "prefix": "1.2.0.0/16",
+              "origin_asn": 16830,
+              "announcements_in_window": 9,
+              "threshold": 3
+            },
+            "description": "AS16830 flapping prefix 1.2.0.0/16 (9 announcements in 60s, threshold=3)",
+            "detected_at": "2026-02-13T17:19:05.662476"
+          }
+        }
+      ]
+    }
+  }
+}

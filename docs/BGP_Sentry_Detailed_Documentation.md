@@ -292,6 +292,33 @@ Step 2b: If legitimate:
 - **Full verification**: Walk the chain from genesis, recompute all hashes
 - **Per-node replicas**: Each RPKI node maintains its own chain copy
 
+### In-Memory Blockchain Design
+
+The blockchain is maintained as an **in-memory Python data structure** (a list of block dictionaries) with periodic persistence to disk via JSON files. Block generation, hash computation, Merkle root calculation, and chain append all happen entirely in RAM.
+
+**Why In-Memory?**
+
+BGP hijack detection is a **real-time security problem**. When an attacker announces a fraudulent route, the Internet begins routing traffic through them within seconds. The system must:
+
+1. **Process observations at wire speed** -- RPKI validators receive thousands of BGP announcements per second. Each must be validated, voted on, and committed before the next batch arrives. Disk-based block generation would introduce 5--50ms of I/O latency per block, making real-time consensus impossible at scale.
+
+2. **Minimize consensus latency** -- The PoP consensus protocol requires multiple nodes to vote on each transaction within a tight timeout window (3--5 seconds). If block writes blocked on disk I/O, the lock contention would serialize all 58+ validator nodes, collapsing throughput.
+
+3. **Support concurrent node replicas** -- Each RPKI validator maintains its own chain copy via in-memory replicas (`in_memory=True` mode in `BlockchainInterface`). These replicas receive replicated blocks from peers without any disk overhead, enabling O(1) block appends across all nodes simultaneously.
+
+4. **Decouple integrity from storage medium** -- Blockchain integrity comes from SHA-256 hash chaining and Merkle roots, not from the storage backend. The cryptographic guarantees hold whether the chain lives in RAM or on disk. The in-memory design preserves all security properties while eliminating the I/O bottleneck.
+
+**Persistence Strategy:**
+
+The system is not purely in-memory -- it uses a **write-behind** approach:
+
+- The **primary chain** (shared across all nodes) persists to `blockchain.json` using atomic writes (write to temp file, then rename) to prevent corruption from crashes.
+- **Per-node replicas** run in pure in-memory mode (`in_memory=True`) and skip all disk I/O, since they can be rebuilt from the primary chain or peer replication.
+- **Batched writes** (Optimization 15) accumulate multiple state updates in memory before flushing, reducing disk I/O by up to 49x.
+- The lock is held only for the in-memory mutation (~0.1ms); file I/O for auxiliary logs runs outside the critical section.
+
+This design achieves sub-millisecond block generation while maintaining crash safety through atomic persistence and cross-node replication.
+
 ### Cryptographic Signing
 
 **Ed25519 (Current):**
@@ -1162,8 +1189,8 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group A: Consensus & P2P Network
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit | Description                            |
+|------------------------------------|---------|------|----------------------------------------|
 | `CONSENSUS_MIN_SIGNATURES` | 3 | count | PoP minimum signatures |
 | `CONSENSUS_CAP_SIGNATURES` | 5 | count | Upper cap on signatures |
 | `P2P_REGULAR_TIMEOUT` | 3 | seconds | Consensus timeout (regular) |
@@ -1173,23 +1200,23 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group B: Deduplication & Skip Windows
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit | Description                            |
+|------------------------------------|---------|------|----------------------------------------|
 | `RPKI_DEDUP_WINDOW` | 300 | seconds | RPKI skip window (5 min) |
 | `NONRPKI_DEDUP_WINDOW` | 120 | seconds | Non-RPKI skip window (2 min) |
 | `SAMPLING_WINDOW_SECONDS` | 300 | seconds | P2P pool sampling window |
 
 ### Group C: Knowledge Base
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit | Description                            |
+|------------------------------------|---------|------|----------------------------------------|
 | `KNOWLEDGE_WINDOW_SECONDS` | 480 | seconds | How long observations stay (8 min) |
 | `KNOWLEDGE_CLEANUP_INTERVAL` | 60 | seconds | GC interval |
 
 ### Group D: Buffer & Capacity Limits
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit | Description                            |
+|------------------------------------|---------|------|----------------------------------------|
 | `INGESTION_BUFFER_MAX_SIZE` | 1000 | count | Per-node buffer cap |
 | `PENDING_VOTES_MAX_CAPACITY` | 5000 | count | Max pending transactions |
 | `COMMITTED_TX_MAX_SIZE` | 50000 | count | Max tracked committed IDs |
@@ -1198,8 +1225,8 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group E: Attack Detection
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit | Description                            |
+|------------------------------------|---------|------|----------------------------------------|
 | `FLAP_WINDOW_SECONDS` | 60 | seconds | Sliding window for flapping |
 | `FLAP_THRESHOLD` | 5 | count | State changes to trigger |
 | `FLAP_DEDUP_SECONDS` | 2 | seconds | Minimum event interval |
@@ -1207,8 +1234,8 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group F: BGPCoin Token Economy
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default    | Unit  | Description                            |
+|------------------------------------|------------|-------|----------------------------------------|
 | `BGPCOIN_TOTAL_SUPPLY` | 10,000,000 | coins | Total token supply |
 | `BGPCOIN_REWARD_BLOCK_COMMIT` | 10 | coins | Block commit reward |
 | `BGPCOIN_REWARD_VOTE_APPROVE` | 1 | coins | Approve vote reward |
@@ -1216,8 +1243,8 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group G: Non-RPKI Trust Rating
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit   | Description                            |
+|------------------------------------|---------|--------|----------------------------------------|
 | `RATING_INITIAL_SCORE` | 50 | points | Starting score |
 | `RATING_PENALTY_PREFIX_HIJACK` | -20 | points | Hijack penalty |
 | `RATING_PENALTY_BOGON_INJECTION` | -25 | points | Bogon penalty |
@@ -1226,15 +1253,15 @@ All 40+ hyperparameters are in `.env` at the project root.
 
 ### Group H: Transaction Batching
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit    | Description                            |
+|------------------------------------|---------|---------|----------------------------------------|
 | `BATCH_SIZE` | 1 | count | Transactions per batch block (1 = no batching) |
 | `BATCH_TIMEOUT` | 0.5 | seconds | Max wait before flushing partial batch |
 
 ### Group I: Simulation Timing
 
-| Parameter | Default | Unit | Description |
-|-----------|---------|------|-------------|
+| Parameter                          | Default | Unit       | Description                            |
+|------------------------------------|---------|------------|----------------------------------------|
 | `SIMULATION_SPEED_MULTIPLIER` | 1.0 | multiplier | 1.0 = real-time |
 
 [Back to Table of Contents](#table-of-contents)

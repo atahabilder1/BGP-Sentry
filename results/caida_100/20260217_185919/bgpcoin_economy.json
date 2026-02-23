@@ -1,0 +1,10 @@
+{
+  "token_name": "BGPCOIN",
+  "total_supply": 10000000,
+  "treasury_balance": 9972622.0,
+  "total_distributed": 27378.0,
+  "total_burned": 0,
+  "total_recycled": 0,
+  "circulating_supply": 27378.0,
+  "nodes_count": 58
+}

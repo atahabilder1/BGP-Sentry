@@ -1,0 +1,5 @@
+{
+  "rpki_deduped": 1192,
+  "nonrpki_throttled": 323,
+  "total_skipped": 1515
+}

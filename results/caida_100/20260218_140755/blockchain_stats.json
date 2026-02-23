@@ -1,0 +1,27 @@
+{
+  "blockchain_info": {
+    "version": "1.0",
+    "network": "BGP-Sentry",
+    "total_blocks": 2669,
+    "total_transactions": 2668,
+    "genesis_timestamp": "2026-02-18T14:07:55.268638",
+    "latest_block": {
+      "block_number": 2668,
+      "timestamp": "2026-02-18T14:12:54.425029",
+      "hash": "f925a77b43dffb5752cf25f2db81c3f614b7f342c6eb9a07f41cbef993a45734",
+      "transaction_count": 1
+    },
+    "file_path": "/home/anik/code/BGP-Sentry/blockchain_data/chain/blockchain.json"
+  },
+  "integrity": {
+    "valid": true,
+    "total_blocks": 2669,
+    "errors": [],
+    "message": "Blockchain valid"
+  },
+  "node_replicas": {
+    "total_nodes": 58,
+    "all_valid": true,
+    "valid_count": 58
+  }
+}
