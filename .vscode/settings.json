@@ -1,12 +1,13 @@
 {
-    "python.analysis.extraPaths": [
-        "./nodes/rpki_nodes/bgp_attack_detection",
-        "./nodes/rpki_nodes/rpki_verification_interface", 
-        "./nodes/rpki_nodes/trust_score_interface",
-        "./nodes/rpki_nodes/staking_amount_interface",
-        "./nodes/rpki_nodes/shared_blockchain_stack/blockchain_utils",
-        "./trust_engine"
-    ],
-    "python.analysis.autoImportCompletions": true,
-    "python.analysis.typeCheckingMode": "basic"
+  "python.analysis.extraPaths": [
+    "./nodes/rpki_nodes/bgp_attack_detection",
+    "./nodes/rpki_nodes/rpki_verification_interface",
+    "./nodes/rpki_nodes/trust_score_interface",
+    "./nodes/rpki_nodes/staking_amount_interface",
+    "./nodes/rpki_nodes/shared_blockchain_stack/blockchain_utils",
+    "./trust_engine"
+  ],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "git.ignoreLimitWarning": true
 }

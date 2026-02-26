@@ -50,5 +50,8 @@ results/overnight_20260218_012658/overnight_log.txt
 experiment_results/
 test_experiment_results/
 
+# Dataset
+dataset/
+
 # Manuscript (private)
 menuscript/

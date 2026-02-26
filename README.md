@@ -94,22 +94,22 @@ The dashboard runs **on the server** as part of the experiment process. When you
 **Workflow:**
 
 ```
-Your PC (browser)  ---SSH tunnel--->  Remote Server (experiment + dashboard)
-http://localhost:5555                  Flask dashboard on port 5555
+Your PC (browser)  ---SSH tunnel--->  NIDS Server (experiment + dashboard)
+http://localhost:7777                  Flask dashboard on port 5555
 ```
 
 **Step-by-step:**
 
 ```bash
 # Step 1: Connect to the server with port forwarding
-ssh -L 5555:localhost:5555 user@your-server-ip
+ssh -L 7777:localhost:5555 anik@141.217.168.5
 
 # Step 2: On the server, run the experiment (dashboard starts automatically)
 cd ~/code/BGP-Sentry
 python3 main_experiment.py --dataset caida_100 --duration 600
 
 # Step 3: On your local PC, open your browser
-#         Go to http://localhost:5555
+#         Go to http://localhost:7777
 #         The live dashboard appears -- updates every 2 seconds
 ```
 
@@ -119,34 +119,34 @@ The dashboard starts automatically when the experiment starts and stops when the
 
 ```bash
 # With SSH key
-ssh -i ~/.ssh/mykey -L 5555:localhost:5555 user@server
+ssh -i ~/.ssh/mykey -L 7777:localhost:5555 anik@141.217.168.5
 
 # Custom SSH port
-ssh -p 2222 -L 5555:localhost:5555 user@server
+ssh -p 2222 -L 7777:localhost:5555 anik@141.217.168.5
 
 # Tunnel only (no interactive shell, useful as a second terminal)
-ssh -N -L 5555:localhost:5555 user@server
+ssh -N -L 7777:localhost:5555 anik@141.217.168.5
 ```
 
-**VS Code Remote SSH** auto-detects forwarded ports -- check the "Ports" tab or add port 5555 manually.
+**VS Code Remote SSH** auto-detects forwarded ports -- check the "Ports" tab or add port 7777 manually.
 
 ### Automatic Port Forwarding (No Extra Flags)
 
-To avoid typing `-L 5555:localhost:5555` every time, add this to `~/.ssh/config` **on your local PC**:
+To avoid typing `-L 7777:localhost:5555` every time, add this to `~/.ssh/config` **on your local PC**:
 
 ```
-Host bgp-sentry-server
-    HostName your-server-ip
-    User your-username
+Host nids-server
+    HostName 141.217.168.5
+    User anik
     IdentityFile ~/.ssh/mykey
-    LocalForward 5555 localhost:5555
+    LocalForward 7777 localhost:5555
 ```
 
 Then just connect normally -- the dashboard port forwards automatically:
 
 ```bash
-ssh bgp-sentry-server
-# Port 5555 is already forwarded, open http://localhost:5555 in your browser
+ssh nids-server
+# Port 5555 is forwarded to local 7777, open http://localhost:7777 in your browser
 ```
 
 ## Commands Reference
