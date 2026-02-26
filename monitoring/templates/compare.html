@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BGP-Sentry Cross-Dataset Comparison</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e0e0e0;
+    --muted: #888;
+    --accent: #4fc3f7;
+    --green: #66bb6a;
+    --red: #ef5350;
+    --orange: #ffa726;
+    --yellow: #ffee58;
+    --purple: #ba68c8;
+    --cyan: #26c6da;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 16px;
+    padding-top: 52px;
+  }
+
+  .sticky-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,17,23,0.95); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 4px; padding: 8px 16px;
+    overflow-x: auto; font-size: 0.7rem;
+  }
+  .sticky-nav a { color: var(--muted); text-decoration: none; padding: 4px 10px; border-radius: 4px; white-space: nowrap; transition: all 0.2s; }
+  .sticky-nav a:hover { color: var(--accent); background: rgba(79,195,247,0.1); }
+  .sticky-nav .nav-title { color: var(--accent); font-weight: 700; font-size: 0.78rem; margin-right: 8px; }
+
+  .header {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 18px 24px; margin-bottom: 16px;
+  }
+  .header h1 { font-size: 1.3rem; color: var(--accent); margin-bottom: 4px; }
+  .header p { font-size: 0.8rem; color: var(--muted); }
+
+  .section { margin-bottom: 20px; scroll-margin-top: 56px; }
+  .section-title {
+    font-size: 0.9rem; font-weight: 700; color: var(--accent); text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border);
+  }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .grid-full { grid-column: 1 / -1; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .card h2 { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+  .chart-container { position: relative; height: 280px; }
+  .chart-container-lg { position: relative; height: 340px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  th { text-align: left; color: var(--muted); font-weight: 600; padding: 6px 8px; border-bottom: 1px solid var(--border); font-size: 0.7rem; text-transform: uppercase; background: rgba(79,195,247,0.05); }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  td.num { text-align: right; }
+  .highlight { color: var(--accent); font-weight: 700; }
+
+  .discussion {
+    background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0; padding: 10px 14px; margin-top: 10px;
+    font-size: 0.78rem; line-height: 1.5; color: #bbb;
+  }
+  .discussion strong { color: var(--accent); }
+  .discussion .warn { color: var(--orange); font-weight: 600; }
+  .discussion .good { color: var(--green); font-weight: 600; }
+  .discussion .bad { color: var(--red); font-weight: 600; }
+
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 1.1rem; }
+  .no-data { color: var(--orange); padding: 20px; text-align: center; }
+
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<nav class="sticky-nav">
+  <span class="nav-title">BGP-Sentry</span>
+  <a href="/">Live Dashboard</a>
+  <a href="#master-table">Master Table</a>
+  <a href="#scalability">Scalability</a>
+  <a href="#detection">Detection</a>
+  <a href="#consensus">Consensus</a>
+  <a href="#economy">Economy</a>
+  <a href="#p2p">P2P Network</a>
+  <a href="#time-complexity">Time Complexity</a>
+</nav>
+
+<div class="header">
+  <h1>Cross-Dataset Scalability Comparison</h1>
+  <p>Compares the most recent run from each dataset (caida_75 through caida_12881). Re-run after completing all experiments.</p>
+</div>
+
+<div id="content">
+  <div class="loading" id="loading-msg">Loading cross-dataset results...</div>
+</div>
+
+<script>
+Chart.defaults.color = '#888';
+Chart.defaults.borderColor = '#2a2d3a';
+const CHART_OPTS = { responsive: true, maintainAspectRatio: false, animation: { duration: 300 }, plugins: { legend: { labels: { boxWidth: 10, font: { size: 11 } } } } };
+
+function fmt(n, dec=0) {
+  if (n === null || n === undefined) return '--';
+  if (typeof n === 'number') return dec > 0 ? n.toFixed(dec) : n.toLocaleString();
+  return n;
+}
+function pct(n) { return typeof n === 'number' ? (n * 100).toFixed(1) + '%' : fmt(n); }
+
+async function load() {
+  try {
+    const resp = await fetch('/api/compare');
+    const data = await resp.json();
+    const ds = data.datasets;
+    if (!ds || ds.length === 0) {
+      document.getElementById('content').innerHTML = '<div class="no-data">No completed dataset results found. Run experiments first, then revisit this page.</div>';
+      return;
+    }
+    render(ds);
+  } catch(e) {
+    document.getElementById('content').innerHTML = '<div class="no-data">Error loading comparison data: ' + e.message + '</div>';
+  }
+}
+
+function render(ds) {
+  const labels = ds.map(d => d.dataset);
+  const ases = ds.map(d => d.total_ases || 0);
+  const colors = ['#4fc3f7', '#66bb6a', '#ffa726', '#ef5350', '#ba68c8', '#26c6da', '#ffee58', '#ff7043'];
+
+  let html = '';
+
+  // ═══ Master Comparison Table ═══
+  html += `
+  <div class="section" id="master-table">
+    <div class="section-title">Master Comparison Table</div>
+    <div class="card">
+      <h2>All Metrics Across Datasets</h2>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr>
+            <th>Dataset</th><th>ASes</th><th>RPKI</th><th>Observations</th><th>Attacks</th>
+            <th>Elapsed (s)</th><th>TPS</th><th>Precision</th><th>Recall</th><th>F1</th>
+            <th>Commit Rate</th><th>Blocks</th><th>Chain Valid</th>
+          </tr></thead>
+          <tbody>${ds.map(d => `<tr>
+            <td><strong>${d.dataset}</strong></td>
+            <td class="num">${fmt(d.total_ases)}</td>
+            <td class="num">${fmt(d.rpki_count)}/${fmt(d.non_rpki_count)}</td>
+            <td class="num">${fmt(d.total_observations)}</td>
+            <td class="num">${fmt(d.attack_observations)}</td>
+            <td class="num">${fmt(d.elapsed_seconds, 1)}</td>
+            <td class="num highlight">${fmt(d.avg_tps || d.throughput, 2)}</td>
+            <td class="num">${pct(d.precision)}</td>
+            <td class="num">${pct(d.recall)}</td>
+            <td class="num highlight">${pct(d.f1_score)}</td>
+            <td class="num">${fmt(d.commit_rate, 1)}%</td>
+            <td class="num">${fmt(d.total_blocks)}</td>
+            <td>${d.chain_valid ? '<span style="color:var(--green)">PASS</span>' : '<span style="color:var(--red)">FAIL</span>'}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+      <div class="discussion">
+        <strong>Observation:</strong> This table provides a comprehensive side-by-side view of all key metrics.
+        Look for trends: does precision improve or degrade with scale? Does commit rate drop? Does wall time grow linearly or sub-linearly?
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ Scalability ═══
+  html += `
+  <div class="section" id="scalability">
+    <div class="section-title">Scalability Analysis</div>
+    <div class="grid">
+      <div class="card">
+        <h2>Fig S1: Wall Time vs Network Size</h2>
+        <div class="chart-container"><canvas id="chartWallTime"></canvas></div>
+        <div class="discussion" id="disc-walltime">
+          <strong>Analysis:</strong> Shows how execution time scales with the number of ASes.
+          Sub-linear growth (T ~ N^k, k < 1) indicates the system scales well.
+          Linear growth means constant per-node overhead. Super-linear signals a bottleneck.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fig S2: Throughput vs Network Size</h2>
+        <div class="chart-container"><canvas id="chartThroughput"></canvas></div>
+        <div class="discussion" id="disc-throughput">
+          <strong>Analysis:</strong> Throughput (obs/sec) should remain stable or grow as the network scales.
+          Declining throughput indicates thread contention or I/O bottleneck.
+          In distributed deployment, throughput scales linearly with node count.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ Detection ═══
+  html += `
+  <div class="section" id="detection">
+    <div class="section-title">Detection Accuracy vs Scale</div>
+    <div class="grid">
+      <div class="card">
+        <h2>Fig S3: Precision / Recall / F1 vs Network Size</h2>
+        <div class="chart-container"><canvas id="chartDetection"></canvas></div>
+        <div class="discussion" id="disc-detection">
+          <strong>Analysis:</strong> Precision, recall, and F1 should ideally remain stable across scales.
+          Declining recall means larger networks miss more attacks. Declining precision means more false alarms.
+          High recall is critical for security; precision can be improved with tuning.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fig S4: TP / FP / FN Breakdown</h2>
+        <div class="chart-container"><canvas id="chartTPFP"></canvas></div>
+        <div class="discussion" id="disc-tpfp">
+          <strong>Analysis:</strong> Shows the absolute count of true positives, false positives, and false negatives.
+          Ideally TP grows with scale (more attacks detected) while FP stays low.
+          A rising FN count indicates detection degradation at scale.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ Consensus ═══
+  html += `
+  <div class="section" id="consensus">
+    <div class="section-title">Consensus Scalability</div>
+    <div class="grid">
+      <div class="card">
+        <h2>Fig S5: Consensus Commit Rate vs Network Size</h2>
+        <div class="chart-container"><canvas id="chartCommitRate"></canvas></div>
+        <div class="discussion" id="disc-commit">
+          <strong>Analysis:</strong> Commit rate = committed / created transactions.
+          BFT consensus requires collecting votes from multiple signers. In single-machine simulation,
+          thread contention degrades commit rate at scale. In distributed deployment, commit rate would
+          remain high since each node has dedicated CPU. This is the primary scalability bottleneck to discuss.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fig S6: Transaction Lifecycle</h2>
+        <div class="chart-container"><canvas id="chartTxLifecycle"></canvas></div>
+        <div class="discussion" id="disc-lifecycle">
+          <strong>Analysis:</strong> Stacked bar showing created vs committed vs pending transactions.
+          The gap between created and committed represents consensus overhead.
+          Growing pending count at larger scales indicates vote collection timeout.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ Economy ═══
+  html += `
+  <div class="section" id="economy">
+    <div class="section-title">Token Economy & Trust at Scale</div>
+    <div class="grid">
+      <div class="card">
+        <h2>Fig S7: BGPCoin Distribution vs Scale</h2>
+        <div class="chart-container"><canvas id="chartEconomy"></canvas></div>
+        <div class="discussion" id="disc-economy">
+          <strong>Analysis:</strong> Shows total distributed, treasury remaining, and burned tokens across scales.
+          Healthy economy: treasury depletes slowly, distributed grows proportionally to network activity.
+          If burned > distributed, the incentive mechanism may be too aggressive.
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fig S8: Trust Score & Dedup Effectiveness</h2>
+        <div class="chart-container"><canvas id="chartTrustDedup"></canvas></div>
+        <div class="discussion" id="disc-trust">
+          <strong>Analysis:</strong> Average trust score should remain stable across scales (indicates consistent rating).
+          Dedup effectiveness (skipped observations) should grow — larger networks see more duplicate announcements.
+          High dedup saves consensus bandwidth.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ P2P Network ═══
+  html += `
+  <div class="section" id="p2p">
+    <div class="section-title">P2P Network Overhead</div>
+    <div class="grid">
+      <div class="card">
+        <h2>Fig S9: P2P Messages vs Network Size</h2>
+        <div class="chart-container"><canvas id="chartP2P"></canvas></div>
+        <div class="discussion" id="disc-p2p">
+          <strong>Analysis:</strong> P2P message count scales as O(n * k) where n = nodes and k = peers per node.
+          Sent vs delivered gap indicates message loss. Dropped messages suggest network congestion.
+          In real deployment, P2P overlay topology limits this to O(n * log n).
+        </div>
+      </div>
+      <div class="card">
+        <h2>Fig S10: Blockchain Growth</h2>
+        <div class="chart-container"><canvas id="chartBlocks"></canvas></div>
+        <div class="discussion" id="disc-blocks">
+          <strong>Analysis:</strong> Total blocks and transactions committed to blockchain.
+          Should grow proportionally to observations. If blocks plateau while observations grow,
+          the blockchain write path is a bottleneck. Block batching can address this.
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // ═══ Time Complexity ═══
+  html += `
+  <div class="section" id="time-complexity">
+    <div class="section-title">Time Complexity Analysis</div>
+    <div class="card">
+      <h2>Fig S11: Scaling Exponent (log-log)</h2>
+      <div class="chart-container-lg"><canvas id="chartLogLog"></canvas></div>
+      <div class="discussion" id="disc-loglog">
+        <strong>Analysis:</strong> Log-log plot of wall time vs ASes. The slope gives the scaling exponent k in T ~ N^k.
+        k &lt; 1.0 = sub-linear (excellent), k = 1.0 = linear (good), k &gt; 1.0 = super-linear (bottleneck).
+        <span id="scaling-exponent"></span>
+      </div>
+    </div>
+  </div>`;
+
+  document.getElementById('content').innerHTML = html;
+
+  // ═══ Render Charts ═══
+
+  // S1: Wall Time
+  new Chart(document.getElementById('chartWallTime'), {
+    type: 'bar',
+    data: { labels, datasets: [{ label: 'Wall Time (s)', data: ds.map(d => d.elapsed_seconds || 0), backgroundColor: '#4fc3f7' }] },
+    options: { ...CHART_OPTS, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: 'Seconds' }, beginAtZero: true } } }
+  });
+
+  // S2: Throughput
+  new Chart(document.getElementById('chartThroughput'), {
+    type: 'line',
+    data: { labels, datasets: [
+      { label: 'Avg TPS', data: ds.map(d => d.avg_tps || 0), borderColor: '#66bb6a', backgroundColor: 'rgba(102,187,106,0.1)', fill: true, tension: 0.3 },
+      { label: 'Throughput (obs/s)', data: ds.map(d => d.throughput || 0), borderColor: '#4fc3f7', backgroundColor: 'rgba(79,195,247,0.1)', fill: true, tension: 0.3 },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: 'Rate' }, beginAtZero: true } } }
+  });
+
+  // S3: Detection
+  new Chart(document.getElementById('chartDetection'), {
+    type: 'line',
+    data: { labels, datasets: [
+      { label: 'Precision', data: ds.map(d => (d.precision||0)*100), borderColor: '#4fc3f7', tension: 0.3, pointRadius: 5 },
+      { label: 'Recall', data: ds.map(d => (d.recall||0)*100), borderColor: '#66bb6a', tension: 0.3, pointRadius: 5 },
+      { label: 'F1', data: ds.map(d => (d.f1_score||0)*100), borderColor: '#ffa726', tension: 0.3, pointRadius: 5 },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: '%' }, min: 0, max: 100 } } }
+  });
+
+  // S4: TP/FP/FN
+  new Chart(document.getElementById('chartTPFP'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'True Positives', data: ds.map(d => d.true_positives || 0), backgroundColor: '#66bb6a' },
+      { label: 'False Positives', data: ds.map(d => d.false_positives || 0), backgroundColor: '#ffa726' },
+      { label: 'False Negatives', data: ds.map(d => d.false_negatives || 0), backgroundColor: '#ef5350' },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' }, stacked: false }, y: { title: { display: true, text: 'Count' }, beginAtZero: true } } }
+  });
+
+  // S5: Commit Rate
+  new Chart(document.getElementById('chartCommitRate'), {
+    type: 'line',
+    data: { labels, datasets: [{ label: 'Commit Rate %', data: ds.map(d => d.commit_rate || 0), borderColor: '#66bb6a', backgroundColor: 'rgba(102,187,106,0.15)', fill: true, tension: 0.3, pointRadius: 5 }] },
+    options: { ...CHART_OPTS, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: '%' }, min: 0, max: 100 } } }
+  });
+
+  // S6: Transaction Lifecycle
+  new Chart(document.getElementById('chartTxLifecycle'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Created', data: ds.map(d => d.txns_created || 0), backgroundColor: '#4fc3f7' },
+      { label: 'Committed', data: ds.map(d => d.txns_committed || 0), backgroundColor: '#66bb6a' },
+      { label: 'Pending', data: ds.map(d => d.txns_pending || 0), backgroundColor: '#ffa726' },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' }, stacked: true }, y: { title: { display: true, text: 'Transactions' }, stacked: true, beginAtZero: true } } }
+  });
+
+  // S7: Economy
+  new Chart(document.getElementById('chartEconomy'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Distributed', data: ds.map(d => d.total_distributed || 0), backgroundColor: '#66bb6a' },
+      { label: 'Treasury', data: ds.map(d => d.treasury_balance || 0), backgroundColor: '#4fc3f7' },
+      { label: 'Burned', data: ds.map(d => d.total_burned || 0), backgroundColor: '#ef5350' },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' }, stacked: true }, y: { title: { display: true, text: 'BGPCoin' }, stacked: true, beginAtZero: true } } }
+  });
+
+  // S8: Trust & Dedup
+  new Chart(document.getElementById('chartTrustDedup'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Avg Trust Score', data: ds.map(d => d.avg_trust_score || 0), backgroundColor: '#66bb6a', yAxisID: 'y' },
+      { label: 'Total Skipped (dedup)', data: ds.map(d => d.total_skipped || 0), backgroundColor: '#ffa726', yAxisID: 'y1' },
+    ] },
+    options: { ...CHART_OPTS, scales: {
+      x: { title: { display: true, text: 'Dataset' } },
+      y: { type: 'linear', position: 'left', title: { display: true, text: 'Trust Score' }, min: 0, max: 100 },
+      y1: { type: 'linear', position: 'right', title: { display: true, text: 'Skipped Count' }, beginAtZero: true, grid: { drawOnChartArea: false } },
+    } }
+  });
+
+  // S9: P2P
+  new Chart(document.getElementById('chartP2P'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Sent', data: ds.map(d => d.p2p_sent || 0), backgroundColor: '#4fc3f7' },
+      { label: 'Delivered', data: ds.map(d => d.p2p_delivered || 0), backgroundColor: '#66bb6a' },
+      { label: 'Dropped', data: ds.map(d => d.p2p_dropped || 0), backgroundColor: '#ef5350' },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: 'Messages' }, beginAtZero: true } } }
+  });
+
+  // S10: Blockchain Growth
+  new Chart(document.getElementById('chartBlocks'), {
+    type: 'bar',
+    data: { labels, datasets: [
+      { label: 'Blocks', data: ds.map(d => d.total_blocks || 0), backgroundColor: '#4fc3f7' },
+      { label: 'Transactions', data: ds.map(d => d.total_blockchain_txns || 0), backgroundColor: '#66bb6a' },
+    ] },
+    options: { ...CHART_OPTS, scales: { x: { title: { display: true, text: 'Dataset' } }, y: { title: { display: true, text: 'Count' }, beginAtZero: true } } }
+  });
+
+  // S11: Log-log scaling
+  const validPts = ds.filter(d => d.total_ases > 0 && d.elapsed_seconds > 0);
+  if (validPts.length >= 2) {
+    const logN = validPts.map(d => Math.log10(d.total_ases));
+    const logT = validPts.map(d => Math.log10(d.elapsed_seconds));
+
+    // Linear regression on log-log
+    const n = logN.length;
+    const sumX = logN.reduce((a,b) => a+b, 0);
+    const sumY = logT.reduce((a,b) => a+b, 0);
+    const sumXY = logN.reduce((a, x, i) => a + x * logT[i], 0);
+    const sumXX = logN.reduce((a, x) => a + x * x, 0);
+    const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    const intercept = (sumY - slope * sumX) / n;
+
+    // Generate fit line
+    const minLogN = Math.min(...logN) - 0.1;
+    const maxLogN = Math.max(...logN) + 0.1;
+    const fitX = [minLogN, maxLogN];
+    const fitY = fitX.map(x => intercept + slope * x);
+
+    new Chart(document.getElementById('chartLogLog'), {
+      type: 'scatter',
+      data: { datasets: [
+        { label: 'Measured', data: logN.map((x, i) => ({x, y: logT[i]})), backgroundColor: '#4fc3f7', pointRadius: 6 },
+        { label: `Fit: T ~ N^${slope.toFixed(2)}`, data: fitX.map((x, i) => ({x, y: fitY[i]})), type: 'line', borderColor: '#ef5350', borderDash: [5,5], pointRadius: 0 },
+      ] },
+      options: { ...CHART_OPTS, scales: {
+        x: { title: { display: true, text: 'log10(ASes)' } },
+        y: { title: { display: true, text: 'log10(Wall Time)' } },
+      } }
+    });
+
+    const el = document.getElementById('scaling-exponent');
+    if (slope < 0.8) el.innerHTML = '<br><span class="good">Scaling exponent k = ' + slope.toFixed(3) + ' (sub-linear). Excellent scalability.</span>';
+    else if (slope < 1.2) el.innerHTML = '<br>Scaling exponent k = ' + slope.toFixed(3) + ' (approximately linear). Acceptable.';
+    else el.innerHTML = '<br><span class="warn">Scaling exponent k = ' + slope.toFixed(3) + ' (super-linear). Consensus overhead growing faster than network size.</span>';
+  }
+}
+
+load();
+</script>
+</body>
+</html>

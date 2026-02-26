@@ -101,6 +101,17 @@ class VirtualNode:
         # Live buffer reference (set during processing, read by dashboard)
         self._buffer: Optional['_PriorityBuffer'] = None
 
+        # Per-step pipeline timing (for distributed-claim latency breakdown)
+        self.step_timings = {
+            "dedup_check": collections.deque(maxlen=1000),
+            "knowledge_base": collections.deque(maxlen=1000),
+            "rpki_validation": collections.deque(maxlen=1000),
+            "attack_detection": collections.deque(maxlen=1000),
+            "tx_broadcast": collections.deque(maxlen=1000),
+            "consensus_wait": collections.deque(maxlen=1000),
+            "total_pipeline": collections.deque(maxlen=1000),
+        }
+
         # Stats for results output
         self.stats = {
             "transactions_created": 0,
@@ -197,6 +208,8 @@ class VirtualNode:
         blockchain write).  This avoids wasting consensus round-trips on
         duplicate legitimate announcements.
         """
+        _t_pipeline = time.monotonic()
+
         prefix = obs.get("prefix", "")
         origin_asn = obs.get("origin_asn", 0)
         is_attack = obs.get("is_attack", False)
@@ -206,20 +219,20 @@ class VirtualNode:
         result = self._make_base_result(obs)
 
         # ── STEP 0: Early skip for non-attack duplicates ──
-        # Attacks ALWAYS proceed.  Legitimate duplicates within the skip
-        # window are dropped before any expensive work happens.
+        _t0 = time.monotonic()
         dedup_key = (prefix, origin_asn)
         if not is_attack and dedup_key in self.dedup_state:
             elapsed = time.time() - self.dedup_state[dedup_key]
             if elapsed < self.RPKI_DEDUP_WINDOW:
+                self.step_timings["dedup_check"].append(time.monotonic() - _t0)
                 result["action"] = "skipped_dedup"
                 self.stats["transactions_deduped"] += 1
                 self.detection_results.append(result)
                 return result
+        self.step_timings["dedup_check"].append(time.monotonic() - _t0)
 
         # ── STEP 1: Add to P2P pool knowledge base ──
-        # So this node can vote on other nodes' transactions about the
-        # same prefix.
+        _t0 = time.monotonic()
         if self.p2p_pool is not None:
             self.p2p_pool.add_bgp_observation(
                 ip_prefix=prefix,
@@ -228,15 +241,19 @@ class VirtualNode:
                 trust_score=100.0,
                 is_attack=is_attack,
             )
+        self.step_timings["knowledge_base"].append(time.monotonic() - _t0)
 
         # ── STEP 2: RPKI validation via StayRTR ──
+        _t0 = time.monotonic()
         validation = {"valid": True, "status": "not_checked"}
         if self.rpki_validator is not None:
             validation = self.rpki_validator.validate(obs)
+        self.step_timings["rpki_validation"].append(time.monotonic() - _t0)
 
         result["rpki_validation"] = validation.get("status", "unknown")
 
         # ── STEP 3: Attack detection (all 4 types) ──
+        _t0 = time.monotonic()
         detected_attacks = []
         if self.attack_detector is not None:
             detected_attacks = self.attack_detector.detect_attacks({
@@ -244,6 +261,7 @@ class VirtualNode:
                 "ip_prefix": prefix,
                 "as_path": obs.get("as_path", [origin_asn]),
             })
+        self.step_timings["attack_detection"].append(time.monotonic() - _t0)
 
         if detected_attacks:
             result["detected"] = True
@@ -259,19 +277,12 @@ class VirtualNode:
             self.stats["attacks_detected"] += 1
 
         # ── STEP 4: Create transaction and broadcast for consensus ──
-        # This node acts as MERGER: collects signatures from SIGNER peers.
-        # Signers vote approve/reject based on their knowledge base.
-        # On 3+ approve signatures → block is committed to blockchain.
-        #
-        # PIPELINED: broadcast runs in a background thread so this node
-        # can immediately proceed to the next observation.  Consensus
-        # votes arrive asynchronously and the commit happens whenever
-        # the threshold is reached (or timeout fires).
+        _t0 = time.monotonic()
         if self.p2p_pool is not None:
             transaction = self._create_transaction(obs, validation, detected_attacks)
             threading.Thread(
-                target=self.p2p_pool.broadcast_transaction,
-                args=(transaction,),
+                target=self._timed_broadcast,
+                args=(transaction, time.monotonic()),
                 daemon=True,
             ).start()
             self.stats["transactions_created"] += 1
@@ -279,6 +290,7 @@ class VirtualNode:
             result["transaction_id"] = transaction["transaction_id"]
         else:
             result["action"] = "no_p2p_pool"
+        self.step_timings["tx_broadcast"].append(time.monotonic() - _t0)
 
         # ── STEP 5: Update dedup state ──
         self.dedup_state[dedup_key] = time.time()
@@ -286,8 +298,17 @@ class VirtualNode:
         if not is_attack:
             self.legitimate_count += 1
 
+        self.step_timings["total_pipeline"].append(time.monotonic() - _t_pipeline)
         self.detection_results.append(result)
         return result
+
+    def _timed_broadcast(self, transaction, t_start):
+        """Broadcast transaction and record consensus_wait timing."""
+        try:
+            self.p2p_pool.broadcast_transaction(transaction)
+        except Exception as e:
+            logger.error(f"AS{self.asn} broadcast error: {e}")
+        self.step_timings["consensus_wait"].append(time.monotonic() - t_start)
 
     def _create_transaction(self, obs: dict, validation: dict, detected_attacks: list) -> dict:
         """Create a blockchain transaction from an observation (RSA-signed)."""
