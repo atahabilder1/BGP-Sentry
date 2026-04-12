@@ -890,7 +890,11 @@ class P2PTransactionPool:
                             if not created_at:
                                 continue
                             is_attack = vote_data.get("is_attack", False)
-                            timeout_dur = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
+                            # During drain, use 1s timeout — peers are stopped, no votes coming
+                            if self.draining:
+                                timeout_dur = 1.0
+                            else:
+                                timeout_dur = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
                             remaining = timeout_dur - (now - created_at).total_seconds()
                             if soonest is None or remaining < soonest:
                                 soonest = remaining
@@ -920,8 +924,11 @@ class P2PTransactionPool:
                         if not created_at:
                             continue
 
-                        # Determine timeout based on type
-                        timeout_duration = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
+                        # Determine timeout based on type (1s during drain — no votes coming)
+                        if self.draining:
+                            timeout_duration = 1.0
+                        else:
+                            timeout_duration = self.ATTACK_TIMEOUT if is_attack else self.REGULAR_TIMEOUT
                         elapsed = (current_time - created_at).total_seconds()
 
                         # Check if timed out
