@@ -1282,15 +1282,19 @@ class P2PTransactionPool:
 
     def _check_knowledge_base(self, transaction) -> str:
         """
-        Check knowledge base and return vote decision.
+        Multi-source vote decision: KB → Blockchain State → no_knowledge.
 
-        Uses _kb_index for O(1) prefix lookup instead of scanning
-        the full knowledge_base list (O(n)).
+        Three independent sources can produce an "approve" vote:
+          1. Knowledge Base: peer personally saw the same (prefix, origin)
+          2. Blockchain State: accumulated consensus confirms this origin
+             (bootstrapped from ROA/VRP + strengthened by CONFIRMED writes)
+          3. If KB saw the prefix from a DIFFERENT origin → "reject"
+          4. None of the above → "no_knowledge"
 
         Returns:
-            "approve"       — same prefix + same AS found (within time window)
-            "reject"        — same prefix found but from a DIFFERENT AS
-            "no_knowledge"  — prefix not seen at all
+            "approve"       — at least one source confirms this (prefix, origin)
+            "reject"        — KB has this prefix from a DIFFERENT origin (conflict)
+            "no_knowledge"  — no source has information about this prefix
         """
         ip_prefix = transaction.get("ip_prefix")
         sender_asn = transaction.get("sender_asn")
@@ -1301,29 +1305,44 @@ class P2PTransactionPool:
 
         tx_time = self._parse_timestamp(tx_timestamp)
 
-        # O(1) lookup by prefix instead of scanning entire list
+        # ── Source 1: Knowledge Base (personal observation) ──
+        prefix_seen_different_origin = False
         with self.lock:
             entries = self._kb_index.get(ip_prefix)
-            if entries is None:
-                return "no_knowledge"
-            entries_snapshot = list(entries)
+            if entries is not None:
+                entries_snapshot = list(entries)
+            else:
+                entries_snapshot = []
 
-        prefix_seen = False
         for obs_asn, obs_timestamp, obs_observed_at in entries_snapshot:
             obs_time = self._parse_timestamp(obs_timestamp)
             time_diff = abs((tx_time - obs_time).total_seconds())
             if time_diff > self.knowledge_window_seconds:
                 continue
 
-            prefix_seen = True
-
             if obs_asn == sender_asn:
-                return "approve"  # Same prefix, same AS — confirmed
+                return "approve"  # KB confirms: same prefix, same AS
 
-        if prefix_seen:
+            prefix_seen_different_origin = True
+
+        # ── Source 2: Blockchain State (accumulated consensus history) ──
+        # The prefix_ownership_state is bootstrapped from ROA/VRP at startup
+        # and strengthened by every CONFIRMED transaction — so this covers
+        # both RPKI validation and blockchain history in one check.
+        if self.prefix_ownership_state is not None:
+            ownership = self.prefix_ownership_state.get_ownership(ip_prefix)
+            if ownership is not None:
+                if ownership["established_origin"] == sender_asn:
+                    return "approve"  # Blockchain state confirms this origin
+                else:
+                    # State says different owner — this is suspicious
+                    prefix_seen_different_origin = True
+
+        # ── Decision ──
+        if prefix_seen_different_origin:
             return "reject"   # Saw prefix from different AS — conflicting origin
 
-        return "no_knowledge"  # Never saw this prefix
+        return "no_knowledge"  # No source has information
 
     def _validate_transaction(self, transaction):
         """

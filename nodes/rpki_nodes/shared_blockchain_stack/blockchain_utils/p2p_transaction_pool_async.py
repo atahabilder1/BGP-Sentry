@@ -484,7 +484,10 @@ class AsyncP2PTransactionPool:
         return datetime.now()
 
     def _check_knowledge_base(self, transaction) -> str:
-        """Check knowledge base for vote decision."""
+        """Multi-source vote decision: KB → Blockchain State → no_knowledge.
+
+        Same logic as sync version — three independent approve sources.
+        """
         ip_prefix = transaction.get("ip_prefix")
         sender_asn = transaction.get("sender_asn")
         tx_timestamp = transaction.get("timestamp")
@@ -495,7 +498,8 @@ class AsyncP2PTransactionPool:
         tx_time = self._parse_timestamp(tx_timestamp)
         knowledge_snapshot = list(self.knowledge_base)
 
-        prefix_seen = False
+        # ── Source 1: Knowledge Base ──
+        prefix_seen_different_origin = False
         for obs in knowledge_snapshot:
             if obs["ip_prefix"] != ip_prefix:
                 continue
@@ -503,11 +507,22 @@ class AsyncP2PTransactionPool:
             time_diff = abs((tx_time - obs_time).total_seconds())
             if time_diff > self.knowledge_window_seconds:
                 continue
-            prefix_seen = True
-            if obs["sender_asn"] == sender_asn:
-                return "approve"
 
-        if prefix_seen:
+            if obs["sender_asn"] == sender_asn:
+                return "approve"  # KB confirms
+
+            prefix_seen_different_origin = True
+
+        # ── Source 2: Blockchain State (ROA bootstrap + consensus history) ──
+        if self.prefix_ownership_state is not None:
+            ownership = self.prefix_ownership_state.get_ownership(ip_prefix)
+            if ownership is not None:
+                if ownership["established_origin"] == sender_asn:
+                    return "approve"  # Blockchain state confirms
+                else:
+                    prefix_seen_different_origin = True
+
+        if prefix_seen_different_origin:
             return "reject"
         return "no_knowledge"
 
