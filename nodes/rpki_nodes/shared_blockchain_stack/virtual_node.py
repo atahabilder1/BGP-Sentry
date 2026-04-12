@@ -279,11 +279,21 @@ class VirtualNode:
             return result
 
         # ── STEP 0b: Early skip for non-attack duplicates ──
+        # Trust-aware dedup: suspicious ASes (low trust score) get shorter
+        # dedup window = more frequent monitoring on the blockchain.
         _t0 = time.monotonic()
         dedup_key = (prefix, origin_asn)
+        dedup_window = self.RPKI_DEDUP_WINDOW
+        if self.rating_system is not None and not RPKINodeRegistry.is_rpki_node(origin_asn):
+            rating = self.rating_system.get_or_create_rating(origin_asn)
+            trust = rating.get("trust_score", 50)
+            if trust < 30:
+                # Suspicious: halve dedup window (monitor 2× more frequently)
+                dedup_window = max(5, dedup_window // 2)
+
         if not is_attack and dedup_key in self.dedup_state:
             elapsed = time.time() - self.dedup_state[dedup_key]
-            if elapsed < self.RPKI_DEDUP_WINDOW:
+            if elapsed < dedup_window:
                 self.step_timings["dedup_check"].append(time.monotonic() - _t0)
                 result["action"] = "skipped_dedup"
                 self.stats["transactions_deduped"] += 1
@@ -294,11 +304,16 @@ class VirtualNode:
         # ── STEP 1: Add to P2P pool knowledge base ──
         _t0 = time.monotonic()
         if self.p2p_pool is not None:
+            # Use actual trust score for non-RPKI origins, 100 for RPKI
+            origin_trust = 100.0
+            if self.rating_system is not None and not RPKINodeRegistry.is_rpki_node(origin_asn):
+                rating = self.rating_system.get_or_create_rating(origin_asn)
+                origin_trust = rating.get("trust_score", 50)
             self.p2p_pool.add_bgp_observation(
                 ip_prefix=prefix,
                 sender_asn=origin_asn,
                 timestamp=timestamp,
-                trust_score=100.0,
+                trust_score=origin_trust,
                 is_attack=is_attack,
             )
         self.step_timings["knowledge_base"].append(time.monotonic() - _t0)

@@ -188,10 +188,13 @@ class PrefixOwnershipState:
                 return None
 
             # CONFLICT: different origin with sufficient confidence
+            # This is a PREFIX_HIJACK detected via blockchain state
+            # (not a new attack type — it's a detection METHOD for existing types)
             self.detections += 1
             return {
-                "attack_type": "BLOCKCHAIN_STATE_CONFLICT",
+                "attack_type": "PREFIX_HIJACK",
                 "severity": "HIGH",
+                "detection_method": "blockchain_state",
                 "attacker_as": origin_asn,
                 "victim_prefix": prefix,
                 "legitimate_owner": established,
@@ -200,6 +203,7 @@ class PrefixOwnershipState:
                     "established_confirmations": confidence,
                     "claiming_origin": origin_asn,
                     "source": entry.get("source", "blockchain"),
+                    "detected_by": "prefix_ownership_state",
                 },
                 "description": (
                     f"AS{origin_asn} claiming {prefix} but blockchain state "

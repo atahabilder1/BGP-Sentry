@@ -312,3 +312,64 @@ The filter now accepts announcements where ALL intermediate relays are RPKI node
 - caida_200: 52.7% accepted
 - caida_650: 44.1% accepted
 - caida_1250: 57.8% accepted
+
+---
+
+## Feature #3: Trust Score Now Active in Decisions
+
+**Date Added:** 2026-04-12
+**Files Changed:**
+- `nodes/rpki_nodes/shared_blockchain_stack/virtual_node.py`
+- `nodes/rpki_nodes/shared_blockchain_stack/blockchain_utils/nonrpki_rating.py`
+- `nodes/rpki_nodes/shared_blockchain_stack/node_manager.py`
+
+### What Was Happening
+- Trust scores were tracked but NEVER used for any decision
+- `trust_score=100.0` was hardcoded everywhere
+- `rating_system=None` was passed to nodes (never connected)
+- Missing penalties for FORGED_ORIGIN_PREFIX_HIJACK and ACCIDENTAL_ROUTE_LEAK
+
+### What Changed
+1. **Trust-aware dedup:** Suspicious ASes (trust < 30) get halved dedup window (2× more monitoring)
+2. **Actual trust score** passed to knowledge base instead of hardcoded 100.0
+3. **Rating system** connected to all nodes (was `None`)
+4. **Missing penalties added:** FORGED_ORIGIN (-30), ACCIDENTAL_ROUTE_LEAK (-8)
+
+---
+
+## Feature #4: Blockchain State Detector Reports Standard Attack Types
+
+**Date Added:** 2026-04-12
+**Files Changed:**
+- `nodes/rpki_nodes/shared_blockchain_stack/blockchain_utils/prefix_ownership_state.py`
+
+### What Changed
+The blockchain state detector now reports `attack_type: "PREFIX_HIJACK"` with `detection_method: "blockchain_state"` instead of a custom `"BLOCKCHAIN_STATE_CONFLICT"` type. This is because it's a detection METHOD, not a new BGP attack type.
+
+---
+
+## Design Note: Shared State in Simulation
+
+### BGPCoin Ledger, Trust Ratings, and Prefix Ownership State
+
+In the simulation, these are maintained as **single shared Python objects** rather than per-node copies:
+
+```
+NodeManager creates ONE instance of each:
+  shared_ledger            → BGPCoinLedger
+  rating_system            → NonRPKIRatingSystem
+  prefix_ownership_state   → PrefixOwnershipState
+
+All RPKI nodes receive the SAME reference.
+```
+
+**Why this is correct for the simulation:**
+
+1. In a real deployment, these states would be deterministically derived from the confirmed transaction history on each node's blockchain
+2. Our per-node blockchains contain identical confirmed transactions (via fork resolution and block replication)
+3. Therefore every node would compute the same final balances, ratings, and ownership state
+4. The single shared object gives the same result more efficiently
+
+**In production:** Each node would independently compute these states from its local blockchain. The simulation shortcut is valid because the underlying blockchain data is per-node and independently verified.
+
+This is the same approach used by Ethereum simulators — shared state in simulation, independent state derivation in production.

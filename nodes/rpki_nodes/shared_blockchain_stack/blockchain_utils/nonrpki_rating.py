@@ -36,6 +36,7 @@ Author: BGP-Sentry Team
 """
 
 import json
+import os
 import threading
 from pathlib import Path
 from datetime import datetime, timedelta
@@ -79,6 +80,8 @@ class NonRPKIRatingSystem:
             "BOGON_INJECTION": cfg.RATING_PENALTY_BOGON_INJECTION,
             "ROUTE_FLAPPING": cfg.RATING_PENALTY_ROUTE_FLAPPING,
             "ROUTE_LEAK": cfg.RATING_PENALTY_ROUTE_LEAK,
+            "FORGED_ORIGIN_PREFIX_HIJACK": int(os.environ.get("RATING_PENALTY_FORGED_ORIGIN", "-30")),
+            "ACCIDENTAL_ROUTE_LEAK": int(os.environ.get("RATING_PENALTY_ACCIDENTAL_ROUTE_LEAK", "-8")),
             "repeated_attack": cfg.RATING_PENALTY_REPEATED_ATTACK,
             "persistent_attacker": cfg.RATING_PENALTY_PERSISTENT_ATTACKER,
         }

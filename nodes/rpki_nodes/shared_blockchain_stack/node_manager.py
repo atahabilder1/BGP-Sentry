@@ -250,7 +250,7 @@ class NodeManager:
                 p2p_pool=p2p_pool,
                 rpki_validator=self.rpki_validator if is_rpki else None,
                 attack_detector=self.attack_detector,
-                rating_system=None,
+                rating_system=self.rating_system,
                 bgpcoin_ledger=self.shared_ledger if is_rpki else None,
                 private_key=private_key,
                 clock=self.simulation_clock,
