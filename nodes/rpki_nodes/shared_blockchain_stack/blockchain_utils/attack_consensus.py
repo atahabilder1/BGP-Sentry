@@ -94,8 +94,12 @@ class AttackConsensus:
         self.use_memory_bus = use_memory_bus
 
         # Attack verdict storage
-        self.blockchain_dir = Path(blockchain_dir)
-        self.attack_verdicts_file = self.blockchain_dir / "attack_verdicts.jsonl"
+        if blockchain_dir is not None:
+            self.blockchain_dir = Path(blockchain_dir)
+            self.attack_verdicts_file = self.blockchain_dir / "attack_verdicts.jsonl"
+        else:
+            self.blockchain_dir = None
+            self.attack_verdicts_file = None
 
         # Active attack proposals
         self.active_proposals = {}  # proposal_id -> proposal_data
@@ -116,7 +120,7 @@ class AttackConsensus:
 
         print(f"🛡️  Attack Consensus System initialized")
         print(f"   Min votes required: {self.min_votes}")
-        print(f"   Verdicts file: {self.attack_verdicts_file}")
+        print(f"   Verdicts file: {self.attack_verdicts_file or 'in-memory'}")
 
     def analyze_and_propose_attack(self, announcement: Dict, transaction_id: str):
         """
@@ -579,16 +583,15 @@ class AttackConsensus:
                 # Replicate verdict block to peers
                 committed_block = self.p2p_pool.blockchain.get_last_block()
                 if committed_block is not None:
-                    if self.p2p_pool.node_blockchain is not None:
-                        self.p2p_pool.node_blockchain.append_replicated_block(committed_block)
                     self.p2p_pool._replicate_block_to_peers(committed_block)
             else:
                 print(f"Verdict blockchain write failed: {verdict_record['verdict_id']}")
 
             # Secondary index (best-effort, blockchain is source of truth)
             try:
-                with open(self.attack_verdicts_file, 'a') as f:
-                    f.write(json.dumps(verdict_record) + '\n')
+                if self.attack_verdicts_file is not None:
+                    with open(self.attack_verdicts_file, 'a') as f:
+                        f.write(json.dumps(verdict_record) + '\n')
             except Exception:
                 pass
 

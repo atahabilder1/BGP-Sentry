@@ -29,11 +29,10 @@ class InMemoryMessageBus:
         self.lock = threading.Lock()
         self.stats = {"sent": 0, "delivered": 0, "dropped": 0}
         # Thread pool for async message dispatch — keeps sender non-blocking.
-        # Sized to 2x CPU core count: with 58 RPKI nodes each broadcasting
-        # vote requests to 5 peers, that's ~290 concurrent messages.
-        # 48 workers on a 24-core CPU ensures full core utilisation.
+        # Sized to 4x CPU core count to handle large node counts (100+ RPKI
+        # nodes each broadcasting to multiple peers concurrently).
         import os
-        _pool_size = max(48, (os.cpu_count() or 8) * 2)
+        _pool_size = max(128, (os.cpu_count() or 8) * 4)
         self._executor = ThreadPoolExecutor(max_workers=_pool_size, thread_name_prefix="MsgBus")
 
     @classmethod
@@ -93,6 +92,22 @@ class InMemoryMessageBus:
             targets = [n for n in self.handlers if n != from_as]
         for target in targets:
             self.send(from_as, target, message)
+
+    def wait_idle(self, timeout: float = 30.0) -> bool:
+        """Wait until the thread pool has finished all dispatched messages.
+
+        Submits a no-op future and waits for it — since the executor is FIFO,
+        when the no-op completes, all previously submitted work is done.
+
+        Returns True if idle, False if timed out.
+        """
+        import concurrent.futures
+        try:
+            future = self._executor.submit(lambda: None)
+            future.result(timeout=timeout)
+            return True
+        except (concurrent.futures.TimeoutError, RuntimeError):
+            return False
 
     def get_registered_nodes(self) -> List[int]:
         """Get list of registered node AS numbers."""

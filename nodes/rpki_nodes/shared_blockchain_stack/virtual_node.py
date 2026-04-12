@@ -23,6 +23,7 @@ Non-RPKI Observer nodes:
   4. If legitimate: record, track rating
 """
 
+import asyncio
 import collections
 import json
 import logging
@@ -60,7 +61,6 @@ class VirtualNode:
         rpki_validator=None,
         attack_detector=None,
         rating_system=None,
-        shared_blockchain=None,
         bgpcoin_ledger=None,
         private_key=None,
         clock=None,
@@ -75,7 +75,6 @@ class VirtualNode:
         self.rpki_validator = rpki_validator
         self.attack_detector = attack_detector
         self.rating_system = rating_system
-        self.shared_blockchain = shared_blockchain
         self.bgpcoin_ledger = bgpcoin_ledger
         self.private_key = private_key  # Ed25519 private key (RPKI nodes only)
         self._clock = clock  # SimulationClock (optional)
@@ -277,14 +276,18 @@ class VirtualNode:
             self.stats["attacks_detected"] += 1
 
         # ── STEP 4: Create transaction and broadcast for consensus ──
+        # NOTE: broadcast is called directly instead of spawning a new thread
+        # per transaction.  The old approach created tens of thousands of
+        # short-lived threads (one per observation), adding ~1ms OS overhead
+        # each.  broadcast_transaction() is non-blocking (it just sends
+        # messages via the bus and returns), so a dedicated thread is unnecessary.
         _t0 = time.monotonic()
         if self.p2p_pool is not None:
             transaction = self._create_transaction(obs, validation, detected_attacks)
-            threading.Thread(
-                target=self._timed_broadcast,
-                args=(transaction, time.monotonic()),
-                daemon=True,
-            ).start()
+            try:
+                self.p2p_pool.broadcast_transaction(transaction)
+            except Exception as e:
+                logger.error(f"AS{self.asn} broadcast error: {e}")
             self.stats["transactions_created"] += 1
             result["action"] = "transaction_broadcast"
             result["transaction_id"] = transaction["transaction_id"]
@@ -434,6 +437,164 @@ class VirtualNode:
         self.running = False
         if self._thread and self._thread.is_alive():
             self._thread.join(timeout=5)
+
+    # ------------------------------------------------------------------
+    # Async processing path (USE_ASYNC=true)
+    # ------------------------------------------------------------------
+    async def run_async(self, callback=None):
+        """Process all observations as an async coroutine (no thread)."""
+        self.running = True
+        await self._process_observations_async(callback)
+
+    async def _process_observations_async(self, callback=None):
+        """Async version of _process_observations."""
+        sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
+        buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
+        self._buffer = buffer
+
+        for obs in sorted_obs:
+            if not self.running:
+                break
+
+            bgp_ts = obs.get("timestamp", 0)
+            if self._clock is not None:
+                await self._clock.wait_until_async(bgp_ts)
+
+            is_attack = obs.get("is_attack", False)
+            if is_attack:
+                await self._process_single_async(obs, callback)
+            else:
+                if not buffer.try_add(obs):
+                    self.stats["buffer_sampled"] += 1
+                    self.processed_count += 1
+                    continue
+                while not buffer.empty():
+                    buffered_obs = buffer.pop()
+                    await self._process_single_async(buffered_obs, callback)
+
+        while not buffer.empty():
+            await self._process_single_async(buffer.pop(), callback)
+
+        self.running = False
+
+    async def _process_single_async(self, obs, callback=None):
+        """Async version of _process_single."""
+        self._last_bgp_ts = obs.get("timestamp", 0)
+        try:
+            if self.is_rpki:
+                result = await self._process_observation_rpki_async(obs)
+            else:
+                result = self._process_observation_nonrpki(obs)
+        except Exception as e:
+            logger.error(f"AS{self.asn} processing error: {e}")
+            result = self._make_base_result(obs, action="error")
+
+        if callback:
+            try:
+                callback(self, obs, result)
+            except Exception as e:
+                logger.error(f"AS{self.asn} callback error: {e}")
+
+        self.processed_count += 1
+
+    async def _process_observation_rpki_async(self, obs: dict) -> dict:
+        """Async RPKI validator pipeline."""
+        _t_pipeline = time.monotonic()
+
+        prefix = obs.get("prefix", "")
+        origin_asn = obs.get("origin_asn", 0)
+        is_attack = obs.get("is_attack", False)
+        label = obs.get("label", "LEGITIMATE")
+        timestamp = obs.get("timestamp", datetime.now().isoformat())
+
+        result = self._make_base_result(obs)
+
+        # STEP 0: Early skip for non-attack duplicates
+        _t0 = time.monotonic()
+        dedup_key = (prefix, origin_asn)
+        if not is_attack and dedup_key in self.dedup_state:
+            elapsed = time.time() - self.dedup_state[dedup_key]
+            if elapsed < self.RPKI_DEDUP_WINDOW:
+                self.step_timings["dedup_check"].append(time.monotonic() - _t0)
+                result["action"] = "skipped_dedup"
+                self.stats["transactions_deduped"] += 1
+                self.detection_results.append(result)
+                return result
+        self.step_timings["dedup_check"].append(time.monotonic() - _t0)
+
+        # STEP 1: Knowledge base
+        _t0 = time.monotonic()
+        if self.p2p_pool is not None:
+            self.p2p_pool.add_bgp_observation(
+                ip_prefix=prefix,
+                sender_asn=origin_asn,
+                timestamp=timestamp,
+                trust_score=100.0,
+                is_attack=is_attack,
+            )
+        self.step_timings["knowledge_base"].append(time.monotonic() - _t0)
+
+        # STEP 2: RPKI validation
+        _t0 = time.monotonic()
+        validation = {"valid": True, "status": "not_checked"}
+        if self.rpki_validator is not None:
+            validation = self.rpki_validator.validate(obs)
+        self.step_timings["rpki_validation"].append(time.monotonic() - _t0)
+        result["rpki_validation"] = validation.get("status", "unknown")
+
+        # STEP 3: Attack detection
+        _t0 = time.monotonic()
+        detected_attacks = []
+        if self.attack_detector is not None:
+            detected_attacks = self.attack_detector.detect_attacks({
+                "sender_asn": origin_asn,
+                "ip_prefix": prefix,
+                "as_path": obs.get("as_path", [origin_asn]),
+            })
+        self.step_timings["attack_detection"].append(time.monotonic() - _t0)
+
+        if detected_attacks:
+            result["detected"] = True
+            result["detection_type"] = detected_attacks[0]["attack_type"]
+            result["detection_details"] = [a["attack_type"] for a in detected_attacks]
+            self.attack_detections.append(result)
+            self.stats["attacks_detected"] += 1
+        elif is_attack and (not validation.get("valid", True)
+                            or validation.get("status") == "invalid"):
+            result["detected"] = True
+            result["detection_type"] = label
+            self.attack_detections.append(result)
+            self.stats["attacks_detected"] += 1
+
+        # STEP 4: Create transaction and broadcast (async)
+        _t0 = time.monotonic()
+        if self.p2p_pool is not None:
+            transaction = self._create_transaction(obs, validation, detected_attacks)
+            # Fire-and-forget async broadcast
+            asyncio.create_task(self._async_broadcast(transaction))
+            self.stats["transactions_created"] += 1
+            result["action"] = "transaction_broadcast"
+            result["transaction_id"] = transaction["transaction_id"]
+        else:
+            result["action"] = "no_p2p_pool"
+        self.step_timings["tx_broadcast"].append(time.monotonic() - _t0)
+
+        # STEP 5: Update dedup state
+        self.dedup_state[dedup_key] = time.time()
+
+        if not is_attack:
+            self.legitimate_count += 1
+
+        self.step_timings["total_pipeline"].append(time.monotonic() - _t_pipeline)
+        self.detection_results.append(result)
+        return result
+
+    async def _async_broadcast(self, transaction):
+        """Broadcast transaction via async P2P pool."""
+        try:
+            await self.p2p_pool.broadcast_transaction(transaction)
+        except Exception as e:
+            logger.error(f"AS{self.asn} async broadcast error: {e}")
 
     def is_done(self) -> bool:
         """Check if all observations have been processed."""

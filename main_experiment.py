@@ -12,6 +12,7 @@ Usage:
 Author: Anik Tahabilder
 """
 
+import asyncio
 import sys
 import os
 import time
@@ -204,7 +205,7 @@ class BGPSentryExperiment:
             logger.info("Starting all virtual nodes...")
             self.orchestrator.start_all_nodes()
 
-            # Step 3: Wait for processing
+            # Step 3: Wait for observation ingestion
             logger.info("Processing observations...")
             completed = self.node_manager.wait_for_completion(
                 timeout=self.duration,
@@ -213,6 +214,84 @@ class BGPSentryExperiment:
 
             if not completed:
                 logger.warning("Processing did not complete within timeout")
+
+            # Step 3b: Graceful drain — let every in-flight consensus round
+            # finish naturally.  No force-commits, no races, no data loss.
+            #
+            # Sequence:
+            #   1. Stop nodes from creating NEW observations/transactions
+            #   2. Put P2P pools into drain mode (reject new vote requests,
+            #      but keep processing vote responses & block replications)
+            #   3. Wait for the timeout handler to resolve ALL pending txns
+            #   4. Wait for message bus to deliver all queued messages
+            #   5. Stop P2P pools cleanly
+
+            from config import cfg as _cfg
+            from message_bus import InMemoryMessageBus
+
+            # Phase 1: Stop observation ingestion
+            logger.info("Stopping observation ingestion on all nodes...")
+            for node in self.node_manager.nodes.values():
+                node.running = False
+            time.sleep(2.0)  # Let processing threads finish current observation
+
+            # Phase 2: Enter drain mode — consensus rounds continue, no new ones start
+            logger.info("Entering drain mode — existing consensus rounds will complete naturally...")
+            for node in self.node_manager.nodes.values():
+                if node.p2p_pool is not None:
+                    node.p2p_pool.begin_drain()
+
+            # Phase 3: Wait for ALL pending transactions to resolve via timeout handler
+            # The timeout handler commits each pending tx with its actual consensus
+            # status (CONFIRMED / INSUFFICIENT_CONSENSUS / SINGLE_WITNESS) when its
+            # voting window expires.  We wait until every queue is empty.
+            max_timeout = max(_cfg.P2P_REGULAR_TIMEOUT, _cfg.P2P_ATTACK_TIMEOUT)
+            # Allow 2x the longest timeout + buffer for the handler to cycle through
+            drain_deadline = max_timeout * 2 + 15
+            logger.info(
+                f"Waiting up to {drain_deadline:.0f}s for timeout handler to "
+                f"resolve all pending consensus rounds..."
+            )
+            drain_start = time.time()
+            while time.time() - drain_start < drain_deadline:
+                total_pending = sum(
+                    node.p2p_pool.get_pending_count()
+                    for node in self.node_manager.nodes.values()
+                    if node.p2p_pool is not None
+                )
+                if total_pending == 0:
+                    logger.info("All pending transactions resolved naturally")
+                    break
+                elapsed_drain = time.time() - drain_start
+                logger.info(
+                    f"Draining: {total_pending:,} still pending "
+                    f"({elapsed_drain:.0f}s / {drain_deadline:.0f}s)"
+                )
+                time.sleep(2.0)
+            else:
+                remaining = sum(
+                    node.p2p_pool.get_pending_count()
+                    for node in self.node_manager.nodes.values()
+                    if node.p2p_pool is not None
+                )
+                logger.warning(
+                    f"Drain deadline reached with {remaining:,} transactions "
+                    f"still pending — these will be committed by the timeout "
+                    f"handler on final stop"
+                )
+
+            # Phase 4: Wait for message bus to finish delivering queued messages
+            bus = InMemoryMessageBus.get_instance()
+            logger.info("Waiting for message bus to deliver remaining messages...")
+            bus.wait_idle(timeout=30.0)
+
+            # Phase 5: Final pending check
+            final_pending = sum(
+                node.p2p_pool.get_pending_count()
+                for node in self.node_manager.nodes.values()
+                if node.p2p_pool is not None
+            )
+            logger.info(f"Graceful drain complete. Final pending: {final_pending:,}")
 
             # Step 4: Save monitoring time-series data
             if hasattr(self, '_dashboard'):
@@ -228,6 +307,134 @@ class BGPSentryExperiment:
             logger.info(f"Results written to: {self.results_dir}")
             logger.info("=" * 70)
 
+            return True
+
+        except Exception as e:
+            logger.error(f"Experiment failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+        finally:
+            self.orchestrator.stop_all_nodes()
+
+    async def run_async(self):
+        """Run the full experiment using async I/O instead of threads."""
+        logger.info("=" * 70)
+        logger.info("BGP-SENTRY EXPERIMENT STARTING [ASYNC MODE]")
+        logger.info("=" * 70)
+        logger.info(f"Dataset: {self.data_loader.dataset_name}")
+        logger.info(f"Nodes: {self.data_loader.total_ases} "
+                     f"({self.data_loader.rpki_count} RPKI, "
+                     f"{self.data_loader.non_rpki_count} non-RPKI)")
+        logger.info(f"Duration limit: {self.duration}s")
+        logger.info(f"Results: {self.results_dir}")
+
+        self.experiment_start_time = time.time()
+
+        try:
+            # Step 0: Dashboard (runs in its own thread, fine to mix)
+            from monitoring.dashboard_server import SimulationDashboard
+            self._dashboard = SimulationDashboard(
+                node_manager=self.node_manager,
+                clock=self.node_manager.simulation_clock,
+                port=5555,
+                system_info=self.system_info,
+            )
+            self._dashboard.start()
+
+            # Step 1: Generate VRP
+            self._generate_vrp()
+
+            # Step 2: Start nodes (async)
+            logger.info("Starting all virtual nodes (async)...")
+            await self.node_manager.start_all_async()
+
+            # Step 3: Wait for observation ingestion (async)
+            logger.info("Processing observations (async)...")
+            completed = await self.node_manager.wait_for_completion_async(
+                timeout=self.duration,
+                poll_interval=5.0,
+            )
+            if not completed:
+                logger.warning("Processing did not complete within timeout")
+
+            # Step 3b: Graceful drain (async version) — same logic as sync run()
+            from config import cfg as _cfg
+            from message_bus_async import AsyncMessageBus
+
+            # Phase 1: Stop observation ingestion
+            logger.info("Stopping observation ingestion on all nodes...")
+            for node in self.node_manager.nodes.values():
+                node.running = False
+            await asyncio.sleep(2.0)
+
+            # Phase 2: Enter drain mode
+            logger.info("Entering drain mode — existing consensus rounds will complete naturally...")
+            for node in self.node_manager.nodes.values():
+                if node.p2p_pool is not None:
+                    node.p2p_pool.begin_drain()
+
+            # Phase 3: Wait for ALL pending transactions to resolve via timeout handler
+            max_timeout = max(_cfg.P2P_REGULAR_TIMEOUT, _cfg.P2P_ATTACK_TIMEOUT)
+            drain_deadline = max_timeout * 2 + 15
+            logger.info(
+                f"Waiting up to {drain_deadline:.0f}s for timeout handler to "
+                f"resolve all pending consensus rounds..."
+            )
+            drain_start = time.time()
+            while time.time() - drain_start < drain_deadline:
+                total_pending = sum(
+                    node.p2p_pool.get_pending_count()
+                    for node in self.node_manager.nodes.values()
+                    if node.p2p_pool is not None
+                )
+                if total_pending == 0:
+                    logger.info("All pending transactions resolved naturally")
+                    break
+                elapsed_drain = time.time() - drain_start
+                logger.info(
+                    f"Draining: {total_pending:,} still pending "
+                    f"({elapsed_drain:.0f}s / {drain_deadline:.0f}s)"
+                )
+                await asyncio.sleep(2.0)
+            else:
+                remaining = sum(
+                    node.p2p_pool.get_pending_count()
+                    for node in self.node_manager.nodes.values()
+                    if node.p2p_pool is not None
+                )
+                logger.warning(
+                    f"Drain deadline reached with {remaining:,} transactions "
+                    f"still pending"
+                )
+
+            # Phase 4: Wait for message bus to finish
+            bus = AsyncMessageBus.get_instance()
+            logger.info("Waiting for message bus to deliver remaining messages...")
+            await bus.wait_idle(timeout=30.0)
+
+            # Phase 5: Final pending check
+            final_pending = sum(
+                node.p2p_pool.get_pending_count()
+                for node in self.node_manager.nodes.values()
+                if node.p2p_pool is not None
+            )
+            logger.info(f"Graceful drain complete. Final pending: {final_pending:,}")
+
+            # Step 4: Save monitoring
+            if hasattr(self, '_dashboard'):
+                self._dashboard.save_report(self.results_dir)
+                self._dashboard.stop()
+
+            # Step 5: Write results
+            self._write_results()
+
+            elapsed = time.time() - self.experiment_start_time
+            logger.info("=" * 70)
+            logger.info(f"EXPERIMENT COMPLETED [ASYNC] in {elapsed:.1f}s")
+            logger.info(f"Results written to: {self.results_dir}")
+            logger.info("=" * 70)
             return True
 
         except Exception as e:
@@ -301,11 +508,14 @@ class BGPSentryExperiment:
         _safe_write("summary.json", summary)
 
         # 5. Run config (includes system info for benchmarking)
+        from config import cfg as _cfg
         run_config = {
             "dataset_path": self.dataset_path,
             "dataset_name": self.data_loader.dataset_name,
             "duration_limit": self.duration,
             "actual_duration": elapsed,
+            "system_async_mode": _cfg.USE_ASYNC,
+            "concurrency_model": "asyncio" if _cfg.USE_ASYNC else "threads",
             "system_info": self.system_info,
             "rpki_node_count": self.data_loader.rpki_count,
             "non_rpki_node_count": self.data_loader.non_rpki_count,
@@ -387,8 +597,11 @@ class BGPSentryExperiment:
         ns = summary.get("node_summary", {})
         perf = performance or {}
         bc = blockchain_stats or {}
-        bc_info = bc.get("blockchain_info", {})
-        integrity = bc.get("integrity", {})
+        bc_info = {
+            "total_blocks": bc.get("blocks_per_node", {}).get("max", 0),
+            "total_transactions": int(bc.get("transactions_per_node", {}).get("mean", 0)),
+        }
+        integrity = {"valid": bc.get("all_valid", False)}
         eco = bgpcoin_economy or {}
         cl = consensus_log or {}
         dd = dedup_stats or {}
@@ -602,23 +815,19 @@ class BGPSentryExperiment:
         # ================================================================
         # BLOCKCHAIN
         # ================================================================
-        lines.append(f"## Blockchain")
+        lines.append(f"## Blockchain (Per-Node Independent Chains)")
         lines.append(f"")
         lines.append(f"| Metric | Value |")
         lines.append(f"|--------|-------|")
-        lines.append(f"| Total Blocks | {bc_info.get('total_blocks', 0):,} |")
-        lines.append(f"| Total Transactions | {bc_info.get('total_transactions', 0):,} |")
-        latest = bc_info.get("latest_block", {})
-        lines.append(f"| Latest Block # | {latest.get('block_number', 'N/A')} |")
-        lines.append(f"| Integrity Valid | {'Yes' if integrity_ok else 'No'} |")
-        if not integrity_ok:
-            errors = integrity.get("errors", [])
-            lines.append(f"| Integrity Errors | {'; '.join(errors[:3])} |")
-        replicas = bc.get("node_replicas", {})
-        if replicas:
-            lines.append(f"| Node Replicas | {replicas.get('total_nodes', 0)} |")
-            lines.append(f"| All Replicas Valid | {'Yes' if replicas.get('all_valid') else 'No'} |")
-            lines.append(f"| Valid Replicas | {replicas.get('valid_count', 0)}/{replicas.get('total_nodes', 0)} |")
+        lines.append(f"| Architecture | Per-node independent blockchains |")
+        lines.append(f"| Total Node Chains | {bc.get('total_nodes', 0)} |")
+        lines.append(f"| Valid Chains | {bc.get('valid_chains', 0)}/{bc.get('total_nodes', 0)} |")
+        blocks_per_node = bc.get("blocks_per_node", {})
+        txns_per_node = bc.get("transactions_per_node", {})
+        lines.append(f"| Blocks/Node (min/avg/max) | {blocks_per_node.get('min', 0)}/{blocks_per_node.get('mean', 0):.1f}/{blocks_per_node.get('max', 0)} |")
+        lines.append(f"| Transactions/Node (min/avg/max) | {txns_per_node.get('min', 0)}/{txns_per_node.get('mean', 0):.1f}/{txns_per_node.get('max', 0)} |")
+        lines.append(f"| Total Forks Detected | {bc.get('total_forks_detected', 0)} |")
+        lines.append(f"| All Chains Valid | {'Yes' if integrity_ok else 'No'} |")
         lines.append(f"")
 
         # ── Cryptographic Signing ──
@@ -908,8 +1117,20 @@ Examples:
         '--no-clean', action='store_false', dest='clean',
         help='Keep existing blockchain state from previous runs'
     )
+    parser.add_argument(
+        '--async', action='store_true', dest='use_async', default=None,
+        help='Use async I/O instead of threads (overrides USE_ASYNC in .env)'
+    )
+    parser.add_argument(
+        '--no-async', action='store_false', dest='use_async',
+        help='Force threaded mode (overrides USE_ASYNC in .env)'
+    )
 
     args = parser.parse_args()
+
+    # Override USE_ASYNC env var if CLI flag provided
+    if args.use_async is not None:
+        os.environ["USE_ASYNC"] = "true" if args.use_async else "false"
 
     # Resolve dataset
     try:
@@ -925,7 +1146,14 @@ Examples:
         clean=args.clean,
     )
 
-    success = experiment.run()
+    # Check if async mode (re-read config after env override)
+    from config import cfg as _cfg
+    use_async = args.use_async if args.use_async is not None else _cfg.USE_ASYNC
+
+    if use_async:
+        success = asyncio.run(experiment.run_async())
+    else:
+        success = experiment.run()
     return 0 if success else 1
 
 

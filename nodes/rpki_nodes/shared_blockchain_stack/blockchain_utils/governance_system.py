@@ -77,9 +77,15 @@ class GovernanceSystem:
         self.as_number = as_number
         self.ledger = bgpcoin_ledger
         self.p2p_pool = p2p_pool
-        self.governance_dir = Path(governance_path)
-        self.proposals_file = self.governance_dir / "governance_proposals.json"
-        self.votes_file = self.governance_dir / "governance_votes.jsonl"
+        if governance_path is not None:
+            self.governance_dir = Path(governance_path)
+            self.proposals_file = self.governance_dir / "governance_proposals.json"
+            self.votes_file = self.governance_dir / "governance_votes.jsonl"
+        else:
+            # In-memory mode: no disk persistence
+            self.governance_dir = None
+            self.proposals_file = None
+            self.votes_file = None
 
         # Consensus thresholds (from proposal)
         self.thresholds = {
@@ -102,6 +108,8 @@ class GovernanceSystem:
 
     def _load_proposals(self):
         """Load active governance proposals from disk"""
+        if self.proposals_file is None:
+            return
         try:
             if self.proposals_file.exists():
                 with open(self.proposals_file, 'r') as f:
@@ -114,6 +122,8 @@ class GovernanceSystem:
 
     def _save_proposals(self):
         """Save governance proposals to disk"""
+        if self.proposals_file is None:
+            return
         try:
             data = {
                 "proposals": self.active_proposals,
@@ -485,8 +495,9 @@ class GovernanceSystem:
                 "status": proposal["status"]
             }
 
-            with open(self.votes_file, 'a') as f:
-                f.write(json.dumps(log_entry) + '\n')
+            if self.votes_file is not None:
+                with open(self.votes_file, 'a') as f:
+                    f.write(json.dumps(log_entry) + '\n')
 
         except Exception as e:
             print(f"Error logging governance action: {e}")

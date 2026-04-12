@@ -40,8 +40,7 @@ class P2PTransactionPool:
 
     def __init__(self, as_number, base_port=8000, use_memory_bus=False,
                  blockchain_interface=None, bgpcoin_ledger=None,
-                 private_key=None, public_key_registry=None,
-                 node_blockchain=None):
+                 private_key=None, public_key_registry=None):
         self.as_number = as_number
         self.my_port = base_port + as_number
         self.use_memory_bus = use_memory_bus
@@ -49,9 +48,6 @@ class P2PTransactionPool:
         # Per-node cryptographic keys (Ed25519)
         self.private_key = private_key              # Ed25519 private key object
         self.public_key_registry = public_key_registry or {}  # asn -> public_key object
-
-        # Per-node blockchain replica (in-memory)
-        self.node_blockchain = node_blockchain
 
         # Get peer RPKI nodes from registry (excludes self automatically)
         self.peer_nodes = RPKINodeRegistry.get_peer_nodes(self.as_number)
@@ -69,6 +65,7 @@ class P2PTransactionPool:
         # P2P communication
         self.server_socket = None
         self.running = False
+        self.draining = False  # True = stop creating new txns, but keep consensus alive
         self.lock = threading.Lock()
         # Per-instance events (NOT class-level) so nodes don't interfere
         self._shutdown_event = threading.Event()
@@ -84,6 +81,9 @@ class P2PTransactionPool:
         # Knowledge base for time-windowed BGP observations
         # Each node maintains observations to validate incoming transactions
         self.knowledge_base = []  # List of observed BGP announcements
+        # Fast lookup index: ip_prefix -> [(sender_asn, timestamp, observed_at), ...]
+        # Enables O(1) prefix lookup instead of O(n) list scan during voting.
+        self._kb_index = {}
         self.knowledge_window_seconds = cfg.KNOWLEDGE_WINDOW_SECONDS
         self.cleanup_interval = cfg.KNOWLEDGE_CLEANUP_INTERVAL
 
@@ -95,13 +95,20 @@ class P2PTransactionPool:
         self.SAMPLING_WINDOW_SECONDS = cfg.SAMPLING_WINDOW_SECONDS
 
         # Persistent storage for knowledge base (per-node file to avoid races)
-        self.knowledge_base_file = self.blockchain.state_dir / f"knowledge_base_as{self.as_number}.json"
+        # When blockchain is in-memory, skip file persistence entirely
+        if self.blockchain.state_dir is not None:
+            self.knowledge_base_file = self.blockchain.state_dir / f"knowledge_base_as{self.as_number}.json"
+        else:
+            self.knowledge_base_file = None
 
         # Sampling cache: Track last seen time for each (ip_prefix, as_number)
         # Format: {(ip_prefix, as_number): last_seen_timestamp}
         # This allows O(1) lookup instead of scanning blockchain
         self.last_seen_cache = {}
-        self.last_seen_cache_file = self.blockchain.state_dir / f"last_seen_announcements_as{self.as_number}.json"
+        if self.blockchain.state_dir is not None:
+            self.last_seen_cache_file = self.blockchain.state_dir / f"last_seen_announcements_as{self.as_number}.json"
+        else:
+            self.last_seen_cache_file = None
 
         # Load existing knowledge base from disk
         self._load_knowledge_base()
@@ -143,28 +150,22 @@ class P2PTransactionPool:
         self._batch_lock = threading.Lock()
         self._batch_event = threading.Event()  # Signals new item or shutdown
 
-        # Start background threads
-        cleanup_thread = threading.Thread(target=self._cleanup_old_observations, daemon=True)
-        cleanup_thread.start()
+        # ── Background threads (optimized: 2-3 instead of 6) ────────
+        # Thread 1: Unified cleanup — handles observations, last_seen
+        #           cache, committed TXs, and KB persistence in one loop.
+        # Thread 2: Timeout handler — event-driven, essential for consensus.
+        # Thread 3: Batch flush — only if BATCH_SIZE > 1.
+        unified_cleanup_thread = threading.Thread(
+            target=self._unified_cleanup_loop, daemon=True
+        )
+        unified_cleanup_thread.start()
 
-        save_thread = threading.Thread(target=self._periodic_save_knowledge_base, daemon=True)
-        save_thread.start()
-
-        # Cleanup thread for last_seen cache
-        cache_cleanup_thread = threading.Thread(target=self._periodic_cleanup_last_seen_cache, daemon=True)
-        cache_cleanup_thread.start()
-
-        # Timeout cleanup thread for pending transactions
-        timeout_thread = threading.Thread(target=self._cleanup_timed_out_transactions, daemon=True)
+        timeout_thread = threading.Thread(
+            target=self._cleanup_timed_out_transactions, daemon=True
+        )
         timeout_thread.start()
 
-        # Committed-transactions cleanup thread (prevents unbounded growth)
-        committed_cleanup_thread = threading.Thread(
-            target=self._cleanup_old_committed_transactions, daemon=True
-        )
-        committed_cleanup_thread.start()
-
-        # Batch flush thread (only active when BATCH_SIZE > 1)
+        self._batch_running = True
         if self.batch_size > 1:
             batch_thread = threading.Thread(target=self._batch_flush_loop, daemon=True)
             batch_thread.start()
@@ -235,10 +236,19 @@ class P2PTransactionPool:
             self.logger.error(f"Failed to start P2P server: {e}")
 
     def _handle_bus_message(self, message):
-        """Handle incoming message from InMemoryMessageBus."""
+        """Handle incoming message from InMemoryMessageBus.
+
+        During drain mode, vote responses and block replications are still
+        processed so that in-flight consensus rounds complete naturally.
+        Only new vote *requests* (which would start new rounds) are rejected.
+        """
+        if not self.running:
+            return  # Pool fully stopped — discard everything
         try:
             msg_type = message["type"]
             if msg_type == "vote_request":
+                if self.draining:
+                    return  # Don't start new consensus rounds during drain
                 self._handle_vote_request(message)
             elif msg_type == "vote_response":
                 self._handle_vote_response(message)
@@ -446,27 +456,38 @@ class P2PTransactionPool:
             "consensus_event": threading.Event(),  # Fires when threshold reached
         }
 
-        # Get relevant neighbors from cache (optimized voting)
-        relevant_neighbors = self.neighbor_cache.get_relevant_neighbors(sender_asn)
+        # Adaptive peer selection: scale with network size
+        # Broadcast size: max(threshold * 2, sqrt(N)) — scales sublinearly
+        # Priority: relevant neighbors first, then random peers for diversity
+        import math
+        n_peers = len(self.peer_nodes)
+        broadcast_size = max(
+            self.consensus_threshold * 2,
+            int(math.sqrt(n_peers)),
+        )
+        broadcast_size = min(broadcast_size, n_peers)
 
-        # Filter to only neighbors in our peer list
-        target_peers = {
+        # Layer 1: relevant neighbors (most likely to have knowledge)
+        relevant_neighbors = self.neighbor_cache.get_relevant_neighbors(sender_asn)
+        relevant_peers = {
             peer_as: (host, port)
             for peer_as, (host, port) in self.peer_nodes.items()
             if peer_as in relevant_neighbors
         }
+        if len(relevant_peers) > broadcast_size:
+            relevant_peers = dict(random.sample(list(relevant_peers.items()), broadcast_size))
 
-        # Fallback: if no relevant neighbors, use random subset of peers
-        if not target_peers:
-            peer_items = list(self.peer_nodes.items())
-            sample_size = min(self.MAX_BROADCAST_PEERS, len(peer_items))
-            sampled = random.sample(peer_items, sample_size)
-            target_peers = dict(sampled)
-
-        # Cap broadcast to MAX_BROADCAST_PEERS
-        if len(target_peers) > self.MAX_BROADCAST_PEERS:
-            peer_items = list(target_peers.items())
-            target_peers = dict(random.sample(peer_items, self.MAX_BROADCAST_PEERS))
+        # Layer 2: fill remaining slots with random non-relevant peers
+        target_peers = dict(relevant_peers)
+        remaining_slots = broadcast_size - len(target_peers)
+        if remaining_slots > 0:
+            other_peers = [
+                (peer_as, addr) for peer_as, addr in self.peer_nodes.items()
+                if peer_as not in target_peers
+            ]
+            if other_peers:
+                fill = random.sample(other_peers, min(remaining_slots, len(other_peers)))
+                target_peers.update(dict(fill))
 
         # Send vote requests to selected peers
         for peer_as, (host, port) in target_peers.items():
@@ -538,13 +559,14 @@ class P2PTransactionPool:
         Handle replicated block from a peer node.
 
         After a node commits a block (via consensus), it broadcasts the block
-        to all peers. Each peer appends it to their local chain replica.
+        to all peers. Each peer attempts to append it to their own
+        independent chain.  If the block conflicts with the local tip,
+        a fork is detected and recorded by BlockchainInterface.
         """
         block = message.get("block")
         if block is None:
             return
-        if self.node_blockchain is not None:
-            self.node_blockchain.append_replicated_block(block)
+        self.blockchain.append_replicated_block(block)
 
     def _replicate_block_to_peers(self, block):
         """
@@ -563,8 +585,16 @@ class P2PTransactionPool:
         ).start()
 
     def _do_replicate_block(self, block):
-        """Background worker for block replication broadcast."""
+        """Background worker for block replication via gossip.
+
+        Instead of broadcasting to ALL peers (O(N) messages per commit),
+        replicate to a small gossip subset of sqrt(N) peers.  Each peer
+        that receives the block will merge novel transactions via fork
+        resolution, so data propagates transitively.
+        """
         try:
+            import random
+            import math
             from message_bus import InMemoryMessageBus
             bus = InMemoryMessageBus.get_instance()
             message = {
@@ -572,7 +602,11 @@ class P2PTransactionPool:
                 "from_as": self.as_number,
                 "block": block,
             }
-            bus.broadcast(self.as_number, message)
+            # Gossip to sqrt(N) peers instead of all N
+            all_peers = [n for n in self.peer_nodes if n != self.as_number]
+            gossip_size = max(3, int(math.sqrt(len(all_peers))))
+            targets = random.sample(all_peers, min(gossip_size, len(all_peers)))
+            bus.broadcast(self.as_number, message, targets=targets)
         except Exception as e:
             self.logger.error(f"Block replication error: {e}")
 
@@ -656,6 +690,8 @@ class P2PTransactionPool:
         """
         Save last_seen_cache to disk for persistence across restarts.
         """
+        if self.last_seen_cache_file is None:
+            return
         try:
             # Convert tuple keys to strings for JSON serialization
             serializable_cache = {
@@ -683,6 +719,8 @@ class P2PTransactionPool:
         """
         Load last_seen_cache from disk on startup.
         """
+        if self.last_seen_cache_file is None:
+            return
         try:
             if self.last_seen_cache_file.exists():
                 with open(self.last_seen_cache_file, 'r') as f:
@@ -960,11 +998,13 @@ class P2PTransactionPool:
             vote_data = self.pending_votes[transaction_id]
             transaction = vote_data["transaction"]
 
-            # Add consensus metadata
-            transaction["signatures"] = vote_data["votes"]
+            # Snapshot votes — do NOT share the mutable list with vote_data,
+            # otherwise late-arriving votes would mutate the block's content
+            # after its hash has been computed, causing chain invalidity.
+            transaction["signatures"] = list(vote_data["votes"])
             transaction["consensus_status"] = consensus_status
             transaction["consensus_reached"] = (consensus_status == "CONFIRMED")
-            transaction["signature_count"] = len(vote_data["votes"])
+            transaction["signature_count"] = len(transaction["signatures"])
             transaction["approve_count"] = approve_count
             transaction["timeout_commit"] = True
 
@@ -977,11 +1017,9 @@ class P2PTransactionPool:
                     f"({approve_count} approve votes, timeout)"
                 )
 
-                # ── Block replication (per-node blockchain) ──
+                # ── Block replication to peers ──
                 committed_block = self.blockchain.get_last_block()
                 if committed_block:
-                    if self.node_blockchain is not None:
-                        self.node_blockchain.append_replicated_block(committed_block)
                     self._replicate_block_to_peers(committed_block)
 
                 # Update last_seen cache for sampling (if regular announcement and has some approval)
@@ -1038,15 +1076,22 @@ class P2PTransactionPool:
                     f"trimmed {trim_count} oldest entries"
                 )
 
+            observed_at = datetime.now().isoformat()
             observation = {
                 "ip_prefix": ip_prefix,
                 "sender_asn": sender_asn,
                 "timestamp": timestamp,
                 "trust_score": trust_score,
-                "observed_at": datetime.now().isoformat(),
+                "observed_at": observed_at,
                 "is_attack": is_attack
             }
             self.knowledge_base.append(observation)
+
+            # Update fast-lookup index (prefix -> list of observations)
+            if ip_prefix not in self._kb_index:
+                self._kb_index[ip_prefix] = []
+            self._kb_index[ip_prefix].append((sender_asn, timestamp, observed_at))
+
             self.logger.debug(f"Added to knowledge base: {ip_prefix} from AS{sender_asn}")
 
             # Record in neighbor cache: "I (RPKI node) observed this non-RPKI AS"
@@ -1058,15 +1103,116 @@ class P2PTransactionPool:
 
             return True  # Observation added
 
+    def _unified_cleanup_loop(self):
+        """
+        Single background thread that handles ALL periodic cleanup tasks.
+
+        Replaces 4 separate threads (observations, KB save, last_seen cache,
+        committed TXs) with one loop.  Runs every KNOWLEDGE_CLEANUP_INTERVAL
+        seconds (default 60s).  Less frequent tasks (last_seen cache, committed
+        TXs) use a counter to run at their own cadence.
+
+        Thread reduction: 6 threads/node → 2-3 threads/node.
+        At 400 nodes: 2,400 → 800-1,200 threads.
+        """
+        import time
+
+        self._shutdown_event.wait(timeout=5)  # Wait for server to start
+
+        cycle = 0
+        # How many cleanup cycles between committed-TX cleanup
+        # (e.g., 300s interval / 60s cycle = every 5 cycles)
+        committed_every = max(1, cfg.COMMITTED_TX_CLEANUP_INTERVAL // max(self.cleanup_interval, 1))
+        # last_seen cache cleanup: every 60 cycles (3600s / 60s)
+        cache_every = max(1, 3600 // max(self.cleanup_interval, 1))
+
+        while self.running and not self._shutdown_event.is_set():
+            try:
+                self._shutdown_event.wait(timeout=self.cleanup_interval)
+                cycle += 1
+
+                # ── 1. Observation cleanup (every cycle) ──
+                with self.lock:
+                    current_time = datetime.now()
+                    initial_count = len(self.knowledge_base)
+                    self.knowledge_base = [
+                        obs for obs in self.knowledge_base
+                        if (current_time - self._parse_timestamp(obs["observed_at"])
+                            ).total_seconds() <= self.knowledge_window_seconds
+                    ]
+                    removed = initial_count - len(self.knowledge_base)
+                    if removed > 0:
+                        # Rebuild the fast-lookup index from surviving entries
+                        self._kb_index = {}
+                        for obs in self.knowledge_base:
+                            pfx = obs["ip_prefix"]
+                            if pfx not in self._kb_index:
+                                self._kb_index[pfx] = []
+                            self._kb_index[pfx].append(
+                                (obs["sender_asn"], obs["timestamp"], obs["observed_at"])
+                            )
+                        self.logger.debug(f"Cleaned {removed} old observations")
+
+                # ── 2. Knowledge base persistence (every cycle, skip if in-memory) ──
+                if self.knowledge_base_file is not None:
+                    self._save_knowledge_base()
+
+                # ── 3. Committed-TX cleanup (every N cycles) ──
+                if cycle % committed_every == 0:
+                    self._do_committed_tx_cleanup()
+
+                # ── 4. Last-seen cache cleanup (every M cycles) ──
+                if cycle % cache_every == 0:
+                    self._cleanup_last_seen_cache()
+                    if self.last_seen_cache_file is not None:
+                        self._save_last_seen_cache()
+
+            except Exception as e:
+                self.logger.error(f"Error in unified cleanup: {e}")
+
+    def _do_committed_tx_cleanup(self):
+        """Evict old committed transaction IDs (called from unified loop)."""
+        try:
+            current_time = datetime.now().timestamp()
+            cutoff = current_time - cfg.COMMITTED_TX_CLEANUP_INTERVAL
+
+            with self.lock:
+                before = len(self.committed_transactions)
+                self.committed_transactions = {
+                    tx_id: ts for tx_id, ts in self.committed_transactions.items()
+                    if ts > cutoff
+                }
+                removed = before - len(self.committed_transactions)
+
+                if len(self.committed_transactions) > cfg.COMMITTED_TX_MAX_SIZE:
+                    sorted_items = sorted(self.committed_transactions.items(), key=lambda x: x[1])
+                    keep = sorted_items[-cfg.COMMITTED_TX_MAX_SIZE:]
+                    self.committed_transactions = dict(keep)
+                    removed += len(sorted_items) - len(keep)
+
+                fc_before = len(self.first_commit_tracker)
+                active_tx_ids = set(self.committed_transactions.keys()) | set(self.pending_votes.keys())
+                self.first_commit_tracker = {
+                    tx_id: v for tx_id, v in self.first_commit_tracker.items()
+                    if tx_id in active_tx_ids
+                }
+                fc_removed = fc_before - len(self.first_commit_tracker)
+
+            if removed > 0 or fc_removed > 0:
+                self.logger.debug(
+                    f"Committed-tx cleanup: removed {removed} IDs, "
+                    f"{fc_removed} first-commit entries"
+                )
+        except Exception as e:
+            self.logger.error(f"Error in committed-tx cleanup: {e}")
+
     def _cleanup_old_observations(self):
         """
         Background thread that removes old observations outside time window.
         Keeps knowledge base size manageable.
 
-        Window: 8 minutes (480 seconds) - allows time for:
-        - BGP propagation delays (2-3 minutes)
-        - Fork resolution and transaction rescue (2-3 minutes)
-        - Vote collection and consensus (1-2 minutes)
+        NOTE: This method is kept for backward compatibility but is no longer
+        started as a separate thread.  The unified cleanup loop handles this.
         """
         import time
 
@@ -1110,6 +1256,9 @@ class P2PTransactionPool:
         """
         Check knowledge base and return vote decision.
 
+        Uses _kb_index for O(1) prefix lookup instead of scanning
+        the full knowledge_base list (O(n)).
+
         Returns:
             "approve"       — same prefix + same AS found (within time window)
             "reject"        — same prefix found but from a DIFFERENT AS
@@ -1124,22 +1273,23 @@ class P2PTransactionPool:
 
         tx_time = self._parse_timestamp(tx_timestamp)
 
+        # O(1) lookup by prefix instead of scanning entire list
         with self.lock:
-            knowledge_snapshot = list(self.knowledge_base)
+            entries = self._kb_index.get(ip_prefix)
+            if entries is None:
+                return "no_knowledge"
+            entries_snapshot = list(entries)
 
         prefix_seen = False
-        for obs in knowledge_snapshot:
-            if obs["ip_prefix"] != ip_prefix:
-                continue
-
-            obs_time = self._parse_timestamp(obs["timestamp"])
+        for obs_asn, obs_timestamp, obs_observed_at in entries_snapshot:
+            obs_time = self._parse_timestamp(obs_timestamp)
             time_diff = abs((tx_time - obs_time).total_seconds())
             if time_diff > self.knowledge_window_seconds:
                 continue
 
             prefix_seen = True
 
-            if obs["sender_asn"] == sender_asn:
+            if obs_asn == sender_asn:
                 return "approve"  # Same prefix, same AS — confirmed
 
         if prefix_seen:
@@ -1176,10 +1326,10 @@ class P2PTransactionPool:
             vote_data = self.pending_votes[transaction_id]
             transaction = vote_data["transaction"]
 
-            # Add collected signatures to transaction
-            transaction["signatures"] = vote_data["votes"]
+            # Snapshot votes — same mutable-reference fix as _commit_unconfirmed_transaction
+            transaction["signatures"] = list(vote_data["votes"])
             transaction["consensus_reached"] = True
-            transaction["signature_count"] = len(vote_data["votes"])
+            transaction["signature_count"] = len(transaction["signatures"])
 
             if self.batch_size > 1:
                 # ── Batched mode: queue and let flush thread handle writing ──
@@ -1215,8 +1365,6 @@ class P2PTransactionPool:
             # ── Block replication (per-node blockchain) ──
             committed_block = self.blockchain.get_last_block()
             if committed_block:
-                if self.node_blockchain is not None:
-                    self.node_blockchain.append_replicated_block(committed_block)
                 self._replicate_block_to_peers(committed_block)
 
             # Update last_seen cache for sampling (if regular announcement)
@@ -1247,7 +1395,7 @@ class P2PTransactionPool:
     # ------------------------------------------------------------------
     def _batch_flush_loop(self):
         """Background thread that flushes the batch queue periodically."""
-        while self.running or self._batch_queue:
+        while self._batch_running or self._batch_queue:
             # Wait for either: new item arrives, or timeout expires
             self._batch_event.wait(timeout=self.batch_timeout)
             self._batch_event.clear()
@@ -1283,8 +1431,6 @@ class P2PTransactionPool:
             # ── Block replication ──
             committed_block = self.blockchain.get_last_block()
             if committed_block:
-                if self.node_blockchain is not None:
-                    self.node_blockchain.append_replicated_block(committed_block)
                 self._replicate_block_to_peers(committed_block)
 
             # Post-commit processing for each transaction in the batch
@@ -1397,6 +1543,8 @@ class P2PTransactionPool:
         Load knowledge base from disk on startup.
         Provides crash recovery and persistence across restarts.
         """
+        if self.knowledge_base_file is None:
+            return
         try:
             if self.knowledge_base_file.exists():
                 with open(self.knowledge_base_file, 'r') as f:
@@ -1443,6 +1591,8 @@ class P2PTransactionPool:
         Save knowledge base to disk atomically.
         Uses temp file + rename to prevent corruption.
         """
+        if self.knowledge_base_file is None:
+            return
         try:
             # CRITICAL SECTION: Copy knowledge base with lock (fast)
             with self.lock:
@@ -1539,9 +1689,25 @@ class P2PTransactionPool:
                 self.committed_transactions[transaction_id] = datetime.now().timestamp()
                 self.logger.debug(f"Marked transaction {transaction_id} as processed")
 
+    def get_pending_count(self):
+        """Return the number of transactions still awaiting consensus."""
+        with self.lock:
+            return len(self.pending_votes)
+
+    def begin_drain(self):
+        """Enter drain mode: stop accepting new vote requests but keep
+        processing vote responses and block replications so that every
+        in-flight consensus round can complete naturally."""
+        self.draining = True
+        self.logger.info(
+            f"Drain mode ON — {self.get_pending_count()} pending transactions "
+            f"will be resolved by the timeout handler"
+        )
+
     def stop(self):
         """Stop P2P communication and save knowledge base"""
         self.running = False
+        self._batch_running = False
         self._shutdown_event.set()  # Wake all sleeping background threads
 
         # Save knowledge base before shutdown

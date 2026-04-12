@@ -351,15 +351,27 @@ class SimulationDashboard:
             "started": clock._started.is_set(),
         }
 
-    def _build_blockchain(self) -> dict:
-        bc = self.node_manager.primary_blockchain
-        if bc is None:
-            return {}
-        info = bc.get_blockchain_info()
+    def _get_aggregate_blockchain_info(self) -> dict:
+        """Aggregate blockchain info across all per-node independent chains."""
+        nm = self.node_manager
+        if not nm.node_blockchains:
+            return {"total_blocks": 0, "total_transactions": 0}
+        total_blocks = 0
+        total_txns = 0
+        for chain in nm.node_blockchains.values():
+            blocks = chain.blockchain_data.get("blocks", [])
+            total_blocks += len(blocks)
+            total_txns += sum(len(b.get("transactions", [])) for b in blocks)
+        n = len(nm.node_blockchains)
         return {
-            "total_blocks": info.get("total_blocks", 0),
-            "total_transactions": info.get("total_transactions", 0),
+            "total_blocks": total_blocks,
+            "total_transactions": total_txns,
+            "avg_blocks_per_node": total_blocks / n if n else 0,
+            "avg_transactions_per_node": total_txns / n if n else 0,
         }
+
+    def _build_blockchain(self) -> dict:
+        return self._get_aggregate_blockchain_info()
 
     def _build_buffer(self) -> list:
         result = []
@@ -448,14 +460,8 @@ class SimulationDashboard:
         """Fig 5a: Data flow pipeline — received vs committed + buffer depth."""
         nm = self.node_manager
         total_received = sum(n.processed_count for n in nm.nodes.values())
-        bc = nm.primary_blockchain
-        committed = 0
-        if bc is not None:
-            try:
-                info = bc.get_blockchain_info()
-                committed = info.get("total_transactions", 0)
-            except Exception:
-                pass
+        agg = self._get_aggregate_blockchain_info()
+        committed = agg.get("total_transactions", 0)
 
         # Total buffer depth across all RPKI nodes
         buffer_depth = 0
@@ -595,34 +601,36 @@ class SimulationDashboard:
             return self._cached_verification
 
         nm = self.node_manager
-        bc = nm.primary_blockchain
-        if bc is None:
-            return {"chain_valid": False, "total_blocks": 0, "errors": ["No blockchain"]}
+        if not nm.node_blockchains:
+            return {"chain_valid": False, "total_blocks": 0, "errors": ["No blockchains"]}
 
-        try:
-            integrity = bc.verify_blockchain_integrity()
-        except Exception as e:
-            integrity = {"valid": False, "total_blocks": 0, "errors": [str(e)]}
-
-        # Replica verification
-        replicas_valid = 0
-        replicas_total = len(nm.node_blockchains)
-        for chain in nm.node_blockchains.values():
+        # Verify all independent per-node chains
+        chains_valid = 0
+        chains_total = len(nm.node_blockchains)
+        total_blocks = 0
+        total_forks = 0
+        errors = []
+        for asn, chain in nm.node_blockchains.items():
             try:
-                if chain.verify_blockchain_integrity().get("valid", False):
-                    replicas_valid += 1
-            except Exception:
-                pass
+                integrity = chain.verify_blockchain_integrity()
+                if integrity.get("valid", False):
+                    chains_valid += 1
+                else:
+                    errors.append(f"AS{asn}: invalid chain")
+                total_blocks += len(chain.blockchain_data.get("blocks", []))
+                total_forks += len(chain.fork_events)
+            except Exception as e:
+                errors.append(f"AS{asn}: {e}")
 
-        # Crypto summary
         crypto = nm.get_crypto_summary()
 
         result = {
-            "chain_valid": integrity.get("valid", False),
-            "total_blocks": integrity.get("total_blocks", 0),
-            "errors": integrity.get("errors", []),
-            "replicas_total": replicas_total,
-            "replicas_valid": replicas_valid,
+            "chain_valid": chains_valid == chains_total,
+            "total_blocks": total_blocks,
+            "errors": errors[:10],
+            "chains_total": chains_total,
+            "chains_valid": chains_valid,
+            "total_forks": total_forks,
             "key_algorithm": crypto.get("key_algorithm", "Ed25519"),
             "total_key_pairs": crypto.get("total_key_pairs", 0),
         }
@@ -738,13 +746,7 @@ class SimulationDashboard:
     def _build_blockchain_detail(self) -> dict:
         """Blockchain transactions written with vote signature counts."""
         nm = self.node_manager
-        bc = nm.primary_blockchain
-        bc_info = {}
-        if bc is not None:
-            try:
-                bc_info = bc.get_blockchain_info()
-            except Exception:
-                pass
+        bc_info = self._get_aggregate_blockchain_info()
 
         # Aggregate vote statistics from all RPKI nodes' P2P pools
         vote_distribution = {}  # vote_count -> how many txns got that many votes
@@ -1105,16 +1107,9 @@ class SimulationDashboard:
                 total_processed = sum(n.processed_count for n in nm.nodes.values())
                 total_attacks = sum(len(n.attack_detections) for n in nm.nodes.values())
                 nodes_done = sum(1 for n in nm.nodes.values() if n.is_done())
-                bc = nm.primary_blockchain
-                bc_blocks = 0
-                bc_txns = 0
-                if bc is not None:
-                    try:
-                        info = bc.get_blockchain_info()
-                        bc_blocks = info.get("total_blocks", 0)
-                        bc_txns = info.get("total_transactions", 0)
-                    except Exception:
-                        pass
+                agg = self._get_aggregate_blockchain_info()
+                bc_blocks = agg.get("total_blocks", 0)
+                bc_txns = agg.get("total_transactions", 0)
 
                 self._timeseries.append({
                     "t": wall_t,

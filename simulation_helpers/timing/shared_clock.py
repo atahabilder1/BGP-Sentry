@@ -1,3 +1,4 @@
+import asyncio
 import time
 import threading
 
@@ -18,6 +19,7 @@ class SimulationClock:
         self._anchor_bgp_ts: float | None = None  # earliest BGP timestamp (Unix epoch)
         self._anchor_wall_ts: float | None = None  # wall-clock time when simulation started
         self._started = threading.Event()
+        self._async_started = None  # asyncio.Event, created lazily
 
     def set_epoch(self, earliest_bgp_timestamp: float):
         """Called once before start — sets the BGP time origin."""
@@ -27,15 +29,39 @@ class SimulationClock:
         """Anchors BGP epoch to current wall-clock and unblocks all waiting nodes."""
         self._anchor_wall_ts = time.time()
         self._started.set()
+        if self._async_started is not None:
+            self._async_started.set()
+
+    def start_async(self):
+        """Anchors BGP epoch and unblocks async waiters."""
+        self._anchor_wall_ts = time.time()
+        self._started.set()
+        if self._async_started is None:
+            self._async_started = asyncio.Event()
+        self._async_started.set()
+
+    def _get_sleep_needed(self, bgp_timestamp: float) -> float:
+        """Calculate how long to sleep for a given BGP timestamp."""
+        bgp_offset = bgp_timestamp - self._anchor_bgp_ts
+        wall_target = self._anchor_wall_ts + (bgp_offset / self.speed_multiplier)
+        return wall_target - time.time()
 
     def wait_until(self, bgp_timestamp: float):
         """Block until real time catches up to this BGP timestamp."""
         self._started.wait()  # block until clock started
-        bgp_offset = bgp_timestamp - self._anchor_bgp_ts
-        wall_target = self._anchor_wall_ts + (bgp_offset / self.speed_multiplier)
-        sleep_needed = wall_target - time.time()
+        sleep_needed = self._get_sleep_needed(bgp_timestamp)
         if sleep_needed > 0:
             time.sleep(sleep_needed)
+
+    async def wait_until_async(self, bgp_timestamp: float):
+        """Async version: yield control instead of blocking a thread."""
+        if self._async_started is None:
+            self._async_started = asyncio.Event()
+        if not self._async_started.is_set():
+            await self._async_started.wait()
+        sleep_needed = self._get_sleep_needed(bgp_timestamp)
+        if sleep_needed > 0:
+            await asyncio.sleep(sleep_needed)
 
     def sim_time(self) -> float:
         """Current simulation time in seconds since epoch."""

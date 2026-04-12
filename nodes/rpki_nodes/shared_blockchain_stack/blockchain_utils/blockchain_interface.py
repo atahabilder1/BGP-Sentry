@@ -116,6 +116,11 @@ class BlockchainInterface:
         self._recent_tx_ids: set = set()
         self._RECENT_TX_WINDOW = 500  # Number of recent blocks to index
 
+        # Fork tracking: log events when a replicated block conflicts with
+        # the local chain tip (same block_number, different hash).
+        self.fork_events: list = []
+        self.forks_resolved: int = 0
+
         # Ensure genesis block exists
         if not self.blockchain_data["blocks"]:
             if genesis_block is not None:
@@ -586,45 +591,110 @@ class BlockchainInterface:
         """
         Append a replicated block received from a peer node.
 
-        Verifies the block hash and hash-chain linkage before appending.
-        Used by per-node blockchain replicas to stay in sync with the
-        primary (canonical) chain.
+        Each node maintains its own independent blockchain.  When a peer
+        broadcasts a committed block, this method tries to append it:
+
+        - If the block extends the local chain tip (previous_hash matches
+          the tip's block_hash), the block is appended normally.
+        - If the local chain already has a block at the same position with
+          a different hash, a **fork** is detected. Fork resolution merges
+          novel transactions from the incoming block into the local chain
+          as a new block, preserving the local chain structure while
+          incorporating the peer's data.
+        - If the block hash fails verification, the block is rejected.
 
         Args:
             block: Complete block dict (as committed by the originating node)
 
         Returns:
-            True if block was appended successfully
+            True if block was appended or transactions were merged, False on error
         """
         try:
             with self.lock:
-                # Verify block hash
+                # Verify block hash integrity
                 calculated_hash = self._calculate_block_hash(block)
                 if calculated_hash != block.get("block_hash"):
-                    print(f"WARNING: Replicated block #{block.get('block_number')} hash mismatch")
                     return False
 
-                # Verify hash-chain linkage
                 if self.blockchain_data["blocks"]:
                     last_block = self.blockchain_data["blocks"][-1]
-                    if block.get("previous_hash") != last_block.get("block_hash"):
-                        print(
-                            f"WARNING: Replicated block #{block.get('block_number')} "
-                            f"previous_hash mismatch"
-                        )
-                        return False
+                    incoming_prev = block.get("previous_hash")
+                    local_tip_hash = last_block.get("block_hash")
 
-                # Append the block
-                self.blockchain_data["blocks"].append(block)
+                    if incoming_prev == local_tip_hash:
+                        # Normal case: block extends our chain tip
+                        self.blockchain_data["blocks"].append(block)
+                        for tx in block.get("transactions", []):
+                            tx_id = tx.get("transaction_id")
+                            if tx_id:
+                                self._recent_tx_ids.add(tx_id)
+                        return True
 
-                if not self.in_memory:
-                    self._save_blockchain()
+                    # ── Fork detected: resolve by merging novel transactions ──
+                    incoming_num = block.get("block_number", -1)
+                    local_tip_num = last_block.get("block_number", -1)
 
-                return True
+                    self.fork_events.append({
+                        "timestamp": datetime.now().isoformat(),
+                        "local_tip_block": local_tip_num,
+                        "local_tip_hash": local_tip_hash[:16],
+                        "incoming_block": incoming_num,
+                        "incoming_hash": block.get("block_hash", "")[:16],
+                        "incoming_prev_hash": incoming_prev[:16] if incoming_prev else "",
+                        "from_as": block.get("metadata", {}).get("committer_as"),
+                        "resolved": True,
+                    })
+
+                    # Extract novel transactions not already on our chain
+                    novel_txs = []
+                    for tx in block.get("transactions", []):
+                        tx_id = tx.get("transaction_id")
+                        if tx_id and tx_id not in self._recent_tx_ids:
+                            novel_txs.append(tx)
+
+                    if novel_txs:
+                        # Create a merge block on our chain tip
+                        merge_block = {
+                            "block_number": len(self.blockchain_data["blocks"]),
+                            "timestamp": datetime.now().isoformat(),
+                            "previous_hash": local_tip_hash,
+                            "transactions": novel_txs,
+                            "block_hash": "",
+                            "merkle_root": "",
+                            "metadata": {
+                                "block_type": "fork_merge",
+                                "transaction_count": len(novel_txs),
+                                "source_block_hash": block.get("block_hash", "")[:16],
+                                "source_as": block.get("metadata", {}).get("committer_as"),
+                            }
+                        }
+                        merge_block["merkle_root"] = self._calculate_merkle_root(novel_txs)
+                        merge_block["block_hash"] = self._calculate_block_hash(merge_block)
+                        self.blockchain_data["blocks"].append(merge_block)
+
+                        for tx in novel_txs:
+                            tx_id = tx.get("transaction_id")
+                            if tx_id:
+                                self._recent_tx_ids.add(tx_id)
+
+                        self.forks_resolved += 1
+
+                    return True
+                else:
+                    # Chain has only genesis — append
+                    self.blockchain_data["blocks"].append(block)
+                    return True
 
         except Exception as e:
-            print(f"Error appending replicated block: {e}")
             return False
+
+    def get_fork_stats(self) -> dict:
+        """Return fork detection statistics for this node's chain."""
+        return {
+            "total_forks_detected": len(self.fork_events),
+            "forks_resolved": self.forks_resolved,
+            "fork_events": self.fork_events[-20:],  # Last 20 for brevity
+        }
 
     def get_blockchain_info(self) -> Dict:
         """
