@@ -189,6 +189,94 @@ Result: Every router in the path must recalculate routes each time
 
 ---
 
+## Consensus Level vs Attack Detection — They Are Independent
+
+**Low consensus does NOT mean attack. High consensus does NOT mean safe.**
+
+Detection (is it an attack?) and consensus (did peers corroborate?) are two independent signals:
+
+```
+                          Consensus Level
+                     CONFIRMED         SINGLE_WITNESS
+                  ┌─────────────────┬────────────────────┐
+ Detector says    │ NORMAL:         │ NEW/RARE:          │
+ NOT attack       │ Legitimate,     │ Legitimate but     │
+                  │ peers confirm   │ peers haven't seen │
+                  │ (most common)   │ it yet (new prefix)│
+                  ├─────────────────┼────────────────────┤
+ Detector says    │ WIDESPREAD:     │ LOCALIZED:         │
+ ATTACK           │ Attack visible  │ Attack seen by     │
+                  │ to many peers   │ few — caught early │
+                  │ (rare)          │ (most common for   │
+                  │                 │  attacks)           │
+                  └─────────────────┴────────────────────┘
+```
+
+**Detectors determine IF it's an attack** (ROA mismatch, bogon, route leak, blockchain state conflict, flapping pattern).
+
+**Consensus level determines HOW WIDELY it was observed** (how many independent validators corroborated the same announcement).
+
+Attacks typically get SINGLE_WITNESS or INSUFFICIENT_CONSENSUS because they are unusual events — most peers haven't seen the attacker's announcement. This is expected, not a system failure. The attack is still detected, recorded on the blockchain, and penalized through the rating system.
+
+**The two-layer design:**
+
+1. **Transaction Consensus:** "Did peers see this announcement?"
+   - Provides corroboration context, NOT attack detection
+   - CONFIRMED = widely seen, SINGLE_WITNESS = rarely seen
+   - Both legitimate AND attack announcements can be either
+
+2. **Attack Verdict Consensus:** "Is this actually an attack?"
+   - Separate voting round triggered after detection
+   - Peers vote YES/NO on the attack question specifically
+   - Majority decides → verdict recorded on blockchain
+   - This IS the attack handling mechanism
+
+---
+
+## How Attacks Are Handled
+
+When a detector flags an announcement as an attack:
+
+```
+Detector flags attack
+│
+├── Transaction written to blockchain (with whatever consensus level)
+│   └── Marked with: detected_attacks = ["PREFIX_HIJACK"]
+│
+├── Attack Verdict Consensus triggered
+│   ├── Proposer broadcasts: "I detected PREFIX_HIJACK on prefix P by AS_evil"
+│   ├── Peers vote: do they agree this is an attack?
+│   │   ├── Check their own detection results
+│   │   ├── Check their knowledge base
+│   │   └── Vote YES (attack) or NO (not attack)
+│   ├── Majority decides → ATTACK_CONFIRMED or NOT_ATTACK
+│   └── Verdict recorded as attack_verdict block on blockchain
+│
+├── If ATTACK_CONFIRMED:
+│   ├── Trust rating penalty applied to attacker AS
+│   │   ├── PREFIX_HIJACK:               -20
+│   │   ├── SUBPREFIX_HIJACK:            -18
+│   │   ├── BOGON_INJECTION:             -25
+│   │   ├── ROUTE_LEAK:                  -15
+│   │   ├── ROUTE_FLAPPING:              -10
+│   │   ├── FORGED_ORIGIN_PREFIX_HIJACK: -30
+│   │   ├── ACCIDENTAL_ROUTE_LEAK:        -8
+│   │   ├── Repeated attack (within 30 days): additional -30
+│   │   └── Persistent attacker (3+ total):   additional -50
+│   │
+│   ├── BGPCoin rewards distributed
+│   │   ├── Detector node: +100 BGPCOIN
+│   │   └── Correct voters: +2 BGPCOIN each
+│   │
+│   └── Low trust score → future announcements from this AS
+│       get shorter dedup window (2× more monitoring)
+│
+└── If NOT_ATTACK:
+    └── False accusation penalty to detector: -20 BGPCOIN
+```
+
+---
+
 ## Detection Pipeline Summary
 
 ```
