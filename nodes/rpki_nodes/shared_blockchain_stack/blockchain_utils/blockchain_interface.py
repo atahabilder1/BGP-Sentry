@@ -34,6 +34,7 @@ Author: BGP-Sentry Team
 =============================================================================
 """
 
+import copy
 import json
 import threading
 import time
@@ -312,12 +313,16 @@ class BlockchainInterface:
                 previous_block = self.blockchain_data["blocks"][-1] if self.blockchain_data["blocks"] else None
                 previous_hash = previous_block["block_hash"] if previous_block else "0" * 64
 
+                # Deep copy transaction to prevent shared-reference mutations
+                # from corrupting the block hash after it's computed
+                tx_copy = copy.deepcopy(transaction)
+
                 # Create new block
                 new_block = {
                     "block_number": len(self.blockchain_data["blocks"]),
                     "timestamp": datetime.now().isoformat(),
                     "previous_hash": previous_hash,
-                    "transactions": [transaction],
+                    "transactions": [tx_copy],
                     "block_hash": "",
                     "merkle_root": "",
                     "metadata": {
@@ -391,12 +396,15 @@ class BlockchainInterface:
                 previous_block = self.blockchain_data["blocks"][-1] if self.blockchain_data["blocks"] else None
                 previous_hash = previous_block["block_hash"] if previous_block else "0" * 64
 
+                # Deep copy transactions to prevent shared-reference mutations
+                txs_copy = copy.deepcopy(unique_txs)
+
                 # Create new block with multiple transactions
                 new_block = {
                     "block_number": len(self.blockchain_data["blocks"]),
                     "timestamp": datetime.now().isoformat(),
                     "previous_hash": previous_hash,
-                    "transactions": unique_txs,
+                    "transactions": txs_copy,
                     "block_hash": "",
                     "merkle_root": "",
                     "metadata": {
@@ -623,8 +631,10 @@ class BlockchainInterface:
 
                     if incoming_prev == local_tip_hash:
                         # Normal case: block extends our chain tip
-                        self.blockchain_data["blocks"].append(block)
-                        for tx in block.get("transactions", []):
+                        # Deep copy to break shared reference with originating node
+                        block_copy = copy.deepcopy(block)
+                        self.blockchain_data["blocks"].append(block_copy)
+                        for tx in block_copy.get("transactions", []):
                             tx_id = tx.get("transaction_id")
                             if tx_id:
                                 self._recent_tx_ids.add(tx_id)
@@ -646,11 +656,12 @@ class BlockchainInterface:
                     })
 
                     # Extract novel transactions not already on our chain
+                    # Deep copy to break shared reference with originating node
                     novel_txs = []
                     for tx in block.get("transactions", []):
                         tx_id = tx.get("transaction_id")
                         if tx_id and tx_id not in self._recent_tx_ids:
-                            novel_txs.append(tx)
+                            novel_txs.append(copy.deepcopy(tx))
 
                     if novel_txs:
                         # Create a merge block on our chain tip
@@ -681,8 +692,8 @@ class BlockchainInterface:
 
                     return True
                 else:
-                    # Chain has only genesis — append
-                    self.blockchain_data["blocks"].append(block)
+                    # Chain has only genesis — append (deep copy to isolate)
+                    self.blockchain_data["blocks"].append(copy.deepcopy(block))
                     return True
 
         except Exception as e:

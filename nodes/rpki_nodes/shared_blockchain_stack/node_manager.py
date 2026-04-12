@@ -61,6 +61,7 @@ class NodeManager:
         self.rating_system = None
         self.attack_detector = None
         self.rpki_validator = None
+        self.prefix_ownership_state = None
 
         # Per-node infrastructure — each RPKI node owns its own blockchain
         self.node_blockchains: Dict[int, object] = {}   # asn -> BlockchainInterface (independent chain)
@@ -147,6 +148,12 @@ class NodeManager:
                 logger.warning(f"RPKIValidator fallback also failed: {e2}")
                 self.rpki_validator = None
 
+        # 7. Prefix Ownership State (blockchain-derived ROA replacement)
+        from prefix_ownership_state import PrefixOwnershipState
+        self.prefix_ownership_state = PrefixOwnershipState()
+        vrp_path = str(self.project_root / "stayrtr" / "vrp_generated.json")
+        self.prefix_ownership_state.bootstrap_from_vrp(vrp_path)
+
         logger.info(
             "Infrastructure initialized: "
             f"state={state_dir}, "
@@ -222,6 +229,7 @@ class NodeManager:
                         bgpcoin_ledger=self.shared_ledger,
                         private_key=private_key,
                         public_key_registry=self.public_key_registry,
+                        prefix_ownership_state=self.prefix_ownership_state,
                     )
                 else:
                     p2p_pool = PoolClass(
@@ -231,6 +239,7 @@ class NodeManager:
                         bgpcoin_ledger=self.shared_ledger,
                         private_key=private_key,
                         public_key_registry=self.public_key_registry,
+                        prefix_ownership_state=self.prefix_ownership_state,
                     )
 
             node = VirtualNode(
@@ -245,6 +254,7 @@ class NodeManager:
                 bgpcoin_ledger=self.shared_ledger if is_rpki else None,
                 private_key=private_key,
                 clock=self.simulation_clock,
+                prefix_ownership_state=self.prefix_ownership_state if is_rpki else None,
             )
             self.nodes[asn] = node
 

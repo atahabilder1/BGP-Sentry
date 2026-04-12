@@ -40,7 +40,8 @@ class P2PTransactionPool:
 
     def __init__(self, as_number, base_port=8000, use_memory_bus=False,
                  blockchain_interface=None, bgpcoin_ledger=None,
-                 private_key=None, public_key_registry=None):
+                 private_key=None, public_key_registry=None,
+                 prefix_ownership_state=None):
         self.as_number = as_number
         self.my_port = base_port + as_number
         self.use_memory_bus = use_memory_bus
@@ -48,6 +49,7 @@ class P2PTransactionPool:
         # Per-node cryptographic keys (Ed25519)
         self.private_key = private_key              # Ed25519 private key object
         self.public_key_registry = public_key_registry or {}  # asn -> public_key object
+        self.prefix_ownership_state = prefix_ownership_state  # blockchain-derived ROA
 
         # Get peer RPKI nodes from registry (excludes self automatically)
         self.peer_nodes = RPKINodeRegistry.get_peer_nodes(self.as_number)
@@ -403,7 +405,7 @@ class P2PTransactionPool:
             )
 
             if approve_votes >= self.consensus_threshold:
-                # Mark as committed BEFORE writing to prevent race condition
+                # Mark as committed to prevent timeout handler from also committing
                 self.committed_transactions[tx_id] = datetime.now().timestamp()
 
                 # Set flag to commit (will happen OUTSIDE lock)
@@ -438,14 +440,22 @@ class P2PTransactionPool:
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
 
-        # Capacity check: if pending_votes is full, force-timeout oldest entry
-        if len(self.pending_votes) >= cfg.PENDING_VOTES_MAX_CAPACITY:
-            oldest_tx = min(self.pending_votes, key=lambda k: self.pending_votes[k]["created_at"])
+        # Capacity check + register must be atomic to prevent races
+        oldest_to_evict = None
+        with self.lock:
+            if len(self.pending_votes) >= cfg.PENDING_VOTES_MAX_CAPACITY:
+                oldest_to_evict = min(
+                    self.pending_votes,
+                    key=lambda k: self.pending_votes[k]["created_at"]
+                )
+
+        # Force-timeout outside lock (it acquires lock internally)
+        if oldest_to_evict:
             self.logger.warning(
                 f"⚠️ pending_votes at capacity ({cfg.PENDING_VOTES_MAX_CAPACITY}), "
-                f"force-timing-out oldest: {oldest_tx}"
+                f"force-timing-out oldest: {oldest_to_evict}"
             )
-            self._handle_timed_out_transaction(oldest_tx)
+            self._handle_timed_out_transaction(oldest_to_evict)
 
         self.pending_votes[tx_id] = {
             "transaction": transaction,
@@ -1033,10 +1043,21 @@ class P2PTransactionPool:
                 if approve_count > 0 and consensus_status in ["CONFIRMED", "INSUFFICIENT_CONSENSUS"]:
                     self._award_bgpcoin_rewards(transaction_id, vote_data)
 
+                # Update prefix ownership state (only CONFIRMED strengthens mapping)
+                if consensus_status == "CONFIRMED" and self.prefix_ownership_state is not None:
+                    self.prefix_ownership_state.update_from_confirmed(
+                        prefix=transaction.get("ip_prefix", ""),
+                        origin_asn=transaction.get("sender_asn", 0),
+                        timestamp=transaction.get("timestamp", 0),
+                    )
+
                 # Remove from pending votes
                 del self.pending_votes[transaction_id]
             else:
                 self.logger.error(f"Failed to write timed-out transaction {transaction_id} to blockchain")
+                # Remove from committed so timeout handler can retry
+                with self.lock:
+                    self.committed_transactions.pop(transaction_id, None)
 
         except Exception as e:
             self.logger.error(f"Error committing unconfirmed transaction {transaction_id}: {e}")
@@ -1377,6 +1398,14 @@ class P2PTransactionPool:
             # Award BGPCOIN rewards for block commit
             self._award_bgpcoin_rewards(transaction_id, vote_data)
 
+            # Update prefix ownership state (CONFIRMED = strengthens mapping)
+            if self.prefix_ownership_state is not None:
+                self.prefix_ownership_state.update_from_confirmed(
+                    prefix=transaction.get("ip_prefix", ""),
+                    origin_asn=transaction.get("sender_asn", 0),
+                    timestamp=transaction.get("timestamp", 0),
+                )
+
             # Trigger attack detection asynchronously (don't block commit path)
             threading.Thread(
                 target=self._trigger_attack_detection,
@@ -1389,6 +1418,9 @@ class P2PTransactionPool:
                 del self.pending_votes[transaction_id]
         else:
             self.logger.error(f"Failed to write transaction {transaction_id} to blockchain")
+            # Remove from committed so timeout handler can retry
+            with self.lock:
+                self.committed_transactions.pop(transaction_id, None)
 
     # ------------------------------------------------------------------
     # Transaction Batching

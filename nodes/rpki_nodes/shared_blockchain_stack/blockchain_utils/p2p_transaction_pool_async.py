@@ -49,13 +49,15 @@ class AsyncP2PTransactionPool:
 
     def __init__(self, as_number, base_port=8000,
                  blockchain_interface=None, bgpcoin_ledger=None,
-                 private_key=None, public_key_registry=None):
+                 private_key=None, public_key_registry=None,
+                 prefix_ownership_state=None):
         self.as_number = as_number
         self.my_port = base_port + as_number
 
         # Per-node cryptographic keys (Ed25519)
         self.private_key = private_key
         self.public_key_registry = public_key_registry or {}
+        self.prefix_ownership_state = prefix_ownership_state
 
         # Peer RPKI nodes
         self.peer_nodes = RPKINodeRegistry.get_peer_nodes(self.as_number)
@@ -276,14 +278,22 @@ class AsyncP2PTransactionPool:
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
 
-        # Capacity check
-        if len(self.pending_votes) >= cfg.PENDING_VOTES_MAX_CAPACITY:
-            oldest_tx = min(self.pending_votes, key=lambda k: self.pending_votes[k]["created_at"])
+        # Capacity check + register must be atomic to prevent races
+        oldest_to_evict = None
+        async with self.lock:
+            if len(self.pending_votes) >= cfg.PENDING_VOTES_MAX_CAPACITY:
+                oldest_to_evict = min(
+                    self.pending_votes,
+                    key=lambda k: self.pending_votes[k]["created_at"]
+                )
+
+        # Force-timeout outside lock (it acquires lock internally)
+        if oldest_to_evict:
             self.logger.warning(
                 f"pending_votes at capacity ({cfg.PENDING_VOTES_MAX_CAPACITY}), "
-                f"force-timing-out oldest: {oldest_tx}"
+                f"force-timing-out oldest: {oldest_to_evict}"
             )
-            await self._handle_timed_out_transaction(oldest_tx)
+            await self._handle_timed_out_transaction(oldest_to_evict)
 
         self.pending_votes[tx_id] = {
             "transaction": transaction,
@@ -559,6 +569,14 @@ class AsyncP2PTransactionPool:
 
             self._award_bgpcoin_rewards(transaction_id, vote_data)
 
+            # Update prefix ownership state (CONFIRMED = strengthens mapping)
+            if self.prefix_ownership_state is not None:
+                self.prefix_ownership_state.update_from_confirmed(
+                    prefix=transaction.get("ip_prefix", ""),
+                    origin_asn=transaction.get("sender_asn", 0),
+                    timestamp=transaction.get("timestamp", 0),
+                )
+
             # Trigger attack detection
             asyncio.create_task(
                 self._trigger_attack_detection(transaction, transaction_id)
@@ -566,6 +584,11 @@ class AsyncP2PTransactionPool:
 
             if transaction_id in self.pending_votes:
                 del self.pending_votes[transaction_id]
+        else:
+            self.logger.error(f"Failed to write transaction {transaction_id} to blockchain")
+            # Remove from committed so timeout handler can retry
+            async with self.lock:
+                self.committed_transactions.pop(transaction_id, None)
 
     # ------------------------------------------------------------------
     # Timeout handling
@@ -635,7 +658,18 @@ class AsyncP2PTransactionPool:
                     "CONFIRMED", "INSUFFICIENT_CONSENSUS"
                 ]:
                     self._award_bgpcoin_rewards(transaction_id, vote_data)
+                # Update prefix ownership (only CONFIRMED)
+                if consensus_status == "CONFIRMED" and self.prefix_ownership_state is not None:
+                    self.prefix_ownership_state.update_from_confirmed(
+                        prefix=transaction.get("ip_prefix", ""),
+                        origin_asn=transaction.get("sender_asn", 0),
+                        timestamp=transaction.get("timestamp", 0),
+                    )
                 del self.pending_votes[transaction_id]
+            else:
+                self.logger.error(f"Failed to write timed-out transaction {transaction_id} to blockchain")
+                # Remove from committed so timeout handler can retry
+                self.committed_transactions.pop(transaction_id, None)
 
         except Exception as e:
             self.logger.error(f"Error committing unconfirmed transaction: {e}")

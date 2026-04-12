@@ -136,6 +136,14 @@ class _Config:
     SIMULATION_SPEED_MULTIPLIER: float = _float("SIMULATION_SPEED_MULTIPLIER", 1.0)
     INGESTION_BUFFER_MAX_SIZE: int = _int("INGESTION_BUFFER_MAX_SIZE", 1000)
 
+    # ── Warm-up Phase ────────────────────────────────────────────
+    # Duration (in BGP seconds) to run in listen-only mode before
+    # starting consensus.  During warm-up, observations populate the
+    # knowledge base and neighbor cache but do NOT create transactions.
+    # This ensures peers have intelligence when voting begins.
+    # Set to 0 to disable warm-up.
+    WARMUP_DURATION: int = _int("WARMUP_DURATION", 60)
+
     # ── Async Mode ──────────────────────────────────────────────
     USE_ASYNC: bool = os.environ.get("USE_ASYNC", "false").lower() in ("true", "1", "yes")
 

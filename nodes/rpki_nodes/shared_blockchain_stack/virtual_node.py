@@ -64,6 +64,7 @@ class VirtualNode:
         bgpcoin_ledger=None,
         private_key=None,
         clock=None,
+        prefix_ownership_state=None,
     ):
         self.asn = asn
         self.is_rpki = is_rpki
@@ -78,6 +79,7 @@ class VirtualNode:
         self.bgpcoin_ledger = bgpcoin_ledger
         self.private_key = private_key  # Ed25519 private key (RPKI nodes only)
         self._clock = clock  # SimulationClock (optional)
+        self.prefix_ownership_state = prefix_ownership_state  # blockchain-derived ROA
 
         # Processing state
         self.processed_count = 0
@@ -137,6 +139,27 @@ class VirtualNode:
         """Process observations in real-time according to BGP timestamps."""
         # Sort by timestamp to ensure correct replay order
         sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
+
+        # ── Warm-up phase: build intelligence before consensus ──
+        # Process early observations in listen-only mode (KB + neighbor cache
+        # only, no transactions, no consensus).  This ensures peers have
+        # knowledge when voting begins — analogous to real BGP routers that
+        # listen and learn routes before participating.
+        warmup_duration = cfg.WARMUP_DURATION
+        if warmup_duration > 0 and sorted_obs and self.is_rpki:
+            first_ts = sorted_obs[0].get("timestamp", 0)
+            warmup_cutoff = first_ts + warmup_duration
+            warmup_count = 0
+            for obs in sorted_obs:
+                if obs.get("timestamp", 0) >= warmup_cutoff:
+                    break
+                self._warmup_observation(obs)
+                warmup_count += 1
+            self.stats["warmup_observations"] = warmup_count
+            logger.info(
+                f"AS{self.asn} warm-up complete: {warmup_count} observations "
+                f"processed in listen-only mode ({warmup_duration}s)"
+            )
 
         # Build ingestion buffer — drains at clock pace
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
@@ -201,11 +224,14 @@ class VirtualNode:
         """
         Full RPKI validator pipeline for a single observation.
 
-        SKIP-EARLY: If this (prefix, origin) was processed within the last
-        RPKI_DEDUP_WINDOW seconds AND is not an attack, skip the entire
-        pipeline (no validation, no knowledge base, no consensus, no
-        blockchain write).  This avoids wasting consensus round-trips on
-        duplicate legitimate announcements.
+        FIRST-HOP ORIGIN FILTER: Only process announcements where the
+        first-hop neighbor IS the origin AS (direct origin claim).
+        Forwarded routes (origin is 2+ hops away) are skipped because
+        a dishonest transit AS could fabricate announcements and frame
+        innocent origin ASes on the blockchain.
+
+        DEDUP: If this (prefix, origin) was processed within the last
+        RPKI_DEDUP_WINDOW seconds AND is not an attack, skip.
         """
         _t_pipeline = time.monotonic()
 
@@ -217,7 +243,42 @@ class VirtualNode:
 
         result = self._make_base_result(obs)
 
-        # ── STEP 0: Early skip for non-attack duplicates ──
+        # ── STEP 0a: Trusted path filter ──
+        # AS path = [observer, relay1, relay2, ..., origin]
+        #
+        # Rules:
+        #   1. Skip self-origin (origin == observer) — self-attestation is meaningless
+        #   2. len=1 [origin] — same as self-origin or BGPy artifact, skip
+        #   3. len=2 [observer, origin] — direct neighbor claim, always accept
+        #   4. len=3+ — accept ONLY if ALL intermediate relays are RPKI nodes
+        #      (RPKI nodes are trusted: verified identity, BGPCoin at stake,
+        #       behavior auditable on-chain. Non-RPKI relay could fabricate.)
+        #
+        from rpki_node_registry import RPKINodeRegistry
+        as_path = obs.get("as_path", [origin_asn])
+
+        skip_reason = None
+        if origin_asn == self.asn:
+            skip_reason = "skipped_self_origin"
+        elif len(as_path) <= 1:
+            skip_reason = "skipped_self_announcement"
+        elif len(as_path) > 2:
+            # Check that ALL intermediate hops (between observer and origin) are RPKI
+            intermediate_hops = as_path[1:-1]  # exclude observer (index 0) and origin (last)
+            for hop_asn in intermediate_hops:
+                if not RPKINodeRegistry.is_rpki_node(hop_asn):
+                    skip_reason = "skipped_untrusted_relay"
+                    break
+
+        if skip_reason:
+            result["action"] = skip_reason
+            self.stats.setdefault("trusted_path_filtered", 0)
+            self.stats["trusted_path_filtered"] += 1
+            self.detection_results.append(result)
+            self.step_timings["total_pipeline"].append(time.monotonic() - _t_pipeline)
+            return result
+
+        # ── STEP 0b: Early skip for non-attack duplicates ──
         _t0 = time.monotonic()
         dedup_key = (prefix, origin_asn)
         if not is_attack and dedup_key in self.dedup_state:
@@ -261,6 +322,14 @@ class VirtualNode:
                 "as_path": obs.get("as_path", [origin_asn]),
             })
         self.step_timings["attack_detection"].append(time.monotonic() - _t0)
+
+        # ── STEP 3b: Blockchain state check (6th detector) ──
+        # Check prefix ownership from accumulated consensus history.
+        # This catches attacks that static detectors miss (no ROA, no AS relationships).
+        if self.prefix_ownership_state is not None:
+            state_conflict = self.prefix_ownership_state.check_announcement(prefix, origin_asn)
+            if state_conflict:
+                detected_attacks.append(state_conflict)
 
         if detected_attacks:
             result["detected"] = True
@@ -417,6 +486,40 @@ class VirtualNode:
         return result
 
     # ------------------------------------------------------------------
+    # Warm-up (listen-only mode)
+    # ------------------------------------------------------------------
+    def _warmup_observation(self, obs: dict):
+        """Process observation in listen-only mode during warm-up.
+
+        Populates the knowledge base and neighbor cache so that peers
+        have intelligence when consensus voting begins.  No transactions,
+        no consensus rounds, no blockchain writes.
+        """
+        prefix = obs.get("prefix", "")
+        origin_asn = obs.get("origin_asn", 0)
+        timestamp = obs.get("timestamp", 0)
+        as_path = obs.get("as_path", [origin_asn])
+
+        # Apply same trusted path filter — only learn from trusted paths
+        from rpki_node_registry import RPKINodeRegistry
+        if origin_asn == self.asn or len(as_path) <= 1:
+            return
+        if len(as_path) > 2:
+            for hop_asn in as_path[1:-1]:
+                if not RPKINodeRegistry.is_rpki_node(hop_asn):
+                    return
+
+        # Populate knowledge base (so this node can vote "approve" later)
+        if self.p2p_pool is not None:
+            self.p2p_pool.add_bgp_observation(
+                ip_prefix=prefix,
+                sender_asn=origin_asn,
+                timestamp=timestamp,
+                trust_score=100.0,
+                is_attack=obs.get("is_attack", False),
+            )
+
+    # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
     def _make_base_result(self, obs: dict, action: str = "pending") -> dict:
@@ -449,6 +552,24 @@ class VirtualNode:
     async def _process_observations_async(self, callback=None):
         """Async version of _process_observations."""
         sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
+
+        # ── Warm-up phase (same as sync) ──
+        warmup_duration = cfg.WARMUP_DURATION
+        if warmup_duration > 0 and sorted_obs and self.is_rpki:
+            first_ts = sorted_obs[0].get("timestamp", 0)
+            warmup_cutoff = first_ts + warmup_duration
+            warmup_count = 0
+            for obs in sorted_obs:
+                if obs.get("timestamp", 0) >= warmup_cutoff:
+                    break
+                self._warmup_observation(obs)
+                warmup_count += 1
+            self.stats["warmup_observations"] = warmup_count
+            logger.info(
+                f"AS{self.asn} warm-up complete: {warmup_count} observations "
+                f"processed in listen-only mode ({warmup_duration}s)"
+            )
+
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
         self._buffer = buffer
 
@@ -509,7 +630,31 @@ class VirtualNode:
 
         result = self._make_base_result(obs)
 
-        # STEP 0: Early skip for non-attack duplicates
+        # STEP 0a: Trusted path filter (same logic as sync pipeline)
+        from rpki_node_registry import RPKINodeRegistry
+        as_path = obs.get("as_path", [origin_asn])
+
+        skip_reason = None
+        if origin_asn == self.asn:
+            skip_reason = "skipped_self_origin"
+        elif len(as_path) <= 1:
+            skip_reason = "skipped_self_announcement"
+        elif len(as_path) > 2:
+            intermediate_hops = as_path[1:-1]
+            for hop_asn in intermediate_hops:
+                if not RPKINodeRegistry.is_rpki_node(hop_asn):
+                    skip_reason = "skipped_untrusted_relay"
+                    break
+
+        if skip_reason:
+            result["action"] = skip_reason
+            self.stats.setdefault("trusted_path_filtered", 0)
+            self.stats["trusted_path_filtered"] += 1
+            self.detection_results.append(result)
+            self.step_timings["total_pipeline"].append(time.monotonic() - _t_pipeline)
+            return result
+
+        # STEP 0b: Early skip for non-attack duplicates
         _t0 = time.monotonic()
         dedup_key = (prefix, origin_asn)
         if not is_attack and dedup_key in self.dedup_state:
@@ -552,6 +697,12 @@ class VirtualNode:
                 "as_path": obs.get("as_path", [origin_asn]),
             })
         self.step_timings["attack_detection"].append(time.monotonic() - _t0)
+
+        # STEP 3b: Blockchain state check (6th detector)
+        if self.prefix_ownership_state is not None:
+            state_conflict = self.prefix_ownership_state.check_announcement(prefix, origin_asn)
+            if state_conflict:
+                detected_attacks.append(state_conflict)
 
         if detected_attacks:
             result["detected"] = True

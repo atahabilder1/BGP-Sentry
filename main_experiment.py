@@ -463,6 +463,19 @@ class BGPSentryExperiment:
         except Exception as e:
             logger.warning(f"VRP generation failed (non-fatal): {e}")
 
+        # Build AS relationships from dataset observation data
+        try:
+            build_rels_script = PROJECT_ROOT / "scripts" / "build_as_relationships.py"
+            subprocess.run(
+                [sys.executable, str(build_rels_script), self.dataset_path],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            logger.info("AS relationships built from dataset")
+        except Exception as e:
+            logger.warning(f"AS relationships build failed (non-fatal): {e}")
+
     def _write_results(self):
         """Write structured results to the results directory."""
         elapsed = time.time() - self.experiment_start_time
@@ -562,11 +575,38 @@ class BGPSentryExperiment:
         crypto_summary = self.node_manager.get_crypto_summary()
         _safe_write("crypto_summary.json", crypto_summary)
 
+        # 13b. Prefix ownership state (blockchain-derived ROA)
+        if self.node_manager.prefix_ownership_state is not None:
+            _safe_write("prefix_ownership_state.json",
+                        self.node_manager.prefix_ownership_state.get_stats())
+
         # 14. Save Ed25519 keys to disk (per-node folders + public key registry)
         try:
             self.node_manager.save_keys_to_disk()
         except Exception as e:
             logger.warning(f"Failed to save keys to disk: {e}")
+
+        # 14b. Dump raw blockchain data to disk for post-hoc analysis
+        try:
+            self._dump_blockchain_data()
+        except Exception as e:
+            logger.warning(f"Failed to dump blockchain data: {e}")
+
+        # 14c. Run post-hoc blockchain detection (cross-chain longitudinal analysis)
+        try:
+            sys.path.insert(0, str(PROJECT_ROOT / "analysis"))
+            from posthoc_blockchain_detection import PosthocBlockchainDetector
+            detector = PosthocBlockchainDetector(str(self.results_dir))
+            posthoc_report = detector.full_report()
+            _safe_write("posthoc_blockchain_detection.json", posthoc_report)
+            agg = posthoc_report.get("aggregate_impact", {})
+            logger.info(
+                f"Post-hoc blockchain detection: "
+                f"{agg.get('posthoc_additional', 0)} additional detections, "
+                f"combined recall={agg.get('combined_recall', 0):.4f}"
+            )
+        except Exception as e:
+            logger.warning(f"Post-hoc blockchain detection failed: {e}")
 
         # 15. Human-readable README summary of this run
         self._write_result_readme(summary, performance, blockchain_stats,
@@ -586,6 +626,44 @@ class BGPSentryExperiment:
             logger.warning(f"Failed to generate analysis notebook: {e}")
 
         logger.info(f"Results written: {self.results_dir} (15 files + notebook + keys)")
+
+    # ------------------------------------------------------------------
+    def _dump_blockchain_data(self):
+        """Dump raw blockchain data from RAM to disk for post-hoc analysis.
+
+        Writes each RPKI validator's full blockchain (all blocks, transactions,
+        hashes) to results/<run>/blockchain_data/AS<asn>/blockchain.json.
+        This allows forensic inspection after the simulation completes.
+        """
+        bc_dir = self.results_dir / "blockchain_data"
+        bc_dir.mkdir(exist_ok=True)
+
+        total_blocks = 0
+        for asn, chain in self.node_manager.node_blockchains.items():
+            node_dir = bc_dir / f"AS{asn}"
+            node_dir.mkdir(exist_ok=True)
+
+            blocks = chain.blockchain_data.get("blocks", [])
+            total_blocks += len(blocks)
+
+            chain_data = {
+                "asn": asn,
+                "total_blocks": len(blocks),
+                "blocks": blocks,
+            }
+
+            with open(node_dir / "blockchain.json", "w") as f:
+                json.dump(chain_data, f, default=str)
+
+            # Also dump fork events if any
+            if chain.fork_events:
+                with open(node_dir / "fork_events.json", "w") as f:
+                    json.dump(chain.fork_events, f, indent=2, default=str)
+
+        logger.info(
+            f"Blockchain data dumped: {len(self.node_manager.node_blockchains)} chains, "
+            f"{total_blocks:,} total blocks → {bc_dir}"
+        )
 
     # ------------------------------------------------------------------
     def _write_result_readme(self, summary, performance, blockchain_stats,
