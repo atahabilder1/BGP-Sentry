@@ -116,22 +116,28 @@ class RelevantNeighborCache:
         except Exception as e:
             print(f"Error saving cache: {e}")
 
-    def record_observation(self, non_rpki_as: int, observed_by_rpki_as: int = None):
+    def record_observation(self, origin_as: int, observed_by_rpki_as: int = None):
         """
-        Record that a non-RPKI AS was observed by an RPKI node.
+        Record that an AS (RPKI or non-RPKI) was observed by an RPKI node.
 
-        This builds the mapping: non_RPKI_AS -> [RPKI neighbors]
+        Builds the mapping: origin_AS -> [RPKI neighbors that have seen it]
+        This allows targeted peer selection when voting — ask peers who
+        are likely to have knowledge about this origin AS.
 
         Args:
-            non_rpki_as: Non-RPKI AS number that made announcement
+            origin_as: AS number that made the announcement (any AS)
             observed_by_rpki_as: RPKI AS that observed it (defaults to self)
         """
         if observed_by_rpki_as is None:
             observed_by_rpki_as = self.my_as_number
 
+        # Don't record self-observation (a node observing itself)
+        if origin_as == observed_by_rpki_as:
+            return
+
         try:
             with self.lock:
-                as_str = str(non_rpki_as)
+                as_str = str(origin_as)
 
                 # Initialize if new AS
                 if as_str not in self.cache_data["non_rpki_to_rpki_neighbors"]:
@@ -141,9 +147,7 @@ class RelevantNeighborCache:
                 # Add RPKI observer if not already recorded
                 if observed_by_rpki_as not in self.cache_data["non_rpki_to_rpki_neighbors"][as_str]:
                     self.cache_data["non_rpki_to_rpki_neighbors"][as_str].append(observed_by_rpki_as)
-                    self.cache_data["non_rpki_to_rpki_neighbors"][as_str].sort()  # Keep sorted
-
-                    print(f"📍 Mapped AS{non_rpki_as} → RPKI neighbor AS{observed_by_rpki_as}")
+                    self.cache_data["non_rpki_to_rpki_neighbors"][as_str].sort()
 
                 # Increment observation count (confidence metric)
                 self.cache_data["observation_count"][as_str] += 1
@@ -155,54 +159,51 @@ class RelevantNeighborCache:
         except Exception as e:
             print(f"Error recording observation: {e}")
 
-    def get_relevant_neighbors(self, non_rpki_as: int) -> List[int]:
+    def get_relevant_neighbors(self, origin_as: int) -> List[int]:
         """
         Get list of RPKI nodes that are relevant for voting on this AS.
 
-        Returns RPKI nodes that have observed announcements from this AS.
+        Returns RPKI nodes that have observed announcements from this AS
+        (works for both RPKI and non-RPKI origin ASes).
         Falls back to all RPKI nodes if no cache entry exists.
 
         Args:
-            non_rpki_as: Non-RPKI AS number
+            origin_as: AS number (RPKI or non-RPKI)
 
         Returns:
             List of RPKI AS numbers to ask for votes
         """
         try:
             with self.lock:
-                as_str = str(non_rpki_as)
+                as_str = str(origin_as)
 
                 # Check cache
                 if as_str in self.cache_data["non_rpki_to_rpki_neighbors"]:
                     neighbors = self.cache_data["non_rpki_to_rpki_neighbors"][as_str]
 
                     if neighbors:
-                        print(f"🎯 AS{non_rpki_as} → Relevant neighbors: {neighbors} "
-                              f"(cached, {len(neighbors)}/{len(self.cache_data['rpki_nodes'])} nodes)")
                         return neighbors
 
                 # Cache miss - fall back to all RPKI nodes (except self)
                 all_nodes = [n for n in self.cache_data["rpki_nodes"] if n != self.my_as_number]
-                print(f"❓ AS{non_rpki_as} → No cache, using all {len(all_nodes)} nodes")
                 return all_nodes
 
         except Exception as e:
-            print(f"Error getting relevant neighbors: {e}")
             # Fallback to all nodes on error
             return [n for n in self.cache_data["rpki_nodes"] if n != self.my_as_number]
 
-    def is_relevant_for_as(self, non_rpki_as: int, rpki_as: int) -> bool:
+    def is_relevant_for_as(self, origin_as: int, rpki_as: int) -> bool:
         """
         Check if specific RPKI node is relevant for voting on this AS.
 
         Args:
-            non_rpki_as: Non-RPKI AS in question
+            origin_as: AS in question (RPKI or non-RPKI)
             rpki_as: RPKI AS to check
 
         Returns:
             True if this RPKI node should vote on this AS
         """
-        relevant = self.get_relevant_neighbors(non_rpki_as)
+        relevant = self.get_relevant_neighbors(origin_as)
         return rpki_as in relevant
 
     def get_cache_statistics(self) -> Dict:

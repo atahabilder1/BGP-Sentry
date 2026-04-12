@@ -1122,10 +1122,10 @@ class P2PTransactionPool:
 
             self.logger.debug(f"Added to knowledge base: {ip_prefix} from AS{sender_asn}")
 
-            # Record in neighbor cache: "I (RPKI node) observed this non-RPKI AS"
-            # This builds the mapping for optimized voting
+            # Record in neighbor cache: "I (RPKI node) observed this origin AS"
+            # This builds the mapping for optimized voting (works for all ASes)
             self.neighbor_cache.record_observation(
-                non_rpki_as=sender_asn,
+                origin_as=sender_asn,
                 observed_by_rpki_as=self.as_number
             )
 

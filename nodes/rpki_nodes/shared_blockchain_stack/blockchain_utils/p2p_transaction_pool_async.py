@@ -446,7 +446,7 @@ class AsyncP2PTransactionPool:
         self.knowledge_base.append(observation)
 
         self.neighbor_cache.record_observation(
-            non_rpki_as=sender_asn,
+            origin_as=sender_asn,
             observed_by_rpki_as=self.as_number,
         )
         return True
