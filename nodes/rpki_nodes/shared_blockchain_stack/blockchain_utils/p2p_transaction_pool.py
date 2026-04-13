@@ -77,6 +77,9 @@ class P2PTransactionPool:
         # Transaction voting tracking (dynamic consensus threshold)
         self.pending_votes = {}  # transaction_id -> {transaction: {}, votes: [], needed: N}
         self.committed_transactions = {}  # tx_id -> commit_timestamp (for periodic cleanup)
+
+        # Network-wide dedup: track (prefix, origin) already proposed
+        self._pending_event_keys = set()
         self.total_nodes = RPKINodeRegistry.get_node_count()
         self.consensus_threshold = RPKINodeRegistry.get_consensus_threshold()
 
@@ -330,6 +333,10 @@ class P2PTransactionPool:
         transaction = message["transaction"]
         from_as = message["from_as"]
 
+        # Record: this (prefix, origin) already has a proposal from another node
+        event_key = (transaction.get("ip_prefix"), transaction.get("sender_asn"))
+        self._pending_event_keys.add(event_key)
+
         self.logger.debug(f"Received vote request for {transaction['transaction_id']} from AS{from_as}")
 
         # Validate transaction (simplified)
@@ -439,6 +446,16 @@ class P2PTransactionPool:
 
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
+        ip_prefix = transaction.get("ip_prefix")
+
+        # Network-wide dedup: if another node already proposed a TX for this
+        # (prefix, origin), don't create a redundant TX.
+        event_key = (ip_prefix, sender_asn)
+        if event_key in self._pending_event_keys:
+            self.logger.debug(f"Skipping redundant TX for {ip_prefix}/AS{sender_asn} — already proposed by peer")
+            return
+
+        self._pending_event_keys.add(event_key)
 
         # Capacity check + register must be atomic to prevent races
         oldest_to_evict = None

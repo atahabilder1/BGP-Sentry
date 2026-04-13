@@ -82,6 +82,10 @@ class AsyncP2PTransactionPool:
         # Transaction voting tracking
         self.pending_votes: Dict[str, dict] = {}
         self.committed_transactions: Dict[str, float] = {}
+
+        # Network-wide dedup: track (prefix, origin) pairs that already have
+        # a pending vote_request from another node. Prevents redundant TXs.
+        self._pending_event_keys: set = set()  # (prefix, origin) → already proposed
         self.total_nodes = RPKINodeRegistry.get_node_count()
         self.consensus_threshold = RPKINodeRegistry.get_consensus_threshold()
 
@@ -227,6 +231,11 @@ class AsyncP2PTransactionPool:
         transaction = message["transaction"]
         from_as = message["from_as"]
 
+        # Record that this (prefix, origin) is already being proposed by another node
+        # This prevents us from creating a redundant TX for the same event
+        event_key = (transaction.get("ip_prefix"), transaction.get("sender_asn"))
+        self._pending_event_keys.add(event_key)
+
         vote = await self._validate_transaction(transaction)
         await self._send_vote_to_node(from_as, transaction["transaction_id"], vote)
 
@@ -277,6 +286,18 @@ class AsyncP2PTransactionPool:
         """Broadcast transaction to peers for consensus voting."""
         tx_id = transaction["transaction_id"]
         sender_asn = transaction.get("sender_asn")
+        ip_prefix = transaction.get("ip_prefix")
+
+        # Network-wide dedup: if another node already proposed a TX for this
+        # (prefix, origin), don't create a redundant TX. Our vote was already
+        # cast when we received their vote_request.
+        event_key = (ip_prefix, sender_asn)
+        if event_key in self._pending_event_keys:
+            self.logger.debug(f"Skipping redundant TX for {ip_prefix}/AS{sender_asn} — already proposed by peer")
+            return
+
+        # Mark this event as proposed (by us)
+        self._pending_event_keys.add(event_key)
 
         # Capacity check + register must be atomic to prevent races
         oldest_to_evict = None
