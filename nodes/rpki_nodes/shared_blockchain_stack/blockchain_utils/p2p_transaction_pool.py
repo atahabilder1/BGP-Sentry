@@ -1376,6 +1376,7 @@ class P2PTransactionPool:
             # Snapshot votes — same mutable-reference fix as _commit_unconfirmed_transaction
             transaction["signatures"] = list(vote_data["votes"])
             transaction["consensus_reached"] = True
+            transaction["consensus_status"] = "CONFIRMED"
             transaction["signature_count"] = len(transaction["signatures"])
 
             if self.batch_size > 1:

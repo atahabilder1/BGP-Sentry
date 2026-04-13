@@ -594,7 +594,8 @@ class BGPSentryExperiment:
 
         # 14c. Run post-hoc blockchain detection (cross-chain longitudinal analysis)
         try:
-            sys.path.insert(0, str(PROJECT_ROOT / "analysis"))
+            import sys as _sys
+            _sys.path.insert(0, str(PROJECT_ROOT / "analysis"))
             from posthoc_blockchain_detection import PosthocBlockchainDetector
             detector = PosthocBlockchainDetector(str(self.results_dir))
             posthoc_report = detector.full_report()
