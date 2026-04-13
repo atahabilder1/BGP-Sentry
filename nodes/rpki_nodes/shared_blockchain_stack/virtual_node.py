@@ -534,6 +534,16 @@ class VirtualNode:
                 is_attack=obs.get("is_attack", False),
             )
 
+        # Also populate prefix ownership state from warm-up observations
+        # This strengthens the blockchain-derived ROA so peers can approve
+        # based on observed ownership even before consensus starts
+        if self.prefix_ownership_state is not None and not obs.get("is_attack", False):
+            self.prefix_ownership_state.update_from_confirmed(
+                prefix=prefix,
+                origin_asn=origin_asn,
+                timestamp=timestamp,
+            )
+
     # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
