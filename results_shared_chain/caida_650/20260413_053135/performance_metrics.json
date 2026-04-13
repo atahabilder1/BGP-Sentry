@@ -1,0 +1,10 @@
+{
+  "ground_truth_attacks": 45,
+  "total_detections": 7,
+  "true_positives": 7,
+  "false_positives": 0,
+  "false_negatives": 38,
+  "precision": 1.0,
+  "recall": 0.1556,
+  "f1_score": 0.2692
+}

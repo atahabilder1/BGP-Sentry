@@ -145,10 +145,10 @@ class BGPSentryExperiment:
         # Create orchestrator with node manager
         self.orchestrator = SimulationOrchestrator(node_manager=self.node_manager)
 
-        # Results directory
+        # Results directory — shared-chain results go to separate folder
         dataset_name = self.data_loader.dataset_name
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.results_dir = PROJECT_ROOT / "results" / dataset_name / timestamp
+        self.results_dir = PROJECT_ROOT / "results_shared_chain" / dataset_name / timestamp
         self.results_dir.mkdir(parents=True, exist_ok=True)
 
         # Experiment state
@@ -632,9 +632,8 @@ class BGPSentryExperiment:
     def _dump_blockchain_data(self):
         """Dump raw blockchain data from RAM to disk for post-hoc analysis.
 
-        Writes each RPKI validator's full blockchain (all blocks, transactions,
-        hashes) to results/<run>/blockchain_data/AS<asn>/blockchain.json.
-        This allows forensic inspection after the simulation completes.
+        Writes each RPKI validator's blockchain copy to
+        results/<run>/blockchain_data/AS<asn>/blockchain.json.
         """
         bc_dir = self.results_dir / "blockchain_data"
         bc_dir.mkdir(exist_ok=True)
@@ -661,8 +660,13 @@ class BGPSentryExperiment:
                 with open(node_dir / "fork_events.json", "w") as f:
                     json.dump(chain.fork_events, f, indent=2, default=str)
 
+        # Save public key registry
+        registry = {str(asn): pem for asn, pem in self.node_manager.public_key_pems.items()}
+        with open(bc_dir / "public_key_registry.json", "w") as f:
+            json.dump(registry, f, indent=2)
+
         logger.info(
-            f"Blockchain data dumped: {len(self.node_manager.node_blockchains)} chains, "
+            f"Blockchain data dumped: {len(self.node_manager.node_blockchains)} chain copies, "
             f"{total_blocks:,} total blocks → {bc_dir}"
         )
 

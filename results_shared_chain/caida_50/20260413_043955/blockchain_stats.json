@@ -1,0 +1,116 @@
+{
+  "architecture": "shared single blockchain",
+  "total_nodes": 26,
+  "total_blocks": 920,
+  "total_transactions": 944,
+  "chain_valid": true,
+  "total_forks_detected": 0,
+  "total_forks_resolved": 0,
+  "total_merge_blocks": 0,
+  "per_node_contributions": {
+    "31027": {
+      "blocks_contributed": 47,
+      "transactions_contributed": 47
+    },
+    "1299": {
+      "blocks_contributed": 48,
+      "transactions_contributed": 48
+    },
+    "3356": {
+      "blocks_contributed": 37,
+      "transactions_contributed": 37
+    },
+    "58057": {
+      "blocks_contributed": 41,
+      "transactions_contributed": 41
+    },
+    "43542": {
+      "blocks_contributed": 26,
+      "transactions_contributed": 26
+    },
+    "42337": {
+      "blocks_contributed": 24,
+      "transactions_contributed": 24
+    },
+    "139743": {
+      "blocks_contributed": 30,
+      "transactions_contributed": 30
+    },
+    "701": {
+      "blocks_contributed": 36,
+      "transactions_contributed": 36
+    },
+    "6854": {
+      "blocks_contributed": 31,
+      "transactions_contributed": 31
+    },
+    "15830": {
+      "blocks_contributed": 41,
+      "transactions_contributed": 41
+    },
+    "327903": {
+      "blocks_contributed": 33,
+      "transactions_contributed": 33
+    },
+    "63186": {
+      "blocks_contributed": 32,
+      "transactions_contributed": 32
+    },
+    "52554": {
+      "blocks_contributed": 35,
+      "transactions_contributed": 35
+    },
+    "9002": {
+      "blocks_contributed": 56,
+      "transactions_contributed": 56
+    },
+    "3257": {
+      "blocks_contributed": 33,
+      "transactions_contributed": 33
+    },
+    "5650": {
+      "blocks_contributed": 45,
+      "transactions_contributed": 45
+    },
+    "11242": {
+      "blocks_contributed": 22,
+      "transactions_contributed": 22
+    },
+    "1916": {
+      "blocks_contributed": 40,
+      "transactions_contributed": 40
+    },
+    "49666": {
+      "blocks_contributed": 23,
+      "transactions_contributed": 23
+    },
+    "58682": {
+      "blocks_contributed": 34,
+      "transactions_contributed": 34
+    },
+    "174": {
+      "blocks_contributed": 47,
+      "transactions_contributed": 47
+    },
+    "47232": {
+      "blocks_contributed": 31,
+      "transactions_contributed": 31
+    },
+    "5511": {
+      "blocks_contributed": 41,
+      "transactions_contributed": 41
+    },
+    "268828": {
+      "blocks_contributed": 33,
+      "transactions_contributed": 33
+    },
+    "262761": {
+      "blocks_contributed": 39,
+      "transactions_contributed": 39
+    },
+    "31133": {
+      "blocks_contributed": 39,
+      "transactions_contributed": 39
+    }
+  }
+}

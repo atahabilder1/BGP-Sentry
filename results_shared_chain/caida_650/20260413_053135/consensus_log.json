@@ -1,0 +1,21 @@
+{
+  "total_transactions_created": 2861,
+  "total_committed": 242,
+  "total_pending": 0,
+  "consensus_status_all_chains": {
+    "CONFIRMED": 2817,
+    "SINGLE_WITNESS": 64,
+    "INSUFFICIENT_CONSENSUS": 1,
+    "no_status": 259
+  },
+  "unique_transactions_across_chains": 396,
+  "block_type_counts": {
+    "transaction": 65,
+    "batch": 1875,
+    "fork_merge": 0,
+    "genesis": 375,
+    "other": 0,
+    "fork_resolution": 757,
+    "attack_verdict": 259
+  }
+}

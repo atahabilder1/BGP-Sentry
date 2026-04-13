@@ -1,0 +1,908 @@
+{
+  "single_witness_accumulation": {
+    "description": "SINGLE_WITNESS entries from 3+ independent observers for the same (prefix, origin) \u2014 accumulated credibility",
+    "threshold": 3,
+    "upgraded_count": 11,
+    "partial_count": 2,
+    "isolated_count": 8,
+    "upgraded_pairs": [
+      {
+        "prefix": "45.54.160.0/21",
+        "origin_asn": 10429,
+        "independent_observers": 4,
+        "observer_list": [
+          37020,
+          38496,
+          265442,
+          268988
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.99.40.0/24",
+        "origin_asn": 18113,
+        "independent_observers": 4,
+        "observer_list": [
+          2687,
+          3758,
+          12956,
+          23201
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.194.239.0/24",
+        "origin_asn": 58190,
+        "independent_observers": 3,
+        "observer_list": [
+          4134,
+          58003,
+          265442
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.168.197.0/24",
+        "origin_asn": 42084,
+        "independent_observers": 8,
+        "observer_list": [
+          1273,
+          1926,
+          4134,
+          12956,
+          58003,
+          262820,
+          265442,
+          268988
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.28.32.0/24",
+        "origin_asn": 7029,
+        "independent_observers": 7,
+        "observer_list": [
+          1273,
+          4134,
+          4837,
+          12956,
+          20722,
+          44965,
+          268988
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.157.128.0/20",
+        "origin_asn": 35320,
+        "independent_observers": 4,
+        "observer_list": [
+          23201,
+          37020,
+          38496,
+          262820
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.54.144.0/21",
+        "origin_asn": 10429,
+        "independent_observers": 6,
+        "observer_list": [
+          2687,
+          4837,
+          12956,
+          35320,
+          37020,
+          58552
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.54.152.0/23",
+        "origin_asn": 10429,
+        "independent_observers": 7,
+        "observer_list": [
+          4134,
+          5603,
+          12956,
+          23201,
+          35320,
+          37020,
+          262820
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.231.72.0/24",
+        "origin_asn": 206856,
+        "independent_observers": 3,
+        "observer_list": [
+          8784,
+          20722,
+          328418
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.234.127.0/24",
+        "origin_asn": 210236,
+        "independent_observers": 3,
+        "observer_list": [
+          4134,
+          5603,
+          265442
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.217.8.224/28",
+        "origin_asn": 137409,
+        "independent_observers": 3,
+        "observer_list": [
+          5603,
+          42845,
+          268988
+        ],
+        "is_attack": true,
+        "label": "SUBPREFIX_HIJACK",
+        "realtime_detected": true
+      }
+    ],
+    "new_detections": 0,
+    "new_false_positives": 10,
+    "accumulation_precision": 0.0,
+    "accumulation_recall_gain": 0.0
+  },
+  "cross_chain_corroboration": {
+    "description": "Cross-chain corroboration analysis",
+    "total_unique_pairs": 29,
+    "corroboration_distribution": {
+      "1": 4,
+      "2": 1,
+      "3": 2,
+      "4": 1,
+      "5": 1,
+      "6": 2,
+      "10": 1,
+      "12": 1,
+      "14": 1,
+      "16": 2,
+      "18": 1,
+      "23": 2,
+      "24": 2,
+      "33": 1,
+      "34": 1,
+      "40": 1,
+      "234": 1,
+      "367": 1,
+      "374": 1,
+      "375": 2
+    },
+    "disagreement_count": 17,
+    "disagreements": [
+      {
+        "prefix": "45.237.2.0/25",
+        "origin_asn": 137577,
+        "status_distribution": {
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 375,
+        "is_attack": true
+      },
+      {
+        "prefix": "172.16.0.0/12",
+        "origin_asn": 5713,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 374,
+        "is_attack": true
+      },
+      {
+        "prefix": "45.54.160.0/21",
+        "origin_asn": 10429,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 4
+        },
+        "chains_count": 367,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.158.199.0/24",
+        "origin_asn": 36550,
+        "status_distribution": {
+          "CONFIRMED": 3,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 23,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.99.40.0/24",
+        "origin_asn": 18113,
+        "status_distribution": {
+          "CONFIRMED": 2,
+          "SINGLE_WITNESS": 4
+        },
+        "chains_count": 18,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.194.239.0/24",
+        "origin_asn": 58190,
+        "status_distribution": {
+          "CONFIRMED": 1,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 16,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.128.0/20",
+        "origin_asn": 10429,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 34,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.112.0/24",
+        "origin_asn": 10429,
+        "status_distribution": {
+          "CONFIRMED": 2,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 12,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.136.0.0/22",
+        "origin_asn": 30781,
+        "status_distribution": {
+          "SINGLE_WITNESS": 1,
+          "CONFIRMED": 1
+        },
+        "chains_count": 6,
+        "is_attack": true
+      },
+      {
+        "prefix": "45.168.197.0/24",
+        "origin_asn": 42084,
+        "status_distribution": {
+          "SINGLE_WITNESS": 8,
+          "CONFIRMED": 1
+        },
+        "chains_count": 10,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.32.0/24",
+        "origin_asn": 7029,
+        "status_distribution": {
+          "SINGLE_WITNESS": 7,
+          "CONFIRMED": 2
+        },
+        "chains_count": 16,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.157.128.0/20",
+        "origin_asn": 35320,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 4
+        },
+        "chains_count": 33,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.144.0/21",
+        "origin_asn": 10429,
+        "status_distribution": {
+          "SINGLE_WITNESS": 6,
+          "CONFIRMED": 4
+        },
+        "chains_count": 24,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.152.0/23",
+        "origin_asn": 10429,
+        "status_distribution": {
+          "SINGLE_WITNESS": 7,
+          "CONFIRMED": 4
+        },
+        "chains_count": 23,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.231.72.0/24",
+        "origin_asn": 206856,
+        "status_distribution": {
+          "SINGLE_WITNESS": 3,
+          "CONFIRMED": 1
+        },
+        "chains_count": 4,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.234.127.0/24",
+        "origin_asn": 210236,
+        "status_distribution": {
+          "SINGLE_WITNESS": 3,
+          "CONFIRMED": 2
+        },
+        "chains_count": 6,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.217.8.224/28",
+        "origin_asn": 137409,
+        "status_distribution": {
+          "CONFIRMED": 1,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 5,
+        "is_attack": true
+      }
+    ],
+    "widely_corroborated_count": 21,
+    "widely_corroborated": [
+      {
+        "prefix": "45.237.2.0/25",
+        "origin_asn": 137577,
+        "chains_count": 375,
+        "consensus_status": "CONFIRMED",
+        "is_attack": true
+      },
+      {
+        "prefix": "45.203.167.0/24",
+        "origin_asn": 58984,
+        "chains_count": 375,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "172.16.0.0/12",
+        "origin_asn": 5713,
+        "chains_count": 374,
+        "consensus_status": "CONFIRMED",
+        "is_attack": true
+      },
+      {
+        "prefix": "45.158.197.0/24",
+        "origin_asn": 36550,
+        "chains_count": 234,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.160.0/21",
+        "origin_asn": 10429,
+        "chains_count": 367,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.158.199.0/24",
+        "origin_asn": 36550,
+        "chains_count": 23,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.99.40.0/24",
+        "origin_asn": 18113,
+        "chains_count": 18,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.158.198.0/24",
+        "origin_asn": 36550,
+        "chains_count": 24,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "172.16.0.0/12",
+        "origin_asn": 60280,
+        "chains_count": 14,
+        "consensus_status": "CONFIRMED",
+        "is_attack": true
+      },
+      {
+        "prefix": "45.252.151.0/24",
+        "origin_asn": 265353,
+        "chains_count": 40,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.194.239.0/24",
+        "origin_asn": 58190,
+        "chains_count": 16,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.128.0/20",
+        "origin_asn": 10429,
+        "chains_count": 34,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.112.0/24",
+        "origin_asn": 10429,
+        "chains_count": 12,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.136.0.0/22",
+        "origin_asn": 30781,
+        "chains_count": 6,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": true
+      },
+      {
+        "prefix": "45.168.197.0/24",
+        "origin_asn": 42084,
+        "chains_count": 10,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.32.0/24",
+        "origin_asn": 7029,
+        "chains_count": 16,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.157.128.0/20",
+        "origin_asn": 35320,
+        "chains_count": 33,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.144.0/21",
+        "origin_asn": 10429,
+        "chains_count": 24,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.54.152.0/23",
+        "origin_asn": 10429,
+        "chains_count": 23,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.234.127.0/24",
+        "origin_asn": 210236,
+        "chains_count": 6,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.217.8.224/28",
+        "origin_asn": 137409,
+        "chains_count": 5,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": true
+      }
+    ],
+    "disagreement_attack_rate": 0.23529411764705882
+  },
+  "temporal_patterns": {
+    "description": "Temporal pattern detection: origin changes and announcement bursts",
+    "origin_changes": {
+      "total_prefixes_with_changes": 1,
+      "true_hijacks": 1,
+      "false_alarms": 0,
+      "changes": [
+        {
+          "prefix": "172.16.0.0/12",
+          "origins": [
+            5713,
+            60280
+          ],
+          "is_attack": true,
+          "attack_origins": {
+            "5713": "BOGON_INJECTION",
+            "60280": "BOGON_INJECTION"
+          }
+        }
+      ]
+    },
+    "announcement_bursts": {
+      "total_bursts": 4,
+      "burst_attack_rate": 0.0,
+      "bursts": [
+        {
+          "prefix": "45.168.197.0/24",
+          "origin_asn": 42084,
+          "burst_count": 8,
+          "window_start": 1775818511.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.28.32.0/24",
+          "origin_asn": 7029,
+          "burst_count": 7,
+          "window_start": 1775818509.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.54.144.0/21",
+          "origin_asn": 10429,
+          "burst_count": 6,
+          "window_start": 1775818512.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.54.152.0/23",
+          "origin_asn": 10429,
+          "burst_count": 7,
+          "window_start": 1775818519.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        }
+      ]
+    }
+  },
+  "longitudinal_trust": {
+    "description": "Longitudinal trust scoring by SINGLE_WITNESS ratio",
+    "total_origin_ases": 22,
+    "suspicious_ases_count": 8,
+    "suspicious_precision": 0.25,
+    "suspicious_ases": [
+      {
+        "asn": 42084,
+        "total_announcements": 9,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 8,
+        "sw_ratio": 0.8889,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 7029,
+        "total_announcements": 9,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 7,
+        "sw_ratio": 0.7778,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 18113,
+        "total_announcements": 8,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 6,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 58190,
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 206856,
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 137409,
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": true,
+        "attack_types": [
+          "SUBPREFIX_HIJACK"
+        ]
+      },
+      {
+        "asn": 34594,
+        "total_announcements": 3,
+        "confirmed": 0,
+        "insufficient": 1,
+        "single_witness": 2,
+        "sw_ratio": 0.6667,
+        "is_attacker": true,
+        "attack_types": [
+          "FORGED_ORIGIN_PREFIX_HIJACK"
+        ]
+      },
+      {
+        "asn": 210236,
+        "total_announcements": 5,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.6,
+        "is_attacker": false,
+        "attack_types": []
+      }
+    ],
+    "per_as_trust": {
+      "137577": {
+        "total_announcements": 5,
+        "confirmed": 4,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 0.2,
+        "is_attacker": true,
+        "attack_types": [
+          "SUBPREFIX_HIJACK"
+        ]
+      },
+      "58984": {
+        "total_announcements": 3,
+        "confirmed": 3,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "5713": {
+        "total_announcements": 6,
+        "confirmed": 5,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 0.1667,
+        "is_attacker": true,
+        "attack_types": [
+          "BOGON_INJECTION"
+        ]
+      },
+      "36550": {
+        "total_announcements": 13,
+        "confirmed": 12,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 0.0769,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "10429": {
+        "total_announcements": 41,
+        "confirmed": 22,
+        "insufficient": 0,
+        "single_witness": 19,
+        "sw_ratio": 0.4634,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "18113": {
+        "total_announcements": 8,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 6,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "60280": {
+        "total_announcements": 2,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": true,
+        "attack_types": [
+          "BOGON_INJECTION"
+        ]
+      },
+      "265353": {
+        "total_announcements": 4,
+        "confirmed": 4,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "58190": {
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "34594": {
+        "total_announcements": 3,
+        "confirmed": 0,
+        "insufficient": 1,
+        "single_witness": 2,
+        "sw_ratio": 0.6667,
+        "is_attacker": true,
+        "attack_types": [
+          "FORGED_ORIGIN_PREFIX_HIJACK"
+        ]
+      },
+      "30781": {
+        "total_announcements": 2,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 0.5,
+        "is_attacker": true,
+        "attack_types": [
+          "FORGED_ORIGIN_PREFIX_HIJACK"
+        ]
+      },
+      "42084": {
+        "total_announcements": 9,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 8,
+        "sw_ratio": 0.8889,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "7029": {
+        "total_announcements": 9,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 7,
+        "sw_ratio": 0.7778,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "35320": {
+        "total_announcements": 9,
+        "confirmed": 5,
+        "insufficient": 0,
+        "single_witness": 4,
+        "sw_ratio": 0.4444,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "396559": {
+        "total_announcements": 1,
+        "confirmed": 0,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 1.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "206856": {
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "210236": {
+        "total_announcements": 5,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.6,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "137409": {
+        "total_announcements": 4,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 3,
+        "sw_ratio": 0.75,
+        "is_attacker": true,
+        "attack_types": [
+          "SUBPREFIX_HIJACK"
+        ]
+      },
+      "262422": {
+        "total_announcements": 2,
+        "confirmed": 2,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "44965": {
+        "total_announcements": 1,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "23543": {
+        "total_announcements": 1,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": true,
+        "attack_types": [
+          "BOGON_INJECTION"
+        ]
+      },
+      "306": {
+        "total_announcements": 1,
+        "confirmed": 0,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 1.0,
+        "is_attacker": false,
+        "attack_types": []
+      }
+    }
+  },
+  "aggregate_impact": {
+    "total_attacks_in_dataset": 7,
+    "realtime_detected": 7,
+    "realtime_recall": 1.0,
+    "posthoc_additional": 0,
+    "combined_detected": 7,
+    "combined_recall": 1.0,
+    "recall_improvement": 0.0
+  },
+  "data_summary": {
+    "chains_loaded": 375,
+    "unique_transactions": 396,
+    "unique_prefix_origin_pairs": 29,
+    "ground_truth_attacks": 7
+  }
+}

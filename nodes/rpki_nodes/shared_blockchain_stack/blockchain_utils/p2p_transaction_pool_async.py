@@ -411,7 +411,7 @@ class AsyncP2PTransactionPool:
             self.blockchain.append_replicated_block(block)
 
     async def _replicate_block_to_peers(self, block):
-        """Broadcast committed block to gossip subset."""
+        """Broadcast committed block to ALL peers (conventional replication)."""
         if block is None:
             return
         from message_bus_async import AsyncMessageBus
@@ -422,9 +422,7 @@ class AsyncP2PTransactionPool:
             "block": block,
         }
         all_peers = [n for n in self.peer_nodes if n != self.as_number]
-        gossip_size = max(3, int(math.sqrt(len(all_peers))))
-        targets = random.sample(all_peers, min(gossip_size, len(all_peers)))
-        await bus.broadcast(self.as_number, message, targets=targets)
+        await bus.broadcast(self.as_number, message, targets=all_peers)
 
     # ------------------------------------------------------------------
     # Vote signing

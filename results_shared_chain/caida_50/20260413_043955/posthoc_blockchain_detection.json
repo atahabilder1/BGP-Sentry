@@ -1,0 +1,61 @@
+{
+  "single_witness_accumulation": {
+    "description": "SINGLE_WITNESS entries from 3+ independent observers for the same (prefix, origin) \u2014 accumulated credibility",
+    "threshold": 3,
+    "upgraded_count": 0,
+    "partial_count": 0,
+    "isolated_count": 0,
+    "upgraded_pairs": [],
+    "new_detections": 0,
+    "new_false_positives": 0,
+    "accumulation_precision": 0.0,
+    "accumulation_recall_gain": 0.0
+  },
+  "cross_chain_corroboration": {
+    "description": "Cross-chain corroboration analysis",
+    "total_unique_pairs": 0,
+    "corroboration_distribution": {},
+    "disagreement_count": 0,
+    "disagreements": [],
+    "widely_corroborated_count": 0,
+    "widely_corroborated": [],
+    "disagreement_attack_rate": 0.0
+  },
+  "temporal_patterns": {
+    "description": "Temporal pattern detection: origin changes and announcement bursts",
+    "origin_changes": {
+      "total_prefixes_with_changes": 0,
+      "true_hijacks": 0,
+      "false_alarms": 0,
+      "changes": []
+    },
+    "announcement_bursts": {
+      "total_bursts": 0,
+      "burst_attack_rate": 0.0,
+      "bursts": []
+    }
+  },
+  "longitudinal_trust": {
+    "description": "Longitudinal trust scoring by SINGLE_WITNESS ratio",
+    "total_origin_ases": 0,
+    "suspicious_ases_count": 0,
+    "suspicious_precision": 0.0,
+    "suspicious_ases": [],
+    "per_as_trust": {}
+  },
+  "aggregate_impact": {
+    "total_attacks_in_dataset": 6,
+    "realtime_detected": 6,
+    "realtime_recall": 1.0,
+    "posthoc_additional": 0,
+    "combined_detected": 6,
+    "combined_recall": 1.0,
+    "recall_improvement": 0.0
+  },
+  "data_summary": {
+    "chains_loaded": 0,
+    "unique_transactions": 0,
+    "unique_prefix_origin_pairs": 0,
+    "ground_truth_attacks": 6
+  }
+}

@@ -4,12 +4,13 @@ NodeManager - Creates and manages all virtual nodes with full blockchain infrast
 
 Orchestrates the lifecycle of VirtualNode instances:
   1. Creates infrastructure (message bus, ledger, rating system)
-  2. Creates one VirtualNode per AS with its own independent blockchain
+  2. Creates one blockchain copy per RPKI node (conventional replicated chain)
   3. Starts P2P servers for RPKI nodes, then starts all node processing threads
   4. Monitors progress and collects results
 
-Each RPKI node maintains its own blockchain — there is no shared/primary chain.
-Forks are expected and tracked when replicated blocks conflict with local state.
+Conventional blockchain: each node maintains its own copy of the chain.
+Blocks are broadcast to ALL peers after commit. Fork resolution uses
+longest-chain-wins so all copies converge to the same canonical chain.
 """
 
 import asyncio
@@ -40,8 +41,9 @@ class NodeManager:
     """
     Manages the full set of virtual nodes for a BGP-Sentry experiment.
 
-    Creates per-node blockchain infrastructure and wires it into each VirtualNode.
-    Each RPKI node maintains its own independent blockchain (no shared chain).
+    Each RPKI node gets its own copy of the blockchain (conventional replicated chain).
+    Blocks are broadcast to all peers; longest-chain-wins fork resolution ensures
+    all copies converge to the same canonical chain.
     """
 
     def __init__(self, data_loader: DatasetLoader, project_root: str = None):
@@ -63,11 +65,12 @@ class NodeManager:
         self.rpki_validator = None
         self.prefix_ownership_state = None
 
-        # Per-node infrastructure — each RPKI node owns its own blockchain
-        self.node_blockchains: Dict[int, object] = {}   # asn -> BlockchainInterface (independent chain)
-        self.node_keys: Dict[int, tuple] = {}            # asn -> (private_key, public_key)
-        self.public_key_registry: Dict[int, object] = {} # asn -> public_key object
-        self.public_key_pems: Dict[int, str] = {}        # asn -> PEM string (for results output)
+        # Per-node blockchain copies (conventional replicated chain)
+        self.shared_blockchain = None                     # Reference to first node's chain (for compat)
+        self.node_blockchains: Dict[int, object] = {}     # asn -> BlockchainInterface (own copy)
+        self.node_keys: Dict[int, tuple] = {}             # asn -> (private_key, public_key)
+        self.public_key_registry: Dict[int, object] = {}  # asn -> public_key object
+        self.public_key_pems: Dict[int, str] = {}         # asn -> PEM string (for results output)
 
         self._init_infrastructure()
         self._generate_node_keys()
@@ -94,7 +97,7 @@ class NodeManager:
         self._create_nodes()
 
     def _init_infrastructure(self):
-        """Initialize infrastructure (no shared blockchain — each node gets its own)."""
+        """Initialize shared infrastructure (message bus, ledger, detectors)."""
         from config import cfg as _cfg
         from bgpcoin_ledger import BGPCoinLedger
         from nonrpki_rating import NonRPKIRatingSystem
@@ -157,23 +160,22 @@ class NodeManager:
         logger.info(
             "Infrastructure initialized: "
             f"state={state_dir}, "
-            f"message_bus=InMemory (no shared blockchain)"
+            f"message_bus=InMemory, architecture=conventional_replicated_chain"
         )
 
     def _generate_node_keys(self):
-        """Generate Ed25519 key pairs and independent blockchains for all RPKI nodes.
+        """Generate Ed25519 key pairs and blockchain copies for all RPKI nodes.
 
-        Each RPKI node gets its own BlockchainInterface (in-memory).
-        All nodes share the same genesis block so their chains start from
-        a common root, but after that each node's chain diverges
-        independently — forks are expected and tracked.
+        Each RPKI node gets its own BlockchainInterface (own copy of the chain).
+        All start from the same genesis block.  Block replication + longest-chain-wins
+        fork resolution ensures all copies converge to the same canonical chain.
         """
         from signature_utils import SignatureUtils
         from blockchain_interface import BlockchainInterface
 
         rpki_asns = [asn for asn in self.data_loader.get_all_asns() if self.data_loader.is_rpki(asn)]
 
-        # Create a shared genesis block (all nodes start from the same root)
+        # Create a shared genesis block (all copies start from the same root)
         genesis_chain = BlockchainInterface(in_memory=True)
         genesis_block = genesis_chain.blockchain_data["blocks"][0]
 
@@ -184,22 +186,25 @@ class NodeManager:
             self.public_key_registry[asn] = public_key
             self.public_key_pems[asn] = public_pem
 
-            # Create independent per-node blockchain (same genesis, own chain)
+            # Each node gets its own copy (same genesis, will converge via replication)
             node_chain = BlockchainInterface(in_memory=True, genesis_block=genesis_block)
             self.node_blockchains[asn] = node_chain
 
+        # Keep reference to first chain for compat with stats methods
+        if rpki_asns:
+            self.shared_blockchain = self.node_blockchains[rpki_asns[0]]
+
         logger.info(
             f"Generated Ed25519 key pairs for {len(rpki_asns)} RPKI nodes, "
-            f"created {len(self.node_blockchains)} independent per-node blockchains"
+            f"created {len(self.node_blockchains)} blockchain copies (conventional replicated chain)"
         )
 
     def _create_nodes(self):
         """Create a VirtualNode for every AS in the dataset.
 
-        Each RPKI node receives its own independent BlockchainInterface
-        (no shared/primary chain).  The node's P2PTransactionPool writes
-        directly to this chain, and forks are detected when replicated
-        blocks from peers conflict with the local tip.
+        Each RPKI node gets its own blockchain copy.  After committing a block,
+        the node broadcasts it to ALL peers.  Fork resolution (longest-chain-wins)
+        ensures all copies converge to the same canonical chain.
         """
         from config import cfg as _cfg
         self._use_async = _cfg.USE_ASYNC
@@ -425,11 +430,11 @@ class NodeManager:
     # Blockchain stats (new)
     # ------------------------------------------------------------------
     def get_blockchain_stats(self) -> dict:
-        """Get blockchain statistics from all independent per-node chains.
+        """Get blockchain statistics from all node chain copies.
 
-        Each RPKI node maintains its own blockchain.  This method
-        aggregates integrity checks, block/transaction counts, and fork
-        statistics across all node chains.
+        Conventional replicated chain: each node has its own copy.
+        Reports per-node integrity, block/transaction counts, fork stats,
+        and chain convergence (how similar the copies are).
         """
         if not self.node_blockchains:
             return {}
@@ -439,9 +444,7 @@ class NodeManager:
         total_blocks_all = []
         total_txns_all = []
         total_forks = 0
-
         total_forks_resolved = 0
-        total_merge_blocks = 0
 
         for asn, chain in self.node_blockchains.items():
             integrity = chain.verify_blockchain_integrity()
@@ -461,27 +464,23 @@ class NodeManager:
             forks_resolved = fork_stats.get("forks_resolved", 0)
             total_forks_resolved += forks_resolved
 
-            # Count merge blocks
-            merge_blocks = sum(
-                1 for b in chain.blockchain_data["blocks"]
-                if b.get("metadata", {}).get("block_type") == "fork_merge"
-            )
-            total_merge_blocks += merge_blocks
-
             per_node[str(asn)] = {
                 "blocks": num_blocks,
                 "transactions": num_txns,
                 "valid": is_valid,
                 "forks_detected": fork_stats["total_forks_detected"],
                 "forks_resolved": forks_resolved,
-                "merge_blocks": merge_blocks,
             }
 
+        # Chain convergence: check if all copies have the same length
+        convergence = "identical" if len(set(total_blocks_all)) == 1 else "diverged"
+
         return {
-            "architecture": "per-node independent blockchains",
+            "architecture": "conventional replicated chain (longest-chain-wins)",
             "total_nodes": len(self.node_blockchains),
             "valid_chains": valid_count,
             "all_valid": valid_count == len(self.node_blockchains),
+            "chain_convergence": convergence,
             "blocks_per_node": {
                 "min": min(total_blocks_all) if total_blocks_all else 0,
                 "max": max(total_blocks_all) if total_blocks_all else 0,
@@ -494,7 +493,6 @@ class NodeManager:
             },
             "total_forks_detected": total_forks,
             "total_forks_resolved": total_forks_resolved,
-            "total_merge_blocks": total_merge_blocks,
             "per_node": per_node,
         }
 
@@ -546,7 +544,7 @@ class NodeManager:
 
             consensus_stats["total_transactions_created"] += node.stats.get("transactions_created", 0)
 
-        # Scan all per-node blockchains for consensus status breakdown
+        # Scan all node chain copies for consensus status breakdown
         status_counts = {
             "CONFIRMED": 0,
             "SINGLE_WITNESS": 0,
@@ -560,14 +558,7 @@ class NodeManager:
             "genesis": 0,
             "other": 0,
         }
-        # Track unique tx IDs across all chains (many txns appear on multiple chains via fork merge)
         unique_tx_ids = set()
-        unique_status = {
-            "CONFIRMED": set(),
-            "SINGLE_WITNESS": set(),
-            "INSUFFICIENT_CONSENSUS": set(),
-            "no_status": set(),
-        }
 
         for asn, chain in self.node_blockchains.items():
             for block in chain.blockchain_data.get("blocks", []):
@@ -580,21 +571,14 @@ class NodeManager:
                     cs = tx.get("consensus_status", "")
                     if cs == "CONFIRMED" or tx.get("consensus_reached") is True:
                         status_counts["CONFIRMED"] += 1
-                        unique_status["CONFIRMED"].add(tx_id)
                     elif cs == "SINGLE_WITNESS":
                         status_counts["SINGLE_WITNESS"] += 1
-                        unique_status["SINGLE_WITNESS"].add(tx_id)
                     elif cs == "INSUFFICIENT_CONSENSUS":
                         status_counts["INSUFFICIENT_CONSENSUS"] += 1
-                        unique_status["INSUFFICIENT_CONSENSUS"].add(tx_id)
                     else:
                         status_counts["no_status"] += 1
-                        unique_status["no_status"].add(tx_id)
 
         consensus_stats["consensus_status_all_chains"] = status_counts
-        consensus_stats["consensus_status_unique"] = {
-            k: len(v) for k, v in unique_status.items()
-        }
         consensus_stats["unique_transactions_across_chains"] = len(unique_tx_ids)
         consensus_stats["block_type_counts"] = block_type_counts
 

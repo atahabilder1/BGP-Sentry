@@ -597,11 +597,11 @@ class P2PTransactionPool:
 
     def _replicate_block_to_peers(self, block):
         """
-        Broadcast a committed block to all peers for chain replication.
-        Runs asynchronously so the commit path is not blocked.
+        Broadcast a committed block to ALL peers for chain replication.
 
-        Args:
-            block: The committed block dict
+        Conventional blockchain: every node must receive every block so
+        all copies converge to the same canonical chain.  Broadcasts to
+        ALL peers (not a gossip subset) for reliable convergence.
         """
         if not self.use_memory_bus or block is None:
             return
@@ -612,16 +612,8 @@ class P2PTransactionPool:
         ).start()
 
     def _do_replicate_block(self, block):
-        """Background worker for block replication via gossip.
-
-        Instead of broadcasting to ALL peers (O(N) messages per commit),
-        replicate to a small gossip subset of sqrt(N) peers.  Each peer
-        that receives the block will merge novel transactions via fork
-        resolution, so data propagates transitively.
-        """
+        """Broadcast committed block to ALL peers (conventional replication)."""
         try:
-            import random
-            import math
             from message_bus import InMemoryMessageBus
             bus = InMemoryMessageBus.get_instance()
             message = {
@@ -629,11 +621,9 @@ class P2PTransactionPool:
                 "from_as": self.as_number,
                 "block": block,
             }
-            # Gossip to sqrt(N) peers instead of all N
+            # Broadcast to ALL peers (conventional blockchain — full replication)
             all_peers = [n for n in self.peer_nodes if n != self.as_number]
-            gossip_size = max(3, int(math.sqrt(len(all_peers))))
-            targets = random.sample(all_peers, min(gossip_size, len(all_peers)))
-            bus.broadcast(self.as_number, message, targets=targets)
+            bus.broadcast(self.as_number, message, targets=all_peers)
         except Exception as e:
             self.logger.error(f"Block replication error: {e}")
 

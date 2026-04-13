@@ -1,0 +1,1470 @@
+{
+  "architecture": "conventional replicated chain (longest-chain-wins)",
+  "total_nodes": 207,
+  "valid_chains": 207,
+  "all_valid": true,
+  "chain_convergence": "diverged",
+  "blocks_per_node": {
+    "min": 6,
+    "max": 69,
+    "mean": 31.753623188405797
+  },
+  "transactions_per_node": {
+    "min": 5,
+    "max": 72,
+    "mean": 32.256038647343
+  },
+  "total_forks_detected": 906004,
+  "total_forks_resolved": 906004,
+  "per_node": {
+    "101": {
+      "blocks": 50,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 4364,
+      "forks_resolved": 4364
+    },
+    "174": {
+      "blocks": 53,
+      "transactions": 54,
+      "valid": true,
+      "forks_detected": 4361,
+      "forks_resolved": 4361
+    },
+    "209": {
+      "blocks": 46,
+      "transactions": 47,
+      "valid": true,
+      "forks_detected": 4367,
+      "forks_resolved": 4367
+    },
+    "852": {
+      "blocks": 47,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 4366,
+      "forks_resolved": 4366
+    },
+    "1239": {
+      "blocks": 51,
+      "transactions": 51,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "1299": {
+      "blocks": 48,
+      "transactions": 47,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "1680": {
+      "blocks": 55,
+      "transactions": 55,
+      "valid": true,
+      "forks_detected": 4362,
+      "forks_resolved": 4362
+    },
+    "1820": {
+      "blocks": 37,
+      "transactions": 36,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "1828": {
+      "blocks": 69,
+      "transactions": 72,
+      "valid": true,
+      "forks_detected": 4349,
+      "forks_resolved": 4349
+    },
+    "1916": {
+      "blocks": 38,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "2711": {
+      "blocks": 29,
+      "transactions": 30,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "2906": {
+      "blocks": 41,
+      "transactions": 43,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "2914": {
+      "blocks": 39,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "3132": {
+      "blocks": 28,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "3209": {
+      "blocks": 46,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 4365,
+      "forks_resolved": 4365
+    },
+    "3216": {
+      "blocks": 48,
+      "transactions": 48,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "3249": {
+      "blocks": 22,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "3257": {
+      "blocks": 48,
+      "transactions": 51,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "3302": {
+      "blocks": 37,
+      "transactions": 37,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "3326": {
+      "blocks": 31,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "3356": {
+      "blocks": 47,
+      "transactions": 48,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "3399": {
+      "blocks": 29,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "3491": {
+      "blocks": 49,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "3549": {
+      "blocks": 27,
+      "transactions": 30,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "3758": {
+      "blocks": 20,
+      "transactions": 21,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "3786": {
+      "blocks": 42,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4366,
+      "forks_resolved": 4366
+    },
+    "4455": {
+      "blocks": 38,
+      "transactions": 42,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "4621": {
+      "blocks": 44,
+      "transactions": 43,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "4755": {
+      "blocks": 25,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "4826": {
+      "blocks": 49,
+      "transactions": 51,
+      "valid": true,
+      "forks_detected": 4366,
+      "forks_resolved": 4366
+    },
+    "4837": {
+      "blocks": 50,
+      "transactions": 51,
+      "valid": true,
+      "forks_detected": 4360,
+      "forks_resolved": 4360
+    },
+    "4922": {
+      "blocks": 32,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "5588": {
+      "blocks": 32,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "5610": {
+      "blocks": 33,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "5716": {
+      "blocks": 27,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "6461": {
+      "blocks": 49,
+      "transactions": 48,
+      "valid": true,
+      "forks_detected": 4363,
+      "forks_resolved": 4363
+    },
+    "6697": {
+      "blocks": 39,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "6830": {
+      "blocks": 35,
+      "transactions": 38,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "6939": {
+      "blocks": 62,
+      "transactions": 65,
+      "valid": true,
+      "forks_detected": 4358,
+      "forks_resolved": 4358
+    },
+    "7018": {
+      "blocks": 35,
+      "transactions": 36,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "7029": {
+      "blocks": 34,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    },
+    "7545": {
+      "blocks": 56,
+      "transactions": 57,
+      "valid": true,
+      "forks_detected": 4361,
+      "forks_resolved": 4361
+    },
+    "7633": {
+      "blocks": 27,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "7713": {
+      "blocks": 53,
+      "transactions": 55,
+      "valid": true,
+      "forks_detected": 4363,
+      "forks_resolved": 4363
+    },
+    "7782": {
+      "blocks": 33,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "7795": {
+      "blocks": 33,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "8167": {
+      "blocks": 26,
+      "transactions": 28,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "8220": {
+      "blocks": 66,
+      "transactions": 66,
+      "valid": true,
+      "forks_detected": 4350,
+      "forks_resolved": 4350
+    },
+    "8400": {
+      "blocks": 36,
+      "transactions": 36,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "8447": {
+      "blocks": 41,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "8473": {
+      "blocks": 40,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "8492": {
+      "blocks": 25,
+      "transactions": 25,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "8529": {
+      "blocks": 40,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "8551": {
+      "blocks": 49,
+      "transactions": 52,
+      "valid": true,
+      "forks_detected": 4362,
+      "forks_resolved": 4362
+    },
+    "8708": {
+      "blocks": 50,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "8849": {
+      "blocks": 33,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "9049": {
+      "blocks": 26,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "9050": {
+      "blocks": 49,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 4362,
+      "forks_resolved": 4362
+    },
+    "9121": {
+      "blocks": 40,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "9136": {
+      "blocks": 27,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "9299": {
+      "blocks": 53,
+      "transactions": 53,
+      "valid": true,
+      "forks_detected": 4366,
+      "forks_resolved": 4366
+    },
+    "9304": {
+      "blocks": 45,
+      "transactions": 46,
+      "valid": true,
+      "forks_detected": 4365,
+      "forks_resolved": 4365
+    },
+    "9730": {
+      "blocks": 8,
+      "transactions": 7,
+      "valid": true,
+      "forks_detected": 4396,
+      "forks_resolved": 4396
+    },
+    "9821": {
+      "blocks": 24,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "10075": {
+      "blocks": 29,
+      "transactions": 30,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "11426": {
+      "blocks": 29,
+      "transactions": 30,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "12406": {
+      "blocks": 23,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "12741": {
+      "blocks": 40,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "12874": {
+      "blocks": 41,
+      "transactions": 43,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "13094": {
+      "blocks": 15,
+      "transactions": 14,
+      "valid": true,
+      "forks_detected": 4391,
+      "forks_resolved": 4391
+    },
+    "13333": {
+      "blocks": 32,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "13335": {
+      "blocks": 48,
+      "transactions": 47,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "13649": {
+      "blocks": 31,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "13768": {
+      "blocks": 44,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "14149": {
+      "blocks": 25,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "14840": {
+      "blocks": 54,
+      "transactions": 57,
+      "valid": true,
+      "forks_detected": 4361,
+      "forks_resolved": 4361
+    },
+    "14866": {
+      "blocks": 31,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    },
+    "15305": {
+      "blocks": 36,
+      "transactions": 40,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "15994": {
+      "blocks": 52,
+      "transactions": 55,
+      "valid": true,
+      "forks_detected": 4362,
+      "forks_resolved": 4362
+    },
+    "16074": {
+      "blocks": 32,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "16086": {
+      "blocks": 49,
+      "transactions": 53,
+      "valid": true,
+      "forks_detected": 4360,
+      "forks_resolved": 4360
+    },
+    "16164": {
+      "blocks": 36,
+      "transactions": 37,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "16532": {
+      "blocks": 19,
+      "transactions": 18,
+      "valid": true,
+      "forks_detected": 4386,
+      "forks_resolved": 4386
+    },
+    "17439": {
+      "blocks": 33,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    },
+    "18734": {
+      "blocks": 40,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "19429": {
+      "blocks": 41,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "20804": {
+      "blocks": 43,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "20857": {
+      "blocks": 45,
+      "transactions": 45,
+      "valid": true,
+      "forks_detected": 4361,
+      "forks_resolved": 4361
+    },
+    "21351": {
+      "blocks": 35,
+      "transactions": 35,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "21488": {
+      "blocks": 38,
+      "transactions": 42,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "22773": {
+      "blocks": 9,
+      "transactions": 8,
+      "valid": true,
+      "forks_detected": 4396,
+      "forks_resolved": 4396
+    },
+    "23947": {
+      "blocks": 42,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "24088": {
+      "blocks": 45,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "24875": {
+      "blocks": 45,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4367,
+      "forks_resolved": 4367
+    },
+    "25003": {
+      "blocks": 38,
+      "transactions": 40,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "25447": {
+      "blocks": 29,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "26292": {
+      "blocks": 38,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 4369,
+      "forks_resolved": 4369
+    },
+    "28173": {
+      "blocks": 43,
+      "transactions": 42,
+      "valid": true,
+      "forks_detected": 4367,
+      "forks_resolved": 4367
+    },
+    "28186": {
+      "blocks": 47,
+      "transactions": 48,
+      "valid": true,
+      "forks_detected": 4366,
+      "forks_resolved": 4366
+    },
+    "28716": {
+      "blocks": 49,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "28885": {
+      "blocks": 23,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "28964": {
+      "blocks": 21,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "29465": {
+      "blocks": 16,
+      "transactions": 15,
+      "valid": true,
+      "forks_detected": 4390,
+      "forks_resolved": 4390
+    },
+    "30722": {
+      "blocks": 33,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "30781": {
+      "blocks": 38,
+      "transactions": 37,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "31034": {
+      "blocks": 42,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "31133": {
+      "blocks": 50,
+      "transactions": 52,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "33132": {
+      "blocks": 40,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4372,
+      "forks_resolved": 4372
+    },
+    "33287": {
+      "blocks": 25,
+      "transactions": 26,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "33491": {
+      "blocks": 28,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "34309": {
+      "blocks": 35,
+      "transactions": 35,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "35106": {
+      "blocks": 23,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "35196": {
+      "blocks": 22,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "35805": {
+      "blocks": 39,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "36868": {
+      "blocks": 39,
+      "transactions": 42,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "38220": {
+      "blocks": 33,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "39551": {
+      "blocks": 19,
+      "transactions": 19,
+      "valid": true,
+      "forks_detected": 4387,
+      "forks_resolved": 4387
+    },
+    "39657": {
+      "blocks": 16,
+      "transactions": 17,
+      "valid": true,
+      "forks_detected": 4388,
+      "forks_resolved": 4388
+    },
+    "40779": {
+      "blocks": 24,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "42020": {
+      "blocks": 31,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "43668": {
+      "blocks": 33,
+      "transactions": 34,
+      "valid": true,
+      "forks_detected": 4374,
+      "forks_resolved": 4374
+    },
+    "43687": {
+      "blocks": 23,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "44066": {
+      "blocks": 44,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4365,
+      "forks_resolved": 4365
+    },
+    "44196": {
+      "blocks": 30,
+      "transactions": 32,
+      "valid": true,
+      "forks_detected": 4375,
+      "forks_resolved": 4375
+    },
+    "45090": {
+      "blocks": 30,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "45820": {
+      "blocks": 32,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    },
+    "46786": {
+      "blocks": 48,
+      "transactions": 48,
+      "valid": true,
+      "forks_detected": 4363,
+      "forks_resolved": 4363
+    },
+    "46807": {
+      "blocks": 17,
+      "transactions": 17,
+      "valid": true,
+      "forks_detected": 4387,
+      "forks_resolved": 4387
+    },
+    "47868": {
+      "blocks": 17,
+      "transactions": 16,
+      "valid": true,
+      "forks_detected": 4388,
+      "forks_resolved": 4388
+    },
+    "47986": {
+      "blocks": 24,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "48076": {
+      "blocks": 25,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "50543": {
+      "blocks": 16,
+      "transactions": 15,
+      "valid": true,
+      "forks_detected": 4389,
+      "forks_resolved": 4389
+    },
+    "50619": {
+      "blocks": 24,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "51437": {
+      "blocks": 27,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "51548": {
+      "blocks": 23,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "52378": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "52686": {
+      "blocks": 26,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "52974": {
+      "blocks": 20,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "53087": {
+      "blocks": 21,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "53115": {
+      "blocks": 24,
+      "transactions": 25,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "53163": {
+      "blocks": 26,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "53190": {
+      "blocks": 12,
+      "transactions": 11,
+      "valid": true,
+      "forks_detected": 4394,
+      "forks_resolved": 4394
+    },
+    "53191": {
+      "blocks": 26,
+      "transactions": 26,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "54778": {
+      "blocks": 47,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 4364,
+      "forks_resolved": 4364
+    },
+    "55685": {
+      "blocks": 40,
+      "transactions": 43,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "55690": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "56123": {
+      "blocks": 23,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "58706": {
+      "blocks": 15,
+      "transactions": 16,
+      "valid": true,
+      "forks_detected": 4390,
+      "forks_resolved": 4390
+    },
+    "61111": {
+      "blocks": 28,
+      "transactions": 28,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "61591": {
+      "blocks": 26,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4380,
+      "forks_resolved": 4380
+    },
+    "61910": {
+      "blocks": 20,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4386,
+      "forks_resolved": 4386
+    },
+    "63956": {
+      "blocks": 44,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 4367,
+      "forks_resolved": 4367
+    },
+    "64112": {
+      "blocks": 22,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "64313": {
+      "blocks": 29,
+      "transactions": 28,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "131574": {
+      "blocks": 24,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "131948": {
+      "blocks": 34,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "132210": {
+      "blocks": 16,
+      "transactions": 16,
+      "valid": true,
+      "forks_detected": 4388,
+      "forks_resolved": 4388
+    },
+    "134146": {
+      "blocks": 26,
+      "transactions": 26,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "134371": {
+      "blocks": 22,
+      "transactions": 21,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "135782": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "135964": {
+      "blocks": 20,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "136255": {
+      "blocks": 26,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "136373": {
+      "blocks": 7,
+      "transactions": 6,
+      "valid": true,
+      "forks_detected": 4397,
+      "forks_resolved": 4397
+    },
+    "137394": {
+      "blocks": 33,
+      "transactions": 33,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "137630": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "138383": {
+      "blocks": 20,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4385,
+      "forks_resolved": 4385
+    },
+    "138397": {
+      "blocks": 18,
+      "transactions": 17,
+      "valid": true,
+      "forks_detected": 4386,
+      "forks_resolved": 4386
+    },
+    "138840": {
+      "blocks": 48,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 4371,
+      "forks_resolved": 4371
+    },
+    "139464": {
+      "blocks": 22,
+      "transactions": 22,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "141595": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "197133": {
+      "blocks": 27,
+      "transactions": 26,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "200946": {
+      "blocks": 15,
+      "transactions": 15,
+      "valid": true,
+      "forks_detected": 4389,
+      "forks_resolved": 4389
+    },
+    "201383": {
+      "blocks": 21,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "201776": {
+      "blocks": 18,
+      "transactions": 19,
+      "valid": true,
+      "forks_detected": 4388,
+      "forks_resolved": 4388
+    },
+    "203052": {
+      "blocks": 27,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4377,
+      "forks_resolved": 4377
+    },
+    "204170": {
+      "blocks": 25,
+      "transactions": 26,
+      "valid": true,
+      "forks_detected": 4381,
+      "forks_resolved": 4381
+    },
+    "204720": {
+      "blocks": 33,
+      "transactions": 35,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "206442": {
+      "blocks": 21,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "209097": {
+      "blocks": 18,
+      "transactions": 17,
+      "valid": true,
+      "forks_detected": 4386,
+      "forks_resolved": 4386
+    },
+    "209975": {
+      "blocks": 38,
+      "transactions": 37,
+      "valid": true,
+      "forks_detected": 4370,
+      "forks_resolved": 4370
+    },
+    "210331": {
+      "blocks": 27,
+      "transactions": 29,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "210846": {
+      "blocks": 21,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4383,
+      "forks_resolved": 4383
+    },
+    "211396": {
+      "blocks": 24,
+      "transactions": 25,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "211827": {
+      "blocks": 17,
+      "transactions": 17,
+      "valid": true,
+      "forks_detected": 4391,
+      "forks_resolved": 4391
+    },
+    "213058": {
+      "blocks": 28,
+      "transactions": 28,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "262171": {
+      "blocks": 16,
+      "transactions": 16,
+      "valid": true,
+      "forks_detected": 4389,
+      "forks_resolved": 4389
+    },
+    "262773": {
+      "blocks": 20,
+      "transactions": 19,
+      "valid": true,
+      "forks_detected": 4387,
+      "forks_resolved": 4387
+    },
+    "263423": {
+      "blocks": 24,
+      "transactions": 25,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "263483": {
+      "blocks": 34,
+      "transactions": 36,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    },
+    "263626": {
+      "blocks": 28,
+      "transactions": 27,
+      "valid": true,
+      "forks_detected": 4379,
+      "forks_resolved": 4379
+    },
+    "263879": {
+      "blocks": 18,
+      "transactions": 18,
+      "valid": true,
+      "forks_detected": 4387,
+      "forks_resolved": 4387
+    },
+    "265130": {
+      "blocks": 23,
+      "transactions": 24,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "265178": {
+      "blocks": 14,
+      "transactions": 13,
+      "valid": true,
+      "forks_detected": 4390,
+      "forks_resolved": 4390
+    },
+    "265298": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 4398,
+      "forks_resolved": 4398
+    },
+    "266049": {
+      "blocks": 20,
+      "transactions": 19,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "266166": {
+      "blocks": 45,
+      "transactions": 45,
+      "valid": true,
+      "forks_detected": 4368,
+      "forks_resolved": 4368
+    },
+    "266219": {
+      "blocks": 14,
+      "transactions": 13,
+      "valid": true,
+      "forks_detected": 4391,
+      "forks_resolved": 4391
+    },
+    "267613": {
+      "blocks": 51,
+      "transactions": 51,
+      "valid": true,
+      "forks_detected": 4364,
+      "forks_resolved": 4364
+    },
+    "269530": {
+      "blocks": 31,
+      "transactions": 31,
+      "valid": true,
+      "forks_detected": 4378,
+      "forks_resolved": 4378
+    },
+    "269720": {
+      "blocks": 16,
+      "transactions": 15,
+      "valid": true,
+      "forks_detected": 4388,
+      "forks_resolved": 4388
+    },
+    "270604": {
+      "blocks": 22,
+      "transactions": 21,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "327705": {
+      "blocks": 17,
+      "transactions": 16,
+      "valid": true,
+      "forks_detected": 4389,
+      "forks_resolved": 4389
+    },
+    "393763": {
+      "blocks": 32,
+      "transactions": 32,
+      "valid": true,
+      "forks_detected": 4376,
+      "forks_resolved": 4376
+    },
+    "394551": {
+      "blocks": 24,
+      "transactions": 25,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "395901": {
+      "blocks": 23,
+      "transactions": 23,
+      "valid": true,
+      "forks_detected": 4382,
+      "forks_resolved": 4382
+    },
+    "396052": {
+      "blocks": 20,
+      "transactions": 20,
+      "valid": true,
+      "forks_detected": 4384,
+      "forks_resolved": 4384
+    },
+    "396998": {
+      "blocks": 43,
+      "transactions": 43,
+      "valid": true,
+      "forks_detected": 4373,
+      "forks_resolved": 4373
+    }
+  }
+}

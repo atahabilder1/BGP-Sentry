@@ -599,23 +599,22 @@ class BlockchainInterface:
         """
         Append a replicated block received from a peer node.
 
-        Each node maintains its own independent blockchain.  When a peer
-        broadcasts a committed block, this method tries to append it:
+        Conventional blockchain replication with longest-chain-wins:
 
         - If the block extends the local chain tip (previous_hash matches
           the tip's block_hash), the block is appended normally.
-        - If the local chain already has a block at the same position with
-          a different hash, a **fork** is detected. Fork resolution merges
-          novel transactions from the incoming block into the local chain
-          as a new block, preserving the local chain structure while
-          incorporating the peer's data.
+        - If a fork is detected (different block at same position),
+          the LONGER chain wins.  If the incoming block represents a longer
+          chain, the local conflicting block is replaced.  If same length,
+          the lower block_hash wins (deterministic tie-breaking).
+          Transactions from the discarded block are lost (like Bitcoin).
         - If the block hash fails verification, the block is rejected.
 
         Args:
             block: Complete block dict (as committed by the originating node)
 
         Returns:
-            True if block was appended or transactions were merged, False on error
+            True if block was appended or chain was reorganised, False on error
         """
         try:
             with self.lock:
@@ -631,7 +630,6 @@ class BlockchainInterface:
 
                     if incoming_prev == local_tip_hash:
                         # Normal case: block extends our chain tip
-                        # Deep copy to break shared reference with originating node
                         block_copy = copy.deepcopy(block)
                         self.blockchain_data["blocks"].append(block_copy)
                         for tx in block_copy.get("transactions", []):
@@ -640,9 +638,21 @@ class BlockchainInterface:
                                 self._recent_tx_ids.add(tx_id)
                         return True
 
-                    # ── Fork detected: resolve by merging novel transactions ──
+                    # ── Fork detected: longest-chain-wins resolution ──
                     incoming_num = block.get("block_number", -1)
                     local_tip_num = last_block.get("block_number", -1)
+
+                    # Determine winner: higher block_number wins (longer chain).
+                    # Tie-break: lower block_hash wins (deterministic).
+                    incoming_wins = False
+                    if incoming_num > local_tip_num:
+                        incoming_wins = True
+                    elif incoming_num == local_tip_num:
+                        incoming_hash = block.get("block_hash", "f" * 64)
+                        if incoming_hash < local_tip_hash:
+                            incoming_wins = True
+
+                    resolution = "incoming_wins" if incoming_wins else "local_wins"
 
                     self.fork_events.append({
                         "timestamp": datetime.now().isoformat(),
@@ -652,47 +662,46 @@ class BlockchainInterface:
                         "incoming_hash": block.get("block_hash", "")[:16],
                         "incoming_prev_hash": incoming_prev[:16] if incoming_prev else "",
                         "from_as": block.get("metadata", {}).get("committer_as"),
+                        "resolution": resolution,
                         "resolved": True,
                     })
 
-                    # Extract novel transactions not already on our chain
-                    # Deep copy to break shared reference with originating node
-                    novel_txs = []
-                    for tx in block.get("transactions", []):
-                        tx_id = tx.get("transaction_id")
-                        if tx_id and tx_id not in self._recent_tx_ids:
-                            novel_txs.append(copy.deepcopy(tx))
+                    if incoming_wins:
+                        # Replace local tip: remove it, rebuild with incoming TXs
+                        # This maintains hash chain integrity
+                        discarded_block = self.blockchain_data["blocks"].pop()
+                        new_tip_hash = self.blockchain_data["blocks"][-1]["block_hash"]
 
-                    if novel_txs:
-                        # Create a merge block on our chain tip
-                        merge_block = {
+                        # Create a proper replacement block linked to the new tip
+                        replacement = {
                             "block_number": len(self.blockchain_data["blocks"]),
                             "timestamp": datetime.now().isoformat(),
-                            "previous_hash": local_tip_hash,
-                            "transactions": novel_txs,
+                            "previous_hash": new_tip_hash,
+                            "transactions": copy.deepcopy(block.get("transactions", [])),
                             "block_hash": "",
                             "merkle_root": "",
                             "metadata": {
-                                "block_type": "fork_merge",
-                                "transaction_count": len(novel_txs),
-                                "source_block_hash": block.get("block_hash", "")[:16],
+                                "block_type": "fork_resolution",
+                                "transaction_count": len(block.get("transactions", [])),
                                 "source_as": block.get("metadata", {}).get("committer_as"),
+                                "discarded_hash": discarded_block.get("block_hash", "")[:16],
                             }
                         }
-                        merge_block["merkle_root"] = self._calculate_merkle_root(novel_txs)
-                        merge_block["block_hash"] = self._calculate_block_hash(merge_block)
-                        self.blockchain_data["blocks"].append(merge_block)
+                        replacement["merkle_root"] = self._calculate_merkle_root(replacement["transactions"])
+                        replacement["block_hash"] = self._calculate_block_hash(replacement)
+                        self.blockchain_data["blocks"].append(replacement)
 
-                        for tx in novel_txs:
+                        for tx in replacement.get("transactions", []):
                             tx_id = tx.get("transaction_id")
                             if tx_id:
                                 self._recent_tx_ids.add(tx_id)
 
-                        self.forks_resolved += 1
+                    # If local wins, incoming block is discarded (like Bitcoin)
 
+                    self.forks_resolved += 1
                     return True
                 else:
-                    # Chain has only genesis — append (deep copy to isolate)
+                    # Chain has only genesis — append
                     self.blockchain_data["blocks"].append(copy.deepcopy(block))
                     return True
 

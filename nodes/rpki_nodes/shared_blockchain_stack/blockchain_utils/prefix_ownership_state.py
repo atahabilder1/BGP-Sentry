@@ -39,7 +39,14 @@ class PrefixOwnershipState:
             "alternative_origins": {       # other ASes that claimed this prefix
                 asn: count, ...
             },
+            "co_owners": set,             # ASes recognised as legitimate MOAS
         }
+
+    MOAS (Multi-Origin AS) handling:
+        In production BGP, multiple ASes legitimately originate the same
+        prefix (e.g. anycast, CDN, load-balancing).  When an alternative
+        origin accumulates >= CONFIDENCE_THRESHOLD confirmations it is
+        promoted to *co-owner* status and no longer triggers a hijack alert.
     """
 
     # Minimum confirmations before we trust the established origin
@@ -82,6 +89,11 @@ class PrefixOwnershipState:
                 else:
                     asn = int(asn_str)
 
+                if prefix in self.prefix_map:
+                    # Multiple ROAs for the same prefix → MOAS co-owner
+                    self.prefix_map[prefix]["co_owners"].add(asn)
+                    continue
+
                 self.prefix_map[prefix] = {
                     "established_origin": asn,
                     "confirmed_count": self.CONFIDENCE_THRESHOLD,  # trust ROA from start
@@ -89,6 +101,7 @@ class PrefixOwnershipState:
                     "first_seen": 0,
                     "last_seen": 0,
                     "alternative_origins": {},
+                    "co_owners": {asn},  # established origin is always a co-owner
                     "source": "vrp_bootstrap",
                 }
 
@@ -124,6 +137,7 @@ class PrefixOwnershipState:
                     "first_seen": timestamp,
                     "last_seen": timestamp,
                     "alternative_origins": {},
+                    "co_owners": {origin_asn},
                     "source": "blockchain",
                 }
                 return
@@ -134,6 +148,12 @@ class PrefixOwnershipState:
             if entry["first_seen"] == 0:
                 entry["first_seen"] = timestamp
 
+            # Already a recognised co-owner — just strengthen
+            if origin_asn in entry.get("co_owners", set()):
+                if origin_asn == entry["established_origin"]:
+                    entry["confirmed_count"] += 1
+                return
+
             if origin_asn == entry["established_origin"]:
                 # Same origin confirmed again — strengthen confidence
                 entry["confirmed_count"] += 1
@@ -141,6 +161,15 @@ class PrefixOwnershipState:
                 # Different origin — track as alternative
                 alt = entry["alternative_origins"]
                 alt[origin_asn] = alt.get(origin_asn, 0) + 1
+
+                # Promote to co-owner once it reaches CONFIDENCE_THRESHOLD
+                if alt[origin_asn] >= self.CONFIDENCE_THRESHOLD:
+                    co = entry.setdefault("co_owners", set())
+                    co.add(origin_asn)
+                    logger.info(
+                        f"MOAS co-owner recognised: {prefix} "
+                        f"AS{origin_asn} ({alt[origin_asn]} confirmations)"
+                    )
 
                 # If alternative has MORE confirmations, it becomes established
                 if alt[origin_asn] > entry["confirmed_count"]:
@@ -160,6 +189,9 @@ class PrefixOwnershipState:
 
     def check_announcement(self, prefix: str, origin_asn: int) -> Optional[dict]:
         """Check if an announcement conflicts with established ownership.
+
+        Accounts for MOAS: if the origin has been confirmed enough times
+        to be a co-owner, it is treated as legitimate.
 
         Args:
             prefix: Announced IP prefix
@@ -183,13 +215,22 @@ class PrefixOwnershipState:
                 # Matches established owner — legitimate
                 return None
 
+            # Check MOAS co-owners
+            if origin_asn in entry.get("co_owners", set()):
+                return None
+
             if confidence < self.CONFIDENCE_THRESHOLD:
                 # Not enough confidence to accuse — still learning
                 return None
 
+            # Also don't accuse if the alternative is approaching co-owner
+            # status (at least half the threshold) — still learning
+            alt_count = entry.get("alternative_origins", {}).get(origin_asn, 0)
+            if alt_count >= self.CONFIDENCE_THRESHOLD // 2:
+                return None
+
             # CONFLICT: different origin with sufficient confidence
-            # This is a PREFIX_HIJACK detected via blockchain state
-            # (not a new attack type — it's a detection METHOD for existing types)
+            # and no co-owner history — likely a hijack
             self.detections += 1
             return {
                 "attack_type": "PREFIX_HIJACK",
@@ -202,6 +243,7 @@ class PrefixOwnershipState:
                     "established_origin": established,
                     "established_confirmations": confidence,
                     "claiming_origin": origin_asn,
+                    "co_owners": list(entry.get("co_owners", set())),
                     "source": entry.get("source", "blockchain"),
                     "detected_by": "prefix_ownership_state",
                 },
@@ -223,10 +265,15 @@ class PrefixOwnershipState:
                 1 for e in self.prefix_map.values()
                 if e.get("source") == "vrp_bootstrap"
             )
+            moas_prefixes = sum(
+                1 for e in self.prefix_map.values()
+                if len(e.get("co_owners", set())) > 1
+            )
             return {
                 "total_prefixes_tracked": len(self.prefix_map),
                 "vrp_bootstrapped": vrp_bootstrap,
                 "blockchain_learned": blockchain_learned,
+                "moas_prefixes": moas_prefixes,
                 "total_updates": self.total_updates,
                 "total_checks": self.total_checks,
                 "detections": self.detections,
@@ -235,4 +282,10 @@ class PrefixOwnershipState:
     def get_ownership(self, prefix: str) -> Optional[dict]:
         """Get ownership info for a prefix."""
         with self.lock:
-            return self.prefix_map.get(prefix)
+            entry = self.prefix_map.get(prefix)
+            if entry is None:
+                return None
+            # Return a copy with co_owners as list for JSON serialization
+            result = dict(entry)
+            result["co_owners"] = list(result.get("co_owners", set()))
+            return result
