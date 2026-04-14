@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""
+InMemoryMessageBus - Replaces TCP socket P2P with in-memory message passing.
+
+Instead of each node binding a TCP socket and connecting to peers via
+socket.connect(), all messages are routed through this shared singleton.
+This scales to 100-1000 nodes without wasting OS sockets or network I/O.
+
+Messages are dispatched asynchronously via a thread pool so the sender
+is never blocked by the receiver's handler execution time.
+"""
+
+import logging
+import threading
+from concurrent.futures import ThreadPoolExecutor
+from typing import Callable, Dict, List, Optional
+
+logger = logging.getLogger(__name__)
+
+
+class InMemoryMessageBus:
+    """Replaces TCP socket P2P with in-memory message passing."""
+
+    _instance = None
+    _lock = threading.Lock()
+
+    def __init__(self):
+        self.handlers: Dict[int, Callable] = {}  # as_number -> callback
+        self.lock = threading.Lock()
+        self.stats = {"sent": 0, "delivered": 0, "dropped": 0}
+        # Thread pool for async message dispatch — keeps sender non-blocking.
+        # Sized to 4x CPU core count to handle large node counts (100+ RPKI
+        # nodes each broadcasting to multiple peers concurrently).
+        import os
+        _pool_size = max(128, (os.cpu_count() or 8) * 4)
+        self._executor = ThreadPoolExecutor(max_workers=_pool_size, thread_name_prefix="MsgBus")
+
+    @classmethod
+    def get_instance(cls) -> "InMemoryMessageBus":
+        """Get or create the singleton instance."""
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = cls()
+            return cls._instance
+
+    @classmethod
+    def reset(cls):
+        """Reset the singleton (for test isolation or between experiments)."""
+        with cls._lock:
+            if cls._instance is not None:
+                cls._instance._executor.shutdown(wait=False)
+                cls._instance.handlers.clear()
+                cls._instance.stats = {"sent": 0, "delivered": 0, "dropped": 0}
+            cls._instance = None
+
+    def register(self, as_number: int, handler: Callable):
+        """Register a node's message handler (replaces socket.bind)."""
+        with self.lock:
+            self.handlers[as_number] = handler
+            logger.debug(f"MessageBus: AS{as_number} registered")
+
+    def unregister(self, as_number: int):
+        """Unregister a node (replaces socket.close)."""
+        with self.lock:
+            self.handlers.pop(as_number, None)
+
+    def send(self, from_as: int, to_as: int, message: dict):
+        """Send message to a specific node asynchronously via thread pool."""
+        with self.lock:
+            self.stats["sent"] += 1
+            handler = self.handlers.get(to_as)
+        if handler is not None:
+            self._executor.submit(self._dispatch, handler, to_as, message)
+        else:
+            with self.lock:
+                self.stats["dropped"] += 1
+
+    def _dispatch(self, handler: Callable, to_as: int, message: dict):
+        """Execute handler in thread pool worker."""
+        try:
+            handler(message)
+            with self.lock:
+                self.stats["delivered"] += 1
+        except Exception as e:
+            logger.warning(f"MessageBus: handler error AS{to_as}: {e}")
+            with self.lock:
+                self.stats["dropped"] += 1
+
+    def broadcast(self, from_as: int, message: dict, targets: Optional[List[int]] = None):
+        """Broadcast to multiple nodes (replaces loop of socket sends)."""
+        if targets is None:
+            targets = [n for n in self.handlers if n != from_as]
+        for target in targets:
+            self.send(from_as, target, message)
+
+    def wait_idle(self, timeout: float = 30.0) -> bool:
+        """Wait until the thread pool has finished all dispatched messages.
+
+        Submits a no-op future and waits for it — since the executor is FIFO,
+        when the no-op completes, all previously submitted work is done.
+
+        Returns True if idle, False if timed out.
+        """
+        import concurrent.futures
+        try:
+            future = self._executor.submit(lambda: None)
+            future.result(timeout=timeout)
+            return True
+        except (concurrent.futures.TimeoutError, RuntimeError):
+            return False
+
+    def get_registered_nodes(self) -> List[int]:
+        """Get list of registered node AS numbers."""
+        return list(self.handlers.keys())
+
+    def get_stats(self) -> dict:
+        """Get message bus statistics."""
+        return dict(self.stats)

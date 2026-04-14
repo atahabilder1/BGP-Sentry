@@ -1,0 +1,22 @@
+{
+  "dataset_path": "/data/anik/BGP-Sentry/dataset/caida_50",
+  "dataset_name": "caida_50",
+  "duration_limit": 300,
+  "actual_duration": 302.67851281166077,
+  "system_async_mode": true,
+  "concurrency_model": "asyncio",
+  "system_info": {
+    "platform": "Linux-5.15.0-113-generic-x86_64-with-glibc2.35",
+    "processor": "x86_64",
+    "python_version": "3.10.12",
+    "machine": "x86_64",
+    "cpu_count": 128,
+    "memory_total_gb": 1007.5,
+    "cpu_model": "Intel(R) Xeon(R) Platinum 8358 CPU @ 2.60GHz"
+  },
+  "rpki_node_count": 26,
+  "non_rpki_node_count": 22,
+  "total_nodes": 48,
+  "consensus_threshold": 2,
+  "timestamp": "2026-04-13T05:07:12.392652"
+}

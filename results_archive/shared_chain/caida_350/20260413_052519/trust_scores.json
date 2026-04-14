@@ -1,0 +1,6138 @@
+{
+  "72": {
+    "asn": 72,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 142,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 136,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "81": {
+    "asn": 81,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 125,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "101": {
+    "asn": 101,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "174": {
+    "asn": 174,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "209": {
+    "asn": 209,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 136,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 136,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "852": {
+    "asn": 852,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "1239": {
+    "asn": 1239,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 137,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 137,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "1299": {
+    "asn": 1299,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "1680": {
+    "asn": 1680,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "1820": {
+    "asn": 1820,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 128,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 128,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "1828": {
+    "asn": 1828,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 151,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 151,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "1916": {
+    "asn": 1916,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "2199": {
+    "asn": 2199,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "2711": {
+    "asn": 2711,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 55
+    }
+  },
+  "2730": {
+    "asn": 2730,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 134,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 130,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "2906": {
+    "asn": 2906,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 145,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65,
+      "trusted_path_filtered": 2
+    }
+  },
+  "2914": {
+    "asn": 2914,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 66
+    }
+  },
+  "3132": {
+    "asn": 3132,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 123,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "3209": {
+    "asn": 3209,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 73
+    }
+  },
+  "3216": {
+    "asn": 3216,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 139,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 139,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 59
+    }
+  },
+  "3249": {
+    "asn": 3249,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 121,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 121,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 38
+    }
+  },
+  "3257": {
+    "asn": 3257,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 71
+    }
+  },
+  "3302": {
+    "asn": 3302,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "3326": {
+    "asn": 3326,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 137,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 137,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "3356": {
+    "asn": 3356,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 137,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 137,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54
+    }
+  },
+  "3399": {
+    "asn": 3399,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "3491": {
+    "asn": 3491,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 73
+    }
+  },
+  "3549": {
+    "asn": 3549,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 123,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "3758": {
+    "asn": 3758,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 125,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 125,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 63
+    }
+  },
+  "3786": {
+    "asn": 3786,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56,
+      "trusted_path_filtered": 1
+    }
+  },
+  "3911": {
+    "asn": 3911,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 143,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 136,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "4455": {
+    "asn": 4455,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65,
+      "trusted_path_filtered": 20
+    }
+  },
+  "4621": {
+    "asn": 4621,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "4755": {
+    "asn": 4755,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 137,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64,
+      "trusted_path_filtered": 1
+    }
+  },
+  "4826": {
+    "asn": 4826,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 77
+    }
+  },
+  "4837": {
+    "asn": 4837,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "4911": {
+    "asn": 4911,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "4922": {
+    "asn": 4922,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 129,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 129,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 58
+    }
+  },
+  "5473": {
+    "asn": 5473,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 122,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 117,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "5555": {
+    "asn": 5555,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 119,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "5588": {
+    "asn": 5588,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54,
+      "trusted_path_filtered": 1
+    }
+  },
+  "5610": {
+    "asn": 5610,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65,
+      "trusted_path_filtered": 1
+    }
+  },
+  "5716": {
+    "asn": 5716,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 119,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 119,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "6461": {
+    "asn": 6461,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "6697": {
+    "asn": 6697,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "6731": {
+    "asn": 6731,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 77,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 72,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "6830": {
+    "asn": 6830,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 70
+    }
+  },
+  "6939": {
+    "asn": 6939,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 148,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 148,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 73
+    }
+  },
+  "7018": {
+    "asn": 7018,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "7029": {
+    "asn": 7029,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "7055": {
+    "asn": 7055,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "7251": {
+    "asn": 7251,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "7545": {
+    "asn": 7545,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 149,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 149,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 77
+    }
+  },
+  "7633": {
+    "asn": 7633,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 119,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 118,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54,
+      "trusted_path_filtered": 1
+    }
+  },
+  "7713": {
+    "asn": 7713,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 139,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 139,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 58
+    }
+  },
+  "7782": {
+    "asn": 7782,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 143,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 143,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "7795": {
+    "asn": 7795,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "8167": {
+    "asn": 8167,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 44
+    }
+  },
+  "8220": {
+    "asn": 8220,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 149,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 149,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 72
+    }
+  },
+  "8400": {
+    "asn": 8400,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 59
+    }
+  },
+  "8447": {
+    "asn": 8447,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 137,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 137,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 47
+    }
+  },
+  "8473": {
+    "asn": 8473,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "8492": {
+    "asn": 8492,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "8529": {
+    "asn": 8529,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 144,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 144,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "8551": {
+    "asn": 8551,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 154,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 72,
+      "trusted_path_filtered": 19
+    }
+  },
+  "8708": {
+    "asn": 8708,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 139,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 139,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "8849": {
+    "asn": 8849,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "9021": {
+    "asn": 9021,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "9049": {
+    "asn": 9049,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "9050": {
+    "asn": 9050,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "9121": {
+    "asn": 9121,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "9136": {
+    "asn": 9136,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "9292": {
+    "asn": 9292,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 111,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "9299": {
+    "asn": 9299,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 73
+    }
+  },
+  "9304": {
+    "asn": 9304,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 145,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 145,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 66
+    }
+  },
+  "9730": {
+    "asn": 9730,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 3,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 3,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 2
+    }
+  },
+  "9821": {
+    "asn": 9821,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 76,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 76,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54
+    }
+  },
+  "10075": {
+    "asn": 10075,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 72
+    }
+  },
+  "11347": {
+    "asn": 11347,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 140,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 134,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "11426": {
+    "asn": 11426,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 123,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "11820": {
+    "asn": 11820,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 116,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "12406": {
+    "asn": 12406,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "12741": {
+    "asn": 12741,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 66
+    }
+  },
+  "12753": {
+    "asn": 12753,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 135,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 129,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "12789": {
+    "asn": 12789,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 123,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "12874": {
+    "asn": 12874,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "13094": {
+    "asn": 13094,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 120,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 120,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "13333": {
+    "asn": 13333,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "13335": {
+    "asn": 13335,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 152,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 152,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 75
+    }
+  },
+  "13649": {
+    "asn": 13649,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "13768": {
+    "asn": 13768,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 136,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 136,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "14149": {
+    "asn": 14149,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 114,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 35,
+      "trusted_path_filtered": 1
+    }
+  },
+  "14189": {
+    "asn": 14189,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "14268": {
+    "asn": 14268,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 124,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "14480": {
+    "asn": 14480,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 116,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "14605": {
+    "asn": 14605,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "14840": {
+    "asn": 14840,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 150,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 150,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "14866": {
+    "asn": 14866,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "15305": {
+    "asn": 15305,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 129,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 129,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "15994": {
+    "asn": 15994,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 74
+    }
+  },
+  "16074": {
+    "asn": 16074,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 128,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 128,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 49
+    }
+  },
+  "16086": {
+    "asn": 16086,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "16164": {
+    "asn": 16164,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 147,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 147,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 73
+    }
+  },
+  "16532": {
+    "asn": 16532,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "17439": {
+    "asn": 17439,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65,
+      "trusted_path_filtered": 1
+    }
+  },
+  "17481": {
+    "asn": 17481,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 118,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "18353": {
+    "asn": 18353,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 132,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 127,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "18734": {
+    "asn": 18734,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 136,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 136,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "18856": {
+    "asn": 18856,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "19429": {
+    "asn": 19429,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 69,
+      "trusted_path_filtered": 1
+    }
+  },
+  "20161": {
+    "asn": 20161,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 120,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "20338": {
+    "asn": 20338,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "20413": {
+    "asn": 20413,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 126,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "20800": {
+    "asn": 20800,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 140,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 134,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "20804": {
+    "asn": 20804,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "20857": {
+    "asn": 20857,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "21193": {
+    "asn": 21193,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 110,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 106,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "21277": {
+    "asn": 21277,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 132,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 125,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "21351": {
+    "asn": 21351,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "21488": {
+    "asn": 21488,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "21726": {
+    "asn": 21726,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 116,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 109,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "22773": {
+    "asn": 22773,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 141,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 77,
+      "trusted_path_filtered": 11
+    }
+  },
+  "22985": {
+    "asn": 22985,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 125,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "23947": {
+    "asn": 23947,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 142,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 142,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 71
+    }
+  },
+  "24088": {
+    "asn": 24088,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 149,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 148,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64,
+      "trusted_path_filtered": 1
+    }
+  },
+  "24784": {
+    "asn": 24784,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 122,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 116,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "24875": {
+    "asn": 24875,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 59
+    }
+  },
+  "25003": {
+    "asn": 25003,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 143,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 143,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 74
+    }
+  },
+  "25447": {
+    "asn": 25447,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "25898": {
+    "asn": 25898,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "26124": {
+    "asn": 26124,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 114,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "26215": {
+    "asn": 26215,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 122,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 117,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "26292": {
+    "asn": 26292,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 142,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 142,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 76
+    }
+  },
+  "26480": {
+    "asn": 26480,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 111,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 103,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "26785": {
+    "asn": 26785,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 123,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "28173": {
+    "asn": 28173,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "28186": {
+    "asn": 28186,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "28716": {
+    "asn": 28716,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 57
+    }
+  },
+  "28885": {
+    "asn": 28885,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 128,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 128,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "28964": {
+    "asn": 28964,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 117,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 117,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "29041": {
+    "asn": 29041,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "29465": {
+    "asn": 29465,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 68,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 68,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 24
+    }
+  },
+  "30118": {
+    "asn": 30118,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "30372": {
+    "asn": 30372,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "30722": {
+    "asn": 30722,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 121,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51,
+      "trusted_path_filtered": 11
+    }
+  },
+  "30781": {
+    "asn": 30781,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "31034": {
+    "asn": 31034,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "31133": {
+    "asn": 31133,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 137,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 136,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52,
+      "trusted_path_filtered": 1
+    }
+  },
+  "32062": {
+    "asn": 32062,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 121,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "32336": {
+    "asn": 32336,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 139,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 134,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "32659": {
+    "asn": 32659,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "32720": {
+    "asn": 32720,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 4,
+      "legitimate_written": 114,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "33132": {
+    "asn": 33132,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 114,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 70,
+      "trusted_path_filtered": 20
+    }
+  },
+  "33287": {
+    "asn": 33287,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 121,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 121,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "33491": {
+    "asn": 33491,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 123,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 63
+    }
+  },
+  "33998": {
+    "asn": 33998,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "34309": {
+    "asn": 34309,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "35106": {
+    "asn": 35106,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 117,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 42
+    }
+  },
+  "35196": {
+    "asn": 35196,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 123,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "35239": {
+    "asn": 35239,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "35340": {
+    "asn": 35340,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "35487": {
+    "asn": 35487,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "35805": {
+    "asn": 35805,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 50
+    }
+  },
+  "36244": {
+    "asn": 36244,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "36868": {
+    "asn": 36868,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 142,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 142,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 79
+    }
+  },
+  "37649": {
+    "asn": 37649,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 118,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "38220": {
+    "asn": 38220,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 64
+    }
+  },
+  "39551": {
+    "asn": 39551,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 114,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 114,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "39657": {
+    "asn": 39657,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 121,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 121,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "40779": {
+    "asn": 40779,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 117,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 117,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "41043": {
+    "asn": 41043,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "42020": {
+    "asn": 42020,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "42679": {
+    "asn": 42679,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 123,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "43668": {
+    "asn": 43668,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "43687": {
+    "asn": 43687,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 126,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 126,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 45
+    }
+  },
+  "44066": {
+    "asn": 44066,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 135,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "44189": {
+    "asn": 44189,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 114,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "44196": {
+    "asn": 44196,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 122,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 122,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 43
+    }
+  },
+  "45090": {
+    "asn": 45090,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 122,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 122,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54
+    }
+  },
+  "45820": {
+    "asn": 45820,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 136,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 135,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 63,
+      "trusted_path_filtered": 1
+    }
+  },
+  "46045": {
+    "asn": 46045,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 120,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "46786": {
+    "asn": 46786,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 133,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 133,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56
+    }
+  },
+  "46798": {
+    "asn": 46798,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "46807": {
+    "asn": 46807,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 118,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 118,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 41
+    }
+  },
+  "47868": {
+    "asn": 47868,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 60,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 60,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 36
+    }
+  },
+  "47986": {
+    "asn": 47986,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 120,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 120,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 45
+    }
+  },
+  "48076": {
+    "asn": 48076,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 74,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 74,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 42
+    }
+  },
+  "50345": {
+    "asn": 50345,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 114,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "50543": {
+    "asn": 50543,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 50
+    }
+  },
+  "50619": {
+    "asn": 50619,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 76,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 76,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "51190": {
+    "asn": 51190,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "51437": {
+    "asn": 51437,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 138,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 138,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 45
+    }
+  },
+  "51548": {
+    "asn": 51548,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 73,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 73,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "51767": {
+    "asn": 51767,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "51923": {
+    "asn": 51923,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "52105": {
+    "asn": 52105,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 112,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 105,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "52378": {
+    "asn": 52378,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 116,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 43,
+      "trusted_path_filtered": 116
+    }
+  },
+  "52444": {
+    "asn": 52444,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "52686": {
+    "asn": 52686,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 76,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 76,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 50
+    }
+  },
+  "52845": {
+    "asn": 52845,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 117,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "52940": {
+    "asn": 52940,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 124,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 118,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "52974": {
+    "asn": 52974,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 74,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 73,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 47,
+      "trusted_path_filtered": 1
+    }
+  },
+  "53087": {
+    "asn": 53087,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 76,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 76,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 55
+    }
+  },
+  "53115": {
+    "asn": 53115,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 49
+    }
+  },
+  "53163": {
+    "asn": 53163,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 111,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54,
+      "trusted_path_filtered": 20
+    }
+  },
+  "53190": {
+    "asn": 53190,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 54,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 54,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 22
+    }
+  },
+  "53191": {
+    "asn": 53191,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 60,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 60,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 39
+    }
+  },
+  "53479": {
+    "asn": 53479,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "54336": {
+    "asn": 54336,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 116,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "54744": {
+    "asn": 54744,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 133,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 126,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "54778": {
+    "asn": 54778,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 145,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 145,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 70
+    }
+  },
+  "54925": {
+    "asn": 54925,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 120,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "55135": {
+    "asn": 55135,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 125,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 119,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "55592": {
+    "asn": 55592,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 116,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "55655": {
+    "asn": 55655,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 141,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 136,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "55685": {
+    "asn": 55685,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 134,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 134,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 67
+    }
+  },
+  "55690": {
+    "asn": 55690,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 118,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 56,
+      "trusted_path_filtered": 118
+    }
+  },
+  "56123": {
+    "asn": 56123,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 129,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 129,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 58
+    }
+  },
+  "56384": {
+    "asn": 56384,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 120,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "57098": {
+    "asn": 57098,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "57721": {
+    "asn": 57721,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 127,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "57750": {
+    "asn": 57750,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "58553": {
+    "asn": 58553,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 124,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 119,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "58706": {
+    "asn": 58706,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 71,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 71,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 41
+    }
+  },
+  "59276": {
+    "asn": 59276,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "59899": {
+    "asn": 59899,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 114,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "59953": {
+    "asn": 59953,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 127,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "60835": {
+    "asn": 60835,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "60903": {
+    "asn": 60903,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "61111": {
+    "asn": 61111,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 126,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 126,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 48
+    }
+  },
+  "61482": {
+    "asn": 61482,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "61591": {
+    "asn": 61591,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 124,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "61910": {
+    "asn": 61910,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 59,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 59,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 38
+    }
+  },
+  "62717": {
+    "asn": 62717,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 116,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "62723": {
+    "asn": 62723,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 121,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "63029": {
+    "asn": 63029,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "63956": {
+    "asn": 63956,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 146,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 146,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 76
+    }
+  },
+  "64112": {
+    "asn": 64112,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 88,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 88,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "64313": {
+    "asn": 64313,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 128,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 128,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 55
+    }
+  },
+  "131244": {
+    "asn": 131244,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 142,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 136,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "131574": {
+    "asn": 131574,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 126,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 48,
+      "trusted_path_filtered": 1
+    }
+  },
+  "131948": {
+    "asn": 131948,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "132210": {
+    "asn": 132210,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 120,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 120,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "132405": {
+    "asn": 132405,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 138,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 133,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "133015": {
+    "asn": 133015,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 129,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "134146": {
+    "asn": 134146,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 40,
+      "trusted_path_filtered": 1
+    }
+  },
+  "134371": {
+    "asn": 134371,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 119,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 119,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 70
+    }
+  },
+  "135347": {
+    "asn": 135347,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 129,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "135427": {
+    "asn": 135427,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "135782": {
+    "asn": 135782,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 1,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 1,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 1
+    }
+  },
+  "135964": {
+    "asn": 135964,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "136255": {
+    "asn": 136255,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "136373": {
+    "asn": 136373,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 1,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 1,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 1
+    }
+  },
+  "137394": {
+    "asn": 137394,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 139,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 139,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 63
+    }
+  },
+  "137630": {
+    "asn": 137630,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 3,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 1,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 2,
+      "trusted_path_filtered": 2
+    }
+  },
+  "138383": {
+    "asn": 138383,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 125,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 125,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 65
+    }
+  },
+  "138397": {
+    "asn": 138397,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 118,
+    "attacks_detected": 2,
+    "stats": {
+      "transactions_created": 118,
+      "transactions_deduped": 0,
+      "attacks_detected": 2,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 58
+    }
+  },
+  "138840": {
+    "asn": 138840,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 148,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 148,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 68
+    }
+  },
+  "139464": {
+    "asn": 139464,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 128,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 128,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "140755": {
+    "asn": 140755,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 117,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "141595": {
+    "asn": 141595,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61,
+      "trusted_path_filtered": 127
+    }
+  },
+  "141612": {
+    "asn": 141612,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "141666": {
+    "asn": 141666,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "197133": {
+    "asn": 197133,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 123,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60,
+      "trusted_path_filtered": 1
+    }
+  },
+  "197783": {
+    "asn": 197783,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "198613": {
+    "asn": 198613,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "200751": {
+    "asn": 200751,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 133,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 127,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "200946": {
+    "asn": 200946,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 117,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 117,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 59
+    }
+  },
+  "200948": {
+    "asn": 200948,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "201383": {
+    "asn": 201383,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "201776": {
+    "asn": 201776,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 65,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 65,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 41
+    }
+  },
+  "202389": {
+    "asn": 202389,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 137,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 130,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "202450": {
+    "asn": 202450,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "203052": {
+    "asn": 203052,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "204074": {
+    "asn": 204074,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 109,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 102,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "204131": {
+    "asn": 204131,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 111,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "204170": {
+    "asn": 204170,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 124,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 58
+    }
+  },
+  "204720": {
+    "asn": 204720,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 131,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 131,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54
+    }
+  },
+  "205508": {
+    "asn": 205508,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 120,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "206376": {
+    "asn": 206376,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 119,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 113,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "206442": {
+    "asn": 206442,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 115,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 115,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "206598": {
+    "asn": 206598,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "206613": {
+    "asn": 206613,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 112,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 106,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "206861": {
+    "asn": 206861,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "206965": {
+    "asn": 206965,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 80,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 75,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "207298": {
+    "asn": 207298,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "207864": {
+    "asn": 207864,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 112,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 105,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "207865": {
+    "asn": 207865,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 120,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "207970": {
+    "asn": 207970,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 109,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "208778": {
+    "asn": 208778,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 123,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 117,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "209097": {
+    "asn": 209097,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 74,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 72,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 43,
+      "trusted_path_filtered": 2
+    }
+  },
+  "209548": {
+    "asn": 209548,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 123,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "209975": {
+    "asn": 209975,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 130,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 130,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 70
+    }
+  },
+  "210294": {
+    "asn": 210294,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "210331": {
+    "asn": 210331,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 69,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 69,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 43
+    }
+  },
+  "210846": {
+    "asn": 210846,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 118,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 118,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 49
+    }
+  },
+  "210923": {
+    "asn": 210923,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 114,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "211276": {
+    "asn": 211276,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 115,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 109,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "211396": {
+    "asn": 211396,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 124,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "211827": {
+    "asn": 211827,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 61,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 56,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 33,
+      "trusted_path_filtered": 5
+    }
+  },
+  "213058": {
+    "asn": 213058,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 126,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 126,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 54
+    }
+  },
+  "213108": {
+    "asn": 213108,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 114,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 108,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "262171": {
+    "asn": 262171,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 127,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 127,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 52
+    }
+  },
+  "262362": {
+    "asn": 262362,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "262773": {
+    "asn": 262773,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 63,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 63,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 40
+    }
+  },
+  "263423": {
+    "asn": 263423,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 69,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 69,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 34
+    }
+  },
+  "263472": {
+    "asn": 263472,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 116,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "263483": {
+    "asn": 263483,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 63
+    }
+  },
+  "263626": {
+    "asn": 263626,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 129,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 129,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 51
+    }
+  },
+  "263879": {
+    "asn": 263879,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 69,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 69,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 46
+    }
+  },
+  "264321": {
+    "asn": 264321,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "264448": {
+    "asn": 264448,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 130,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 124,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "265130": {
+    "asn": 265130,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 77,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 77,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 49
+    }
+  },
+  "265178": {
+    "asn": 265178,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 56,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 56,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 34
+    }
+  },
+  "265298": {
+    "asn": 265298,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 117,
+    "attacks_detected": 0,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 0,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53,
+      "trusted_path_filtered": 117
+    }
+  },
+  "265492": {
+    "asn": 265492,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 37,
+    "attacks_detected": 1,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 1,
+      "attacks_written": 1,
+      "legitimate_written": 36,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "265624": {
+    "asn": 265624,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 112,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 106,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "266046": {
+    "asn": 266046,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 109,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "266049": {
+    "asn": 266049,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 70,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 70,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 37
+    }
+  },
+  "266166": {
+    "asn": 266166,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 144,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 144,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 53
+    }
+  },
+  "266219": {
+    "asn": 266219,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 62,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 58,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 25,
+      "trusted_path_filtered": 4
+    }
+  },
+  "266967": {
+    "asn": 266967,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 128,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "267390": {
+    "asn": 267390,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 132,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 125,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "267422": {
+    "asn": 267422,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 121,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 115,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "267613": {
+    "asn": 267613,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 57
+    }
+  },
+  "268131": {
+    "asn": 268131,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "269530": {
+    "asn": 269530,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 124,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 60
+    }
+  },
+  "269720": {
+    "asn": 269720,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 110,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 110,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 43
+    }
+  },
+  "270604": {
+    "asn": 270604,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 112,
+    "attacks_detected": 3,
+    "stats": {
+      "transactions_created": 112,
+      "transactions_deduped": 0,
+      "attacks_detected": 3,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 57
+    }
+  },
+  "270839": {
+    "asn": 270839,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 36,
+    "attacks_detected": 1,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 1,
+      "attacks_written": 1,
+      "legitimate_written": 35,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "327705": {
+    "asn": 327705,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 61,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 61,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 37
+    }
+  },
+  "328333": {
+    "asn": 328333,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 124,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 119,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "328476": {
+    "asn": 328476,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 131,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 125,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "393763": {
+    "asn": 393763,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 140,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 140,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 76
+    }
+  },
+  "393971": {
+    "asn": 393971,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 125,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 119,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "394000": {
+    "asn": 394000,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 122,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 116,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "394551": {
+    "asn": 394551,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 122,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 122,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 62
+    }
+  },
+  "395901": {
+    "asn": 395901,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 124,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 124,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 49
+    }
+  },
+  "396052": {
+    "asn": 396052,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 120,
+    "attacks_detected": 4,
+    "stats": {
+      "transactions_created": 120,
+      "transactions_deduped": 0,
+      "attacks_detected": 4,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 50
+    }
+  },
+  "396851": {
+    "asn": 396851,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 116,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "396983": {
+    "asn": 396983,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 112,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "396998": {
+    "asn": 396998,
+    "is_rpki": true,
+    "role": "blockchain_validator",
+    "trust_score": 100.0,
+    "observations_processed": 132,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 132,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 0,
+      "legitimate_written": 0,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0,
+      "warmup_observations": 61
+    }
+  },
+  "398544": {
+    "asn": 398544,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 118,
+    "attacks_detected": 8,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 8,
+      "attacks_written": 8,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "399000": {
+    "asn": 399000,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 113,
+    "attacks_detected": 6,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 6,
+      "attacks_written": 6,
+      "legitimate_written": 107,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "399307": {
+    "asn": 399307,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 127,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "399371": {
+    "asn": 399371,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 127,
+    "attacks_detected": 5,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 5,
+      "attacks_written": 5,
+      "legitimate_written": 122,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  },
+  "399624": {
+    "asn": 399624,
+    "is_rpki": false,
+    "role": "observer",
+    "trust_score": 50.0,
+    "observations_processed": 117,
+    "attacks_detected": 7,
+    "stats": {
+      "transactions_created": 0,
+      "transactions_deduped": 0,
+      "attacks_detected": 7,
+      "attacks_written": 7,
+      "legitimate_written": 110,
+      "consensus_votes_cast": 0,
+      "buffer_sampled": 0
+    }
+  }
+}

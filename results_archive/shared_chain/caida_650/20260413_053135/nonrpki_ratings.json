@@ -1,0 +1,52 @@
+{
+  "summary": {
+    "total_ases": 1,
+    "by_level": {
+      "highly_trusted": 0,
+      "trusted": 0,
+      "neutral": 0,
+      "suspicious": 0,
+      "malicious": 1
+    },
+    "total_attacks": 1,
+    "average_score": 25.0,
+    "min_score": 25,
+    "max_score": 25
+  },
+  "ratings": {
+    "23543": {
+      "as_number": 23543,
+      "trust_score": 25,
+      "initial_score": 50,
+      "attacks_detected": 1,
+      "false_accusations": 0,
+      "legitimate_announcements": 0,
+      "last_attack_date": "2026-04-13T05:39:59.476603",
+      "created_at": "2026-04-13T05:39:59.476364",
+      "last_updated": "2026-04-13T05:39:59.476606",
+      "rating_level": "malicious",
+      "history": [
+        {
+          "date": "2026-04-13T05:39:59.476608",
+          "event": "BOGON_INJECTION",
+          "score_change": -25,
+          "new_score": 25,
+          "details": {
+            "attack_type": "BOGON_INJECTION",
+            "severity": "CRITICAL",
+            "attacker_as": 23543,
+            "bogon_prefix": "192.168.0.0/16",
+            "matching_bogon_range": "192.168.0.0/16",
+            "evidence": {
+              "announced_prefix": "192.168.0.0/16",
+              "bogon_range": "192.168.0.0/16",
+              "announcing_as": 23543
+            },
+            "description": "AS23543 announces bogon prefix 192.168.0.0/16 (falls within 192.168.0.0/16)",
+            "detected_at": "2026-04-13T05:33:05.047280"
+          }
+        }
+      ]
+    }
+  }
+}

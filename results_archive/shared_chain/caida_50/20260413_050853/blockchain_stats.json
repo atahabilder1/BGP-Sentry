@@ -1,0 +1,203 @@
+{
+  "architecture": "conventional replicated chain (longest-chain-wins)",
+  "total_nodes": 26,
+  "valid_chains": 26,
+  "all_valid": true,
+  "chain_convergence": "diverged",
+  "blocks_per_node": {
+    "min": 6,
+    "max": 61,
+    "mean": 43.34615384615385
+  },
+  "transactions_per_node": {
+    "min": 5,
+    "max": 66,
+    "mean": 46.11538461538461
+  },
+  "total_forks_detected": 23628,
+  "total_forks_resolved": 23628,
+  "per_node": {
+    "174": {
+      "blocks": 52,
+      "transactions": 58,
+      "valid": true,
+      "forks_detected": 900,
+      "forks_resolved": 900
+    },
+    "701": {
+      "blocks": 50,
+      "transactions": 52,
+      "valid": true,
+      "forks_detected": 903,
+      "forks_resolved": 903
+    },
+    "1299": {
+      "blocks": 56,
+      "transactions": 61,
+      "valid": true,
+      "forks_detected": 896,
+      "forks_resolved": 896
+    },
+    "1916": {
+      "blocks": 43,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 909,
+      "forks_resolved": 909
+    },
+    "3257": {
+      "blocks": 40,
+      "transactions": 41,
+      "valid": true,
+      "forks_detected": 912,
+      "forks_resolved": 912
+    },
+    "3356": {
+      "blocks": 43,
+      "transactions": 45,
+      "valid": true,
+      "forks_detected": 909,
+      "forks_resolved": 909
+    },
+    "5511": {
+      "blocks": 46,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 906,
+      "forks_resolved": 906
+    },
+    "5650": {
+      "blocks": 46,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 906,
+      "forks_resolved": 906
+    },
+    "6854": {
+      "blocks": 31,
+      "transactions": 32,
+      "valid": true,
+      "forks_detected": 921,
+      "forks_resolved": 921
+    },
+    "9002": {
+      "blocks": 61,
+      "transactions": 66,
+      "valid": true,
+      "forks_detected": 891,
+      "forks_resolved": 891
+    },
+    "11242": {
+      "blocks": 28,
+      "transactions": 28,
+      "valid": true,
+      "forks_detected": 924,
+      "forks_resolved": 924
+    },
+    "15830": {
+      "blocks": 47,
+      "transactions": 52,
+      "valid": true,
+      "forks_detected": 905,
+      "forks_resolved": 905
+    },
+    "31027": {
+      "blocks": 55,
+      "transactions": 57,
+      "valid": true,
+      "forks_detected": 898,
+      "forks_resolved": 898
+    },
+    "31133": {
+      "blocks": 56,
+      "transactions": 60,
+      "valid": true,
+      "forks_detected": 896,
+      "forks_resolved": 896
+    },
+    "42337": {
+      "blocks": 6,
+      "transactions": 5,
+      "valid": true,
+      "forks_detected": 946,
+      "forks_resolved": 946
+    },
+    "43542": {
+      "blocks": 42,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 910,
+      "forks_resolved": 910
+    },
+    "47232": {
+      "blocks": 39,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 914,
+      "forks_resolved": 914
+    },
+    "49666": {
+      "blocks": 42,
+      "transactions": 47,
+      "valid": true,
+      "forks_detected": 910,
+      "forks_resolved": 910
+    },
+    "52554": {
+      "blocks": 42,
+      "transactions": 44,
+      "valid": true,
+      "forks_detected": 910,
+      "forks_resolved": 910
+    },
+    "58057": {
+      "blocks": 47,
+      "transactions": 49,
+      "valid": true,
+      "forks_detected": 905,
+      "forks_resolved": 905
+    },
+    "58682": {
+      "blocks": 44,
+      "transactions": 45,
+      "valid": true,
+      "forks_detected": 908,
+      "forks_resolved": 908
+    },
+    "63186": {
+      "blocks": 42,
+      "transactions": 45,
+      "valid": true,
+      "forks_detected": 910,
+      "forks_resolved": 910
+    },
+    "139743": {
+      "blocks": 35,
+      "transactions": 40,
+      "valid": true,
+      "forks_detected": 917,
+      "forks_resolved": 917
+    },
+    "262761": {
+      "blocks": 46,
+      "transactions": 50,
+      "valid": true,
+      "forks_detected": 906,
+      "forks_resolved": 906
+    },
+    "268828": {
+      "blocks": 49,
+      "transactions": 52,
+      "valid": true,
+      "forks_detected": 903,
+      "forks_resolved": 903
+    },
+    "327903": {
+      "blocks": 39,
+      "transactions": 39,
+      "valid": true,
+      "forks_detected": 913,
+      "forks_resolved": 913
+    }
+  }
+}

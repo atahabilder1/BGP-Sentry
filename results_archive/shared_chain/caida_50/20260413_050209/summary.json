@@ -1,0 +1,34 @@
+{
+  "dataset": {
+    "dataset_name": "caida_50",
+    "dataset_path": "/data/anik/BGP-Sentry/dataset/caida_50",
+    "total_ases": 48,
+    "rpki_count": 26,
+    "non_rpki_count": 22,
+    "total_observations": 22329,
+    "attack_observations": 363,
+    "legitimate_observations": 21966,
+    "ground_truth_attacks": 1052
+  },
+  "node_summary": {
+    "total_nodes": 48,
+    "rpki_nodes": 26,
+    "non_rpki_nodes": 22,
+    "nodes_done": 0,
+    "total_observations_processed": 5052,
+    "attacks_detected": 113,
+    "legitimate_processed": 4803
+  },
+  "performance": {
+    "ground_truth_attacks": 14,
+    "total_detections": 6,
+    "true_positives": 6,
+    "false_positives": 0,
+    "false_negatives": 8,
+    "precision": 1.0,
+    "recall": 0.4286,
+    "f1_score": 0.6
+  },
+  "elapsed_seconds": 302.67851281166077,
+  "timestamp": "2026-04-13T05:07:12.392488"
+}

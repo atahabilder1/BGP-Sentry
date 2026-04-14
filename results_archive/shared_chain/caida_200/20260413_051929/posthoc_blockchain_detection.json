@@ -1,0 +1,1749 @@
+{
+  "single_witness_accumulation": {
+    "description": "SINGLE_WITNESS entries from 3+ independent observers for the same (prefix, origin) \u2014 accumulated credibility",
+    "threshold": 3,
+    "upgraded_count": 25,
+    "partial_count": 11,
+    "isolated_count": 25,
+    "upgraded_pairs": [
+      {
+        "prefix": "45.52.112.0/20",
+        "origin_asn": 264668,
+        "independent_observers": 3,
+        "observer_list": [
+          13335,
+          52361,
+          134618
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.28.0.0/18",
+        "origin_asn": 55943,
+        "independent_observers": 3,
+        "observer_list": [
+          3257,
+          3741,
+          22773
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.53.8.0/21",
+        "origin_asn": 264668,
+        "independent_observers": 4,
+        "observer_list": [
+          22773,
+          138915,
+          199524,
+          262806
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.211.96.0/19",
+        "origin_asn": 6939,
+        "independent_observers": 3,
+        "observer_list": [
+          721,
+          3356,
+          199524
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.57.67.0/24",
+        "origin_asn": 269840,
+        "independent_observers": 6,
+        "observer_list": [
+          9498,
+          23106,
+          138128,
+          138915,
+          202660,
+          267354
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.196.0/24",
+        "origin_asn": 9498,
+        "independent_observers": 3,
+        "observer_list": [
+          112,
+          7018,
+          199524
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.52.100.0/22",
+        "origin_asn": 264668,
+        "independent_observers": 3,
+        "observer_list": [
+          1916,
+          8447,
+          262806
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.57.68.0/24",
+        "origin_asn": 269840,
+        "independent_observers": 10,
+        "observer_list": [
+          1916,
+          4134,
+          9808,
+          11427,
+          41998,
+          60330,
+          199524,
+          265684,
+          267354,
+          394968
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.27.192.0/19",
+        "origin_asn": 55943,
+        "independent_observers": 3,
+        "observer_list": [
+          5078,
+          6762,
+          31242
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.28.96.0/19",
+        "origin_asn": 55943,
+        "independent_observers": 3,
+        "observer_list": [
+          6461,
+          9299,
+          197682
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.211.80.0/20",
+        "origin_asn": 6939,
+        "independent_observers": 3,
+        "observer_list": [
+          1299,
+          197682,
+          267354
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.128.0/18",
+        "origin_asn": 9498,
+        "independent_observers": 9,
+        "observer_list": [
+          209,
+          286,
+          12189,
+          20764,
+          55140,
+          56740,
+          57866,
+          61832,
+          267613
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.55.237.0/24",
+        "origin_asn": 16680,
+        "independent_observers": 12,
+        "observer_list": [
+          3741,
+          6768,
+          12189,
+          12455,
+          41508,
+          43668,
+          49460,
+          197682,
+          198354,
+          199524,
+          202660,
+          399814
+        ],
+        "is_attack": true,
+        "label": "PREFIX_HIJACK",
+        "realtime_detected": true
+      },
+      {
+        "prefix": "44.211.128.0/19",
+        "origin_asn": 6939,
+        "independent_observers": 3,
+        "observer_list": [
+          3491,
+          13335,
+          199524
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.210.82.0/23",
+        "origin_asn": 6939,
+        "independent_observers": 3,
+        "observer_list": [
+          3216,
+          6461,
+          23106
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.27.225.0/24",
+        "origin_asn": 55943,
+        "independent_observers": 3,
+        "observer_list": [
+          701,
+          1916,
+          265442
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.192.0/23",
+        "origin_asn": 9498,
+        "independent_observers": 11,
+        "observer_list": [
+          174,
+          3216,
+          3491,
+          13335,
+          20764,
+          25454,
+          41998,
+          57866,
+          134618,
+          207187,
+          267613
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.27.240.0/23",
+        "origin_asn": 55943,
+        "independent_observers": 4,
+        "observer_list": [
+          6762,
+          46375,
+          138915,
+          265442
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.194.0/24",
+        "origin_asn": 9498,
+        "independent_observers": 8,
+        "observer_list": [
+          3216,
+          3356,
+          3549,
+          4651,
+          6461,
+          6768,
+          46375,
+          138915
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.58.4.0/24",
+        "origin_asn": 270884,
+        "independent_observers": 8,
+        "observer_list": [
+          209,
+          6939,
+          8053,
+          14840,
+          17451,
+          25229,
+          29226,
+          207187
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.57.69.0/24",
+        "origin_asn": 269840,
+        "independent_observers": 7,
+        "observer_list": [
+          5650,
+          16904,
+          22773,
+          46375,
+          199524,
+          201337,
+          264668
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.195.0/24",
+        "origin_asn": 9498,
+        "independent_observers": 7,
+        "observer_list": [
+          3326,
+          5078,
+          8053,
+          14840,
+          46375,
+          199524,
+          399814
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.100.0/22",
+        "origin_asn": 9498,
+        "independent_observers": 9,
+        "observer_list": [
+          1820,
+          3216,
+          3356,
+          4230,
+          4766,
+          6762,
+          23106,
+          41508,
+          49685
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "45.58.6.0/24",
+        "origin_asn": 270884,
+        "independent_observers": 5,
+        "observer_list": [
+          1820,
+          7018,
+          8764,
+          23106,
+          262806
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      },
+      {
+        "prefix": "44.233.224.0/19",
+        "origin_asn": 9498,
+        "independent_observers": 3,
+        "observer_list": [
+          209,
+          6762,
+          25454
+        ],
+        "is_attack": false,
+        "label": "LEGITIMATE",
+        "realtime_detected": false
+      }
+    ],
+    "new_detections": 0,
+    "new_false_positives": 24,
+    "accumulation_precision": 0.0,
+    "accumulation_recall_gain": 0.0
+  },
+  "cross_chain_corroboration": {
+    "description": "Cross-chain corroboration analysis",
+    "total_unique_pairs": 141,
+    "corroboration_distribution": {
+      "1": 4,
+      "2": 4,
+      "3": 2,
+      "4": 2,
+      "5": 2,
+      "6": 2,
+      "7": 2,
+      "8": 4,
+      "10": 5,
+      "11": 2,
+      "12": 2,
+      "13": 1,
+      "14": 5,
+      "15": 2,
+      "17": 6,
+      "18": 3,
+      "19": 3,
+      "20": 4,
+      "21": 3,
+      "22": 4,
+      "23": 9,
+      "24": 3,
+      "25": 4,
+      "26": 3,
+      "27": 5,
+      "28": 3,
+      "29": 4,
+      "30": 1,
+      "31": 7,
+      "32": 6,
+      "33": 5,
+      "34": 2,
+      "35": 4,
+      "38": 1,
+      "39": 4,
+      "41": 1,
+      "42": 1,
+      "43": 2,
+      "44": 2,
+      "45": 2,
+      "55": 2,
+      "58": 1,
+      "130": 1,
+      "132": 6
+    },
+    "disagreement_count": 46,
+    "disagreements": [
+      {
+        "prefix": "45.52.128.0/22",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "INSUFFICIENT_CONSENSUS": 3,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 26,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.112.0/20",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 3,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 22,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.0.0/18",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "INSUFFICIENT_CONSENSUS": 4,
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 21,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.8.0/21",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "SINGLE_WITNESS": 4,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 33,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.192.0/18",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 17,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.64.0/18",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 2
+        },
+        "chains_count": 29,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.96.0/19",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 9,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 44,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.192.0/18",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 3,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 10,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.67.0/24",
+        "origin_asn": 269840,
+        "status_distribution": {
+          "CONFIRMED": 3,
+          "SINGLE_WITNESS": 6,
+          "INSUFFICIENT_CONSENSUS": 2
+        },
+        "chains_count": 130,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.100.0/22",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 3,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 29,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.224.0/24",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 10,
+          "SINGLE_WITNESS": 2,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 31,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.66.0/24",
+        "origin_asn": 269716,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 3
+        },
+        "chains_count": 24,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.212.32.0/21",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 12,
+          "INSUFFICIENT_CONSENSUS": 1,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 55,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.34.96.0/19",
+        "origin_asn": 58717,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 2,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 35,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.68.0/24",
+        "origin_asn": 269840,
+        "status_distribution": {
+          "SINGLE_WITNESS": 10,
+          "INSUFFICIENT_CONSENSUS": 3,
+          "CONFIRMED": 2
+        },
+        "chains_count": 18,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.192.0/19",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 9,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 39,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.96.0/19",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 8,
+          "SINGLE_WITNESS": 3,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 39,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.64.0/18",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "INSUFFICIENT_CONSENSUS": 1,
+          "SINGLE_WITNESS": 2
+        },
+        "chains_count": 27,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.128.0/24",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 2,
+          "INSUFFICIENT_CONSENSUS": 1,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 14,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.80.0/20",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 20,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.0.0/18",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 4,
+          "INSUFFICIENT_CONSENSUS": 2,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 25,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.49.113.0/24",
+        "origin_asn": 209548,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 31,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.55.237.0/24",
+        "origin_asn": 267564,
+        "status_distribution": {
+          "CONFIRMED": 2,
+          "INSUFFICIENT_CONSENSUS": 2,
+          "SINGLE_WITNESS": 2
+        },
+        "chains_count": 14,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.43.112.0/21",
+        "origin_asn": 138128,
+        "status_distribution": {
+          "CONFIRMED": 10,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 43,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.233.128.0/18",
+        "origin_asn": 9498,
+        "status_distribution": {
+          "SINGLE_WITNESS": 9,
+          "CONFIRMED": 2,
+          "INSUFFICIENT_CONSENSUS": 3
+        },
+        "chains_count": 21,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.26.200.0/21",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 20,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.64.0/20",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 2
+        },
+        "chains_count": 35,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.160.0/19",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 3,
+          "INSUFFICIENT_CONSENSUS": 2,
+          "SINGLE_WITNESS": 2
+        },
+        "chains_count": 17,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.128.0/19",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 20,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.212.40.0/23",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 8,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 33,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.232.0/21",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 8,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 23,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.210.82.0/23",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 32,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.64.0/23",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "INSUFFICIENT_CONSENSUS": 2,
+          "CONFIRMED": 3,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 12,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.0.0/18",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "SINGLE_WITNESS": 1,
+          "CONFIRMED": 5
+        },
+        "chains_count": 32,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.225.0/24",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "INSUFFICIENT_CONSENSUS": 1,
+          "SINGLE_WITNESS": 3
+        },
+        "chains_count": 31,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.210.72.0/21",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 30,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.210.128.0/18",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "SINGLE_WITNESS": 1,
+          "CONFIRMED": 3
+        },
+        "chains_count": 5,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.160.0/19",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 19,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.16.0/22",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 1,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 10,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.0.0/23",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 6,
+          "SINGLE_WITNESS": 2
+        },
+        "chains_count": 27,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.210.80.0/24",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "CONFIRMED": 5,
+          "SINGLE_WITNESS": 2,
+          "INSUFFICIENT_CONSENSUS": 1
+        },
+        "chains_count": 8,
+        "is_attack": false
+      },
+      {
+        "prefix": "44.210.192.0/20",
+        "origin_asn": 6939,
+        "status_distribution": {
+          "INSUFFICIENT_CONSENSUS": 2,
+          "CONFIRMED": 4,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 27,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.240.0/23",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "SINGLE_WITNESS": 4,
+          "INSUFFICIENT_CONSENSUS": 1,
+          "CONFIRMED": 3
+        },
+        "chains_count": 23,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.69.0/24",
+        "origin_asn": 269840,
+        "status_distribution": {
+          "INSUFFICIENT_CONSENSUS": 2,
+          "SINGLE_WITNESS": 7,
+          "CONFIRMED": 1
+        },
+        "chains_count": 10,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.128.0/18",
+        "origin_asn": 264668,
+        "status_distribution": {
+          "CONFIRMED": 7,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 26,
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.136.0/21",
+        "origin_asn": 55943,
+        "status_distribution": {
+          "CONFIRMED": 2,
+          "SINGLE_WITNESS": 1
+        },
+        "chains_count": 4,
+        "is_attack": false
+      }
+    ],
+    "widely_corroborated_count": 129,
+    "widely_corroborated": [
+      {
+        "prefix": "44.238.48.0/24",
+        "origin_asn": 12455,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.238.80.0/21",
+        "origin_asn": 12455,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.49.129.0/24",
+        "origin_asn": 263245,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.238.56.0/21",
+        "origin_asn": 12455,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.1.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.238.0.0/19",
+        "origin_asn": 12455,
+        "chains_count": 132,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.9.128.0/17",
+        "origin_asn": 174,
+        "chains_count": 27,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.11.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 15,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.23.162.0/24",
+        "origin_asn": 52405,
+        "chains_count": 55,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.2.128.0/17",
+        "origin_asn": 174,
+        "chains_count": 33,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.10.0.0/17",
+        "origin_asn": 174,
+        "chains_count": 42,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.5.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 23,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.9.0.0/18",
+        "origin_asn": 174,
+        "chains_count": 22,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.238.33.0/24",
+        "origin_asn": 12455,
+        "chains_count": 17,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.19.0.0/17",
+        "origin_asn": 174,
+        "chains_count": 25,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.4.0.0/17",
+        "origin_asn": 174,
+        "chains_count": 12,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.12.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 58,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.23.161.0/24",
+        "origin_asn": 52405,
+        "chains_count": 26,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.244.164.0/23",
+        "origin_asn": 16966,
+        "chains_count": 35,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.244.32.0/22",
+        "origin_asn": 16966,
+        "chains_count": 25,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.244.48.0/20",
+        "origin_asn": 16966,
+        "chains_count": 18,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.235.160.0/23",
+        "origin_asn": 9808,
+        "chains_count": 41,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.235.168.0/21",
+        "origin_asn": 9808,
+        "chains_count": 31,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.128.0/22",
+        "origin_asn": 264668,
+        "chains_count": 26,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.112.0/20",
+        "origin_asn": 264668,
+        "chains_count": 22,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.28.0.0/18",
+        "origin_asn": 55943,
+        "chains_count": 21,
+        "consensus_status": "INSUFFICIENT_CONSENSUS",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.8.0/21",
+        "origin_asn": 264668,
+        "chains_count": 33,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.192.0/18",
+        "origin_asn": 264668,
+        "chains_count": 17,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.53.64.0/18",
+        "origin_asn": 264668,
+        "chains_count": 29,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.96.0/19",
+        "origin_asn": 6939,
+        "chains_count": 44,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.211.192.0/18",
+        "origin_asn": 6939,
+        "chains_count": 10,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.67.0/24",
+        "origin_asn": 269840,
+        "chains_count": 130,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.237.232.0/23",
+        "origin_asn": 12455,
+        "chains_count": 23,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.9.64.0/18",
+        "origin_asn": 174,
+        "chains_count": 45,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.243.208.0/24",
+        "origin_asn": 16966,
+        "chains_count": 32,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.243.192.0/21",
+        "origin_asn": 16966,
+        "chains_count": 20,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.252.196.0/24",
+        "origin_asn": 21155,
+        "chains_count": 23,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.16.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 39,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.243.224.0/19",
+        "origin_asn": 16966,
+        "chains_count": 31,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.243.128.0/18",
+        "origin_asn": 16966,
+        "chains_count": 19,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.244.96.0/19",
+        "origin_asn": 16966,
+        "chains_count": 25,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.128.0/21",
+        "origin_asn": 55943,
+        "chains_count": 32,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.52.100.0/22",
+        "origin_asn": 264668,
+        "chains_count": 29,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.27.224.0/24",
+        "origin_asn": 55943,
+        "chains_count": 31,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.66.0/24",
+        "origin_asn": 269716,
+        "chains_count": 24,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.212.32.0/21",
+        "origin_asn": 6939,
+        "chains_count": 55,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.34.96.0/19",
+        "origin_asn": 58717,
+        "chains_count": 35,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "45.57.68.0/24",
+        "origin_asn": 269840,
+        "chains_count": 18,
+        "consensus_status": "SINGLE_WITNESS",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.8.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 24,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      },
+      {
+        "prefix": "44.13.0.0/16",
+        "origin_asn": 174,
+        "chains_count": 38,
+        "consensus_status": "CONFIRMED",
+        "is_attack": false
+      }
+    ],
+    "disagreement_attack_rate": 0.0
+  },
+  "temporal_patterns": {
+    "description": "Temporal pattern detection: origin changes and announcement bursts",
+    "origin_changes": {
+      "total_prefixes_with_changes": 2,
+      "true_hijacks": 2,
+      "false_alarms": 0,
+      "changes": [
+        {
+          "prefix": "45.55.237.0/24",
+          "origins": [
+            267564,
+            16680
+          ],
+          "is_attack": true,
+          "attack_origins": {
+            "16680": "PREFIX_HIJACK"
+          }
+        },
+        {
+          "prefix": "45.57.71.0/24",
+          "origins": [
+            137367,
+            269846
+          ],
+          "is_attack": true,
+          "attack_origins": {
+            "137367": "ROUTE_FLAPPING"
+          }
+        }
+      ]
+    },
+    "announcement_bursts": {
+      "total_bursts": 11,
+      "burst_attack_rate": 0.09090909090909091,
+      "bursts": [
+        {
+          "prefix": "45.57.67.0/24",
+          "origin_asn": 269840,
+          "burst_count": 6,
+          "window_start": 1775817675.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.57.68.0/24",
+          "origin_asn": 269840,
+          "burst_count": 10,
+          "window_start": 1775817668.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "44.233.128.0/18",
+          "origin_asn": 9498,
+          "burst_count": 9,
+          "window_start": 1775817688.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.55.237.0/24",
+          "origin_asn": 16680,
+          "burst_count": 12,
+          "window_start": 1775817678.0,
+          "is_attack": true,
+          "label": "PREFIX_HIJACK"
+        },
+        {
+          "prefix": "44.233.192.0/23",
+          "origin_asn": 9498,
+          "burst_count": 11,
+          "window_start": 1775817685.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "44.233.194.0/24",
+          "origin_asn": 9498,
+          "burst_count": 8,
+          "window_start": 1775817692.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.58.4.0/24",
+          "origin_asn": 270884,
+          "burst_count": 8,
+          "window_start": 1775817682.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.57.69.0/24",
+          "origin_asn": 269840,
+          "burst_count": 7,
+          "window_start": 1775817679.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "44.233.195.0/24",
+          "origin_asn": 9498,
+          "burst_count": 7,
+          "window_start": 1775817692.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "44.233.100.0/22",
+          "origin_asn": 9498,
+          "burst_count": 9,
+          "window_start": 1775817685.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        },
+        {
+          "prefix": "45.58.6.0/24",
+          "origin_asn": 270884,
+          "burst_count": 5,
+          "window_start": 1775817695.0,
+          "is_attack": false,
+          "label": "LEGITIMATE"
+        }
+      ]
+    }
+  },
+  "longitudinal_trust": {
+    "description": "Longitudinal trust scoring by SINGLE_WITNESS ratio",
+    "total_origin_ases": 27,
+    "suspicious_ases_count": 5,
+    "suspicious_precision": 0.2,
+    "suspicious_ases": [
+      {
+        "asn": 267354,
+        "total_announcements": 6,
+        "confirmed": 0,
+        "insufficient": 0,
+        "single_witness": 6,
+        "sw_ratio": 1.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 16680,
+        "total_announcements": 14,
+        "confirmed": 0,
+        "insufficient": 2,
+        "single_witness": 12,
+        "sw_ratio": 0.8571,
+        "is_attacker": true,
+        "attack_types": [
+          "PREFIX_HIJACK"
+        ]
+      },
+      {
+        "asn": 270884,
+        "total_announcements": 18,
+        "confirmed": 0,
+        "insufficient": 3,
+        "single_witness": 15,
+        "sw_ratio": 0.8333,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 9498,
+        "total_announcements": 66,
+        "confirmed": 2,
+        "insufficient": 12,
+        "single_witness": 52,
+        "sw_ratio": 0.7879,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      {
+        "asn": 269840,
+        "total_announcements": 36,
+        "confirmed": 6,
+        "insufficient": 7,
+        "single_witness": 23,
+        "sw_ratio": 0.6389,
+        "is_attacker": false,
+        "attack_types": []
+      }
+    ],
+    "per_as_trust": {
+      "12455": {
+        "total_announcements": 40,
+        "confirmed": 40,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "263245": {
+        "total_announcements": 10,
+        "confirmed": 10,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "174": {
+        "total_announcements": 144,
+        "confirmed": 144,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "52405": {
+        "total_announcements": 23,
+        "confirmed": 23,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "16966": {
+        "total_announcements": 162,
+        "confirmed": 162,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "9808": {
+        "total_announcements": 52,
+        "confirmed": 52,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "264668": {
+        "total_announcements": 109,
+        "confirmed": 74,
+        "insufficient": 16,
+        "single_witness": 19,
+        "sw_ratio": 0.1743,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "55943": {
+        "total_announcements": 141,
+        "confirmed": 102,
+        "insufficient": 12,
+        "single_witness": 27,
+        "sw_ratio": 0.1915,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "6939": {
+        "total_announcements": 112,
+        "confirmed": 80,
+        "insufficient": 10,
+        "single_witness": 22,
+        "sw_ratio": 0.1964,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "269840": {
+        "total_announcements": 36,
+        "confirmed": 6,
+        "insufficient": 7,
+        "single_witness": 23,
+        "sw_ratio": 0.6389,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "9498": {
+        "total_announcements": 66,
+        "confirmed": 2,
+        "insufficient": 12,
+        "single_witness": 52,
+        "sw_ratio": 0.7879,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "21155": {
+        "total_announcements": 8,
+        "confirmed": 8,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "269716": {
+        "total_announcements": 11,
+        "confirmed": 7,
+        "insufficient": 3,
+        "single_witness": 1,
+        "sw_ratio": 0.0909,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "58717": {
+        "total_announcements": 8,
+        "confirmed": 5,
+        "insufficient": 1,
+        "single_witness": 2,
+        "sw_ratio": 0.25,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "38679": {
+        "total_announcements": 7,
+        "confirmed": 7,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": true,
+        "attack_types": [
+          "BOGON_INJECTION"
+        ]
+      },
+      "209548": {
+        "total_announcements": 8,
+        "confirmed": 6,
+        "insufficient": 1,
+        "single_witness": 1,
+        "sw_ratio": 0.125,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "267564": {
+        "total_announcements": 6,
+        "confirmed": 2,
+        "insufficient": 2,
+        "single_witness": 2,
+        "sw_ratio": 0.3333,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "138128": {
+        "total_announcements": 11,
+        "confirmed": 10,
+        "insufficient": 0,
+        "single_witness": 1,
+        "sw_ratio": 0.0909,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "16680": {
+        "total_announcements": 14,
+        "confirmed": 0,
+        "insufficient": 2,
+        "single_witness": 12,
+        "sw_ratio": 0.8571,
+        "is_attacker": true,
+        "attack_types": [
+          "PREFIX_HIJACK"
+        ]
+      },
+      "8447": {
+        "total_announcements": 8,
+        "confirmed": 8,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "137367": {
+        "total_announcements": 3,
+        "confirmed": 3,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": true,
+        "attack_types": [
+          "ROUTE_FLAPPING"
+        ]
+      },
+      "3491": {
+        "total_announcements": 7,
+        "confirmed": 7,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "269846": {
+        "total_announcements": 9,
+        "confirmed": 9,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "270884": {
+        "total_announcements": 18,
+        "confirmed": 0,
+        "insufficient": 3,
+        "single_witness": 15,
+        "sw_ratio": 0.8333,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "135517": {
+        "total_announcements": 7,
+        "confirmed": 7,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "267354": {
+        "total_announcements": 6,
+        "confirmed": 0,
+        "insufficient": 0,
+        "single_witness": 6,
+        "sw_ratio": 1.0,
+        "is_attacker": false,
+        "attack_types": []
+      },
+      "206429": {
+        "total_announcements": 1,
+        "confirmed": 1,
+        "insufficient": 0,
+        "single_witness": 0,
+        "sw_ratio": 0.0,
+        "is_attacker": false,
+        "attack_types": []
+      }
+    }
+  },
+  "aggregate_impact": {
+    "total_attacks_in_dataset": 7,
+    "realtime_detected": 7,
+    "realtime_recall": 1.0,
+    "posthoc_additional": 0,
+    "combined_detected": 7,
+    "combined_recall": 1.0,
+    "recall_improvement": 0.0
+  },
+  "data_summary": {
+    "chains_loaded": 132,
+    "unique_transactions": 1055,
+    "unique_prefix_origin_pairs": 141,
+    "ground_truth_attacks": 7
+  }
+}

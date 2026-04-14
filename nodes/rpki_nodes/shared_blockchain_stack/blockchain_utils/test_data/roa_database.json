@@ -1,0 +1,17 @@
+{
+  "8.8.8.0/24": {
+    "authorized_as": 15169,
+    "max_length": 24,
+    "description": "Google DNS"
+  },
+  "1.1.1.0/24": {
+    "authorized_as": 13335,
+    "max_length": 24,
+    "description": "Cloudflare DNS"
+  },
+  "203.0.113.0/24": {
+    "authorized_as": 12,
+    "max_length": 24,
+    "description": "Test prefix"
+  }
+}
