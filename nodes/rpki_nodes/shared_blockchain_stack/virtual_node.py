@@ -161,6 +161,11 @@ class VirtualNode:
                 f"processed in listen-only mode ({warmup_duration}s)"
             )
 
+            # KB gossip: share observation summaries with peers
+            # Like Bitcoin initial block download or BGP full table exchange
+            if self.p2p_pool is not None:
+                self._gossip_kb_to_peers()
+
         # Build ingestion buffer — drains at clock pace
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
         self._buffer = buffer  # expose for dashboard monitoring
@@ -548,6 +553,83 @@ class VirtualNode:
             )
 
     # ------------------------------------------------------------------
+    # KB Gossip (bootstrap from peers)
+    # ------------------------------------------------------------------
+    def _gossip_kb_to_peers(self):
+        """Share KB observation summaries with all RPKI peers after warm-up.
+
+        Each peer receives this node's KB index entries (prefix, origin pairs)
+        and adds them to its own KB. This mirrors standard distributed system
+        bootstrap protocols (Bitcoin initial block download, BGP full table
+        exchange) and ensures all validators have broad knowledge for voting.
+
+        Only called during warm-up — no transactions, no security risk.
+        """
+        if self.p2p_pool is None:
+            return
+
+        # Extract KB summaries: list of (prefix, origin_asn) from our KB index
+        with self.p2p_pool.lock:
+            kb_entries = []
+            for prefix, obs_list in self.p2p_pool._kb_index.items():
+                for origin_asn, timestamp, _ in obs_list:
+                    kb_entries.append((prefix, origin_asn, timestamp))
+
+        if not kb_entries:
+            return
+
+        # Send to all RPKI peers via message bus
+        from rpki_node_registry import RPKINodeRegistry
+        peer_asns = RPKINodeRegistry.get_all_rpki_nodes()
+
+        for peer_asn in peer_asns:
+            if peer_asn == self.asn:
+                continue
+            # Find peer's P2P pool and inject KB entries directly
+            # (in-memory simulation — no network overhead)
+            peer_pool = self._find_peer_pool(peer_asn)
+            if peer_pool is not None:
+                for prefix, origin_asn, timestamp in kb_entries:
+                    peer_pool.add_bgp_observation(
+                        ip_prefix=prefix,
+                        sender_asn=origin_asn,
+                        timestamp=timestamp,
+                        trust_score=80.0,  # slightly lower trust for gossiped data
+                        is_attack=False,
+                    )
+
+        self.stats["kb_gossip_entries"] = len(kb_entries)
+        self.stats["kb_gossip_peers"] = len(peer_asns) - 1
+        logger.info(
+            f"AS{self.asn} KB gossip: shared {len(kb_entries)} entries "
+            f"with {len(peer_asns)-1} peers"
+        )
+
+    def _find_peer_pool(self, peer_asn):
+        """Find a peer's P2P pool for direct KB injection (simulation only)."""
+        # In-memory simulation: all pools are registered with the message bus
+        if self.p2p_pool and self.p2p_pool.use_memory_bus:
+            from message_bus import InMemoryMessageBus
+            bus = InMemoryMessageBus.get_instance()
+            handler = bus._handlers.get(peer_asn)
+            if handler and hasattr(handler, '__self__'):
+                pool = handler.__self__
+                if hasattr(pool, 'add_bgp_observation'):
+                    return pool
+        # Async mode: check async bus
+        try:
+            from message_bus_async import AsyncMessageBus
+            bus = AsyncMessageBus.get_instance()
+            handler = bus._handlers.get(peer_asn)
+            if handler and hasattr(handler, '__self__'):
+                pool = handler.__self__
+                if hasattr(pool, 'add_bgp_observation'):
+                    return pool
+        except Exception:
+            pass
+        return None
+
+    # ------------------------------------------------------------------
     # Helpers
     # ------------------------------------------------------------------
     def _make_base_result(self, obs: dict, action: str = "pending") -> dict:
@@ -597,6 +679,10 @@ class VirtualNode:
                 f"AS{self.asn} warm-up complete: {warmup_count} observations "
                 f"processed in listen-only mode ({warmup_duration}s)"
             )
+
+            # KB gossip: share observation summaries with peers
+            if self.p2p_pool is not None:
+                self._gossip_kb_to_peers()
 
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
         self._buffer = buffer
