@@ -59,6 +59,18 @@ results/
 presentation/
 .env.backup
 .env.common
+.env.bak
+.env.prebench
+.env.prelaunch
 dataset_old/
 results*/
 dataset_v*/
+
+# Toolchains (local installs, not project code)
+.cargo/
+.rustup/
+.pypy/
+
+# Generated reports (PDFs + intermediate data)
+reports/*.pdf
+reports/report_data.json

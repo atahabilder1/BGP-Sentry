@@ -141,30 +141,9 @@ class VirtualNode:
         sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
 
         # ── Warm-up phase: build intelligence before consensus ──
-        # Process early observations in listen-only mode (KB + neighbor cache
-        # only, no transactions, no consensus).  This ensures peers have
-        # knowledge when voting begins — analogous to real BGP routers that
-        # listen and learn routes before participating.
-        warmup_duration = cfg.WARMUP_DURATION
-        if warmup_duration > 0 and sorted_obs and self.is_rpki:
-            first_ts = sorted_obs[0].get("timestamp", 0)
-            warmup_cutoff = first_ts + warmup_duration
-            warmup_count = 0
-            for obs in sorted_obs:
-                if obs.get("timestamp", 0) >= warmup_cutoff:
-                    break
-                self._warmup_observation(obs)
-                warmup_count += 1
-            self.stats["warmup_observations"] = warmup_count
-            logger.info(
-                f"AS{self.asn} warm-up complete: {warmup_count} observations "
-                f"processed in listen-only mode ({warmup_duration}s)"
-            )
-
-            # KB gossip: share observation summaries with peers
-            # Like Bitcoin initial block download or BGP full table exchange
-            if self.p2p_pool is not None:
-                self._gossip_kb_to_peers()
+        # Warm-up is now run by NodeManager.start_all() before threads start
+        # (allows KB gossip between warm-up and consensus)
+        self.run_warmup()
 
         # Build ingestion buffer — drains at clock pace
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
@@ -555,6 +534,41 @@ class VirtualNode:
     # ------------------------------------------------------------------
     # KB Gossip (bootstrap from peers)
     # ------------------------------------------------------------------
+    # Class-level registry for KB gossip (populated by NodeManager)
+    _all_pools = {}  # asn → P2PTransactionPool reference
+    _warmup_done = set()  # track which nodes completed warm-up
+
+    def run_warmup(self):
+        """Run warm-up phase separately (called by NodeManager before start).
+
+        Populates KB + prefix_ownership_state from early observations.
+        Must be called before start() so gossip can merge KBs.
+        """
+        if self.asn in VirtualNode._warmup_done:
+            return
+        sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
+        warmup_duration = cfg.WARMUP_DURATION
+        if warmup_duration > 0 and sorted_obs:
+            first_ts = sorted_obs[0].get("timestamp", 0)
+            warmup_cutoff = first_ts + warmup_duration
+            warmup_count = 0
+            for obs in sorted_obs:
+                if obs.get("timestamp", 0) >= warmup_cutoff:
+                    break
+                self._warmup_observation(obs)
+                warmup_count += 1
+            self.stats["warmup_observations"] = warmup_count
+            logger.info(
+                f"AS{self.asn} warm-up complete: {warmup_count} observations "
+                f"processed in listen-only mode ({warmup_duration}s)"
+            )
+        VirtualNode._warmup_done.add(self.asn)
+
+    @classmethod
+    def register_pool(cls, asn, pool):
+        """Register a node's P2P pool for KB gossip access."""
+        cls._all_pools[asn] = pool
+
     def _gossip_kb_to_peers(self):
         """Share KB observation summaries with all RPKI peers after warm-up.
 
@@ -568,66 +582,42 @@ class VirtualNode:
         if self.p2p_pool is None:
             return
 
-        # Extract KB summaries: list of (prefix, origin_asn) from our KB index
-        with self.p2p_pool.lock:
-            kb_entries = []
-            for prefix, obs_list in self.p2p_pool._kb_index.items():
+        # Extract KB summaries from our KB index
+        kb_entries = []
+        try:
+            for prefix, obs_list in list(self.p2p_pool._kb_index.items()):
                 for origin_asn, timestamp, _ in obs_list:
                     kb_entries.append((prefix, origin_asn, timestamp))
+        except Exception:
+            return
 
         if not kb_entries:
             return
 
-        # Send to all RPKI peers via message bus
-        from rpki_node_registry import RPKINodeRegistry
-        peer_asns = RPKINodeRegistry.get_all_rpki_nodes()
-
-        for peer_asn in peer_asns:
+        # Inject into all peer pools directly (in-memory simulation)
+        peers_updated = 0
+        for peer_asn, peer_pool in VirtualNode._all_pools.items():
             if peer_asn == self.asn:
                 continue
-            # Find peer's P2P pool and inject KB entries directly
-            # (in-memory simulation — no network overhead)
-            peer_pool = self._find_peer_pool(peer_asn)
-            if peer_pool is not None:
+            try:
                 for prefix, origin_asn, timestamp in kb_entries:
                     peer_pool.add_bgp_observation(
                         ip_prefix=prefix,
                         sender_asn=origin_asn,
                         timestamp=timestamp,
-                        trust_score=80.0,  # slightly lower trust for gossiped data
+                        trust_score=80.0,
                         is_attack=False,
                     )
+                peers_updated += 1
+            except Exception:
+                continue
 
         self.stats["kb_gossip_entries"] = len(kb_entries)
-        self.stats["kb_gossip_peers"] = len(peer_asns) - 1
+        self.stats["kb_gossip_peers"] = peers_updated
         logger.info(
             f"AS{self.asn} KB gossip: shared {len(kb_entries)} entries "
-            f"with {len(peer_asns)-1} peers"
+            f"with {peers_updated} peers"
         )
-
-    def _find_peer_pool(self, peer_asn):
-        """Find a peer's P2P pool for direct KB injection (simulation only)."""
-        # In-memory simulation: all pools are registered with the message bus
-        if self.p2p_pool and self.p2p_pool.use_memory_bus:
-            from message_bus import InMemoryMessageBus
-            bus = InMemoryMessageBus.get_instance()
-            handler = bus._handlers.get(peer_asn)
-            if handler and hasattr(handler, '__self__'):
-                pool = handler.__self__
-                if hasattr(pool, 'add_bgp_observation'):
-                    return pool
-        # Async mode: check async bus
-        try:
-            from message_bus_async import AsyncMessageBus
-            bus = AsyncMessageBus.get_instance()
-            handler = bus._handlers.get(peer_asn)
-            if handler and hasattr(handler, '__self__'):
-                pool = handler.__self__
-                if hasattr(pool, 'add_bgp_observation'):
-                    return pool
-        except Exception:
-            pass
-        return None
 
     # ------------------------------------------------------------------
     # Helpers
@@ -663,26 +653,8 @@ class VirtualNode:
         """Async version of _process_observations."""
         sorted_obs = sorted(self.observations, key=lambda o: o.get("timestamp", 0))
 
-        # ── Warm-up phase (same as sync) ──
-        warmup_duration = cfg.WARMUP_DURATION
-        if warmup_duration > 0 and sorted_obs and self.is_rpki:
-            first_ts = sorted_obs[0].get("timestamp", 0)
-            warmup_cutoff = first_ts + warmup_duration
-            warmup_count = 0
-            for obs in sorted_obs:
-                if obs.get("timestamp", 0) >= warmup_cutoff:
-                    break
-                self._warmup_observation(obs)
-                warmup_count += 1
-            self.stats["warmup_observations"] = warmup_count
-            logger.info(
-                f"AS{self.asn} warm-up complete: {warmup_count} observations "
-                f"processed in listen-only mode ({warmup_duration}s)"
-            )
-
-            # KB gossip: share observation summaries with peers
-            if self.p2p_pool is not None:
-                self._gossip_kb_to_peers()
+        # Warm-up is handled by NodeManager.start_all_async() calling run_warmup()
+        # before threads start, so KB is already populated.
 
         buffer = _PriorityBuffer(max_size=cfg.INGESTION_BUFFER_MAX_SIZE)
         self._buffer = buffer

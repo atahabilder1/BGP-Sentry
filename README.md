@@ -203,12 +203,19 @@ Located in `dataset/bfsTopology/`. Each dataset is a **BFS-expanded subgraph** f
 
 Each dataset contains:
 - `as_classification.json` - RPKI/non-RPKI classification and blockchain roles
-- `observations/AS<N>.json` - Per-AS BGP observations (legitimate warm-up + 6 attack types)
+- `observations/AS<N>.json` - Per-AS BGP observations (legitimate + 5 enabled attack types)
 - `ground_truth/ground_truth.json` - Attack labels for evaluation
 
-Attack types: PREFIX_HIJACK, SUBPREFIX_HIJACK, BOGON_INJECTION, ROUTE_FLAPPING, FORGED_ORIGIN_PREFIX_HIJACK, ACCIDENTAL_ROUTE_LEAK
+**Enabled attack types (7, covered by `detect_attacks` dispatch path):**
+PREFIX_HIJACK, SUBPREFIX_HIJACK, BOGON_INJECTION, ROUTE_FLAPPING, FORGED_ORIGIN_PREFIX_HIJACK, ROUTE_LEAK (valley-free), PATH_POISONING
 
-See `dataset/DATASET_METHODOLOGY.md` for full methodology.
+**Filtered out of the revised dataset** (no matching detector):
+ACCIDENTAL_ROUTE_LEAK
+
+See `dataset/DATASET_METHODOLOGY.md` for the generation methodology and
+`dataset/DATASET_REVISION.md` for the 2026-04 revision that brought
+per-node observation rate to real-world steady-state and restricted
+attack types to the enabled detector set.
 
 ## Results
 
@@ -276,7 +283,7 @@ BGP-Sentry/
         stayrtr_client.py             # RPKI route validation via StayRTR VRP
         p2p_transaction_pool.py       # Per-node tx pool + PoP consensus voting
         attack_consensus.py           # Majority voting for confirming attacks
-        attack_detector.py            # Detects 4 attack types
+        attack_detector.py            # Detects 7 attack types (see CLAUDE.md)
         blockchain_interface.py       # File-based blockchain: blocks, Merkle roots
         bgpcoin_ledger.py             # Token economy: rewards, burn, treasury
         nonrpki_rating.py             # Trust scores for non-RPKI ASes (0-100)

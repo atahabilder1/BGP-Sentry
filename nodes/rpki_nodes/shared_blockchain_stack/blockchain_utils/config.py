@@ -50,7 +50,16 @@ class _Config:
 
     # ── Consensus ──────────────────────────────────────────────────
     CONSENSUS_MIN_SIGNATURES: int = _int("CONSENSUS_MIN_SIGNATURES", 3)
-    CONSENSUS_CAP_SIGNATURES: int = _int("CONSENSUS_CAP_SIGNATURES", 5)
+    CONSENSUS_CAP_SIGNATURES: int = _int("CONSENSUS_CAP_SIGNATURES", 3)
+
+    # Consensus confidence weights — used for BGPCOIN reward scaling,
+    # prefix_ownership_state update strength, and trust scoring.
+    #   CONFIRMED (≥3 approves): full confidence
+    #   INSUFFICIENT (1-2 approves): partial corroboration
+    #   SINGLE_WITNESS (0 approves): on-chain but lowest trust
+    CONSENSUS_WEIGHT_CONFIRMED: float = _float("CONSENSUS_WEIGHT_CONFIRMED", 1.0)
+    CONSENSUS_WEIGHT_INSUFFICIENT: float = _float("CONSENSUS_WEIGHT_INSUFFICIENT", 0.5)
+    CONSENSUS_WEIGHT_SINGLE_WITNESS: float = _float("CONSENSUS_WEIGHT_SINGLE_WITNESS", 0.2)
 
     # ── P2P Network ────────────────────────────────────────────────
     P2P_REGULAR_TIMEOUT: int = _int("P2P_REGULAR_TIMEOUT", 30)

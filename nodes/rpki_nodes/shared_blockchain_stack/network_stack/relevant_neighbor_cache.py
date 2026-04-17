@@ -81,8 +81,16 @@ class RelevantNeighborCache:
             "rpki_nodes": RPKINodeRegistry.get_all_rpki_nodes()  # All RPKI nodes from registry
         }
 
-        # Load existing cache
+        # Load existing cache (runtime-accumulated observations)
         self._load_cache()
+
+        # Also load precomputed observer map, if available. This gives every
+        # proposer knowledge from transaction zero — avoiding the warm-up
+        # dependency and the cold-start problem of the runtime cache.
+        # In real deployment this map is derived from the public CAIDA graph
+        # via deterministic Gao-Rexford propagation analysis; here we load
+        # it from disk after being built by scripts/build_observer_map.py.
+        self._load_precomputed_observer_map()
 
         print(f"📡 Relevant Neighbor Cache initialized for AS{my_as_number}")
         print(f"   Cache file: {self.cache_file}")
@@ -100,6 +108,59 @@ class RelevantNeighborCache:
                 print(f"📂 Creating new neighbor cache")
         except Exception as e:
             print(f"Error loading cache: {e}")
+
+    def _load_precomputed_observer_map(self):
+        """Load precomputed observer map from blockchain_data/state/.
+
+        The map is produced by scripts/build_observer_map.py before the
+        experiment starts. It tells every proposer, for any origin AS,
+        which RPKI validators are expected to have observed that origin's
+        announcements — based on the topology alone, not runtime state.
+
+        Merging this into the runtime cache means:
+          - On first observation we already know who to ask (no warm-up gap).
+          - Runtime observations can still refine the map (add newly-seen
+            validators) but cannot remove precomputed entries.
+        """
+        try:
+            # Search up the directory tree for blockchain_data/state
+            # (we're under nodes/rpki_nodes/shared_blockchain_stack/network_stack)
+            here = Path(__file__).resolve()
+            project_root = None
+            for parent in here.parents:
+                candidate = parent / "blockchain_data" / "state" / "observer_map.json"
+                if candidate.exists():
+                    project_root = parent
+                    break
+
+            if project_root is None:
+                print(f"📡 No precomputed observer map found (will learn at runtime)")
+                return
+
+            map_file = project_root / "blockchain_data" / "state" / "observer_map.json"
+            with open(map_file, "r") as f:
+                precomputed = json.load(f)
+
+            with self.lock:
+                merged_count = 0
+                for as_str, observers in precomputed.items():
+                    if as_str not in self.cache_data["non_rpki_to_rpki_neighbors"]:
+                        self.cache_data["non_rpki_to_rpki_neighbors"][as_str] = []
+                        self.cache_data["observation_count"][as_str] = 0
+
+                    # Merge: union of existing + precomputed, exclude self
+                    existing = set(self.cache_data["non_rpki_to_rpki_neighbors"][as_str])
+                    precomp = set(observers) - {self.my_as_number}
+                    merged = sorted(existing | precomp)
+
+                    if merged != sorted(existing):
+                        self.cache_data["non_rpki_to_rpki_neighbors"][as_str] = merged
+                        merged_count += 1
+
+            print(f"📡 Precomputed observer map loaded: {len(precomputed)} origins, "
+                  f"{merged_count} entries updated")
+        except Exception as e:
+            print(f"Error loading precomputed observer map: {e}")
 
     def _save_cache(self):
         """Save cache to disk (atomic write)"""

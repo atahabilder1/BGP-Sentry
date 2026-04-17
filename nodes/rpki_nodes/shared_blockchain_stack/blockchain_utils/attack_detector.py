@@ -30,15 +30,17 @@ from datetime import datetime
 
 from config import cfg
 
-# Bogon prefix ranges (RFC 5737 / RFC 1918 / RFC 6598 etc.)
+# Bogon prefix ranges (RFC 1918 / RFC 2544 / RFC 5737 / RFC 6598 etc.)
 BOGON_RANGES = [
     ipaddress.ip_network("0.0.0.0/8"),
     ipaddress.ip_network("10.0.0.0/8"),
+    ipaddress.ip_network("100.64.0.0/10"),    # RFC 6598 — Shared/CGN address space
     ipaddress.ip_network("127.0.0.0/8"),
     ipaddress.ip_network("169.254.0.0/16"),
     ipaddress.ip_network("172.16.0.0/12"),
     ipaddress.ip_network("192.0.2.0/24"),
     ipaddress.ip_network("192.168.0.0/16"),
+    ipaddress.ip_network("198.18.0.0/15"),     # RFC 2544 — Benchmarking
     ipaddress.ip_network("198.51.100.0/24"),
     ipaddress.ip_network("203.0.113.0/24"),
     ipaddress.ip_network("224.0.0.0/4"),
@@ -202,15 +204,31 @@ class AttackDetector:
         if bogon:
             detected_attacks.append(bogon)
 
-        # Check for route leak
-        route_leak = self.detect_route_leak(announcement)
-        if route_leak:
-            detected_attacks.append(route_leak)
+        # Check for forged-origin prefix hijack (AS-path plausibility)
+        forged = self.detect_forged_origin(announcement)
+        if forged:
+            detected_attacks.append(forged)
 
         # Check for route flapping
         flapping = self.detect_route_flapping(announcement)
         if flapping:
             detected_attacks.append(flapping)
+
+        # Valley-free route-leak detection.  Enabled because scripts/inject_attacks.py
+        # now injects valley-free-violating ROUTE_LEAK events so this detector has
+        # attack instances to evaluate (BGPy's own ACCIDENTAL_ROUTE_LEAK scenarios
+        # are forged-origin rather than valley-free and are filtered).
+        leak = self.detect_route_leak(announcement)
+        if leak:
+            detected_attacks.append(leak)
+
+        # Path-poisoning detection (AS-path manipulation).  Fires when the path
+        # contains a consecutive AS pair that has no documented CAIDA relationship —
+        # a strong indicator that a bogus AS was inserted to inflate / disguise
+        # the path.
+        poisoning = self.detect_path_poisoning(announcement)
+        if poisoning:
+            detected_attacks.append(poisoning)
 
         return detected_attacks
 
@@ -354,6 +372,82 @@ class AttackDetector:
             print(f"Error detecting route leak: {e}")
             return None
 
+    def detect_path_poisoning(self, announcement: Dict) -> Optional[Dict]:
+        """
+        Detect AS-path poisoning — a fabricated AS inserted into the path.
+
+        An adversary constructs a BGP UPDATE whose AS-path contains two
+        consecutive ASes that, per the canonical CAIDA relationship graph,
+        have no declared business relationship (neither peer, customer, nor
+        provider of each other).  In legitimate BGP propagation such an
+        edge cannot appear.
+
+        Conservative by design:
+          - We only fire when BOTH ASes of the pair appear in our local
+            CAIDA relationship database.  If either AS is absent the
+            check is skipped (avoids false positives from incomplete data).
+          - The adjacency test is symmetric: any relationship (a→b OR b→a
+            across customer/provider/peer) exempts the pair.
+
+        Args:
+            announcement: BGP announcement with as_path
+
+        Returns:
+            Attack dict on detection, None otherwise.
+        """
+        try:
+            as_path = announcement.get('as_path', [])
+            if len(as_path) < 2:
+                return None
+
+            for i in range(len(as_path) - 1):
+                a_str = str(as_path[i])
+                b_str = str(as_path[i + 1])
+                a_int = int(as_path[i])
+                b_int = int(as_path[i + 1])
+
+                rels_a = self.as_relationships.get(a_str)
+                rels_b = self.as_relationships.get(b_str)
+                if rels_a is None or rels_b is None:
+                    # Missing relationship data — cannot determine, skip
+                    continue
+
+                has_rel = (
+                    b_int in rels_a.get('customers', [])
+                    or b_int in rels_a.get('providers', [])
+                    or b_int in rels_a.get('peers', [])
+                    or a_int in rels_b.get('customers', [])
+                    or a_int in rels_b.get('providers', [])
+                    or a_int in rels_b.get('peers', [])
+                )
+                if has_rel:
+                    continue
+
+                # No documented relationship between a and b — path is poisoned.
+                return {
+                    "attack_type": "PATH_POISONING",
+                    "severity": "HIGH",
+                    "as_path": as_path,
+                    "invalid_edge": [a_int, b_int],
+                    "edge_position": i,
+                    "evidence": {
+                        "no_relationship_between": [a_int, b_int],
+                        "path_length": len(as_path),
+                    },
+                    "description": (
+                        f"AS-path contains adjacency AS{a_int}↔AS{b_int} "
+                        f"that has no documented CAIDA relationship "
+                        f"(likely fabricated insertion)"
+                    ),
+                    "detected_at": datetime.now().isoformat(),
+                }
+
+            return None
+
+        except Exception as e:
+            print(f"Error in path-poisoning detection: {e}")
+            return None
+
     def detect_subprefix_hijack(self, announcement: Dict) -> Optional[Dict]:
         """
         Detect sub-prefix hijacking.
@@ -417,6 +511,82 @@ class AttackDetector:
             return None
         except Exception as e:
             print(f"Error detecting sub-prefix hijack: {e}")
+            return None
+
+    def detect_forged_origin(self, announcement: Dict) -> Optional[Dict]:
+        """
+        Detect forged-origin prefix hijack via AS-path plausibility.
+
+        Forged-origin attacks bypass ROA validation: the attacker prepends the
+        legitimate origin to its own AS-path, so the announcement shows a
+        valid origin even though the attacker is the actual source. The
+        signature of the attack is that the *penultimate* AS in the path
+        has no real business relationship (customer / provider / peer) with
+        the claimed origin in CAIDA's canonical AS-relationship data.
+
+        Detection rule:
+          Given as_path [..., penultimate, origin], flag the announcement if
+          `origin` is not found among `penultimate`'s customers, providers,
+          or peers in the loaded AS relationship database.
+
+        Notes:
+          - Requires canonical CAIDA relationships (see build_as_relationships.py).
+          - If `penultimate` has no relationship data at all, the detector
+            abstains (returns None) rather than flagging, to avoid false
+            positives on ASes outside the relationship database.
+        """
+        try:
+            as_path = announcement.get('as_path', [])
+            sender_asn = announcement.get('sender_asn')
+            if not sender_asn or len(as_path) < 2:
+                return None
+
+            penultimate = as_path[-2]
+            claimed_origin = as_path[-1]
+
+            # The claimed origin in the path must equal the announcement's origin;
+            # if not, the announcement is malformed — let other detectors handle it.
+            if claimed_origin != sender_asn:
+                return None
+
+            # Self-loop or single-hop path: nothing meaningful to check.
+            if penultimate == claimed_origin:
+                return None
+
+            rels = self.as_relationships.get(str(penultimate))
+            if not rels:
+                # No relationship data for the penultimate AS — abstain.
+                return None
+
+            has_relationship = (
+                claimed_origin in rels.get('customers', []) or
+                claimed_origin in rels.get('providers', []) or
+                claimed_origin in rels.get('peers', [])
+            )
+
+            if has_relationship:
+                return None  # Plausible path.
+
+            return {
+                "attack_type": "FORGED_ORIGIN_PREFIX_HIJACK",
+                "severity": "HIGH",
+                "attacker_as": penultimate,
+                "claimed_origin": claimed_origin,
+                "victim_prefix": announcement.get('ip_prefix'),
+                "evidence": {
+                    "as_path": as_path,
+                    "penultimate_as": penultimate,
+                    "claimed_origin": claimed_origin,
+                    "no_business_relationship": True,
+                },
+                "description": (
+                    f"Implausible AS-path: AS{penultimate} has no CAIDA "
+                    f"relationship with claimed origin AS{claimed_origin}"
+                ),
+                "detected_at": datetime.now().isoformat(),
+            }
+        except Exception as e:
+            print(f"Error detecting forged origin: {e}")
             return None
 
     def detect_bogon_injection(self, announcement: Dict) -> Optional[Dict]:

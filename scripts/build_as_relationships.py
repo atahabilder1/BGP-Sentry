@@ -1,62 +1,98 @@
 #!/usr/bin/env python3
 """
-Build AS relationships file from dataset observation data.
+Build AS relationships file using the authoritative CAIDA AS-relationship
+dataset via BGPy's CAIDAASGraphConstructor.
 
-The CAIDA relationship data is embedded in each observation's
-'recv_relationship' field (CUSTOMERS, PROVIDERS, PEERS, ORIGIN).
-This script extracts it and builds the as_relationships.json
-file that the route leak detector needs.
+This is the source of truth — CAIDA's inferred relationships are
+unambiguous (each AS pair has exactly one relationship: customer, provider,
+or peer). Earlier versions of this script tried to infer relationships
+from BGPy's per-observation `recv_relationship` field, which is route-
+specific and varies across observations for the same AS pair.
 
 Usage:
     python3 scripts/build_as_relationships.py dataset/caida_50
     → Writes to blockchain_data/state/as_relationships.json
+    → Contains only the ASes actually present in the dataset
 """
 
 import json
-import sys
 import os
-from collections import defaultdict
+import sys
+import contextlib
 from pathlib import Path
+
+# Make BGPy importable
+sys.path.insert(0, "/data/anik/bgpy_pkg")
 
 
 def build_relationships(dataset_path: str) -> dict:
-    """Extract AS relationships from observation recv_relationship fields."""
-    obs_dir = Path(dataset_path) / "observations"
-    if not obs_dir.exists():
-        print(f"Error: {obs_dir} not found")
+    """Extract canonical CAIDA AS-relationships for the ASes in the dataset."""
+    dataset_path = Path(dataset_path)
+    classification_file = dataset_path / "as_classification.json"
+    if not classification_file.exists():
+        print(f"Error: {classification_file} not found")
         return {}
 
-    relationships = defaultdict(lambda: {"customers": set(), "providers": set(), "peers": set()})
+    # Load the set of ASes present in this dataset
+    classification = json.load(open(classification_file))
+    dataset_asns = {
+        int(k) for k in classification.keys()
+        if k.isdigit() or (k.startswith("AS") and k[2:].isdigit())
+    }
+    # as_classification.json has scalar metadata keys too — extract just the ASN keys
+    dataset_asns = set()
+    obs_dir = dataset_path / "observations"
+    if obs_dir.exists():
+        for f in obs_dir.glob("AS*.json"):
+            # Filename is AS<digits>.json
+            stem = f.stem  # e.g., "AS10075"
+            if stem.startswith("AS"):
+                try:
+                    dataset_asns.add(int(stem[2:]))
+                except ValueError:
+                    continue
 
-    for f in sorted(obs_dir.glob("AS*.json")):
-        with open(f) as fh:
-            data = json.load(fh)
-        observer = data["asn"]
+    if not dataset_asns:
+        print(f"Error: no ASes found in {obs_dir}")
+        return {}
 
-        for obs in data.get("observations", []):
-            rel = obs.get("recv_relationship", "")
-            next_hop = obs.get("next_hop_asn")
+    print(f"Dataset contains {len(dataset_asns)} ASes")
+    print(f"Loading CAIDA AS-graph (this may take a minute)...")
 
-            if not next_hop or next_hop == observer:
-                continue
+    # Load the full CAIDA AS graph via BGPy
+    with contextlib.redirect_stdout(open(os.devnull, "w")):
+        from bgpy.as_graphs import CAIDAASGraphConstructor
+        as_graph = CAIDAASGraphConstructor().run()
 
-            if rel == "CUSTOMERS":
-                relationships[str(observer)]["customers"].add(next_hop)
-                relationships[str(next_hop)]["providers"].add(observer)
-            elif rel == "PROVIDERS":
-                relationships[str(observer)]["providers"].add(next_hop)
-                relationships[str(next_hop)]["customers"].add(observer)
-            elif rel == "PEERS":
-                relationships[str(observer)]["peers"].add(next_hop)
-                relationships[str(next_hop)]["peers"].add(observer)
+    print(f"Loaded {len(as_graph.as_dict)} ASes from CAIDA")
 
-    # Convert sets to sorted lists for JSON
+    # For each AS in our dataset, extract relationships restricted to other
+    # dataset ASes (relationships to ASes outside the subgraph are irrelevant
+    # because they never appear in AS-paths).
     result = {}
-    for asn, rels in relationships.items():
-        result[asn] = {
-            "customers": sorted(rels["customers"]),
-            "providers": sorted(rels["providers"]),
-            "peers": sorted(rels["peers"]),
+    for asn in dataset_asns:
+        as_obj = as_graph.as_dict.get(asn)
+        if as_obj is None:
+            result[str(asn)] = {"customers": [], "providers": [], "peers": []}
+            continue
+
+        customers = sorted(
+            a.asn for a in getattr(as_obj, "customers", [])
+            if a.asn in dataset_asns
+        )
+        providers = sorted(
+            a.asn for a in getattr(as_obj, "providers", [])
+            if a.asn in dataset_asns
+        )
+        peers = sorted(
+            a.asn for a in getattr(as_obj, "peers", [])
+            if a.asn in dataset_asns
+        )
+
+        result[str(asn)] = {
+            "customers": customers,
+            "providers": providers,
+            "peers": peers,
         }
 
     return result
@@ -69,6 +105,8 @@ def main():
 
     dataset_path = sys.argv[1]
     rels = build_relationships(dataset_path)
+    if not rels:
+        return 1
 
     # Write to the location the detector expects
     project_root = Path(__file__).resolve().parent.parent
@@ -78,16 +116,34 @@ def main():
     with open(output_path, "w") as f:
         json.dump(rels, f, indent=2)
 
-    print(f"Built AS relationships: {len(rels)} ASes")
+    print(f"\nBuilt AS relationships: {len(rels)} ASes")
     print(f"Written to: {output_path}")
 
     # Stats
     total_c = sum(len(r["customers"]) for r in rels.values())
     total_p = sum(len(r["providers"]) for r in rels.values())
     total_pe = sum(len(r["peers"]) for r in rels.values())
+
+    # Consistency check
+    conflicts = 0
+    for r in rels.values():
+        c = set(r["customers"])
+        p = set(r["providers"])
+        pe = set(r["peers"])
+        conflicts += len(c & p) + len(c & pe) + len(p & pe)
+
+    # Mirror check: customer count should equal provider count (every customer
+    # relationship on one side is a provider relationship on the other).
+    # Peer count should be even (every peer link is counted twice).
     print(f"  Customer links: {total_c}")
-    print(f"  Provider links: {total_p}")
-    print(f"  Peer links: {total_pe}")
+    print(f"  Provider links: {total_p}   (should equal customer links)")
+    print(f"  Peer links: {total_pe}       (should be even)")
+    print(f"  Ambiguous entries: {conflicts}   (should be 0)")
+
+    # ASes with no relationships inside the subgraph
+    orphans = sum(1 for r in rels.values() if not any(r.values()))
+    if orphans:
+        print(f"  Isolated ASes (no neighbors in subgraph): {orphans}")
 
     return 0
 

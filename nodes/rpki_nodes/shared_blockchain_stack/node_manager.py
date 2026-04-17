@@ -258,6 +258,10 @@ class NodeManager:
             )
             self.nodes[asn] = node
 
+            # Register pool for KB gossip access
+            if p2p_pool is not None:
+                VirtualNode.register_pool(asn, p2p_pool)
+
         mode = "ASYNC" if self._use_async else "THREADED"
         logger.info(
             f"NodeManager created {len(self.nodes)} virtual nodes "
@@ -287,6 +291,14 @@ class NodeManager:
 
         logger.info(f"Started P2P servers for {rpki_count} RPKI nodes")
 
+        # Phase 1b: Run warm-up for all nodes (populates KB before consensus)
+        for node in self.nodes.values():
+            if node.is_rpki:
+                node.run_warmup()
+
+        # Phase 1c: KB gossip — share warm-up KB across all RPKI peers
+        self._run_kb_gossip()
+
         # Phase 2: Start all node processing threads
         logger.info(f"Starting {len(self.nodes)} virtual nodes...")
         for node in self.nodes.values():
@@ -314,6 +326,14 @@ class NodeManager:
                 rpki_count += 1
         logger.info(f"Started async P2P servers for {rpki_count} RPKI nodes")
 
+        # Phase 1b: Run warm-up for all nodes
+        for node in self.nodes.values():
+            if node.is_rpki:
+                node.run_warmup()
+
+        # Phase 1c: KB gossip
+        self._run_kb_gossip()
+
         # Phase 2: Start all nodes as async tasks
         logger.info(f"Starting {len(self.nodes)} virtual nodes (async)...")
         self._node_tasks = []
@@ -327,6 +347,64 @@ class NodeManager:
         self.simulation_clock.start_async()
         logger.info(
             f"Simulation clock started (speed={self.simulation_clock.speed_multiplier}x, async)"
+        )
+
+    def _run_kb_gossip(self):
+        """Share KB observations across all RPKI peers before consensus starts.
+
+        After warm-up, each node has its own local KB. This method merges
+        all KBs so every peer has broad knowledge for voting. Mirrors
+        standard bootstrap protocols (Bitcoin IBD, BGP full table exchange).
+        """
+        rpki_pools = {asn: pool for asn, pool in VirtualNode._all_pools.items()}
+        if len(rpki_pools) < 2:
+            logger.info(f"KB gossip skipped: only {len(rpki_pools)} pools registered")
+            return
+
+        # Collect all KB entries from all pools
+        all_entries = {}  # (prefix, origin) → (timestamp, source_asn)
+        for asn, pool in rpki_pools.items():
+            try:
+                kb_index = getattr(pool, '_kb_index', {})
+                for prefix, obs_list in list(kb_index.items()):
+                    for origin_asn, timestamp, _ in obs_list:
+                        key = (prefix, origin_asn)
+                        if key not in all_entries:
+                            all_entries[key] = (timestamp, asn)
+            except Exception as e:
+                logger.warning(f"KB gossip: error reading pool AS{asn}: {e}")
+                continue
+
+        if not all_entries:
+            logger.info(
+                f"KB gossip: no entries found across {len(rpki_pools)} pools "
+                f"(KB sizes: {[len(getattr(p, 'knowledge_base', [])) for p in rpki_pools.values()]})"
+            )
+            return
+
+        # Inject merged KB into every pool
+        entries_per_pool = 0
+        for asn, pool in rpki_pools.items():
+            injected = 0
+            for (prefix, origin_asn), (timestamp, _) in all_entries.items():
+                # Skip if pool already has this entry
+                existing = pool._kb_index.get(prefix)
+                if existing and any(o[0] == origin_asn for o in existing):
+                    continue
+                pool.add_bgp_observation(
+                    ip_prefix=prefix,
+                    sender_asn=origin_asn,
+                    timestamp=timestamp,
+                    trust_score=80.0,
+                    is_attack=False,
+                )
+                injected += 1
+            entries_per_pool = max(entries_per_pool, injected)
+
+        logger.info(
+            f"KB gossip: merged {len(all_entries)} unique observations "
+            f"across {len(rpki_pools)} RPKI peers "
+            f"(up to {entries_per_pool} new entries per peer)"
         )
 
     async def wait_for_completion_async(self, timeout: float = 600,

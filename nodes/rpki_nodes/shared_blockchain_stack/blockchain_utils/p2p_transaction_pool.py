@@ -329,6 +329,17 @@ class P2PTransactionPool:
         Validates the transaction against the local knowledge base and
         responds with one of three votes: "approve", "no_knowledge", or
         "reject".
+
+        After voting, speculatively record the transaction's (prefix,
+        origin) in this node's knowledge base as a 3rd-party witness.
+        The transaction is RSA-signed by an authenticated RPKI proposer,
+        so the claim has attestable provenance.  This grows the set of
+        peers that can approve future vote_requests for the same event
+        via Source 1 (personal KB), not just Source 2 (blockchain
+        state) — transforming every consensus round into a free
+        knowledge-sync operation.  The KB write happens AFTER voting
+        so the vote itself reflects genuine prior knowledge, not the
+        transaction being voted on.
         """
         transaction = message["transaction"]
         from_as = message["from_as"]
@@ -341,9 +352,26 @@ class P2PTransactionPool:
 
         # Validate transaction (simplified)
         vote = self._validate_transaction(transaction)
-        
+
         # Send vote back
         self._send_vote_to_node(from_as, transaction["transaction_id"], vote)
+
+        # Speculatively add as 3rd-party witness (post-vote — vote already computed)
+        try:
+            prefix = transaction.get("ip_prefix", "")
+            origin_asn = transaction.get("sender_asn", 0)
+            tx_timestamp = transaction.get("timestamp", 0)
+            is_attack = transaction.get("is_attack", False)
+            if prefix and origin_asn:
+                self.add_bgp_observation(
+                    ip_prefix=prefix,
+                    sender_asn=origin_asn,
+                    timestamp=tx_timestamp,
+                    trust_score=65.0,
+                    is_attack=is_attack,
+                )
+        except Exception as e:
+            self.logger.debug(f"Vote-request KB learning failed: {e}")
     
     def _handle_vote_response(self, message):
         """
@@ -364,6 +392,9 @@ class P2PTransactionPool:
 
         # Variable to store commit decision (determined inside lock)
         should_commit = False
+        # (origin_as, voter_as) captured on approve vote so we can teach
+        # the neighbor cache *after* the lock is released
+        approver_signal = None
 
         # CRITICAL SECTION: Hold lock ONLY for data structure access
         # DO NOT hold lock during I/O operations!
@@ -397,6 +428,17 @@ class P2PTransactionPool:
                 "timestamp": message.get("timestamp")
             })
 
+            # Capture approve-vote signal: the voter has proven they
+            # observed this origin, so we should prioritize them in
+            # future rounds for the same origin (Layer 1 targeting).
+            if vote == "approve":
+                try:
+                    sender_asn = self.pending_votes[tx_id]["transaction"].get("sender_asn", 0)
+                    if sender_asn and from_as != self.as_number:
+                        approver_signal = (sender_asn, from_as)
+                except Exception:
+                    pass
+
             self.logger.debug(f"Received signature from AS{from_as} for {tx_id}")
 
             # Check if consensus reached (3/9 signatures minimum)
@@ -429,6 +471,21 @@ class P2PTransactionPool:
 
         # NON-CRITICAL SECTION: I/O operations (blockchain write, BGPCOIN, attack detection)
         # This can take several seconds, but lock is FREE for other threads
+
+        # Teach neighbor cache: the approver has proven knowledge of this
+        # origin, so future broadcasts for the same origin should
+        # prioritize them (dynamic Layer 1 targeting — no topology oracle
+        # needed, signal is RSA-signed by voter so deployment-safe).
+        if approver_signal is not None:
+            try:
+                origin_as, voter_as = approver_signal
+                self.neighbor_cache.record_observation(
+                    origin_as=origin_as,
+                    observed_by_rpki_as=voter_as,
+                )
+            except Exception as e:
+                self.logger.debug(f"neighbor_cache update from approve vote failed: {e}")
+
         if should_commit:
             self._commit_to_blockchain(tx_id)
     
@@ -483,9 +540,13 @@ class P2PTransactionPool:
             "consensus_event": threading.Event(),  # Fires when threshold reached
         }
 
-        # Adaptive peer selection: scale with network size
-        # Broadcast size: max(threshold * 2, sqrt(N)) — scales sublinearly
-        # Priority: relevant neighbors first, then random peers for diversity
+        # Adaptive peer selection: scale with network size, prioritize peers
+        # with guaranteed first-hand knowledge of the observation.
+        #
+        # Priority order:
+        #   Layer 0: RPKI peers on the observed AS-path (guaranteed knowers).
+        #   Layer 1: relevant neighbors of the origin (topology-aware cache).
+        #   Layer 2: random peers (diversity fill).
         import math
         n_peers = len(self.peer_nodes)
         broadcast_size = max(
@@ -494,18 +555,37 @@ class P2PTransactionPool:
         )
         broadcast_size = min(broadcast_size, n_peers)
 
-        # Layer 1: relevant neighbors (most likely to have knowledge)
-        relevant_neighbors = self.neighbor_cache.get_relevant_neighbors(sender_asn)
-        relevant_peers = {
-            peer_as: (host, port)
-            for peer_as, (host, port) in self.peer_nodes.items()
-            if peer_as in relevant_neighbors
-        }
-        if len(relevant_peers) > broadcast_size:
-            relevant_peers = dict(random.sample(list(relevant_peers.items()), broadcast_size))
+        # Layer 0: RPKI peers on the observed AS-path. These nodes received
+        # the announcement during BGP propagation and have first-hand knowledge.
+        # Logically valid for real deployment: AS-path is part of every BGP
+        # UPDATE message; fake path members cannot fabricate signed approvals.
+        as_path = transaction.get("as_path", []) or []
+        path_peers = {}
+        for asn in as_path:
+            if asn == self.as_number:
+                continue
+            addr = self.peer_nodes.get(asn)
+            if addr is not None:
+                path_peers[asn] = addr
+                if len(path_peers) >= broadcast_size:
+                    break
 
-        # Layer 2: fill remaining slots with random non-relevant peers
-        target_peers = dict(relevant_peers)
+        target_peers = dict(path_peers)
+
+        # Layer 1: relevant neighbors of the origin
+        remaining_slots = broadcast_size - len(target_peers)
+        if remaining_slots > 0:
+            relevant_neighbors = self.neighbor_cache.get_relevant_neighbors(sender_asn)
+            relevant_peers = {
+                peer_as: (host, port)
+                for peer_as, (host, port) in self.peer_nodes.items()
+                if peer_as in relevant_neighbors and peer_as not in target_peers
+            }
+            if len(relevant_peers) > remaining_slots:
+                relevant_peers = dict(random.sample(list(relevant_peers.items()), remaining_slots))
+            target_peers.update(relevant_peers)
+
+        # Layer 2: fill remaining slots with random peers for diversity
         remaining_slots = broadcast_size - len(target_peers)
         if remaining_slots > 0:
             other_peers = [
@@ -589,11 +669,65 @@ class P2PTransactionPool:
         to all peers. Each peer attempts to append it to their own
         independent chain.  If the block conflicts with the local tip,
         a fork is detected and recorded by BlockchainInterface.
+
+        Also propagates consensus knowledge to this peer:
+          - Source 2 (prefix_ownership_state): CONFIRMED transactions
+            strengthen the established origin mapping, so this peer can
+            approve future vote_requests via blockchain state.
+          - Source 1 (knowledge base): backfills the KB with the
+            (prefix, origin) pair so this peer can approve future
+            vote_requests from direct KB lookup as well.
+        Without this propagation, peers that voted "no_knowledge" (or
+        were not polled at all) never learn the committed event and
+        keep voting "no_knowledge" on follow-up transactions.
         """
         block = message.get("block")
         if block is None:
             return
-        self.blockchain.append_replicated_block(block)
+        # Only propagate knowledge from blocks that actually passed hash
+        # verification and were accepted (or forked) into the local chain.
+        accepted = self.blockchain.append_replicated_block(block)
+        if not accepted:
+            return
+
+        # Propagate committed transactions into our voting state
+        try:
+            transactions = block.get("transactions") or []
+            for tx in transactions:
+                consensus_status = tx.get("consensus_status")
+                if consensus_status != "CONFIRMED":
+                    continue
+                prefix = tx.get("ip_prefix", "")
+                origin_asn = tx.get("sender_asn", 0)
+                tx_timestamp = tx.get("timestamp", 0)
+                is_attack = tx.get("is_attack", False)
+                if not prefix or not origin_asn:
+                    continue
+
+                # Source 2: strengthen blockchain ownership state
+                if self.prefix_ownership_state is not None and not is_attack:
+                    try:
+                        self.prefix_ownership_state.update_from_confirmed(
+                            prefix=prefix,
+                            origin_asn=origin_asn,
+                            timestamp=tx_timestamp,
+                        )
+                    except Exception as e:
+                        self.logger.debug(f"update_from_confirmed failed on replicated block: {e}")
+
+                # Source 1: backfill knowledge base for direct-KB approvals
+                try:
+                    self.add_bgp_observation(
+                        ip_prefix=prefix,
+                        sender_asn=origin_asn,
+                        timestamp=tx_timestamp,
+                        trust_score=70.0,
+                        is_attack=is_attack,
+                    )
+                except Exception as e:
+                    self.logger.debug(f"KB backfill from replicated block failed: {e}")
+        except Exception as e:
+            self.logger.debug(f"Replicated-block knowledge propagation error: {e}")
 
     def _replicate_block_to_peers(self, block):
         """
@@ -999,7 +1133,10 @@ class P2PTransactionPool:
                     f"{reject_count} reject, {no_knowledge_count} no_knowledge"
                 )
 
-                # Determine consensus status
+                # Determine consensus status:
+                #   CONFIRMED            ≥ 3 approve votes (threshold from config)
+                #   INSUFFICIENT_CONSENSUS  1-2 approve votes (partial corroboration)
+                #   SINGLE_WITNESS          0 approve votes (proposer only)
                 if approve_count >= self.consensus_threshold:
                     consensus_status = "CONFIRMED"
                 elif approve_count >= 1:
@@ -1042,13 +1179,25 @@ class P2PTransactionPool:
             transaction["approve_count"] = approve_count
             transaction["timeout_commit"] = True
 
+            # Consensus confidence weight (from config):
+            #   CONFIRMED (≥3)     → 1.0
+            #   INSUFFICIENT (1-2) → 0.5
+            #   SINGLE_WITNESS (0) → 0.2
+            if consensus_status == "CONFIRMED":
+                confidence_weight = cfg.CONSENSUS_WEIGHT_CONFIRMED
+            elif consensus_status == "INSUFFICIENT_CONSENSUS":
+                confidence_weight = cfg.CONSENSUS_WEIGHT_INSUFFICIENT
+            else:
+                confidence_weight = cfg.CONSENSUS_WEIGHT_SINGLE_WITNESS
+            transaction["confidence_weight"] = confidence_weight
+
             # Write to blockchain
             success = self.blockchain.add_transaction_to_blockchain(transaction)
 
             if success:
                 self.logger.info(
                     f"⛓️  Transaction {transaction_id} committed with status={consensus_status} "
-                    f"({approve_count} approve votes, timeout)"
+                    f"({approve_count} approve votes, confidence={confidence_weight}, timeout)"
                 )
 
                 # ── Block replication to peers ──
@@ -1063,12 +1212,16 @@ class P2PTransactionPool:
                         transaction.get('sender_asn')
                     )
 
-                # Award reduced BGPCOIN rewards for partial consensus
-                if approve_count > 0 and consensus_status in ["CONFIRMED", "INSUFFICIENT_CONSENSUS"]:
+                # Award BGPCOIN rewards — scaled by confidence weight.
+                # CONFIRMED: full reward. INSUFFICIENT: half. SINGLE_WITNESS: no reward.
+                if confidence_weight >= cfg.CONSENSUS_WEIGHT_INSUFFICIENT:
                     self._award_bgpcoin_rewards(transaction_id, vote_data)
 
-                # Update prefix ownership state (only CONFIRMED strengthens mapping)
-                if consensus_status == "CONFIRMED" and self.prefix_ownership_state is not None:
+                # Update prefix ownership state — weighted by confidence.
+                # CONFIRMED: full strength. INSUFFICIENT: partial (adds credibility
+                # but doesn't establish first-seen ownership by itself).
+                # SINGLE_WITNESS: no ownership state update (too low confidence).
+                if confidence_weight >= cfg.CONSENSUS_WEIGHT_INSUFFICIENT and self.prefix_ownership_state is not None:
                     self.prefix_ownership_state.update_from_confirmed(
                         prefix=transaction.get("ip_prefix", ""),
                         origin_asn=transaction.get("sender_asn", 0),
@@ -1394,6 +1547,7 @@ class P2PTransactionPool:
             transaction["signatures"] = list(vote_data["votes"])
             transaction["consensus_reached"] = True
             transaction["consensus_status"] = "CONFIRMED"
+            transaction["confidence_weight"] = cfg.CONSENSUS_WEIGHT_CONFIRMED
             transaction["signature_count"] = len(transaction["signatures"])
 
             if self.batch_size > 1:

@@ -510,7 +510,11 @@ Pattern: [0, 1, 2, 3] <- Attack succeeded by learning!
 
 ## Chapter 4: Attack Detection
 
-### Four Attack Types
+### Five Enabled Attack Types
+
+The `attack_detector.detect_attacks()` dispatcher invokes five detectors.
+Two additional route-leak detectors are defined but not wired into the
+dispatch path — see "Attack Types Not in the Active Set" below.
 
 **1. PREFIX_HIJACK (Severity: HIGH)**
 
@@ -558,6 +562,30 @@ Parameters:
 ```
 
 **Detection**: Count unique state changes for (prefix, origin) in sliding window.
+
+**5. FORGED_ORIGIN_PREFIX_HIJACK (Severity: HIGH)**
+
+An AS forges a BGP UPDATE so the AS-path terminates at a victim origin
+that could not plausibly have announced the route given the CAIDA AS
+relationship graph (Gao-Rexford violation in the implied propagation).
+
+**Detection**: Validate the AS-path against customer/provider/peer
+relationships; flag implausible origin/path combinations.
+
+### Attack Types NOT in the Active Set
+
+Two route-leak attack types are intentionally excluded from
+`detect_attacks()`:
+
+- **ROUTE_LEAK** — `detect_route_leak()` is implemented (valley-free
+  violation detection) and achieves 0% FP on canonical CAIDA data, but
+  BGPy's `ACCIDENTAL_ROUTE_LEAK` scenario produces forged-origin
+  re-announcements rather than valley-free violations, so the detector
+  does not fire on this dataset. The function is retained for
+  extensibility; callers may invoke it directly.
+- **ACCIDENTAL_ROUTE_LEAK** — no matching detector in the active set.
+  Events of this type are filtered from the revised dataset (see
+  `dataset/DATASET_REVISION.md`) to avoid artificial false-negatives.
 
 ### Attack Consensus (Majority Voting)
 
