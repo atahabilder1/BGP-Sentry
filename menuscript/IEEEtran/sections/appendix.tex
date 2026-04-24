@@ -1,0 +1,190 @@
+\section{Consensus Security Proofs}
+\label{app:security_proofs}
+
+This appendix provides formal proofs for the security guarantees stated in Section~\ref{sec:threat_model}. We operate under the adversary model defined in Section~\ref{subsec:threat_model}: $\mathcal{A}$ controls up to $f < n/3$ RPKI-enabled nodes with bounded computation and adaptive corruption subject to $\Delta_{corrupt} > T_{window}$.
+
+\subsection{Sybil Attack Prevention}
+
+Unlike permissionless blockchains vulnerable to Sybil attacks, BGP-Sentry eliminates this attack vector through mandatory RPKI verification during onboarding:
+
+\begin{theorem}[Sybil Resistance]
+The probability of a non-RPKI entity successfully joining the consensus network is negligible in the security parameter $\lambda$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Onboarding requires presenting a valid RPKI certificate chain rooted at an RIR trust anchor and demonstrating control of the associated ROA private key. An adversary without legitimate AS ownership must either: (1) forge an RPKI certificate, which requires breaking the underlying cryptographic primitives (negligible probability under standard assumptions), or (2) compromise an RIR (excluded from threat model). Therefore, $Pr[\text{Sybil success}] \leq negl(\lambda)$.
+\end{proof}
+
+\subsection{Safety Property}
+
+Safety ensures that honest nodes never finalize conflicting transactions for the same BGP event.
+
+\begin{theorem}[Consensus Safety]
+If two honest nodes finalize transactions $tx$ and $tx'$ for the same BGP event $(prefix, AS, timestamp\_window)$, then $tx = tx'$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Transaction creation rights are determined by the deterministic hash function $H(prefix \| AS \| timestamp\_window)$, where the node with the lowest hash value becomes the designated creator. For conflicting transactions to be finalized:
+\begin{enumerate}
+    \item Two different nodes must claim creator rights for the same event, requiring $H_1 = H_2$ (hash collision, negligible probability), or
+    \item A malicious creator must produce two different transactions, but finalization requires $\geq 2f+1$ signatures from distinct RPKI nodes. With $f < n/3$ corrupted nodes, at least one honest node must sign both conflicting transactions, which honest nodes refuse by protocol.
+\end{enumerate}
+Therefore, safety holds with overwhelming probability.
+\end{proof}
+
+\subsection{Liveness Property}
+
+Liveness ensures that valid BGP observations eventually get recorded on the blockchain.
+
+\begin{theorem}[Consensus Liveness]
+Under partial synchrony (messages delivered within bound $\Delta$ after GST), any BGP event observed by at least one honest RPKI node will be finalized within time $T_{finality} = T_{window} + R \cdot T_{block} + \Delta$.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Given an observed BGP event: (1) the designated creator is determined within $T_{window}$ by hash-based selection; (2) if the designated creator is honest, it initiates signature collection immediately; (3) if the designated creator is malicious and abstains, the next-lowest-hash honest node assumes creator responsibility after timeout $T_{timeout}$; (4) with $n - f > 2n/3$ honest nodes, sufficient signatures ($\geq 2f+1$) are always obtainable; (5) finality is achieved after $R$ block confirmations. The honest majority ensures progress cannot be indefinitely blocked.
+\end{proof}
+
+\subsection{Byzantine Fault Tolerance}
+
+BGP-Sentry tolerates up to $f < n/3$ Byzantine (arbitrarily malicious) RPKI nodes:
+
+\begin{equation}
+f_{max} = \left\lfloor \frac{n-1}{3} \right\rfloor
+\end{equation}
+
+This bound arises from the signature threshold requirement: transactions require $2f+1$ signatures for finalization, ensuring that even if all $f$ malicious nodes collude, they cannot finalize transactions without honest node participation. Conversely, $n - f \geq 2f + 1$ honest nodes can always achieve finalization without malicious cooperation.
+
+\subsection{Fork Prevention and Resolution}
+
+Secret forking is prevented through the public signature collection requirement:
+
+\begin{lemma}[Fork Detectability]
+Any attempt to create a secret fork requires obtaining $2f+1$ signatures without honest node awareness, which is impossible when $f < n/3$.
+\end{lemma}
+
+When transient forks occur due to network delays, resolution follows the \textit{heaviest signature chain} rule:
+\begin{equation}
+Chain_{canonical} = \arg\max_{c \in Forks} \sum_{b \in c} |Signatures(b)|
+\end{equation}
+
+Finality is achieved after $R$ confirmations, where $R$ is configurable based on desired security-latency tradeoffs. With $R = 6$ (default), the probability of a finalized block being reverted is bounded by $(f/n)^R < 0.0014$ even under worst-case adversarial conditions.
+
+\subsection{Incentive Compatibility Analysis}
+
+We demonstrate that honest behavior constitutes a Nash equilibrium under the BGP Coin mechanism through game-theoretic analysis.
+
+Let $U_H$ denote the expected utility of honest behavior and $U_D$ denote the expected utility of dishonest behavior for an RPKI observer:
+
+\begin{align}
+U_H &= C_{base} \cdot A_{max} \cdot P_{max} \cdot Q_{max} \cdot T \\
+U_D &= C_{base} \cdot A_{min} \cdot P_{min} \cdot Q_{min} \cdot T \nonumber\\
+    &\quad + G_{attack} - P_{detect} \cdot L_{penalty}
+\end{align}
+
+where:
+\begin{itemize}
+    \item $A_{max} = 1.5$, $A_{min} = 0.5$ (accuracy multiplier bounds)
+    \item $P_{max} = 1.2$, $P_{min} = 0.8$ (participation multiplier bounds)
+    \item $Q_{max} = 1.3$, $Q_{min} = 0.9$ (quality multiplier bounds)
+    \item $G_{attack}$ = potential gain from facilitating an attack
+    \item $P_{detect}$ = probability of detection through post-hoc analysis
+    \item $L_{penalty}$ = penalty for detected dishonesty (coin slashing + reputation loss)
+\end{itemize}
+
+\begin{theorem}[Incentive Compatibility]
+Honest behavior is a dominant strategy when:
+\begin{equation}
+\frac{U_H}{U_D} = \frac{2.34}{0.36 + \dfrac{G_{attack} - P_{detect} \!\times\! L_{penalty}}{C_{base} \times T}} > 1
+\end{equation}
+\end{theorem}
+
+With system parameters calibrated such that $P_{detect} \geq 0.85$ (achievable through blockchain audit trails and cross-observer validation) and $L_{penalty} \geq 3 \times G_{attack}$, the inequality holds for all rational adversaries. The resulting $6.5\times$ earning differential between honest and dishonest behavior, combined with the immutable audit trail enabling post-hoc detection, ensures that the expected utility of honest participation strictly dominates dishonest strategies.
+
+\subsection{Post-Hoc Analysis and Accountability}
+
+The blockchain's immutable record enables retrospective detection of dishonest behavior through:
+\begin{enumerate}
+    \item \textbf{Cross-validation audits:} Comparing an observer's reported assessments against other observers' records for the same BGP events
+    \item \textbf{Temporal consistency checks:} Detecting contradictory assessments from the same observer across time windows
+    \item \textbf{Ground truth reconciliation:} Correlating trust score assignments with subsequently confirmed attacks or legitimate behavior
+\end{enumerate}
+
+Detected dishonesty triggers automatic penalties: BGP Coin slashing (minimum 50\% of accumulated balance), accuracy multiplier reduction to $A_{min} = 0.5$ for subsequent 90 days, and public recording of the violation on the blockchain. This accountability mechanism ensures that even if dishonest behavior initially escapes real-time detection, the expected long-term cost exceeds any short-term gains.
+
+
+
+
+% ============================================
+% APPENDIX F: SYSTEM HYPERPARAMETERS
+% ============================================
+\section{System Hyperparameters}
+\label{app:hyperparameters}
+
+All 45 system hyperparameters are externalized in a single \texttt{.env} configuration file and loaded at startup, allowing operators to tune behavior without modifying source code. Table~\ref{tab:hyperparameters} lists the key parameters, their default values, and their effect on system behavior.
+
+\begin{table}[t]
+\centering
+\caption{Key System Hyperparameters}
+\label{tab:hyperparameters}
+\resizebox{\columnwidth}{!}{%
+\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Parameter} & \textbf{Default} & \textbf{Effect} \\
+\midrule
+\texttt{CONSENSUS\_MIN/CAP}    & 3\,/\,5 & PoP threshold bounds \\
+\texttt{P2P\_REGULAR\_TIMEOUT}  & 30\,s   & Signature collection window \\
+\texttt{P2P\_ATTACK\_TIMEOUT}   & 60\,s   & Extended window for attacks \\
+\texttt{FLAP\_THRESHOLD}        & 5       & Flapping sensitivity \\
+\texttt{RPKI\_DEDUP\_WINDOW}    & 3600\,s & RPKI sampling interval \\
+\texttt{KNOWLEDGE\_WINDOW}      & 480\,s  & Observation memory per node \\
+\texttt{PENDING\_VOTES\_MAX}    & 5000    & Buffer capacity (votes) \\
+\texttt{LAST\_SEEN\_CACHE\_MAX} & 100K    & Buffer capacity (dedup cache) \\
+\texttt{RATING\_INITIAL\_SCORE} & 50      & Starting trust (Neutral) \\
+\texttt{BGPCOIN\_TOTAL\_SUPPLY} & 10M     & Token economy supply \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ============================================
+% APPENDIX D: END-TO-END FUNCTIONALITY VERIFICATION
+% ============================================
+\section{End-to-End Functionality Verification}
+\label{app:functionality_testing}
+
+To validate that BGP-Sentry correctly captures and records every BGP announcement on the blockchain, we perform four verification checks across all CAIDA-derived topologies.
+
+\textbf{Data Completeness.} The total number of BGP observations produced by the simulation matches the number of blockchain transactions created. Across all scales, 100\% of observations were ingested: 7,069 at 100 ASes, 15,038 at 200, 38,499 at 500, and 80,665 at 1{,}000. No observation was dropped at any pipeline stage.
+
+\textbf{Data Correctness.} All eight metadata fields per transaction (observer AS, sender AS, prefix, AS-path, RPKI validation result, attack classification, timestamp, digital signature) match ground-truth values. Zero data corruption or misattribution errors were found.
+
+\textbf{Blockchain Integrity.} SHA-256 hash chain recomputation and Merkle root verification passed for 100\% of blocks across all runs.
+
+\textbf{Consensus Correctness.} Every transaction's consensus status (CONFIRMED $\geq$3 signatures, INSUFFICIENT\_CONSENSUS 1--2, SINGLE\_WITNESS 0) accurately reflects the collected validator signatures. No misclassification was found.
+
+% ============================================
+% APPENDIX E: OBSERVER COVERAGE SCENARIOS
+% ============================================
+\section{Observer Coverage Scenarios}
+\label{app:observer_scenarios}
+
+Figure~\ref{fig:observer_scenarios} illustrates four observer coverage scenarios and their impact on trust assessment confidence. The number of RPKI observers adjacent to a non-RPKI AS directly determines both the consensus depth achievable and the confidence of the resulting trust score ($C_{confidence} = 1 - 1/\sqrt{N_{observers} + 1}$, Section~\ref{sec:architecture}). In our CAIDA-derived datasets, scenario~(a) does not occur: every non-RPKI AS has at least one RPKI neighbor. The majority of ASes (67--85\%) fall under scenario~(b), where a single observer records all behavior but with high uncertainty ($\sigma{=}\pm 20$ points). Scenarios~(c) and~(d) provide cross-validated evidence and enable PoP consensus, respectively, yielding progressively tighter confidence bounds. This distribution implies that most trust scores will carry single-observer uncertainty at current RPKI deployment levels; as adoption increases, a larger fraction of ASes will benefit from multi-observer consensus.
+
+
+
+
+
+\section{Post-Hoc Forensic Analysis Results}
+\label{app:posthoc_results}
+
+This appendix presents preliminary results from four post-hoc forensic analyses (Section~\ref{subsec:posthoc_building_blocks}) applied to blockchain records from completed experiments. Table~\ref{tab:posthoc_results} summarizes findings across two CAIDA-derived topologies.
+
+ 
+
+\textbf{Cross-observer route stability.} At 200~ASes, the analysis filtered 27 single-observer flapping flags as localized convergence artifacts, all of which were confirmed false positives against ground truth. The remaining 109 multi-observer flags included both true flapping attacks and legitimate-prefix false positives visible to multiple observers due to network-wide path exploration.
+
+\textbf{Coordinated attack detection.} The analysis identified 23 temporal clusters at 200~ASes where multiple distinct attacker ASes launched attacks within a 30-second window. The largest cluster involved 5~ASes with 652 attack observations, information invisible to the per-event reactive pipeline.
+
+\textbf{Observer integrity.} Fourteen observers at 200~ASes exhibited false-positive rates exceeding 2$\sigma$ above the population mean. All outliers were attributable to the route flapping detector, consistent with the known precision limitations discussed in Section~\ref{sec:discussion}. No evidence of systematic observer bias or dishonesty was found.
+
+\textbf{Behavioral pattern detection.} At 200~ASes, AS545 was flagged for potential trust score gaming: its attack timeline exhibited 3+ distinct phases separated by clean periods. At 50~ASes, no gaming patterns were detected due to the simpler topology and fewer attackers.

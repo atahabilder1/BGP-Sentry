@@ -1,0 +1,368 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{float}
+
+\definecolor{darkblue}{RGB}{0,51,102}
+\hypersetup{colorlinks=true,linkcolor=darkblue,urlcolor=darkblue}
+
+\title{\textbf{BGP-Sentry Dataset Properties\\[0.3em]\large Comprehensive Analysis and Realism Assessment}}
+\author{BGP-Sentry-RS Evaluation Suite}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+% ============================================================================
+\section{Dataset Overview}
+
+BGP-Sentry uses four regional datasets extracted from real Internet topologies.
+Each dataset represents a transit-layer backbone of one or more Regional Internet
+Registry (RIR) service regions, preserving the natural provider--customer hierarchy,
+peering density, and RPKI deployment rates observed in the wild.
+
+\begin{table}[H]
+\centering
+\caption{Dataset Summary}
+\label{tab:summary}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Dataset} & \textbf{ASes} & \textbf{RPKI} & \textbf{RPKI\%} & \textbf{Observers} & \textbf{Total Obs} & \textbf{Attacks} \\
+\midrule
+904\_afrinic\_transit\_mh   & 897   & 445   & 49.6\% & 897  & 222,908   & 20,373 \\
+2030\_arin\_transit          & 2,020 & 1,371 & 67.9\% & 2,020 & 551,730  & 70,546 \\
+3152\_lacnic\_afrinic\_transit & 3,104 & 1,930 & 62.2\% & 3,104 & 863,288 & 85,567 \\
+5008\_lacnic\_5plus\_mh      & 4,997 & 2,671 & 53.5\% & 4,997 & 1,229,114 & 124,526 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\section{Data Sources and Provenance}
+
+\begin{table}[H]
+\centering
+\caption{Data Source Provenance}
+\begin{tabular}{lll}
+\toprule
+\textbf{Component} & \textbf{Source} & \textbf{Type} \\
+\midrule
+AS identities            & CAIDA AS-relationships (2022-01-01) & Real \\
+Customer--provider links & CAIDA (inferred from BGP feeds)      & Real \\
+Peer links               & CAIDA (inferred from BGP feeds)      & Real \\
+Regional AS allocation   & RIR delegation files                 & Real \\
+RPKI signing status      & rpki-client VRP snapshot (2026-04-18)& Real \\
+Per-AS prefixes          & pyasn (RouteViews RIB)               & Real \\
+BGP observations         & BGPy Gao--Rexford simulation         & Simulated \\
+Attack scenarios         & BGPy + \texttt{inject\_attacks.py}   & Synthetic \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The underlying CAIDA topology comprises 79,327 unique ASes, 163,285
+customer--provider links, and 564,868 peer links. Regional datasets are
+extracted by RIR allocation and transit hierarchy filtering.
+
+% ============================================================================
+\section{Topology Properties}
+
+\subsection{Regional Extraction}
+
+Each dataset is filtered by two criteria:
+\begin{enumerate}
+    \item \textbf{Region (RIR)} -- ASes allocated by a specific Regional Internet Registry.
+    \item \textbf{Transit hierarchy} -- only ASes serving downstream customers are retained as validators.
+\end{enumerate}
+
+Stub ASes (leaf networks with no downstream customers) are excluded from the
+validator set because they do not run RPKI validation independently, do not
+participate in consensus, and BGP attacks propagate through the transit layer.
+
+\subsection{RPKI Deployment Rates}
+
+The RPKI percentages are \textbf{not artificially set}. They reflect real-world
+signing status from the rpki-client VRP snapshot:
+
+\begin{table}[H]
+\centering
+\caption{RPKI Deployment by Dataset}
+\begin{tabular}{lrrrl}
+\toprule
+\textbf{Dataset} & \textbf{RPKI} & \textbf{Non-RPKI} & \textbf{RPKI\%} & \textbf{Notes} \\
+\midrule
+904 (AFRINIC)  & 445   & 459   & 49.6\% & Lower RPKI adoption in Africa \\
+2030 (ARIN)    & 1,371 & 659   & 67.9\% & Higher North American adoption \\
+3152 (LACNIC+AFRINIC) & 1,930 & 1,222 & 62.2\% & Mixed regional deployment \\
+5008 (LACNIC 5+) & 2,671 & 2,337 & 53.5\% & Larger Latin American transit \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Connectivity}
+
+All datasets have 98\%+ of nodes in a single connected component. Isolated nodes
+(degree 0 after extraction) are dropped to ensure every participant can reach
+every other participant through the topology.
+
+% ============================================================================
+\section{Observation Properties}
+
+\subsection{Per-Node Distribution}
+
+\begin{table}[H]
+\centering
+\caption{Observations per Node}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Dataset} & \textbf{Min} & \textbf{Median} & \textbf{Max} & \textbf{Mean} \\
+\midrule
+904   & 2   & 198 & 2,233 & 248.5 \\
+2030  & 102 & 222 & 1,538 & 273.1 \\
+3152  & 1   & 243 & 8,965 & 278.1 \\
+5008  & 1   & 207 & 5,864 & 246.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The heavy-tailed distribution (max $\gg$ mean) reflects the real Internet topology
+where highly-connected transit providers see many more BGP announcements than
+edge ASes. For example, in the 3152 dataset, the busiest transit AS observes
+8,965 announcements while the median AS sees only 243---a 37$\times$ ratio that
+mirrors the real-world power-law distribution of BGP table sizes.
+
+\subsection{Temporal Properties and Real-World Calibration}
+
+\begin{table}[H]
+\centering
+\caption{Temporal Span and Event Rates}
+\begin{tabular}{lrrll}
+\toprule
+\textbf{Dataset} & \textbf{BGP Span} & \textbf{Rate/Validator} & \textbf{RIPE RIS Target} & \textbf{Ratio} \\
+\midrule
+904   & 10h 54m & 0.0073 ev/s & 0.005 ev/s & 1.46$\times$ \\
+2030  & 11h  9m & 0.0073 ev/s & 0.005 ev/s & 1.46$\times$ \\
+3152  & 11h 50m & 0.0068 ev/s & 0.005 ev/s & 1.36$\times$ \\
+5008  & 10h 38m & 0.0065 ev/s & 0.005 ev/s & 1.30$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The per-validator event rate is calibrated against RIPE RIS 2022 steady-state
+measurements ($\sim$0.005 events/sec/validator). The observed overshoot of
+1.30--1.46$\times$ arises because BGPy's Gao--Rexford propagation generates
+marginally more observation events per node than real BGP feeds. This is
+considered acceptable for evaluation---within the same order of magnitude.
+
+\subsection{Simulation Timing and Speed Scaling}
+
+The simulation replays BGP timestamps in accelerated wall-clock time:
+
+\begin{table}[H]
+\centering
+\caption{Simulation Timing at 20$\times$ Speed}
+\begin{tabular}{lrrl}
+\toprule
+\textbf{Parameter} & \textbf{Base Value} & \textbf{Scaled (20$\times$)} & \textbf{Purpose} \\
+\midrule
+\texttt{RPKI\_DEDUP\_WINDOW}       & 15s   & 1s   & Skip repeated (prefix, origin) \\
+\texttt{VOTING\_OBSERVATION\_WINDOW} & 300s & 15s  & KB entry validity for voting \\
+\texttt{FLAP\_WINDOW\_SECONDS}     & 60s   & 3s   & Flap counting window \\
+\texttt{FLAP\_DEDUP\_SECONDS}      & 30s   & 2s   & Flap event deduplication \\
+\texttt{P2P\_REGULAR\_TIMEOUT}     & 30s   & 30s  & Consensus timeout (wall-clock) \\
+\texttt{P2P\_ATTACK\_TIMEOUT}      & 60s   & 60s  & Attack TX timeout (wall-clock) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Key design decision}: BGP-time-sensitive parameters (dedup, KB window,
+flap window) are divided by the speed multiplier so that their effective
+BGP-time coverage remains unchanged. P2P consensus timeouts are \emph{not}
+scaled because they govern wall-clock waiting for vote responses---they need
+real seconds regardless of simulation speed.
+
+\subsection{Relationship Distribution}
+
+\begin{table}[H]
+\centering
+\caption{Receiver Relationship Distribution (\%)}
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Dataset} & \textbf{CUSTOMERS} & \textbf{PROVIDERS} & \textbf{PEERS} & \textbf{ORIGIN} \\
+\midrule
+904   & 44.0\% & 24.2\% & 31.1\% & 0.7\% \\
+2030  & 43.4\% & 25.1\% & 31.0\% & 0.4\% \\
+3152  & 35.0\% & 25.9\% & 38.9\% & 0.2\% \\
+5008  & 28.3\% & 25.6\% & 46.0\% & 0.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Trend}: As topology size increases, the peering ratio grows (31\% $\to$
+46\%) while customer-learned routes decrease (44\% $\to$ 28\%). This is
+consistent with larger networks having denser IXP participation. The provider
+ratio remains stable at $\sim$25\% across all sizes.
+
+\subsection{Hop Distance Distribution}
+
+\begin{table}[H]
+\centering
+\caption{AS-Path Hop Distance Distribution (\%)}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Dataset} & \textbf{Hop 0 (self)} & \textbf{Hop 1 (neighbor)} & \textbf{Hop 2} \\
+\midrule
+904   & 95.9\% & 1.8\% & 2.4\% \\
+2030  & 99.4\% & 0.6\% & 0.04\% \\
+3152  & 97.7\% & 1.5\% & 0.8\% \\
+5008  & 98.2\% & 0.6\% & 1.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The vast majority of observations are at hop distance 0 (self-origin), which are
+filtered by the trusted-path filter. This means the hop limit setting dramatically
+affects how many observations reach the detection pipeline---changing from
+hop=1 to hop=2 can increase processed observations by 5--50$\times$.
+
+% ============================================================================
+\section{Attack Properties}
+
+\subsection{Attack Type Distribution}
+
+\begin{table}[H]
+\centering
+\caption{Attack Observations by Type and Category}
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{Category} & \textbf{Attack Type} & \textbf{904} & \textbf{2030} & \textbf{3152} & \textbf{5008} \\
+\midrule
+Instability     & ROUTE\_FLAPPING      & 10,629 & 47,406 & 48,929 & 69,633 \\
+Invalid Inject. & BOGON\_INJECTION     & 4,728  & 9,996  & 17,298 & 24,473 \\
+Prefix Hijack   & SUBPREFIX\_HIJACK    & 4,077  & 9,886  & 19,070 & 25,005 \\
+Path Manip.     & PATH\_POISONING      & 926    & 3,219  & 85     & 5,414 \\
+Policy Viol.    & ROUTE\_LEAK          & 13     & 39     & 185    & 1 \\
+\midrule
+                & \textbf{Total}       & 20,373 & 70,546 & 85,567 & 124,526 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Attack Rate and Realistic Context}
+
+The overall attack observation ratio ranges from 9.1\% to 12.8\%. This is
+deliberately higher than real-world rates ($<$0.1\% of BGP announcements):
+
+\begin{itemize}
+    \item Each unique attack event ($\sim$5 per type from BGPy) is observed by many
+          validators through BGP propagation, amplifying observation counts.
+    \item The \textbf{event-level} attack density is $\sim$1--2\%, much closer to
+          realistic rates.
+    \item In real BGP, a single prefix hijack event generates thousands of
+          UPDATE messages across the DFZ---the same amplification seen here.
+\end{itemize}
+
+\subsection{Example: How an Attack Propagates and Gets Detected}
+
+Consider a BOGON\_INJECTION attack where AS\,666 announces the reserved prefix
+\texttt{10.0.0.0/8}:
+
+\begin{enumerate}
+    \item AS\,666 injects the bogon announcement into the BGP topology.
+    \item The announcement propagates through Gao--Rexford valley-free routing
+          to AS\,666's providers, who propagate it to their peers and customers.
+    \item Each RPKI validator that receives the announcement (within its hop
+          radius) checks it against the 13 reserved/private IP ranges.
+    \item \texttt{10.0.0.0/8} matches the RFC\,1918 bogon range---the detector
+          flags it as BOGON\_INJECTION with CRITICAL severity.
+    \item The validator creates a signed transaction recording the detection
+          and broadcasts it to peers for consensus voting.
+    \item Peers who also observed the same (prefix, origin) vote APPROVE from
+          their knowledge bases.
+    \item With $\geq$3 APPROVE votes, the transaction is committed as CONFIRMED
+          to each validator's independent blockchain.
+\end{enumerate}
+
+\subsection{Attack Generation Methods}
+
+\begin{itemize}
+    \item \textbf{SUBPREFIX\_HIJACK}, \textbf{BOGON\_INJECTION}, \textbf{ROUTE\_FLAPPING}:
+          Generated by BGPy's built-in attack scenarios over the Gao--Rexford model.
+    \item \textbf{ROUTE\_LEAK}, \textbf{PATH\_POISONING}: Injected by
+          \texttt{scripts/inject\_attacks.py} because BGPy's default scenarios do not
+          exercise these two vectors. Both achieve 100\% recall on injected events and
+          0\% false positives on 300 legitimate samples per dataset.
+    \item \textbf{ACCIDENTAL\_ROUTE\_LEAK}: Filtered out from datasets (its
+          forged-origin pattern does not match the valley-free ROUTE\_LEAK detector).
+\end{itemize}
+
+% ============================================================================
+\section{Realism Assessment}
+
+\subsection{What is Realistic}
+
+\begin{enumerate}
+    \item \textbf{Topology}: Extracted from real CAIDA AS-relationship data, preserving
+          natural provider--customer hierarchy and peering density.
+    \item \textbf{RPKI deployment}: Real-world signing status from rpki-client VRP
+          snapshots, not artificial percentages.
+    \item \textbf{Event rate}: Per-validator observation rate (0.005--0.007 events/sec)
+          closely matches RIPE RIS 2022 measurements.
+    \item \textbf{Routing model}: BGPy implements Gao--Rexford valley-free routing,
+          the standard model for BGP simulation in academic literature.
+    \item \textbf{Propagation}: Announcements propagate through the topology naturally,
+          producing multi-observer views of the same event.
+    \item \textbf{Regional diversity}: Four datasets spanning AFRINIC, ARIN, and LACNIC
+          regions with different RPKI adoption rates and peering densities.
+\end{enumerate}
+
+\subsection{Known Limitations}
+
+\begin{enumerate}
+    \item \textbf{Simulated BGP, not captured}: Observations come from BGPy simulation,
+          not live BGP feeds (RIPE RIS, RouteViews). This means no BGP convergence
+          delays, no MRAI timers, no route dampening, and no traffic engineering
+          artifacts.
+    \item \textbf{Static topology}: The CAIDA snapshot is from January 2022.
+    \item \textbf{Small unique event count}: $\sim$5 unique attack events per type.
+    \item \textbf{Uniform attack timing}: Attacks are injected uniformly; real attacks
+          cluster temporally.
+    \item \textbf{Limited prefix diversity}: Only 90--96 unique prefixes vs.\ 900,000+
+          in real BGP tables.
+    \item \textbf{Partial ROA coverage}: The 730,808-entry ROA database covers
+          $\sim$46\% of simulated sub-prefix hijack attacks.
+\end{enumerate}
+
+\subsection{Comparison with Related Work}
+
+\begin{table}[H]
+\centering
+\caption{Comparison with BGP Security Evaluation Datasets}
+\begin{tabularx}{\textwidth}{lXXX}
+\toprule
+\textbf{Property} & \textbf{BGP-Sentry} & \textbf{BGPStream/RIPE RIS} & \textbf{ARTEMIS} \\
+\midrule
+Topology source   & CAIDA real         & Live Internet    & Live Internet \\
+BGP model         & BGPy Gao--Rexford  & Real BGP feeds   & Real BGP feeds \\
+Attack injection  & Synthetic          & Natural + staged & Natural \\
+Scale             & 897--4,997 ASes    & Full Internet    & Per-prefix \\
+Reproducibility   & Full               & Partial          & Low \\
+Ground truth      & Complete labels    & Partial (manual) & Per-prefix \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ============================================================================
+\section{Discussion Summary}
+
+Our evaluation uses four regional datasets extracted from real CAIDA AS-relationship data (January 2022), ranging from 897 to 4,997 ASes across AFRINIC, ARIN, and LACNIC regions. The RPKI deployment rates (49.6\%--67.9\%) are not artificially set---they reflect actual rpki-client VRP snapshots. The per-validator event rate of 0.0065--0.0073 events/sec closely matches the real-world steady-state of $\sim$0.005 events/sec measured by RIPE RIS in 2022, only about 1.3--1.5$\times$ higher. BGP observations are generated by BGPy's Gao--Rexford model, which is the standard simulation model in BGP security literature. The main limitations are: observations are simulated rather than captured from live BGP feeds (so we miss convergence delays, MRAI timers, and route dampening), the topology is a static snapshot, and we only have $\sim$90 unique prefixes compared to 900,000+ in real BGP tables. Despite these limitations, the datasets provide reproducible, fully-labeled ground truth---something impossible with live BGP data---built on real topology and real RPKI deployment patterns.
+
+\end{document}

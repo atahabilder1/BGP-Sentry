@@ -1,0 +1,101 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: IEEEtran.bst
+I couldn't open database file references.bib
+---line 163 of file main.aux
+ : \bibdata{references
+ :                    }
+I'm skipping whatever remains of this command
+I found no database files---while reading file main.aux
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Warning--I didn't find a database entry for "rfc4271"
+Warning--I didn't find a database entry for "DuIRATSc23"
+Warning--I didn't find a database entry for "MahajanWA02"
+Warning--I didn't find a database entry for "KangLRKC24IRRedicator"
+Warning--I didn't find a database entry for "BirgeLeeAR25"
+Warning--I didn't find a database entry for "prefixHijacking"
+Warning--I didn't find a database entry for "McDanielSS21BGPLeak"
+Warning--I didn't find a database entry for "butler2009survey"
+Warning--I didn't find a database entry for "RPKI"
+Warning--I didn't find a database entry for "HlavacekSVW23BGPAdopt"
+Warning--I didn't find a database entry for "stoger2025vortex"
+Warning--I didn't find a database entry for "mirdita2025sok"
+Warning--I didn't find a database entry for "saad2022routechain"
+Warning--I didn't find a database entry for "chen2020isrchain"
+Warning--I didn't find a database entry for "lougheed1990rfc1163"
+Warning--I didn't find a database entry for "rfc8205BGPSec"
+Warning--I didn't find a database entry for "rfc6482"
+Warning--I didn't find a database entry for "rfc6810RTR"
+Warning--I didn't find a database entry for "nro2026rpki"
+Warning--I didn't find a database entry for "testart2020filter"
+Warning--I didn't find a database entry for "qin2024understanding"
+Warning--I didn't find a database entry for "hoger2025xbgpsec"
+Warning--I didn't find a database entry for "ni2025address"
+Warning--I didn't find a database entry for "li2025improv"
+Warning--I didn't find a database entry for "chen2025right"
+Warning--I didn't find a database entry for "caida-dataset"
+Warning--I didn't find a database entry for "luckie2013relationships"
+Warning--I didn't find a database entry for "rpki-client"
+Warning--I didn't find a database entry for "lamport2019byzantine"
+Warning--I didn't find a database entry for "mao2003bgp"
+Warning--I didn't find a database entry for "nakamoto2008bitcoin"
+Warning--I didn't find a database entry for "furuness2024bgpy"
+Warning--I didn't find a database entry for "li2023rovista"
+Warning--I didn't find a database entry for "rfc2439"
+Warning--I didn't find a database entry for "bgpsec"
+Warning--I didn't find a database entry for "furuness2025aspa"
+Warning--I didn't find a database entry for "schulmann2025lov"
+Warning--I didn't find a database entry for "chen2024beam"
+Warning--I didn't find a database entry for "lychev2013bgpsec"
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 0 entries,
+            4087 wiz_defined-function locations,
+            870 strings with 7972 characters,
+and the built_in function-call counts, 104 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 19
+:= -- 27
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 3
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 23
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 22
+(There were 2 error messages)

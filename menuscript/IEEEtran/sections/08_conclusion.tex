@@ -1,0 +1,10 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+This work introduces BGP-Sentry, a BGP security framework that addresses vulnerabilities in Internet routing infrastructure through behavioral trust assessment and observer incentive mechanisms. Our approach tackles security challenges posed by the majority of Internet routing operating without RPKI validation, demonstrating that behavioral analysis combined with reputation-based accountability significantly enhances routing security.
+
+Evaluation across CAIDA-derived topologies (100--12{,}881 ASes) demonstrates 100\% recall at scales $\geq$200 ASes across all four attack types, with verified blockchain integrity and zero data loss. Trust scores correctly reflected AS behavior, and the BGPCOIN economy distributed rewards proportionally to participation.
+
+The system's compatibility with existing infrastructure enables incremental deployment without coordinated Internet-wide upgrades, addressing barriers that hindered previous BGP security enhancements. However, the trust scoring model requires balancing fairness for smaller operators with sufficient deterrent effects against persistent malicious actors. Trust assumptions regarding RPKI observer honesty may require additional verification mechanisms for global deployment.
+
+BGP-Sentry extends binary RPKI validation to graduated trust assessment, enabling reputation-based consequences for routing misbehavior. The Operational Attestation Level provides a longitudinal measure of routing integrity that moves beyond binary RPKI validation, capturing sustained behavioral patterns rather than isolated events. By combining observer incentives with long-term behavioral accountability within a closed-loop enforcement framework, the system offers a practical pathway toward more secure Internet routing infrastructure.

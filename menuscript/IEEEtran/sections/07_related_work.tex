@@ -1,0 +1,55 @@
+\section{Related Work}
+\label{sec:relatedWork}
+
+\subsection{Registry-Based and Cryptographic Validation Mechanisms}
+
+Early BGP security efforts established validation through registry systems and cryptographic authentication. Internet Routing Registries (IRR), deployed since 1995, provide decentralized databases where network operators publish route and policy information, including which AS is authorized to originate specific IP prefixes~\cite{DuIRATSc23}. However, IRR systems suffer from fundamental weaknesses: they allow self-declared entries, lack cryptographic validation, and often contain outdated or incorrect data due to insufficient maintenance incentives.
+
+The Resource Public Key Infrastructure (RPKI), standardized in 2012, addresses IRR's limitations by providing cryptographically verifiable proof of prefix ownership through certificates and Route Origin Authorizations (ROAs)~\cite{RPKI}. RPKI serves as a cryptographic trust anchor that can validate and improve IRR data hygiene, though the reverse is not possible—IRR cannot validate RPKI due to its lack of cryptographic foundations. BGPsec extends RPKI by providing AS-PATH validation through cryptographic signatures~\cite{bgpsec}, while AS Provider Authorization (ASPA) represents the latest IETF effort to cryptographically verify provider-customer relationships~\cite{furuness2025aspa}.
+
+While RPKI has achieved coverage of approximately 60\% of announced IPv4 prefixes with enforcement by 27\% of ASes~\cite{KangLRKC24IRRedicator}, both systems operate independently during this transitional period. IRR remains widely used for route filtering and policy expression, especially by IXPs and ISPs, while RPKI serves as ground truth for validating routing decisions. However, both systems provide binary validation decisions (valid/invalid) that cannot assess trustworthiness of non-participating ASes or distinguish between different threat levels. Furthermore, recent work shows that even post-ROV defenses such as ASPA, while effective against route leaks, leave significant attack surfaces unaddressed~\cite{furuness2025aspa}, and novel attacks like BGP Vortex can exploit update-message floods to create route oscillations that bypass both RPKI and BGPsec protections~\cite{stoger2025vortex}.
+
+\subsection{Multi-Source Validation and Machine Learning Approaches}
+
+Recognizing that neither IRR nor RPKI alone ensures complete origin validation, researchers have explored hybrid techniques and machine learning to enhance coverage and reliability. IRRedicator~\cite{KangLRKC24IRRedicator} exemplifies this trend by using RPKI-valid BGP data to identify stale IRR route objects. Through machine learning analysis of announcement patterns, it achieves 93\% accuracy and reduces potentially outdated IRR entries from 72\% to 37\%, showing how RPKI can serve as a trustworthy baseline to refine IRR data during its ongoing use.
+
+Other hybrid approaches combine RPKI validation with IRR filtering to broaden protection, leveraging IRR's extensive coverage while benefiting from RPKI's cryptographic assurance. In parallel, systems like LOV (Learning Origin Validation)~\cite{schulmann2025lov} integrate multiple sources—RPKI, global BGP visibility, and machine learning classifiers—to distinguish malicious hijacks from benign misconfigurations. By maintaining a global whitelist, LOV reduces false positives and enables flexible routing policy decisions without sacrificing security.
+
+Machine learning has also been applied more generally to detect anomalous routing behaviors~\cite{chen2024beam}, offering a way to flag suspicious announcements based on historical patterns. However, such systems often operate without cryptographic context, focusing on detection rather than prevention, and they typically lack mechanisms for graduated trust assessment or reputation rehabilitation. Despite these limitations, multi-source and ML-enhanced methods represent an important direction for improving routing security beyond traditional single-source validation.
+
+\subsection{Distributed Ledger Technologies and Immutable Audit Systems}
+
+The recognition that routing security requires historical context and behavioral memory has led to blockchain-based approaches. RouteChain~\cite{saad2022routechain} pioneered blockchain application to BGP security, creating tamper-proof logs of routing events through a bi-hierarchical model grouping ASes by geographical proximity. ISRchain~\cite{chen2020isrchain} extends this idea by proposing a blockchain-based framework that secures interdomain routing using a tamper-proof ledger to record IP prefix and ASN ownership. It leverages smart contracts to validate route origin authorization, AS adjacency, and policy compliance, aiming to address both origin and path-level validation.
+
+While blockchain systems address limitations of both IRR and RPKI through persistent behavioral records, existing approaches—including RouteChain and ISRchain—focus primarily on passive logging and post-hoc validation. RouteChain~\cite{saad2022routechain} introduces consensus via geographical AS clustering, but this design misaligns with actual BGP peering relationships and omits RPKI integration. Its reliance on geographical grouping requires a fundamental redesign of current interdomain routing workflows, limiting practical deployment. As a result, RouteChain offers transparency and auditability but lacks real-time threat mitigation, trust scoring, or reputation-based consequences for misbehavior.
+
+Beyond technical limitations, blockchain-based solutions face significant integration and deployment challenges. Their designs often diverge from real-world BGP operations, requiring workflow changes that operators are unlikely to adopt, mirroring the universal adoption barriers faced by BGPsec~\cite{lychev2013bgpsec}. These systems demonstrate blockchain's potential for routing security but fall short of enabling active attack prevention or influencing operator behavior during the ongoing IRR-to-RPKI transition period.
+
+\subsection{Behavioral Trust Assessment and Incentive Integration}
+
+Table~\ref{tab:related_comparison} summarizes the key differentiating capabilities across representative approaches from each paradigm. BGP-Sentry is the only system that combines non-RPKI coverage, graduated trust scoring, observer incentives, and forensic auditability within a single framework.
+
+\begin{table}[t]
+\centering
+\caption{Comparison of BGP Security Approaches}
+\label{tab:related_comparison}
+\resizebox{\columnwidth}{!}{%
+\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Capability} & \textbf{RPKI} & \textbf{BGPsec} & \textbf{ASPA} & \textbf{Route-} & \textbf{BGP-} \\
+                     & \textbf{+ROV} &                 &               & \textbf{Chain}  & \textbf{Sentry} \\
+\midrule
+Non-RPKI AS coverage         & \xmark & \xmark & \xmark & \cmark & \cmark \\
+Graduated trust scoring      & \xmark & \xmark & \xmark & \xmark & \cmark \\
+Behavioral memory            & \xmark & \xmark & \xmark & \cmark & \cmark \\
+Reputation consequences      & \xmark & \xmark & \xmark & \xmark & \cmark \\
+Observer incentives          & \xmark & \xmark & \xmark & \xmark & \cmark \\
+RPKI-based onboarding        & \cmark & \cmark & \cmark & \xmark & \cmark \\
+Unilateral deployment        & \xmark & \xmark & \xmark & \xmark & \cmark \\
+Forensic audit trail         & \xmark & \xmark & \xmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+By combining observer incentives with reputation-based consequences, BGP-Sentry addresses the fundamental asymmetry where attacks historically carry no reputational cost while monitoring requires sustained effort without compensation.

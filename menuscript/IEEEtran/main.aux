@@ -1,0 +1,225 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\bibstyle{IEEEtran}
+\citation{rfc4271}
+\citation{DuIRATSc23}
+\citation{MahajanWA02,KangLRKC24IRRedicator,DuIRATSc23}
+\citation{BirgeLeeAR25}
+\citation{prefixHijacking}
+\citation{McDanielSS21BGPLeak}
+\citation{butler2009survey}
+\citation{rfc8205BGPSec}
+\citation{}
+\citation{RPKI}
+\citation{qin2024understanding}
+\citation{HlavacekSVW23BGPAdopt}
+\citation{stoger2025vortex,mirdita2025sok}
+\citation{saad2022routechain,chen2020isrchain}
+\citation{nro2026rpki}
+\citation{qin2024understanding}
+\citation{KangLRKC24IRRedicator}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:introduction}{{I}{1}{Introduction}{section.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces {\color  {blue}Distribution of RPKI adoption across IPv4 and IPv6 prefixes. The data highlights the fragmented nature of current BGP security, where the majority of the Internet lacks native cryptographic protection.}}}{1}{figure.1}\protected@file@percent }
+\newlabel{fig:IP_rov}{{1}{1}{\rj {Distribution of RPKI adoption across IPv4 and IPv6 prefixes. The data highlights the fragmented nature of current BGP security, where the majority of the Internet lacks native cryptographic protection.}}{figure.1}{}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {IPv4}}}{1}{figure.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {IPv6}}}{1}{figure.1}\protected@file@percent }
+\citation{saad2022routechain}
+\citation{chen2020isrchain}
+\citation{RPKI}
+\citation{lougheed1990rfc1163}
+\citation{prefixHijacking}
+\citation{rfc8205BGPSec}
+\citation{RPKI}
+\@writefile{toc}{\contentsline {section}{\numberline {II}Preliminary}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}BGP Vulnerabilities and RPKI Architecture}{2}{subsection.2.1}\protected@file@percent }
+\citation{rfc6482}
+\citation{rfc6810}
+\citation{nro2026rpki}
+\citation{nyang2018gruut}
+\citation{nyang2018gruut}
+\citation{saad2022routechain}
+\citation{chen2020isrchain}
+\citation{nyang2018gruut}
+\citation{caida-dataset}
+\citation{nro2026rpki}
+\citation{qin2024understanding}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Blockchain-based RPKI and Proof-of-Population}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Global RPKI adoption trends: growth of ROA-protected address space in IPv4 and IPv6 over the last 5 years.}}{3}{figure.2}\protected@file@percent }
+\newlabel{fig:RPKI_cov}{{2}{3}{Global RPKI adoption trends: growth of ROA-protected address space in IPv4 and IPv6 over the last 5 years}{figure.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Motivating BGP-Sentry}{3}{section.3}\protected@file@percent }
+\newlabel{sec:motivation}{{III}{3}{Motivating BGP-Sentry}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-A}}Analysis of Universal RPKI Deployment}{3}{subsection.3.1}\protected@file@percent }
+\citation{hoger2025xbgpsec,ni2025address,li2025improv,chen2025right}
+\citation{orange2024hack}
+\citation{caida-dataset}
+\citation{saad2022routechain,chen2020isrchain}
+\citation{saad2022routechain}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {III-B}}Challenges}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces CDF of non-RPKI ASes that have at least one RPKI-enabled neighbor within a given AS-level hops distance, across 79,327 ASes as of April 2026.}}{4}{figure.3}\protected@file@percent }
+\newlabel{fig:rpki_hop_coverage}{{3}{4}{CDF of non-RPKI ASes that have at least one RPKI-enabled neighbor within a given AS-level hops distance, across 79,327 ASes as of April 2026}{figure.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Asymmetric knowledge in BGP: In a conventional blockchain, all nodes receive a uniform global observation $O$, whereas in a BGP environment, consensus inputs are heterogeneous local observations $O_i$, with each node seeing a partial view of routing events. }}{4}{figure.4}\protected@file@percent }
+\newlabel{fig:asymmetric_knowledge}{{4}{4}{Asymmetric knowledge in BGP: In a conventional blockchain, all nodes receive a uniform global observation $O$, whereas in a BGP environment, consensus inputs are heterogeneous local observations $O_i$, with each node seeing a partial view of routing events}{figure.4}{}}
+\citation{lamport2019byzantine}
+\citation{prefixHijacking}
+\citation{mao2003bgp}
+\citation{butler2009survey}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}BGP-Sentry System Design}{5}{section.4}\protected@file@percent }
+\newlabel{sec:system_threat_model}{{IV}{5}{BGP-Sentry System Design}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}System Model}{5}{subsection.4.1}\protected@file@percent }
+\newlabel{subsec:system_model}{{\mbox  {IV-A}}{5}{System Model}{subsection.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Threat Model}{5}{subsection.4.2}\protected@file@percent }
+\newlabel{subsec:threat_model}{{\mbox  {IV-B}}{5}{Threat Model}{subsection.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Overview of BGP-Sentry}{5}{subsection.4.3}\protected@file@percent }
+\newlabel{subsec:defense_concept}{{\mbox  {IV-C}}{5}{Overview of BGP-Sentry}{subsection.4.3}{}}
+\citation{saad2022routechain}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Comparison of legacy RPKI-only validation (Left) with BGP-Sentry's unified observability (Right). While centralized RPKI leaves non-RPKI networks as unverified blind spots, BGP-Sentry employs a trust-expanded approach for universal visibility and trust-based ROA validation. }}{6}{figure.5}\protected@file@percent }
+\newlabel{fig:system-architecture}{{5}{6}{Comparison of legacy RPKI-only validation (Left) with BGP-Sentry's unified observability (Right). While centralized RPKI leaves non-RPKI networks as unverified blind spots, BGP-Sentry employs a trust-expanded approach for universal visibility and trust-based ROA validation}{figure.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Data Plane-aware Blockchain Design}{6}{section.5}\protected@file@percent }
+\newlabel{sec:architecture}{{V}{6}{Data Plane-aware Blockchain Design}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}{\color  {blue}Onboarding: Bridging RPKI and Ledger Trust}}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces RPKI-verified onboarding protocol (sequence diagram). The candidate AS submits its RPKI certificate chain (step~1). Validators verify the X.509 chain against RIR trust anchors (step~2), then challenge the candidate to prove ROA key ownership (steps 3--4). This cryptographic verification forms the Sybil barrier: without a legitimate RPKI certificate, no entity can pass steps 2--4. Upon successful verification, validators broadcast an admission request to the consortium (step~5), where members independently verify and vote (step~6). If the quorum threshold $\tau $ is met, a blockchain identity cryptographically bound to the candidate's RPKI resources is issued (step~7), and the node joins as a full consensus participant.}}{6}{figure.6}\protected@file@percent }
+\newlabel{fig:onboarding}{{6}{6}{RPKI-verified onboarding protocol (sequence diagram). The candidate AS submits its RPKI certificate chain (step~1). Validators verify the X.509 chain against RIR trust anchors (step~2), then challenge the candidate to prove ROA key ownership (steps 3--4). This cryptographic verification forms the Sybil barrier: without a legitimate RPKI certificate, no entity can pass steps 2--4. Upon successful verification, validators broadcast an admission request to the consortium (step~5), where members independently verify and vote (step~6). If the quorum threshold $\tau $ is met, a blockchain identity cryptographically bound to the candidate's RPKI resources is issued (step~7), and the node joins as a full consensus participant}{figure.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Observer coverage scenarios. (a)~No RPKI neighbor: no blockchain record (0\% in CAIDA data). (b)~Single observer: all behavior recorded, low confidence. (c)~Dual observers: cross-validated evidence, medium confidence. (d)~3+ observers: PoP consensus enables high-confidence verdicts and trust promotion. {\color  {teal}For this figure: maybe follow same covention as well, grey color for nodes that are not trusted. Ri nodes to be filled with green color. For part (a), the cross on R node conveys a different message at first glance, as if the R node has been ousted by the network. With color scale, I believe the idea could be clearer.} }}{6}{figure.7}\protected@file@percent }
+\newlabel{fig:observer_scenarios}{{7}{6}{Observer coverage scenarios. (a)~No RPKI neighbor: no blockchain record (0\% in CAIDA data). (b)~Single observer: all behavior recorded, low confidence. (c)~Dual observers: cross-validated evidence, medium confidence. (d)~3+ observers: PoP consensus enables high-confidence verdicts and trust promotion. \os {For this figure: maybe follow same covention as well, grey color for nodes that are not trusted. Ri nodes to be filled with green color. For part (a), the cross on R node conveys a different message at first glance, as if the R node has been ousted by the network. With color scale, I believe the idea could be clearer.}}{figure.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}{\color  {blue}Consensus: Data Plane-aware Proof of Population}}{6}{subsection.5.2}\protected@file@percent }
+\citation{nakamoto2008bitcoin}
+\citation{caida-dataset}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-B}1}Consensus Protocol Design}{7}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {\mbox  {V-B}2}Path-Aware Discovery}{7}{subsubsection.5.2.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Integrated Data Plane-Aware Consensus}}{7}{algocf.1}\protected@file@percent }
+\newlabel{alg:integrated_consensus}{{1}{7}{Consensus Protocol Design}{algocf.1}{}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Integrated Trust Scoring and Incentives}}{7}{algocf.2}\protected@file@percent }
+\newlabel{alg:integrated_scoring}{{2}{7}{Consensus Protocol Design}{algocf.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-C}}{\color  {blue}Trust Orchestration: Integrated Behavioral Incentives}}{8}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-D}}{\color  {blue}Audit Utility: Verification of Integrated Trust}}{8}{subsection.5.4}\protected@file@percent }
+\newlabel{subsec:posthoc_building_blocks}{{\mbox  {V-D}}{8}{\rj {Audit Utility: Verification of Integrated Trust}}{subsection.5.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VI}{\color  {blue}Implementation and Simulation}}{8}{section.6}\protected@file@percent }
+\citation{furuness2024bgpy}
+\citation{caida-dataset}
+\citation{routeviews}
+\citation{furuness2024bgpy}
+\citation{labovitz2001delayed}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Evaluation}{9}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-A}}Experimental Setup}{9}{subsection.7.1}\protected@file@percent }
+\newlabel{sec:dataset}{{\mbox  {VII-A}}{9}{Experimental Setup}{subsection.7.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Regional dataset statistics. The three smaller topologies contain only legitimate traffic (scalability evaluation); LACNIC additionally includes attacks (security evaluation).}}{9}{table.1}\protected@file@percent }
+\newlabel{tab:dataset_stats}{{I}{9}{Regional dataset statistics. The three smaller topologies contain only legitimate traffic (scalability evaluation); LACNIC additionally includes attacks (security evaluation)}{table.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Observation completeness. Every unique observation reaches the blockchain with zero loss.}}{9}{table.2}\protected@file@percent }
+\newlabel{tab:completeness}{{II}{9}{Observation completeness. Every unique observation reaches the blockchain with zero loss}{table.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-B}}Observation Completeness}{9}{subsection.7.2}\protected@file@percent }
+\newlabel{subsec:observation_completeness}{{\mbox  {VII-B}}{9}{Observation Completeness}{subsection.7.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-C}}Consensus Coverage and Distribution}{9}{subsection.7.3}\protected@file@percent }
+\newlabel{subsec:consensus_coverage}{{\mbox  {VII-C}}{9}{Consensus Coverage and Distribution}{subsection.7.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Consensus tier distribution (log scale). Confirmed ($\geq $3 validator signatures) dominates at 92--98\%, while Endorsed (1--2 signatures) and Observed (proposer only) remain below 5\%. Total unique transactions: 37.6K, 71.0K, 111.5K, and 63.9K.}}{10}{figure.8}\protected@file@percent }
+\newlabel{fig:consensus_dist}{{8}{10}{Consensus tier distribution (log scale). Confirmed ($\geq $3 validator signatures) dominates at 92--98\%, while Endorsed (1--2 signatures) and Observed (proposer only) remain below 5\%. Total unique transactions: 37.6K, 71.0K, 111.5K, and 63.9K}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-D}}Detection Effectiveness}{10}{subsection.7.4}\protected@file@percent }
+\newlabel{subsec:detection_effectiveness}{{\mbox  {VII-D}}{10}{Detection Effectiveness}{subsection.7.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Control-plane attack taxonomy coverage (5/5 categories, 7/8 types). Each detection mechanism generalizes across all types within its category.}}{10}{table.3}\protected@file@percent }
+\newlabel{tab:taxonomy}{{III}{10}{Control-plane attack taxonomy coverage (5/5 categories, 7/8 types). Each detection mechanism generalizes across all types within its category}{table.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces Per-attack detection on LACNIC (5{,}008 ASes).}}{10}{table.4}\protected@file@percent }
+\newlabel{tab:detection_results}{{IV}{10}{Per-attack detection on LACNIC (5{,}008 ASes)}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-E}}Post-Hoc Forensic Analysis}{10}{subsection.7.5}\protected@file@percent }
+\newlabel{subsec:posthoc}{{\mbox  {VII-E}}{10}{Post-Hoc Forensic Analysis}{subsection.7.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VII-F}}System Scalability}{10}{subsection.7.6}\protected@file@percent }
+\newlabel{subsec:system_scalability}{{\mbox  {VII-F}}{10}{System Scalability}{subsection.7.6}{}}
+\citation{rfc2439}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces System scalability across three topologies. Runtime grows sub-linearly ($1.4{\times }$ for a $3.5{\times }$ topology increase). P2P message delivery achieves 100\% reliability (zero drops) at all scales.}}{11}{figure.9}\protected@file@percent }
+\newlabel{fig:scalability}{{9}{11}{System scalability across three topologies. Runtime grows sub-linearly ($1.4{\times }$ for a $3.5{\times }$ topology increase). P2P message delivery achieves 100\% reliability (zero drops) at all scales}{figure.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces System scalability across three CAIDA-derived topologies.}}{11}{table.5}\protected@file@percent }
+\newlabel{tab:scalability}{{V}{11}{System scalability across three CAIDA-derived topologies}{table.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {VIII}Ablation Study}{11}{section.8}\protected@file@percent }
+\newlabel{sec:ablation}{{VIII}{11}{Ablation Study}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-A}}Parameter Sensitivity}{11}{subsection.8.1}\protected@file@percent }
+\newlabel{subsec:parameter_sensitivity}{{\mbox  {VIII-A}}{11}{Parameter Sensitivity}{subsection.8.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {VI}{\ignorespaces Peer discovery depth ablation (200~ASes, $\sqrt  {N}$ broadcast, $\tau {=}3$, 15\,s). P2P cost is constant across all depths.}}{12}{table.6}\protected@file@percent }
+\newlabel{tab:discovery_depth}{{VI}{12}{Peer discovery depth ablation (200~ASes, $\sqrt {N}$ broadcast, $\tau {=}3$, 15\,s). P2P cost is constant across all depths}{table.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {VIII-B}}Consensus Mechanism Ablation}{12}{subsection.8.2}\protected@file@percent }
+\newlabel{subsec:consensus_ablation}{{\mbox  {VIII-B}}{12}{Consensus Mechanism Ablation}{subsection.8.2}{}}
+\citation{DuIRATSc23}
+\citation{RPKI}
+\citation{bgpsec}
+\citation{furuness2025aspa}
+\citation{KangLRKC24IRRedicator}
+\citation{furuness2025aspa}
+\citation{stoger2025vortex}
+\citation{KangLRKC24IRRedicator}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Consensus mechanism ablation tradeoffs. Solid green lines show the Confirmed rate (reliability); dashed lines show the associated cost metric. \textbf  {(a)}~RPKI adoption ratio: Confirmed rate decreases as the RPKI fraction drops from 66\% to 50\%, quantifying the minimum viable adoption level. \textbf  {(b)}~Broadcast size: larger broadcasts improve reliability but P2P messages grow super-linearly; $\sqrt  {N}$ offers the best cost--quality ratio. \textbf  {(c)}~Threshold $\tau $: higher thresholds strengthen Byzantine fault tolerance at the expense of Confirmed rate. \textbf  {(d)}~Timeout: longer timeouts yield diminishing reliability gains while wall time grows linearly. Dashed vertical lines mark defaults. Peer discovery depth ablation is reported separately in Table~\ref {tab:discovery_depth}.}}{13}{figure.10}\protected@file@percent }
+\newlabel{fig:consensus_ablation}{{10}{13}{Consensus mechanism ablation tradeoffs. Solid green lines show the Confirmed rate (reliability); dashed lines show the associated cost metric. \textbf {(a)}~RPKI adoption ratio: Confirmed rate decreases as the RPKI fraction drops from 66\% to 50\%, quantifying the minimum viable adoption level. \textbf {(b)}~Broadcast size: larger broadcasts improve reliability but P2P messages grow super-linearly; $\sqrt {N}$ offers the best cost--quality ratio. \textbf {(c)}~Threshold $\tau $: higher thresholds strengthen Byzantine fault tolerance at the expense of Confirmed rate. \textbf {(d)}~Timeout: longer timeouts yield diminishing reliability gains while wall time grows linearly. Dashed vertical lines mark defaults. Peer discovery depth ablation is reported separately in Table~\ref {tab:discovery_depth}}{figure.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IX}Related Work}{13}{section.9}\protected@file@percent }
+\newlabel{sec:relatedWork}{{IX}{13}{Related Work}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-A}}Registry-Based and Cryptographic Validation Mechanisms}{13}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-B}}Multi-Source Validation and Machine Learning Approaches}{13}{subsection.9.2}\protected@file@percent }
+\citation{schulmann2025lov}
+\citation{chen2024beam}
+\citation{saad2022routechain}
+\citation{chen2020isrchain}
+\citation{saad2022routechain}
+\citation{lychev2013bgpsec}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-C}}Distributed Ledger Technologies and Immutable Audit Systems}{14}{subsection.9.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {VII}{\ignorespaces Comparison of BGP Security Approaches}}{14}{table.7}\protected@file@percent }
+\newlabel{tab:related_comparison}{{VII}{14}{Comparison of BGP Security Approaches}{table.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IX-D}}Behavioral Trust Assessment and Incentive Integration}{14}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {X}Conclusion}{14}{section.10}\protected@file@percent }
+\newlabel{sec:conclusion}{{X}{14}{Conclusion}{section.10}{}}
+\bibdata{references}
+\bibcite{rfc4271}{1}
+\bibcite{DuIRATSc23}{2}
+\bibcite{MahajanWA02}{3}
+\bibcite{KangLRKC24IRRedicator}{4}
+\bibcite{BirgeLeeAR25}{5}
+\bibcite{prefixHijacking}{6}
+\bibcite{McDanielSS21BGPLeak}{7}
+\bibcite{butler2009survey}{8}
+\bibcite{rfc8205BGPSec}{9}
+\bibcite{RPKI}{10}
+\bibcite{qin2024understanding}{11}
+\bibcite{HlavacekSVW23BGPAdopt}{12}
+\bibcite{stoger2025vortex}{13}
+\bibcite{mirdita2025sok}{14}
+\bibcite{saad2022routechain}{15}
+\bibcite{chen2020isrchain}{16}
+\bibcite{nro2026rpki}{17}
+\bibcite{lougheed1990rfc1163}{18}
+\bibcite{nyang2018gruut}{19}
+\bibcite{caida-dataset}{20}
+\bibcite{hoger2025xbgpsec}{21}
+\bibcite{ni2025address}{22}
+\bibcite{li2025improv}{23}
+\bibcite{chen2025right}{24}
+\bibcite{lamport2019byzantine}{25}
+\bibcite{mao2003bgp}{26}
+\bibcite{nakamoto2008bitcoin}{27}
+\bibcite{furuness2024bgpy}{28}
+\bibcite{routeviews}{29}
+\bibcite{labovitz2001delayed}{30}
+\bibcite{rfc2439}{31}
+\bibcite{bgpsec}{32}
+\bibcite{furuness2025aspa}{33}
+\bibcite{schulmann2025lov}{34}
+\bibcite{chen2024beam}{35}
+\bibcite{lychev2013bgpsec}{36}
+\@writefile{toc}{\contentsline {section}{References}{15}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  A: Consensus Security Proofs}{15}{section*.2}\protected@file@percent }
+\newlabel{app:security_proofs}{{A}{15}{\appendixname \nobreakspace \thesectiondis \\* Consensus Security Proofs}{section*.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-A}}Sybil Attack Prevention}{16}{subsection.Appendix.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-B}}Safety Property}{16}{subsection.Appendix.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-C}}Liveness Property}{16}{subsection.Appendix.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-D}}Byzantine Fault Tolerance}{16}{subsection.Appendix.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-E}}Fork Prevention and Resolution}{16}{subsection.Appendix.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-F}}Incentive Compatibility Analysis}{16}{subsection.Appendix.A.6}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {VIII}{\ignorespaces Key System Hyperparameters}}{17}{table.8}\protected@file@percent }
+\newlabel{tab:hyperparameters}{{VIII}{17}{Key System Hyperparameters}{table.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {A-G}}Post-Hoc Analysis and Accountability}{17}{subsection.Appendix.A.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  B: System Hyperparameters}{17}{section*.3}\protected@file@percent }
+\newlabel{app:hyperparameters}{{B}{17}{\appendixname \nobreakspace \thesectiondis \\* System Hyperparameters}{section*.3}{}}
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  C: End-to-End Functionality Verification}{17}{section*.4}\protected@file@percent }
+\newlabel{app:functionality_testing}{{C}{17}{\appendixname \nobreakspace \thesectiondis \\* End-to-End Functionality Verification}{section*.4}{}}
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  D: Observer Coverage Scenarios}{17}{section*.5}\protected@file@percent }
+\newlabel{app:observer_scenarios}{{D}{17}{\appendixname \nobreakspace \thesectiondis \\* Observer Coverage Scenarios}{section*.5}{}}
+\@writefile{toc}{\contentsline {section}{Appendix\nobreakspace  E: Post-Hoc Forensic Analysis Results}{17}{section*.6}\protected@file@percent }
+\newlabel{app:posthoc_results}{{E}{17}{\appendixname \nobreakspace \thesectiondis \\* Post-Hoc Forensic Analysis Results}{section*.6}{}}
+\gdef \@abspage@last{18}

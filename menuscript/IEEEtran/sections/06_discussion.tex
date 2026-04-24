@@ -1,0 +1,43 @@
+\section{Discussion}
+\label{sec:discussion}
+
+Our experimental validation demonstrates that behavioral trust assessment combined with observer incentives can effectively extend BGP security beyond current RPKI coverage while maintaining operational feasibility for real-world deployment. The results directly address the three fundamental challenges identified in our motivation: limited coverage beyond RPKI networks, infrastructure fragility under scale, and absence of behavioral memory in existing systems.
+
+\subsection{Attack Detection and Prevention Effectiveness}
+
+The detection results (Section~\ref{sec:evaluation}) confirm that behavioral observation through the blockchain pipeline captures all four ground-truth attack types without requiring BGP protocol modifications. Detection reliability is anchored in the Central RPKI infrastructure serving as the system's root of trust, ensuring that observer credentials and ROA validation remain cryptographically grounded. Crucially, the blockchain infrastructure does not limit detection capability; any detector that operates on BGP announcement metadata (prefix, origin, AS-path, timestamp) can be plugged into the observation layer without consensus changes. The four detectors evaluated represent a baseline; operators can extend coverage to route leaks, AS-path manipulation, and other threats (Table~\ref{tab:other_attacks}) by adding detection modules that write to the same blockchain pipeline.
+
+The key insight from our evaluation is that trust scoring creates \emph{consequences} for routing misbehavior, a property absent from all prior BGP security approaches. Unlike RPKI, which provides a binary valid/invalid signal with no memory, BGP-Sentry's longitudinal scores accumulate behavioral evidence over time, enabling graduated responses that distinguish persistent attackers from one-time misconfigurations.
+
+\subsection{Trust Model and Security Architecture}
+
+Our security model leverages RPKI-enabled ASes as trusted observers to monitor and assess non-RPKI behavioral patterns, building upon existing cryptographic trust relationships rather than replacing them. This approach transforms the RPKI-enabled infrastructure into a distributed monitoring network for the non-RPKI ecosystem, effectively extending cryptographic trust through behavioral assessment.
+
+\BfPara{Why a blockchain rather than a simpler append-only log}
+A natural question is whether BGP-Sentry's auditability guarantees could be achieved with a lighter-weight mechanism such as a Certificate Transparency (CT)-style log. We argue that the blockchain provides three properties that a centralized or federated log cannot. First, \emph{no single trusted operator}: a CT log requires a trusted log server, whereas BGP-Sentry's permissioned blockchain distributes trust across all RPKI-verified participants; no single AS can suppress or alter records. Second, \emph{consensus-validated attack classification}: the PoP mechanism ensures that penalties are applied only when multiple independent observers corroborate an attack, which requires a voting protocol integrated with the ledger rather than a passive append operation. Third, \emph{integrated incentive accounting}: BGPCOIN rewards and trust score updates are computed atomically within the consensus protocol, ensuring that economic incentives cannot be manipulated independently of the behavioral record.
+
+
+\subsection{Scalability and Deployment Feasibility}
+
+The modular architecture enables incremental deployment without coordinated Internet-wide upgrades, solving practical barriers that hindered previous BGP security enhancements.
+
+{\color{red}
+\textbf{Single-machine simulation vs.\ real-world deployment.}
+A critical consideration when interpreting our performance results is that all experiments run every node (up to 12{,}881 concurrent blockchain participants) on a single machine (Intel i7, 8 cores, 62.5\,GB RAM). This represents a \emph{worst-case} resource contention scenario: all nodes compete for the same CPU cycles, memory bandwidth, and in-memory message bus, creating artificial bottlenecks that would not exist in production.
+
+In a real deployment, each RPKI-enabled AS operates its BGP-Sentry node on dedicated infrastructure already provisioned for BGP routing. This architectural difference yields several concrete improvements. First, the P2P message overhead would be distributed across independent machines, each handling only its own outbound broadcasts and inbound vote requests via real network sockets with dedicated I/O capacity. Second, the declining consensus commit rate at larger scales is largely an artifact of CPU contention: nodes competing for processor time on a single machine cannot collect signatures as quickly as nodes with dedicated cores. With each validator running on separate hardware, signature collection within the 30-second timeout would proceed in parallel without contention, substantially improving commit rates. Third, the per-node memory footprint (currently shared within a single 62.5\,GB address space) would reduce to a fraction per machine, since each node maintains only its own blockchain replica, knowledge base, and pending-vote buffer.
+
+In summary, our single-machine results represent a conservative lower bound on system performance; real-world distributed deployment would alleviate the primary bottlenecks (CPU contention, shared memory, serialized I/O) while preserving the security guarantees validated in our experiments.
+}
+
+BGP-Sentry enables gradual deployment through existing RPKI infrastructure, focusing initially on high-value network segments with strong RPKI adoption. Because the system operates as a closed-loop enforcement framework---where detection feeds consensus, consensus updates trust scores, and trust scores inform filtering decisions---each additional deploying AS strengthens the overall deterrence cycle.  However, the consensus commit rate decreases with network size, suggesting that the consensus threshold and timeout parameters require tuning for full Internet-scale deployment. Practical deployment requires addressing trust score calibration to balance fairness for smaller operators with sufficient deterrent effects against persistent malicious actors.
+
+\subsection{Limitations and Future Research Directions}
+
+Key limitations include reliance on RPKI observer trustworthiness assumptions and fixed trust scoring parameters that may not adapt to varying network conditions. The system assumes RPKI-enabled ASes maintain sufficient honesty for reliable observation, which may require additional verification mechanisms for global deployment.
+
+The route flapping detector produces the majority of false positives, with precision as low as 6.4\% at the default threshold. While this does not affect the other three detectors (which achieve 100\% precision), operators in flap-heavy environments may need to increase \texttt{FLAP\_THRESHOLD} or implement dampening algorithms similar to RFC~2439~\cite{rfc2439}. All 45 system hyperparameters are externalized in a single \texttt{.env} configuration file (Table~\ref{tab:hyperparameters}), enabling operators to tune detection sensitivity, consensus parameters, buffer sizes, and economic incentives without code changes, an important property for deployment across networks with different traffic profiles and risk tolerances.
+
+Future research should investigate observer cross-validation techniques, dynamic trust score adjustment algorithms based on network behavior patterns, and coordination frameworks with network operators for trust score standardization. Investigation of coordinated RPKI observer compromise scenarios and trust score manipulation through coordinated attack campaigns represents critical security research areas requiring systematic analysis and countermeasures. Parameter sensitivity studies (varying consensus timeout, signature cap, and flapping threshold across multiple network scales) would provide deployment guidelines for operators selecting appropriate trade-offs between security, throughput, and detection sensitivity.
+
+% Concluding remarks moved to §8 Conclusion.
