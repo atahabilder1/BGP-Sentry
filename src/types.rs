@@ -295,8 +295,10 @@ pub struct Observation {
     pub observed_by_asn: u32,
     /// Whether the observer is an RPKI-enabled validator.
     pub observer_is_rpki: bool,
-    /// Number of hops from the origin to the observer.
-    pub hop_distance: usize,
+    /// Number of P2P overlay relay hops. 0 = BGP-observed (first-hand),
+    /// 1+ = relayed via blockchain P2P network.
+    #[serde(alias = "hop_distance")]
+    pub p2p_relay_hops: usize,
     /// Whether this is the best route for the prefix at the observer.
     pub is_best: bool,
     /// Whether this observation was synthetically injected (for ROUTE_LEAK /
@@ -444,7 +446,7 @@ mod tests {
             is_attack: false,
             observed_by_asn: 65002,
             observer_is_rpki: true,
-            hop_distance: 1,
+            p2p_relay_hops: 1,
             is_best: true,
             injected: false,
         };

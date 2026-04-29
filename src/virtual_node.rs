@@ -280,10 +280,8 @@ impl VirtualNode {
             return;
         }
 
-        // AS-path length = number of hops from observer to origin.
-        // Skip if origin is too far away.
-        let hop_count = as_path.len() - 1; // exclude observer itself
-        if hop_count > self.config.max_observation_recording_hops {
+        // P2P relay filter: 0 = BGP-observed (first-hand), 1+ = relayed via P2P.
+        if obs.p2p_relay_hops > self.config.max_p2p_relay_hops {
             return;
         }
 
@@ -326,7 +324,7 @@ impl VirtualNode {
         //   2. len=1: same as self-origin or artifact, skip.
         //   3. len=2: direct neighbor claim, always accept.
         //   4. len=3+: accept if at most MAX_NON_RPKI_RELAYS non-RPKI intermediates.
-        let skip_reason = self.check_trusted_path(origin_asn, as_path);
+        let skip_reason = self.check_trusted_path(origin_asn, as_path, obs.p2p_relay_hops);
         if let Some(reason) = skip_reason {
             result.action = reason;
             self.stats.trusted_path_filtered += 1;
@@ -359,24 +357,53 @@ impl VirtualNode {
         // ---- STEP 2: Check if origin is RPKI-registered ----
         let origin_is_rpki = self.rpki_asns.contains(&origin_asn);
 
-        if origin_is_rpki {
-            // ---- RPKI origin: ROA provides cryptographic proof ----
-            // Run detectors to check if prefix matches ROA.
-            let detected_attacks = self
+        // ---- Attack detection (skipped when disabled via config) ----
+        let detected_attacks = if self.config.attack_detection_enabled {
+            let mut attacks = self
                 .attack_detector
                 .detect_attacks(origin_asn, prefix, as_path, obs.timestamp);
 
-            if !detected_attacks.is_empty() {
-                result.detected = true;
-                result.detection_type = Some(detected_attacks[0].attack_type.clone());
-                result.detection_details = detected_attacks
-                    .iter()
-                    .map(|a| a.attack_type.clone())
-                    .collect();
-                self.stats.attacks_detected += 1;
+            // KB fallback: if no PREFIX_HIJACK from ROA, check KB for conflicting origin.
+            if !attacks.iter().any(|a| a.attack_type == "PREFIX_HIJACK") {
+                let kb_entries = self.kb.entries_for_prefix(prefix);
+                let has_conflict = kb_entries.iter().any(|e| e.sender_asn != origin_asn && !e.is_attack);
+                if has_conflict {
+                    attacks.push(AttackDetection {
+                        attack_type: "PREFIX_HIJACK".into(),
+                        severity: "HIGH".into(),
+                        description: format!(
+                            "AS{} announces {} but KB records different origin",
+                            origin_asn, prefix,
+                        ),
+                        as_path: as_path.to_vec(),
+                        evidence: serde_json::json!({
+                            "announced_prefix": prefix,
+                            "announcing_as": origin_asn,
+                            "source": "knowledge_base",
+                        }),
+                    });
+                }
             }
 
-            // Direct write — no voting needed (ROA is cryptographic proof).
+            attacks
+        } else {
+            Vec::new()
+        };
+
+        if !detected_attacks.is_empty() {
+            result.detected = true;
+            result.detection_type = Some(detected_attacks[0].attack_type.clone());
+            result.detection_details = detected_attacks
+                .iter()
+                .map(|a| a.attack_type.clone())
+                .collect();
+            self.stats.attacks_detected += 1;
+        }
+
+        let roa_valid = self.attack_detector.roa_matches(prefix, origin_asn);
+
+        if roa_valid {
+            // ROA match: prefix is authorized for this origin AS — direct commit.
             let transaction = self.create_transaction(obs, &detected_attacks);
             let tx_id = transaction.transaction_id.clone();
 
@@ -389,22 +416,7 @@ impl VirtualNode {
             result.action = "direct_commit_roa_verified".to_string();
             result.transaction_id = Some(tx_id);
         } else {
-            // ---- Non-RPKI origin: need consensus voting ----
-            let detected_attacks = self
-                .attack_detector
-                .detect_attacks(origin_asn, prefix, as_path, obs.timestamp);
-
-            if !detected_attacks.is_empty() {
-                result.detected = true;
-                result.detection_type = Some(detected_attacks[0].attack_type.clone());
-                result.detection_details = detected_attacks
-                    .iter()
-                    .map(|a| a.attack_type.clone())
-                    .collect();
-                self.stats.attacks_detected += 1;
-            }
-
-            // Broadcast for consensus voting.
+            // No ROA or ROA mismatch: need consensus voting.
             let transaction = self.create_transaction(obs, &detected_attacks);
             let tx_id = transaction.transaction_id.clone();
 
@@ -435,15 +447,16 @@ impl VirtualNode {
     /// Check whether an observation should be filtered by hop distance.
     ///
     /// Returns `Some(reason)` if filtered, `None` if the observation should proceed.
-    fn check_trusted_path(&self, origin_asn: u32, as_path: &[u32]) -> Option<String> {
+    fn check_trusted_path(&self, origin_asn: u32, as_path: &[u32], p2p_relay_hops: usize) -> Option<String> {
         if origin_asn == self.asn {
             return Some("skipped_self_origin".to_string());
         }
         if as_path.len() <= 1 {
             return Some("skipped_self_announcement".to_string());
         }
-        let hop_count = as_path.len() - 1;
-        if hop_count > self.config.max_observation_recording_hops {
+        // P2P overlay hop distance filter.
+        // hop_distance=0 means first-hand BGP observation, 1+ means relayed via P2P.
+        if p2p_relay_hops > self.config.max_p2p_relay_hops {
             return Some("skipped_too_many_hops".to_string());
         }
         None
@@ -559,7 +572,7 @@ mod tests {
             is_attack: false,
             observed_by_asn: observer,
             observer_is_rpki: true,
-            hop_distance: 1,
+            p2p_relay_hops: 1,
             is_best: true,
             injected: false,
         }
@@ -581,6 +594,8 @@ mod tests {
             key_pair.clone(),
             vec![200, 300],
             3,
+            None,
+            None,
         ));
         let clock = SimulationClock::new(1.0);
         let rpki_asns: HashSet<u32> = [100, 200, 300].iter().copied().collect();
@@ -599,13 +614,16 @@ mod tests {
         );
 
         // Self-origin should be filtered.
-        assert!(node.check_trusted_path(100, &[100, 200]).is_some());
+        assert!(node.check_trusted_path(100, &[100, 200], 0).is_some());
 
-        // Different origin, direct neighbor: should pass.
-        assert!(node.check_trusted_path(200, &[100, 200]).is_none());
+        // Different origin, direct neighbor, hop_distance=0: should pass.
+        assert!(node.check_trusted_path(200, &[100, 200], 0).is_none());
 
         // Single-hop path: should be filtered.
-        assert!(node.check_trusted_path(200, &[200]).is_some());
+        assert!(node.check_trusted_path(200, &[200], 0).is_some());
+
+        // hop_distance beyond max: should be filtered.
+        assert!(node.check_trusted_path(200, &[100, 200], 5).is_some());
     }
 
     #[test]

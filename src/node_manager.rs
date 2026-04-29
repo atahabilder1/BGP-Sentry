@@ -194,9 +194,19 @@ impl NodeManager {
         let use_topology = adjacency.is_some() && config.consensus_voting_hops > 0;
 
         info!(
-            "Voting hops: {} (configurable via VOTING_HOPS env var)",
-            config.consensus_voting_hops
+            "Voting hops: {}, voter_selection_mode: {} (configurable via env vars)",
+            config.consensus_voting_hops, config.voter_selection_mode
         );
+
+        // Shared adjacency and RPKI set for origin_neighbors mode.
+        let shared_adjacency: Option<Arc<HashMap<u32, HashSet<u32>>>> =
+            adjacency.as_ref().map(|a| Arc::new(a.clone()));
+        let shared_rpki_set: Option<Arc<HashSet<u32>>> =
+            if config.voter_selection_mode == "origin_neighbors" {
+                Some(Arc::new(rpki_set.clone()))
+            } else {
+                None
+            };
 
         // ── Transaction pools (created after the registry is fully populated)
         let mut peer_count_sum: usize = 0;
@@ -241,6 +251,8 @@ impl NodeManager {
                 Arc::clone(key_pairs.get(&asn).unwrap()),
                 peer_nodes,
                 total_nodes,
+                shared_adjacency.clone(),
+                shared_rpki_set.clone(),
             ));
             pools.insert(asn, pool);
         }
@@ -376,6 +388,45 @@ impl NodeManager {
         );
 
         info!("Spawned {} RPKI node tasks", handles.len());
+
+        // ── Progress monitor: log consensus levels every 10s ────────
+        let pools_monitor: Vec<Arc<TransactionPool>> =
+            self.pools.values().map(|p| Arc::clone(p)).collect();
+        bg_handles.push(tokio::spawn(async move {
+            loop {
+                tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+                let (mut confirmed, mut insufficient, mut single, mut committed, mut created, mut pending) =
+                    (0u64, 0u64, 0u64, 0u64, 0u64, 0usize);
+                let (mut v_origin, mut v_path, mut v_random) = (0u64, 0u64, 0u64);
+                for pool in &pools_monitor {
+                    let s = pool.stats_snapshot();
+                    confirmed += s.confirmed_count;
+                    insufficient += s.insufficient_count;
+                    single += s.single_witness_count;
+                    committed += s.transactions_committed;
+                    created += s.transactions_created;
+                    pending += pool.pending_count();
+                    v_origin += s.voters_from_origin_neighbors;
+                    v_path += s.voters_from_as_path;
+                    v_random += s.voters_from_random;
+                }
+                if created == 0 && pending == 0 {
+                    continue;
+                }
+                let total = confirmed + insufficient + single;
+                let pct_c = if total > 0 { 100.0 * confirmed as f64 / total as f64 } else { 0.0 };
+                let pct_i = if total > 0 { 100.0 * insufficient as f64 / total as f64 } else { 0.0 };
+                let pct_s = if total > 0 { 100.0 * single as f64 / total as f64 } else { 0.0 };
+                let v_total = v_origin + v_path + v_random;
+                let pv_o = if v_total > 0 { 100.0 * v_origin as f64 / v_total as f64 } else { 0.0 };
+                let pv_p = if v_total > 0 { 100.0 * v_path as f64 / v_total as f64 } else { 0.0 };
+                let pv_r = if v_total > 0 { 100.0 * v_random as f64 / v_total as f64 } else { 0.0 };
+                info!(
+                    "[PROGRESS] created={} committed={} pending={} | CONFIRMED={} ({:.1}%) INSUFFICIENT={} ({:.1}%) SINGLE_WITNESS={} ({:.1}%) | voters: origin_nbr={:.1}% path={:.1}% random={:.1}%",
+                    created, committed, pending, confirmed, pct_c, insufficient, pct_i, single, pct_s, pv_o, pv_p, pv_r
+                );
+            }
+        }));
 
         // ── Phase 5: Wait for all nodes to complete ─────────────────
         let timeout = tokio::time::Duration::from_secs(self.config.sim_duration);
@@ -621,7 +672,7 @@ impl NodeManager {
                 is_attack: r.is_attack,
                 observed_by_asn: r.observed_by_asn,
                 observer_is_rpki: r.observer_is_rpki,
-                hop_distance: r.hop_distance,
+                p2p_relay_hops: r.p2p_relay_hops,
                 is_best: r.is_best,
                 injected: r.injected,
             })

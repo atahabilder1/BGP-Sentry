@@ -108,6 +108,21 @@ impl AttackDetector {
     }
 
     // -----------------------------------------------------------------------
+    // ROA validation
+    // -----------------------------------------------------------------------
+
+    /// Check if a (prefix, origin) pair matches a ROA entry.
+    /// Returns true if the prefix exists in the ROA database AND the origin
+    /// AS matches the authorized AS. Returns false otherwise (no ROA, or mismatch).
+    pub fn roa_matches(&self, ip_prefix: &str, origin_asn: u32) -> bool {
+        if let Some(roa) = self.roa_database.get(ip_prefix) {
+            roa.authorized_asn == origin_asn
+        } else {
+            false
+        }
+    }
+
+    // -----------------------------------------------------------------------
     // Public dispatcher
     // -----------------------------------------------------------------------
 

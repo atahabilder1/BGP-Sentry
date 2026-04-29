@@ -13,7 +13,7 @@
 //! hash maps) or `AtomicU64` counters. The only `tokio::sync::Mutex` wraps
 //! the `Blockchain` (which requires sequential block appends). No GIL.
 
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::Arc;
 use std::time::Instant;
@@ -63,6 +63,10 @@ pub struct PoolStats {
     pub confirmed_count: AtomicU64,
     pub insufficient_count: AtomicU64,
     pub single_witness_count: AtomicU64,
+    /// Voter selection layer stats.
+    pub voters_from_origin_neighbors: AtomicU64,
+    pub voters_from_as_path: AtomicU64,
+    pub voters_from_random: AtomicU64,
 }
 
 impl PoolStats {
@@ -76,6 +80,9 @@ impl PoolStats {
             confirmed_count: AtomicU64::new(0),
             insufficient_count: AtomicU64::new(0),
             single_witness_count: AtomicU64::new(0),
+            voters_from_origin_neighbors: AtomicU64::new(0),
+            voters_from_as_path: AtomicU64::new(0),
+            voters_from_random: AtomicU64::new(0),
         }
     }
 }
@@ -91,6 +98,9 @@ pub struct PoolStatsSnapshot {
     pub confirmed_count: u64,
     pub insufficient_count: u64,
     pub single_witness_count: u64,
+    pub voters_from_origin_neighbors: u64,
+    pub voters_from_as_path: u64,
+    pub voters_from_random: u64,
 }
 
 // =============================================================================
@@ -123,6 +133,12 @@ pub struct TransactionPool {
 
     /// All other RPKI validator ASNs (peers).
     peer_nodes: Vec<u32>,
+
+    /// CAIDA topology adjacency map (for origin_neighbors voter selection).
+    adjacency: Option<Arc<HashMap<u32, HashSet<u32>>>>,
+
+    /// Set of all RPKI validator ASNs (for origin_neighbors lookup).
+    rpki_set: Option<Arc<HashSet<u32>>>,
 
     /// Consensus threshold: minimum APPROVE votes for CONFIRMED status.
     consensus_threshold: u32,
@@ -175,6 +191,8 @@ impl TransactionPool {
         key_pair: Arc<KeyPair>,
         peer_nodes: Vec<u32>,
         total_nodes: usize,
+        adjacency: Option<Arc<HashMap<u32, HashSet<u32>>>>,
+        rpki_set: Option<Arc<HashSet<u32>>>,
     ) -> Self {
         let consensus_threshold = config.consensus_threshold(total_nodes) as u32;
         Self {
@@ -185,6 +203,8 @@ impl TransactionPool {
             bus,
             key_pair,
             peer_nodes,
+            adjacency,
+            rpki_set,
             consensus_threshold,
             total_nodes,
             pending_votes: DashMap::new(),
@@ -285,6 +305,9 @@ impl TransactionPool {
             confirmed_count: self.stats.confirmed_count.load(Ordering::Relaxed),
             insufficient_count: self.stats.insufficient_count.load(Ordering::Relaxed),
             single_witness_count: self.stats.single_witness_count.load(Ordering::Relaxed),
+            voters_from_origin_neighbors: self.stats.voters_from_origin_neighbors.load(Ordering::Relaxed),
+            voters_from_as_path: self.stats.voters_from_as_path.load(Ordering::Relaxed),
+            voters_from_random: self.stats.voters_from_random.load(Ordering::Relaxed),
         }
     }
 
@@ -388,27 +411,70 @@ impl TransactionPool {
             .min(n_peers);
 
         let as_path = &transaction.as_path;
-
-        // Layer 0: RPKI peers on the observed AS-path (guaranteed knowers).
+        let origin_asn = transaction.sender_asn;
         let mut target_set: HashSet<u32> = HashSet::new();
-        let peer_set: HashSet<u32> = self.peer_nodes.iter().copied().collect();
 
-        for &asn in as_path {
-            if asn == self.as_number {
-                continue;
+        let mut count_origin_nbr: u64 = 0;
+        let mut count_as_path: u64 = 0;
+        let mut count_random: u64 = 0;
+
+        if self.config.voter_selection_mode == "origin_neighbors" {
+            // ── origin_neighbors mode ──
+            // Layer 0: RPKI validators that are direct neighbors of the ORIGIN
+            // in the CAIDA topology. These have the strongest independent
+            // evidence — they received the announcement directly from the origin.
+            if let (Some(adj), Some(rpki)) = (&self.adjacency, &self.rpki_set) {
+                let empty = HashSet::new();
+                let origin_nbrs = adj.get(&origin_asn).unwrap_or(&empty);
+                for &nbr in origin_nbrs {
+                    if nbr == self.as_number {
+                        continue;
+                    }
+                    if rpki.contains(&nbr) {
+                        target_set.insert(nbr);
+                        count_origin_nbr += 1;
+                        if target_set.len() >= broadcast_size {
+                            break;
+                        }
+                    }
+                }
             }
-            if peer_set.contains(&asn) {
-                target_set.insert(asn);
-                if target_set.len() >= broadcast_size {
-                    break;
+
+            // Layer 1: AS-path RPKI peers (same chain, weaker independence).
+            if target_set.len() < broadcast_size {
+                let peer_set: HashSet<u32> = self.peer_nodes.iter().copied().collect();
+                for &asn in as_path {
+                    if asn == self.as_number || target_set.contains(&asn) {
+                        continue;
+                    }
+                    if peer_set.contains(&asn) {
+                        target_set.insert(asn);
+                        count_as_path += 1;
+                        if target_set.len() >= broadcast_size {
+                            break;
+                        }
+                    }
+                }
+            }
+        } else {
+            // ── proposer_path mode (default) ──
+            // Layer 0: RPKI peers on the observed AS-path.
+            let peer_set: HashSet<u32> = self.peer_nodes.iter().copied().collect();
+            for &asn in as_path {
+                if asn == self.as_number {
+                    continue;
+                }
+                if peer_set.contains(&asn) {
+                    target_set.insert(asn);
+                    count_as_path += 1;
+                    if target_set.len() >= broadcast_size {
+                        break;
+                    }
                 }
             }
         }
 
-        // Layer 1: Relevant neighbors (placeholder — skip for now).
-        // In future: query neighbor_cache.get_relevant_neighbors(sender_asn).
-
-        // Layer 2: Random fill from remaining peers.
+        // Layer 2 (both modes): Random fill from remaining peers.
         if target_set.len() < broadcast_size {
             let remaining: Vec<u32> = self
                 .peer_nodes
@@ -428,8 +494,14 @@ impl TransactionPool {
                     .collect()
             };
 
+            count_random = fill.len() as u64;
             target_set.extend(fill);
         }
+
+        // Track voter selection layer stats.
+        self.stats.voters_from_origin_neighbors.fetch_add(count_origin_nbr, Ordering::Relaxed);
+        self.stats.voters_from_as_path.fetch_add(count_as_path, Ordering::Relaxed);
+        self.stats.voters_from_random.fetch_add(count_random, Ordering::Relaxed);
 
         // Send vote requests to all selected peers.
         for &peer_as in &target_set {
@@ -521,18 +593,14 @@ impl TransactionPool {
 
         self.stats.votes_cast.fetch_add(1, Ordering::Relaxed);
 
-        // Speculatively add as 3rd-party witness (post-vote).
-        // This mirrors Fix #2 from the Python code: the KB write happens
-        // AFTER voting so the vote reflects genuine prior knowledge.
-        if !ip_prefix.is_empty() && sender_asn != 0 {
-            self.kb.add_observation(
-                &ip_prefix,
-                sender_asn,
-                tx_timestamp,
-                65.0, // moderate trust for 3rd-party witness
-                is_attack,
-            );
-        }
+        // 3rd-party witness KB backfill DISABLED — nodes vote only based
+        // on their own first-hand BGP observations. No second-hand knowledge.
+        // if !ip_prefix.is_empty() && sender_asn != 0 {
+        //     self.kb.add_observation(
+        //         &ip_prefix, sender_asn, tx_timestamp,
+        //         65.0, is_attack,
+        //     );
+        // }
     }
 
     // =========================================================================
@@ -662,9 +730,10 @@ impl TransactionPool {
                 continue;
             }
 
-            // Backfill KB (Source 1) so this node can approve future related TXs.
-            self.kb
-                .add_observation(prefix, origin_asn, tx_timestamp, 70.0, is_attack);
+            // Block replication KB backfill DISABLED — nodes vote only based
+            // on their own first-hand BGP observations. No second-hand knowledge.
+            // self.kb
+            //     .add_observation(prefix, origin_asn, tx_timestamp, 70.0, is_attack);
 
             // TODO: Update prefix_ownership_state (Source 2) for non-attack TXs.
         }
@@ -1146,6 +1215,8 @@ mod tests {
             key_pair,
             peer_nodes,
             total_nodes,
+            None,
+            None,
         );
         pool.start();
         Arc::new(pool)
@@ -1282,6 +1353,8 @@ mod tests {
                 key_pair,
                 peers,
                 asns.len(),
+                None,
+                None,
             ));
             pool.start();
             pools.insert(asn, Arc::clone(&pool));
@@ -1401,6 +1474,8 @@ mod tests {
                 key_pair,
                 peers,
                 asns.len(),
+                None,
+                None,
             ));
             pool.start();
             pools.insert(asn, Arc::clone(&pool));
@@ -1471,6 +1546,8 @@ mod tests {
                 key_pair,
                 peers,
                 asns.len(),
+                None,
+                None,
             ));
             pool.start();
             pools.insert(asn, pool);

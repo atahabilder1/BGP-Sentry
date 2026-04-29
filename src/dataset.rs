@@ -31,8 +31,8 @@ pub struct RawObservation {
     pub observed_by_asn: u32,
     #[serde(default)]
     pub observer_is_rpki: bool,
-    #[serde(default)]
-    pub hop_distance: usize,
+    #[serde(default, rename = "hop_distance")]
+    pub p2p_relay_hops: usize,
     #[serde(default)]
     pub is_best: bool,
     /// Injected synthetic attacks have this set to true

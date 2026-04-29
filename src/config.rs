@@ -51,8 +51,14 @@ pub struct Config {
     pub p2p_max_broadcast_peers: u64,
     pub p2p_base_port: u16,
     /// Consensus voting radius in AS-level hops.
-    /// Default: max_observation_recording_hops + 1 (if not explicitly set).
+    /// Default: max_p2p_relay_hops + 1 (if not explicitly set).
     pub consensus_voting_hops: u8,
+    /// Voter selection mode: "origin_neighbors" or "proposer_path".
+    /// origin_neighbors: prioritize RPKI validators that are direct neighbors
+    ///   of the origin AS in the CAIDA topology (independent first-hand witnesses).
+    /// proposer_path: prioritize RPKI validators on the observed AS-path
+    ///   (current behavior, same propagation chain).
+    pub voter_selection_mode: String,
 
     // ── Deduplication & Sampling ────────────────────────────────────
     pub rpki_dedup_window: u64,
@@ -141,10 +147,15 @@ pub struct Config {
     // ── Observation Recording Filter ──────────────────────────────────
     /// Maximum AS-path hop count for an RPKI node to record an announcement.
     /// Announcements from origins farther than this many hops are ignored.
-    pub max_observation_recording_hops: usize,
+    pub max_p2p_relay_hops: usize,
 
     // ── Async Mode ──────────────────────────────────────────────────
     pub use_async: bool,
+
+    // ── Attack Detection Toggle ─────────────────────────────────────
+    /// When false, all attack detectors are skipped (observations are still
+    /// recorded on the blockchain but no detection logic runs).
+    pub attack_detection_enabled: bool,
 }
 
 impl Config {
@@ -203,8 +214,11 @@ impl Config {
             p2p_attack_timeout: env_or!("P2P_ATTACK_TIMEOUT", 60, u64),
             p2p_max_broadcast_peers: env_or!("P2P_MAX_BROADCAST_PEERS", 10, u64),
             p2p_base_port: env_or!("P2P_BASE_PORT", 8000, u16),
-            // consensus_voting_hops: set below after max_observation_recording_hops is known
+            // consensus_voting_hops: set below after max_p2p_relay_hops is known
             consensus_voting_hops: 0, // placeholder
+            voter_selection_mode: env::var("VOTER_SELECTION_MODE")
+                .unwrap_or_else(|_| "origin_neighbors".to_string())
+                .trim().to_lowercase(),
 
             // ── Deduplication & Sampling ──────────────────────────────
             rpki_dedup_window: env_or!("RPKI_DEDUP_WINDOW", 3600, u64),
@@ -225,7 +239,7 @@ impl Config {
 
             // ── Attack Detection — Route Flapping ─────────────────────
             flap_window_seconds: env_or!("FLAP_WINDOW_SECONDS", 60, u64),
-            flap_threshold: env_or!("FLAP_THRESHOLD", 5, u64),
+            flap_threshold: env_or!("FLAP_THRESHOLD", 3, u64),
             flap_dedup_seconds: env_or!("FLAP_DEDUP_SECONDS", 2, u64),
 
             // ── BGPCOIN Economy ───────────────────────────────────────
@@ -357,17 +371,24 @@ impl Config {
             sim_duration: env_or!("SIM_DURATION", 2100, u64),
 
             // ── Observation Recording Filter ─────────────────────────
-            max_observation_recording_hops: env_or!("MAX_OBSERVATION_RECORDING_HOPS", 1, usize),
+            max_p2p_relay_hops: env::var("MAX_P2P_RELAY_HOPS")
+                .or_else(|_| env::var("MAX_OBSERVATION_RECORDING_HOPS"))
+                .ok()
+                .and_then(|v| v.trim().parse().ok())
+                .unwrap_or(1),
 
             // ── Async Mode ────────────────────────────────────────────
             use_async: env_bool("USE_ASYNC", false),
+
+            // ── Attack Detection Toggle ──────────────────────────────
+            attack_detection_enabled: env_bool("ATTACK_DETECTION_ENABLED", true),
         };
 
-        // Default consensus_voting_hops = max_observation_recording_hops + 1
+        // Default consensus_voting_hops = max_p2p_relay_hops + 1
         // unless explicitly set via CONSENSUS_VOTING_HOPS env var.
         cfg.consensus_voting_hops = match env::var("CONSENSUS_VOTING_HOPS") {
-            Ok(val) => val.parse::<u8>().unwrap_or((cfg.max_observation_recording_hops + 1) as u8),
-            Err(_) => (cfg.max_observation_recording_hops + 1) as u8,
+            Ok(val) => val.parse::<u8>().unwrap_or((cfg.max_p2p_relay_hops + 1) as u8),
+            Err(_) => (cfg.max_p2p_relay_hops + 1) as u8,
         };
 
         cfg
@@ -424,7 +445,8 @@ impl Default for Config {
             p2p_attack_timeout: 60,
             p2p_max_broadcast_peers: 10,
             p2p_base_port: 8000,
-            consensus_voting_hops: 2, // default: max_observation_recording_hops(1) + 1
+            consensus_voting_hops: 2, // default: max_p2p_relay_hops(1) + 1
+            voter_selection_mode: "origin_neighbors".to_string(),
 
             rpki_dedup_window: 3600,
             nonrpki_dedup_window: 10,
@@ -441,7 +463,7 @@ impl Default for Config {
             ingestion_buffer_max_size: 1000,
 
             flap_window_seconds: 60,
-            flap_threshold: 5,
+            flap_threshold: 3,
             flap_dedup_seconds: 2,
 
             bgpcoin_total_supply: 10_000_000,
@@ -499,9 +521,11 @@ impl Default for Config {
             warmup_duration: 60,
             sim_duration: 2100,
 
-            max_observation_recording_hops: 2,
+            max_p2p_relay_hops: 2,
 
             use_async: false,
+
+            attack_detection_enabled: true,
         }
     }
 }

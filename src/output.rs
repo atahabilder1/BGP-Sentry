@@ -111,7 +111,9 @@ pub struct DetectionResult {
 /// Directory structure: `results/<dataset>/hop<N>_<timestamp>/`
 pub fn create_output_dir(base: &Path, dataset_name: &str) -> std::io::Result<PathBuf> {
     let timestamp = chrono::Local::now().format("%Y%m%d_%H%M%S").to_string();
-    let hop_count = std::env::var("MAX_OBSERVATION_RECORDING_HOPS").unwrap_or_else(|_| "1".to_string());
+    let hop_count = std::env::var("MAX_P2P_RELAY_HOPS")
+        .or_else(|_| std::env::var("MAX_OBSERVATION_RECORDING_HOPS"))
+        .unwrap_or_else(|_| "1".to_string());
     let run_name = format!("hop{}_{}", hop_count, timestamp);
     let dir = base.join("results").join(dataset_name).join(&run_name);
     std::fs::create_dir_all(&dir)?;
